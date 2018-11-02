@@ -3,7 +3,14 @@ package domain;
 
 import java.util.Collection;
 
-
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -15,43 +22,61 @@ import org.hibernate.validator.constraints.URL;
 
 import security.UserAccount;
 
+@Entity
+@Access(AccessType.PROPERTY)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Actor extends DomainEntity {
 
 	//----------------Atributos-------------------
 
-	private String				name;
-	private String				middleName;
-	private String				surname;
-	private String				photo;
-	private String				email;
+	private String						name;
+	private String						middleName;
+	private String						surname;
+	private String						photo;
+	private String						email;
 
-	private String				phone;
-	private String				address;
-	private Boolean				banned;
-	private Boolean				suspicious;
+	private String						phone;
+	private String						address;
+	private Boolean						banned;
+	private Boolean						suspicious;
 
 	//--------------Relaciones-----------
 
-	private Collection<Message>				messages;
-	private Collection<Folder>				folders;
-	private Collection<SocialProfile>		socialProfiles;
-	private UserAccount						userAccount;
+	private Collection<Message>			sendedMessages;
+	private Collection<Message>			receivedMessages;
+	private Collection<Folder>			folders;
+	private Collection<SocialProfile>	socialProfiles;
+	private UserAccount					userAccount;
+	private Curriculum					curriculum;
 
 
 	//-----------Getters y Setters------
 
 	@Valid
 	@NotNull
-	public Collection<Message> getMessages() {
-		return this.messages;
+	@OneToMany(mappedBy = "sender")
+	public Collection<Message> getSendedMessages() {
+		return this.sendedMessages;
 	}
 
-	public void setMessages(final Collection<Message> messages) {
-		this.messages = messages;
+	public void setSendedMessages(final Collection<Message> sendedMessages) {
+		this.sendedMessages = sendedMessages;
 	}
 
 	@Valid
 	@NotNull
+	@OneToMany(mappedBy = "receiver")
+	public Collection<Message> getReceivedMessages() {
+		return this.receivedMessages;
+	}
+
+	public void setReceivedMessages(final Collection<Message> receivedMessages) {
+		this.receivedMessages = receivedMessages;
+	}
+
+	@Valid
+	@NotNull
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	public UserAccount getUserAccount() {
 		return this.userAccount;
 	}
@@ -62,6 +87,7 @@ public abstract class Actor extends DomainEntity {
 
 	@Valid
 	@NotEmpty
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
 	public Collection<Folder> getFolders() {
 		return this.folders;
 	}
@@ -72,6 +98,7 @@ public abstract class Actor extends DomainEntity {
 
 	@Valid
 	@NotNull
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
 	public Collection<SocialProfile> getSocialProfiles() {
 		return this.socialProfiles;
 	}
@@ -119,7 +146,7 @@ public abstract class Actor extends DomainEntity {
 
 	@NotBlank
 	@Email
-	@Pattern(regexp="^(\\w+@(\\w+(\\.\\w*)*)?)|(\\w+( \\w+)* <\\w+@(\\w+(\\.\\w*)*)?>)$")
+	@Pattern(regexp = "^(\\w+@(\\w+(\\.\\w*)*)?)|(\\w+( \\w+)* <\\w+@(\\w+(\\.\\w*)*)?>)$")
 	@NotNull
 	public String getEmail() {
 		return this.email;
@@ -162,6 +189,17 @@ public abstract class Actor extends DomainEntity {
 
 	public void setSuspicious(final Boolean suspicious) {
 		this.suspicious = suspicious;
+	}
+
+	@NotNull
+	@Valid
+	@OneToOne(optional = true)
+	public Curriculum getCurriculum() {
+		return this.curriculum;
+	}
+
+	public void setCurriculum(final Curriculum curriculum) {
+		this.curriculum = curriculum;
 	}
 
 }
