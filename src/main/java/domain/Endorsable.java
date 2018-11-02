@@ -6,7 +6,13 @@ import java.util.Collection;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Range;
+
 public abstract class Endorsable extends Actor {
+
+	// Properties
+
+	private double					score;
 
 	// Relationships
 
@@ -25,4 +31,12 @@ public abstract class Endorsable extends Actor {
 		this.endorsements = endorsements;
 	}
 
+	@Range(min = -1, max = 1)
+	public double getScore() {
+		return this.score;
+	}
+
+	public void setScore(final double score) {
+		this.score = score;
+	}
 }

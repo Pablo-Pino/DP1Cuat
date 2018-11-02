@@ -10,15 +10,11 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Range;
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class Customer extends Endorsable {
 
 	//---------Atributos-----------
-
-	private double					score;
 
 	//----------Relaciones---------
 
@@ -28,15 +24,6 @@ public class Customer extends Endorsable {
 
 
 	//----------Getters y Setters------
-
-	@Range(min = -1, max = 1)
-	public double getScore() {
-		return this.score;
-	}
-
-	public void setScore(final double score) {
-		this.score = score;
-	}
 
 	@Valid
 	@NotNull

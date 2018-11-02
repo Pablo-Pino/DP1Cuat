@@ -7,14 +7,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Range;
 
 public class HandyWorker extends Endorsable {
 
 	//------------Atributos---------
 
 	private String					make;
-	private double					score;
 
 	//-------------Relaciones---------
 
@@ -33,16 +31,18 @@ public class HandyWorker extends Endorsable {
 	public Collection<Note> getNotes() {
 		return this.notes;
 	}
-	
+
 	public void setNotes(final Collection<Note> notes) {
 		this.notes = notes;
 	}
 
+	@Override
 	@Valid
 	public Curriculum getCurriculum() {
 		return this.curriculum;
 	}
 
+	@Override
 	public void setCurriculum(final Curriculum curriculum) {
 		this.curriculum = curriculum;
 	}
@@ -55,15 +55,6 @@ public class HandyWorker extends Endorsable {
 
 	public void setMake(final String make) {
 		this.make = make;
-	}
-
-	@Range(min = -1, max = 1)
-	public double getScore() {
-		return this.score;
-	}
-
-	public void setScore(final double score) {
-		this.score = score;
 	}
 
 	@NotNull
