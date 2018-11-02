@@ -3,12 +3,17 @@ package domain;
 
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
+@Embeddable
+@Access(AccessType.PROPERTY)
 public class CreditCard {
 
 	//-----------Atributos-------------
@@ -21,6 +26,7 @@ public class CreditCard {
 
 
 	//---------Getters y Setters-------------
+
 	@NotBlank
 	@NotNull
 	public String getHolderName() {
