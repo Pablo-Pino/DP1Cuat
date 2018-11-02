@@ -3,34 +3,37 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-
+@Entity
+@Access(AccessType.PROPERTY)
 public class Curriculum extends Ticketable {
 
 	//------------Atributos----------
 
-	
-
 	//-----------Relaciones------------
 
-	private HandyWorker							handyWorker;
-	private PersonalRecord						personalRecord;
-	private Collection<EducationRecord>			educationRecords;
-	private Collection<ProfessionalRecord>		profesionalRecords;
-	private Collection<EndorserRecord>			endorserRecords;
-	private Collection<MiscellaneousRecord>		miscellaneousRecords;
+	private HandyWorker						handyWorker;
+	private PersonalRecord					personalRecord;
+	private Collection<EducationRecord>		educationRecords;
+	private Collection<ProfessionalRecord>	profesionalRecords;
+	private Collection<EndorserRecord>		endorserRecords;
+	private Collection<MiscellaneousRecord>	miscellaneousRecords;
 
 
 	//----------Getters y Setters-------
-
-
 
 	// Relationships
 
 	@NotNull
 	@Valid
+	@OneToOne(optional = false)
 	public HandyWorker getHandyWorker() {
 		return this.handyWorker;
 	}
@@ -40,6 +43,7 @@ public class Curriculum extends Ticketable {
 
 	@NotNull
 	@Valid
+	@OneToOne(optional = false)
 	public PersonalRecord getPersonalRecord() {
 		return this.personalRecord;
 	}
@@ -49,6 +53,7 @@ public class Curriculum extends Ticketable {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "curriculum")
 	public Collection<EducationRecord> getEducationRecords() {
 		return this.educationRecords;
 	}
@@ -59,6 +64,7 @@ public class Curriculum extends Ticketable {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "curriculum")
 	public Collection<ProfessionalRecord> getProfesionalRecords() {
 		return this.profesionalRecords;
 	}
@@ -69,6 +75,7 @@ public class Curriculum extends Ticketable {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "curriculum")
 	public Collection<EndorserRecord> getEndorserRecords() {
 		return this.endorserRecords;
 	}
@@ -79,6 +86,7 @@ public class Curriculum extends Ticketable {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "curriculum")
 	public Collection<MiscellaneousRecord> getMiscellaneousRecords() {
 		return this.miscellaneousRecords;
 	}
