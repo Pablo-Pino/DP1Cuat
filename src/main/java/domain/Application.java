@@ -3,6 +3,12 @@ package domain;
 
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -11,6 +17,13 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Access(AccessType.PROPERTY)
+@Table(uniqueConstraints = {
+	@UniqueConstraint(columnNames = {
+		"handyworker_id", "fixuptask_id"
+	})
+})
 public class Application extends DomainEntity {
 
 	//----------Atributos----------
@@ -31,6 +44,7 @@ public class Application extends DomainEntity {
 
 	@Valid
 	@NotNull
+	@ManyToOne(optional = false)
 	public FixupTask getFixupTask() {
 		return this.fixupTask;
 	}
@@ -41,6 +55,7 @@ public class Application extends DomainEntity {
 
 	@Valid
 	@NotNull
+	@ManyToOne(optional = false)
 	public HandyWorker getHandyWorker() {
 		return this.handyWorker;
 	}
@@ -69,7 +84,7 @@ public class Application extends DomainEntity {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "^(PENDING)|(ACCEPTED)|(REJECTED)$") //¿Sobra un paréntesis detrás del dollar?
+	@Pattern(regexp = "^(PENDING)|(ACCEPTED)|(REJECTED)$")
 	@NotNull
 	public String getStatus() {
 		return this.status;
