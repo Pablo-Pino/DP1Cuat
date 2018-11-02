@@ -3,18 +3,30 @@ package domain;
 
 import java.util.Collection;
 
-
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Access(AccessType.PROPERTY)
+@Table(uniqueConstraints = {
+	@UniqueConstraint(columnNames = {
+		"name", "parentcategory_id"
+	})
+})
 public class Category extends DomainEntity {
 
 	//--------Atributos-------------
 
 	private String					name;
-	
 
 	//------------Relaciones-------------
 
@@ -22,11 +34,12 @@ public class Category extends DomainEntity {
 	private Collection<Category>	childsCategories;
 	private Category				parentCategory;
 
-	//--------Getters y Setters-------
 
+	//--------Getters y Setters-------
 
 	@Valid
 	@NotNull
+	@OneToMany(mappedBy = "category")
 	public Collection<FixupTask> getFixupTasks() {
 		return this.fixupTasks;
 	}
@@ -44,29 +57,27 @@ public class Category extends DomainEntity {
 	public void setName(final String name) {
 		this.name = name;
 	}
-	
+
 	@Valid
 	@NotNull
-	public Collection<Category> getChildsCategories(){
+	@OneToMany(mappedBy = "parentCategory")
+	public Collection<Category> getChildsCategories() {
 		return this.childsCategories;
 	}
-	
-	public void setChildsCategories(Collection<Category> childsCategories) {
+
+	public void setChildsCategories(final Collection<Category> childsCategories) {
 		this.childsCategories = childsCategories;
 	}
-	
+
 	@Valid
 	@NotNull
+	@ManyToOne(optional = false)
 	public Category getParentCategory() {
-		return parentCategory;
+		return this.parentCategory;
 	}
 
-	public void setParentCategory(Category parentCategory) {
+	public void setParentCategory(final Category parentCategory) {
 		this.parentCategory = parentCategory;
 	}
-
-	
-	
-	
 
 }
