@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * PopulateDatabase.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="customer" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="super" />
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+		<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="customer" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="customer" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="customer" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	
+	
+	<!-- Other domain beans come here -->	
+	
+	
+	<!-- ___________________Customers___________________________________-->
+	<bean id="customer1" class="domain.Customer">
+		<property name="name" value="Alfonso"></property>
+		<property name="middleName" value="HackerMan"></property>
+		<property name="surname" value="Alarcon"></property>
+		<property name="photo"
+			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+		<property name="email" value="uncorreonormal@hotmail.com"></property>
+		<property name="phone" value="658225856"></property>
+		<property name="address" value="C/ sal y arena"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
+		
+		
+		<property name="userAccount" ref="userAccount2">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile1"></ref>
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder1" />
+				<ref bean="folder2" />
+				<ref bean="folder3" />
+				<ref bean="folder4" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="customer2" class="domain.Customer">
+		<property name="name" value="Pablo"></property>
+		<property name="middleName" value="HackerBoy"></property>
+		<property name="surname" value="Pino"></property>
+		<property name="photo"
+			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+		<property name="email" value="uncorreomaslargo@hotmail.com"></property>
+		<property name="phone" value="655525856"></property>
+		<property name="address" value="C/ esperanza de rafael"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
+		
+		<property name="userAccount" ref="userAccount4">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile2"></ref>
+			</list>
+		</property>
+			
+
+		<property name="folders">
+			<list>
+				<ref bean="folder5" />
+				<ref bean="folder6" />
+				<ref bean="folder7" />
+				<ref bean="folder8" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="customer3" class="domain.Customer">
+		<property name="name" value="Juan"></property>
+		<property name="middleName" value=""></property>
+		<property name="surname" value="De la Aceituna"></property>
+		<property name="photo"
+			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+		<property name="email" value="juandelaaceitunaynooliva@hotmail.com"></property>
+		<property name="phone" value="674525856"></property>
+		<property name="address" value="C/ Perdida de la mano de Dios"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
+		
+		<property name="userAccount" ref="userAccount5">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile3"></ref>
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder9" />
+				<ref bean="folder10" />
+				<ref bean="folder11" />
+				<ref bean="folder12" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	<bean id="customer4" class="domain.Customer">
+		<property name="name" value="Elena"></property>
+		<property name="middleName" value="TomasLena"></property>
+		<property name="surname" value="Molina"></property>
+		<property name="photo"
+			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+		<property name="email" value="tomaslena@hotmail.com"></property>
+		<property name="phone" value="677525856"></property>
+		<property name="address" value="C/ pasada la estacion del ave"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
+		
+		<property name="userAccount" ref="userAccount6">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder13" />
+				<ref bean="folder14" />
+				<ref bean="folder15" />
+				<ref bean="folder16" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	
+	
+	<!-- ___________________Education Records___________________________________-->
+	<bean id="educationRecord1" class="domain.EducationRecord">
+		<property name="diplomaTitle" value="Bachillerato"></property>
+		<property name="start" value="February 6, 2010 09:30"></property>
+		<property name="end" value="May 29, 2012 15:00"></property>
+		<property name="institution" value="Academia Preuniversitaria"></property>
+		<property name="attachment"
+			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+		<property name="comments" value="Un cinco pelao he sacao."></property>
+		
+		<property name="curriculum" ref="curriculum1"></property>
+
+		
+	</bean>
+	
+	<bean id="educationRecord2" class="domain.EducationRecord">
+		<property name="diplomaTitle" value="Bachillerato"></property>
+		<property name="start" value="February 22, 2010 09:30"></property>
+		<property name="end" value="May 29, 2012 15:02"></property>
+		<property name="institution" value="Academia militar"></property>
+		<property name="attachment"
+			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+		<property name="comments" value="He peloteado que da gusto."></property>
+		
+		<property name="curriculum" ref="curriculum2"></property>
+		
+	
+	</bean>
+	
+	<bean id="educationRecord3" class="domain.EducationRecord">
+		<property name="diplomaTitle" value="ESO"></property>
+		<property name="start" value="December 12, 2014 19:30"></property>
+		<property name="end" value="May 29, 2016 15:02"></property>
+		<property name="institution" value="Academia eclesiastica Satanas por aqui no vengas mas"></property>
+		<property name="attachment"
+			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+		<property name="comments" value="Cuidado con los curas"></property>
+		
+		<property name="curriculum" ref="curriculum3"></property>
+		
+	</bean>
+	
+	
+	<bean id="educationRecord4" class="domain.EducationRecord">
+		<property name="diplomaTitle" value="ESO"></property>
+		<property name="start" value="December 15, 2013 09:30"></property>
+		<property name="end" value="May 29, 2016 15:02"></property>
+		<property name="institution" value="Academia Satanica Satanas por aqui no ven mas"></property>
+		<property name="attachment"
+			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+		<property name="comments" value="Cuidado con los fanaticos de satanas"></property>
+		
+		<property name="curriculum" ref="curriculum4"></property>
+		
+	</bean>
+	
+	<!-- ___________________Endorsers Records___________________________________-->
+	<bean id="endorserRecord1" class="domain.EndorserRecord">
+		<property name="fullName" value="Lipasam"></property>
+		<property name="photo" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+		<property name="email" value="lipasam@gmail.es"></property>
+		<property name="phone" value="954586598"></property>
+		<property name="linkedProfile" value="http://www.linkedin.com/in/lipasam"></property>
+		
+		
+		<property name="curriculum" ref="curriculum1"></property>
+		
+	</bean>
+	
+		<bean id="endorserRecord2" class="domain.EndorserRecord">
+		<property name="fullName" value="Emasesa"></property>
+		<property name="photo" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+		<property name="email" value="Emasesa@gmail.es"></property>
+		<property name="phone" value="957586598"></property>
+		<property name="linkedProfile" value="http://www.linkedin.com/in/emasesa"></property>
+		
+		
+		<property name="curriculum" ref="curriculum2"></property>
+		
+	</bean>
+	
+			<bean id="endorserRecord3" class="domain.EndorserRecord">
+		<property name="fullName" value="Vips"></property>
+		<property name="photo" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+		<property name="email" value="vips@gmail.es"></property>
+		<property name="phone" value="957456598"></property>
+		<property name="linkedProfile" value="http://www.linkedin.com/in/emasesa"></property>
+		
+		
+		<property name="curriculum" ref="curriculum3"></property>
+		
+	</bean>
+	
+			<bean id="endorserRecord2" class="domain.EndorserRecord">
+		<property name="fullName" value="Disney"></property>
+		<property name="photo" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+		<property name="email" value="disneyfantasy@gmail.es"></property>
+		<property name="phone" value="954571258"></property>
+		<property name="linkedProfile" value="http://www.linkedin.com/in/disney"></property>
+		
+		
+		<property name="curriculum" ref="curriculum4"></property>
+		
+	</bean>
+	
+	<!-- ___________________Finders __________________________________-->
+	<bean id="finder1" class="domain.Finder">
+		<property name="keyword" value="cocina"></property>
+		<property name="maxPrice" value="1200.0"></property>
+		<property name="minPrice" value="2200.0"></property>
+		
+	</bean>
+
+	<bean id="finder2" class="domain.Finder">
+		<property name="keyword" value="salon"></property>
+		<property name="minimumDate" value="May 1, 2019 12:00"></property>
+		<property name="maximumDate" value="June 25, 2019 21:00"></property>
+	</bean>
+	
+		<bean id="finder3" class="domain.Finder">
+		<property name="keyword" value="azulejo"></property>
+		<property name="maxPrice" value="200.0"></property>
+		<property name="minPrice" value="800.0"></property>
+		<property name="minimumDate" value="February 12, 2019 12:00"></property>
+		<property name="maximumDate" value="June 25, 2019 21:00"></property>
+	</bean>
+	
+	<bean id="finder4" class="domain.Finder">
+		<property name="maxPrice" value="200.0"></property>
+		<property name="minPrice" value="2000.0"></property>
+
+	</bean>
+	
+	<!-- ___________________Endorsable__________________________________-->
+	<bean id="endorsable1" class="domain.Endorsable">
+		<property name="score" value="0.75"></property>
+		<property name="endorsements">
+			<list>
+				<ref bean="endorsement1"></ref>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="endorsable2" class="domain.Endorsable">
+		<property name="score" value="-0.75"></property>
+		<property name="endorsements">
+			<list>
+				<ref bean="endorsement2"></ref>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="endorsable3" class="domain.Endorsable">
+		<property name="score" value="0.25"></property>
+		<property name="endorsements">
+			<list>
+				<ref bean="endorsement3"></ref>
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="endorsable4" class="domain.Endorsable">
+		<property name="score" value="0.35"></property>
+		<property name="endorsements">
+			<list>
+				<ref bean="endorsement4"></ref>
+			</list>
+		</property>
+		
+	</bean>
+	
+	
+	<!-- ___________________Endorsement__________________________________-->
+	<bean id="endorsement1" class="domain.Endorsement">
+		<property name="moment" value="February 12, 2017 12:00"></property>
+		<property name="comments" value="Estoy muy contenta"></property>
+		<property name="sender" ref="endorsable1"></property>
+		<property name="receiver" ref="endorsable2"></property>
+		
+	</bean>
+	
+	<bean id="endorsement2" class="domain.Endorsement">
+		<property name="moment" value="February 12, 2016 12:00"></property>
+		<property name="comments" value="NO estoy muy contenta"></property>
+		<property name="sender" ref="endorsable2"></property>
+		<property name="receiver" ref="endorsable3"></property>
+		
+	</bean>
+	
+	<bean id="endorsement3" class="domain.Endorsement">
+		<property name="moment" value="January 22, 2016 22:00"></property>
+		<property name="comments" value="nada que añadir por aqui"></property>
+		<property name="sender" ref="endorsable3"></property>
+		<property name="receiver" ref="endorsable4"></property>
+		
+	</bean>
+	
+	<bean id="endorsement4" class="domain.Endorsement">
+		<property name="moment" value="December 22, 2017 22:10"></property>
+		<property name="comments" value="estoy muy descontento y lo pongo aqui"></property>
+		<property name="sender" ref="endorsable4"></property>
+		<property name="receiver" ref="endorsable1"></property>
+		
+	</bean>
+	
+	
+	
+</beans>
