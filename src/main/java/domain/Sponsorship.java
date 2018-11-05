@@ -27,6 +27,8 @@ public class Sponsorship extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@ManyToMany(cascade = {CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
 	public Collection<Tutorial> getTutorials() {
 		return this.tutorials;
 	}
@@ -37,6 +39,7 @@ public class Sponsorship extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@ManyToOne(optional=false)
 	public Sponsor getSponsor() {
 		return this.sponsor;
 	}
@@ -69,6 +72,7 @@ public class Sponsorship extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@Column(unique=true)
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}

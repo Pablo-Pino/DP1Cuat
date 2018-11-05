@@ -455,6 +455,269 @@
 		
 	</bean>
 	
+	<!-- Sponsor -->
+
+	<bean id="sponsor1" class="domain.Sponsor">
+		
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship1" />
+				<ref bean="sponsorship2" />	
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="sponsor2" class="domain.Sponsor">
+		
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship1" />
+				<ref bean="sponsorship2" />	
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="sponsor3 class="domain.Sponsor">
+		
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship1" />
+				<ref bean="sponsorship3" />	
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- Sponsorships -->
+	
+
+	<bean id="sponsorship1" class="domain.Sponsor">
+	
+		<property name="banner" value="http://www.banner.com" />
+		<property name="page" value="http://www.page.com" />
+		<property name="creditCard" value="4111111111111111" />
+		<property name="sponsor" value="Juan Manuel Aceituna" />
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial1" />
+				<ref bean="tutorial2" />	
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="sponsorship2" class="domain.Sponsor">
+	
+		<property name="banner" value="http://www.banner2.com" />
+		<property name="page" value="http://www.page2.com" />
+		<property name="creditCard" value="5111111111111111" />
+		<property name="sponsor" value="Alfonso Aceituna" />
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial1" />
+				<ref bean="tutorial2" />	
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="sponsorship3" class="domain.Sponsor">
+	
+		<property name="banner" value="http://www.banner3.com" />
+		<property name="page" value="http://www.page3.com" />
+		<property name="creditCard" value="6111111111111111" />
+		<property name="sponsor" value="Elena SinAnchoa" />
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial1" />
+				<ref bean="tutorial3" />	
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Ticketable -->
+	
+
+	<bean id="ticketable1" class="domain.Ticketable">
+	
+		<property name="ticker" value="AXB32J" />
+		
+		</property>
+	</bean>
+	
+	<!-- Tutorial -->
+
+
+	<bean id="tutorial1" class="domain.Tutorial">
+	
+		<property name="moment" value="02/09/2009" />
+		<property name="title" value="Como entrenar a tu dragon" />
+		<property name="summary" value="Como se entrenan los dragones" />
+		<property name="handyWorker" value="Juan Manuel Aceituna" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture1" />
+				<ref bean="picture2" />	
+			</list>
+		</property>
+		
+		<property name="sections">
+			<list>
+				<ref bean="section1" />
+				<ref bean="section2" />	
+			</list>
+		</property>
+		
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship1" />
+				<ref bean="sponsorship2" />	
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="tutorial2" class="domain.Tutorial">
+	
+		<property name="moment" value="12/09/2009" />
+		<property name="title" value="Como entrenar a tu dragon 2" />
+		<property name="summary" value="Como se entrenan los dragones 2" />
+		<property name="handyWorker" value="Poncho Aceituna" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture1" />
+				<ref bean="picture2" />	
+			</list>
+		</property>
+		
+		<property name="sections">
+			<list>
+				<ref bean="section1" />
+				<ref bean="section2" />	
+			</list>
+		</property>
+		
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship1" />
+				<ref bean="sponsorship3" />	
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="tutorial3" class="domain.Tutorial">
+	
+		<property name="moment" value="02/09/2011" />
+		<property name="title" value="Como entrenar a tu dragon 3" />
+		<property name="summary" value="Como se entrenan los dragones 3" />
+		<property name="handyWorker" value="Elena Aceituna" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture1" />
+				<ref bean="picture2" />	
+			</list>
+		</property>
+		
+		<property name="sections">
+			<list>
+				<ref bean="section1" />
+				<ref bean="section2" />	
+			</list>
+		</property>
+		
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship3" />
+				<ref bean="sponsorship2" />	
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Warranties -->
+	
+
+	<bean id="warranty1" class="domain.Warranty">
+	
+		<property name="title" value="El titulo de Warranty" />
+		<property name="terms" value="Terminos, muchos terminos" />
+		<property name="laws" value="Leyes,muchas leyes" />
+		<property name="draft" value="Ejemplo de draft" />
+		<property name="fixupTasks">
+			<list>
+				<ref bean="fixupTask1" />
+				<ref bean="fixupTask2" />	
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="warranty2" class="domain.Warranty">
+	
+		<property name="title" value="El titulo de Warranty 2" />
+		<property name="terms" value="Terminos, muchos terminos 2" />
+		<property name="laws" value="Leyes,muchas leyes 2" />
+		<property name="draft" value="Ejemplo de draft 2" />
+		<property name="fixupTasks">
+			<list>
+				<ref bean="fixupTask1" />
+				<ref bean="fixupTask2" />	
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="warranty3" class="domain.Warranty">
+	
+		<property name="title" value="El titulo de Warranty 3" />
+		<property name="terms" value="Terminos, muchos terminos 3" />
+		<property name="laws" value="Leyes,muchas leyes 3" />
+		<property name="draft" value="Ejemplo de draft 3" />
+		<property name="fixupTasks">
+			<list>
+				<ref bean="fixupTask1" />
+				<ref bean="fixupTask2" />	
+			</list>
+		</property>
+	</bean>
+	
+	
+		<!-- WorkPlan -->
+	
+
+	<bean id="workPlan1" class="domain.WorkPlan">
+	
+		<property name="fixupTask" value="Tarea numero 1" />
+		<property name="handyWoker" value="Elena Worker" />
+		
+		<property name="phases">
+			<list>
+				<ref bean="phase1" />
+				<ref bean="phase2" />	
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="workPlan2" class="domain.WorkPlan">
+	
+		<property name="fixupTask" value="Tarea numero 2" />
+		<property name="handyWoker" value="Pablo Worker" />
+		<property name="phases">
+			<list>
+				<ref bean="phase1" />
+				<ref bean="phase3" />	
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="workPlan3" class="domain.WorkPlan">
+	
+		<property name="fixupTask" value="Tarea numero 3" />
+		<property name="handyWoker" value="Juan Worker" />
+		<property name="phases">
+			<list>
+				<ref bean="phase3" />
+				<ref bean="phase2" />	
+			</list>
+		</property>
+	</bean>
 	
 	
 </beans>
