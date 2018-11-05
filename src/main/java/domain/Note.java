@@ -4,6 +4,9 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -11,16 +14,18 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Note extends DomainEntity {
 
 	//-----------Atributos-----------
 
-	private Date		moment;
-	private Collection<String>		comments;
+	private Date				moment;
+	private Collection<String>	comments;
 
 	//----------Relaciones-----------
 
-	private Report		report;
+	private Report				report;
 
 
 	//------------Getters y Setters-------
@@ -44,7 +49,7 @@ public class Note extends DomainEntity {
 	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
-	
+
 	@NotNull
 	@NotBlank
 	@NotEmpty

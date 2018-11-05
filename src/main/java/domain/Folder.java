@@ -3,11 +3,26 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Access(AccessType.PROPERTY)
+@Table(uniqueConstraints = {
+	@UniqueConstraint(columnNames = {
+		"name", "parentfolder_id"
+	})
+})
 public class Folder extends DomainEntity {
 
 	//------------Atributos---------
@@ -20,7 +35,7 @@ public class Folder extends DomainEntity {
 	private Collection<Message>	messages;
 	private Collection<Folder>	childFolder;
 	private Folder				parentFolder;
-	private Actor actor;
+	private Actor				actor;
 
 
 	//----------Getters y Setters-----
@@ -45,6 +60,7 @@ public class Folder extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@ManyToMany
 	public Collection<Message> getMessages() {
 		return this.messages;
 	}
@@ -55,6 +71,7 @@ public class Folder extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "parentFolder")
 	public Collection<Folder> getChildFolder() {
 		return this.childFolder;
 	}
@@ -64,6 +81,7 @@ public class Folder extends DomainEntity {
 	}
 
 	@Valid
+	@ManyToOne(optional = false)
 	public Folder getParentFolder() {
 		return this.parentFolder;
 	}
@@ -74,12 +92,13 @@ public class Folder extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@ManyToOne(optional = false)
 	public Actor getActor() {
-		return actor;
+		return this.actor;
 	}
 
-	public void setActor(Actor actor) {
+	public void setActor(final Actor actor) {
 		this.actor = actor;
 	}
-	
+
 }

@@ -4,6 +4,11 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -12,6 +17,8 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class FixupTask extends Ticketable {
 
 	//-------------Atributos----------
@@ -29,12 +36,13 @@ public class FixupTask extends Ticketable {
 	private Customer				customer;
 	private Category				category;
 	private Warranty				warranty;
-	private Collection<Application> applications;
-	private WorkPlan workPlan;
+	private Collection<Application>	applications;
+	private WorkPlan				workPlan;
 
 
 	//------------Getters y Setters-------
 
+	@ManyToOne(optional = false)
 	public Customer getCustomer() {
 		return this.customer;
 	}
@@ -43,6 +51,7 @@ public class FixupTask extends Ticketable {
 		this.customer = customer;
 	}
 
+	@ManyToOne(optional = false)
 	public Warranty getWarranty() {
 		return this.warranty;
 	}
@@ -51,6 +60,7 @@ public class FixupTask extends Ticketable {
 		this.warranty = warranty;
 	}
 
+	@OneToMany(mappedBy = "fixuptask")
 	public Collection<Complaint> getComplaints() {
 		return this.complaints;
 	}
@@ -59,6 +69,7 @@ public class FixupTask extends Ticketable {
 		this.complaints = complaints;
 	}
 
+	@ManyToOne(optional = false)
 	public Category getCategory() {
 		return this.category;
 	}
@@ -122,21 +133,23 @@ public class FixupTask extends Ticketable {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "fixupTask")
 	public Collection<Application> getApplications() {
-		return applications;
+		return this.applications;
 	}
 
-	public void setApplications(Collection<Application> applications) {
+	public void setApplications(final Collection<Application> applications) {
 		this.applications = applications;
 	}
 
 	@Valid
+	@OneToMany(mappedBy = "fixupTask")
 	public WorkPlan getWorkPlan() {
-		return workPlan;
+		return this.workPlan;
 	}
 
-	public void setWorkPlan(WorkPlan workPlan) {
+	public void setWorkPlan(final WorkPlan workPlan) {
 		this.workPlan = workPlan;
 	}
-	
+
 }
