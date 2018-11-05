@@ -673,7 +673,7 @@
 
 	<bean id="workPlan1" class="domain.WorkPlan">
 	
-		<property name="fixupTask" value="Tarea numero 1" />
+		<property name="fixupTask" value="fixupTask1" />
 		<property name="handyWoker" value="Elena Worker" />
 		
 		<property name="phases">
@@ -686,7 +686,7 @@
 	
 	<bean id="workPlan2" class="domain.WorkPlan">
 	
-		<property name="fixupTask" value="Tarea numero 2" />
+		<property name="fixupTask" value="fixupTask2" />
 		<property name="handyWoker" value="Pablo Worker" />
 		<property name="phases">
 			<list>
@@ -698,7 +698,7 @@
 	
 	<bean id="workPlan3" class="domain.WorkPlan">
 	
-		<property name="fixupTask" value="Tarea numero 3" />
+		<property name="fixupTask" value="fixupTask3" />
 		<property name="handyWoker" value="Juan Worker" />
 		<property name="phases">
 			<list>
@@ -707,6 +707,111 @@
 			</list>
 		</property>
 	</bean>
+	
+	
+	<!-------------------FixupTask-------------------------------->
+	
+	<bean id="fixupTask1" class="domain.FixupTask">
+		<property name="moment" value="February 16, 2017 09:30"></property>
+		<property name="description" value="Hay que arreglar la pata de la silla 4"></property>
+		<property name="address" value="C/ Mani Manitas N3"></property>
+		<property name="maximumPrice" value="15.00"></property>
+		<property name="start" value="February 17, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		
+		<property name="complaints">
+			<list>
+				<ref bean="complaint1" />
+				<ref bean="complaint2" />
+			</list>
+		</property>
+		<property name="customer" ref="customer1"> </property>
+		<property name="category" ref="category1"> </property>
+		<property name="warranty" ref="warranty1"> </property>
+		<property name="applications">
+			<list>
+				<ref bean="application1" />
+				<ref bean="application2" />
+			</list>
+		</property>
+		<property name="workPlan" ref="workPlan1"> </property>
+
+	</bean>
+	
+	
+	<bean id="fixupTask2" class="domain.FixupTask">
+		<property name="moment" value="October 11, 2017 09:30"></property>
+		<property name="description" value="Bombilla rota"></property>
+		<property name="address" value="C/ Croquetas de Jamón N3"></property>
+		<property name="maximumPrice" value="14.00"></property>
+		<property name="start" value="October 12, 2017 09:30"></property>
+		<property name="end" value="October 18, 2017 09:30"></property>
+		
+		<property name="complaints">
+			<list>
+				<ref bean="complaint1" />
+			</list>
+		</property>
+		<property name="customer" ref="customer2"> </property>
+		<property name="category" ref="category2"> </property>
+		<property name="warranty" ref="warranty2"> </property>
+		<property name="applications">
+			<list>
+				<ref bean="application1" />
+			</list>
+		</property>
+		<property name="workPlan" ref="workPlan2"> </property>
+
+	</bean>
+	
+	<bean id="fixupTask3" class="domain.FixupTask">
+		<property name="moment" value="June 11, 2017 09:30"></property>
+		<property name="description" value="Hay que coserle el brazo a Woody"></property>
+		<property name="address" value="C/ Toy Story N2"></property>
+		<property name="maximumPrice" value="500.00"></property>
+		<property name="start" value="June 12, 2017 09:30"></property>
+		<property name="end" value="June 18, 2017 09:30"></property>
+		
+		<property name="complaints">
+			<list>
+			</list>
+		</property>
+		<property name="customer" ref="customer1"> </property>
+		<property name="category" ref="category1"> </property>
+		<property name="warranty" ref="warranty1"> </property>
+		<property name="applications">
+			<list>
+	
+			</list>
+		</property>
+		<property name="workPlan" ref="workPlan1"> </property>
+
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 </beans>
