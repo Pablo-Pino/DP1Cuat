@@ -82,6 +82,7 @@ public class Tutorial extends DomainEntity {
 	@NotNull
 	@Valid
 	@NotEmpty
+	@OneToMany(cascade= CascadeType.ALL)
 	public Collection<Section> getSection() {
 		return this.sections;
 	}
@@ -90,19 +91,12 @@ public class Tutorial extends DomainEntity {
 		this.sections = sections;
 	}
 	
-	@NotNull
-	@Valid
-	@NotEmpty
-	public Collection<Section> getSections() {
-		return sections;
-	}
-
-	public void setSections(Collection<Section> sections) {
-		this.sections = sections;
-	}
+	
 
 	@NotNull
 	@Valid
+	@ManyToMany(cascade = {CascadeType.PERSIST,
+			CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
 	public Collection<Sponsorship> getSponsorships() {
 		return sponsorships;
 	}
