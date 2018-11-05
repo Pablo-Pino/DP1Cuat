@@ -1237,6 +1237,51 @@
 	</bean>
 	
 	
+	<!-------------------Phase-------------------------------->
+	
+	<bean id="phase1" class="domain.Phase">
+	
+		<property name="title" value="phase1" />
+		<property name="descripción" value="Coger el telefono antes de hacer nada" />
+		<property name="start" value="February 17, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="workplans">
+			<list>
+				<ref bean="workplan1" />
+				<ref bean="workplan2" />	
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="phase2" class="domain.Phase">
+	
+		<property name="title" value="phase2" />
+		<property name="descripción" value="Coger el telefono antes de hacer nada" />
+		<property name="start" value="February 16, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="workplans">
+			<list>
+				<ref bean="workplan1" />
+				<ref bean="workplan3" />	
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="phase3" class="domain.Phase">
+	
+		<property name="title" value="phase1" />
+		<property name="descripción" value="Coger el telefono antes de hacer nada" />
+		<property name="start" value="February 15, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="workplans">
+			<list>
+				<ref bean="workplan2" />
+				<ref bean="workplan3" />	
+			</list>
+		</property>
+	</bean>
+	
+	
 	<!-------------------FixupTask-------------------------------->
 	
 	<bean id="fixupTask1" class="domain.FixupTask">
