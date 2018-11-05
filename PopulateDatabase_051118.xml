@@ -2374,6 +2374,16 @@
 		<property name="receiver" value="handyWorker3"></property>
 	
 	
+	<!-- ___________________Miscellaneous Records___________________________________-->
+	
+	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
+		<property name="title" value="Benhill County GaArchives Historical Records.....Death Certificate of John Doe 1930"></property>
+		<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
+		<property name="comments" value="Muy interesante"></property>
+		
+		<property name="curriculum" ref="curriculum1"></property>
+		
+	</bean>
 	
 	
 	
