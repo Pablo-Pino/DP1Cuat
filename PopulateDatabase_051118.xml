@@ -112,6 +112,57 @@
 	</bean>
 	
 	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="handywoker" />
+		<property name="password" value="24da2ce4fb8a46c3d44d2c72305a31a2" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDYWORKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="handywoker" />
+		<property name="password" value="24da2ce4fb8a46c3d44d2c72305a31a2" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDYWORKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="handywoker" />
+		<property name="password" value="24da2ce4fb8a46c3d44d2c72305a31a2" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDYWORKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="userAccount10" class="security.UserAccount">
+		<property name="username" value="handywoker" />
+		<property name="password" value="24da2ce4fb8a46c3d44d2c72305a31a2" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDYWORKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 	
 	
 	
@@ -2010,6 +2061,264 @@
 	    <property name="parentFolder" ref="folder4HandyWorker4" />
 		<property name="actor" ref="handyWorker4" />
 	</bean>
+	
+	
+	
+	
+	
+	
+	
+	<!------------------------HANDYWORKER----------------------------------------------->
+	
+	
+	<bean id="handyWorker1" class="domain.HandyWorker">
+		<property name="name" value="Antonio"></property>
+		<property name="middleName" value="Grinch"></property>
+		<property name="surname" value="Papp"></property>
+		<property name="photo"
+			value="https://imgix.bustle.com/uploads/image/2017/12/20/a86b734f-aeaa-4310-8f73-5b2de4574930-37737f70-2a9c-4e5a-83dc-8e60232287f0-the-grinch.png?w=970&h=582&fit=crop&crop=faces&auto=format&q=70"></property>
+		<property name="email" value="elgrinch@hotmail.com"></property>
+		<property name="phone" value="652655856"></property>
+		<property name="address" value="C/ Polo Norte"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
+		
+		
+		<property name="userAccount" ref="userAccount7">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile1"></ref>
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder1HandyWorker1" />
+				<ref bean="folder2HandyWorker1" />
+				<ref bean="folder3HandyWorker1" />
+				<ref bean="folder4HandyWorker1" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+		
+		<property name="make" value="Antonio Grinch Papp"></property>
+		<property name="curriculum" value="curriculum1"></property>
+		<property name="finder" value="finder1"></property>
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial1" />
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application1" />
+			</list>
+		</property>
+		<property name="workPlans">
+			<list>
+				<ref bean="workPlan1" />
+			</list>
+		</property>
+		
+		
+		
+		
+		
+		
+		
+		<bean id="handyWorker2" class="domain.HandyWorker">
+		<property name="name" value="Luis"></property>
+		<property name="middleName" value="Pokemaniako"></property>
+		<property name="surname" value="Zumarraga"></property>
+		<property name="photo"
+			value="https://cdn.memegenerator.es/imagenes/memes/full/16/43/16433834.jpg"></property>
+		<property name="email" value="pokeluisito@hotmail.com"></property>
+		<property name="phone" value="652653567"></property>
+		<property name="address" value="C/ Rataland"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
+		
+		
+		<property name="userAccount" ref="userAccount8">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile2"></ref>
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder1HandyWorker2" />
+				<ref bean="folder2HandyWorker2" />
+				<ref bean="folder3HandyWorker2" />
+				<ref bean="folder4HandyWorker2" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+		
+		<property name="make" value="Luis Pokemaniako Zumarraga"></property>
+		<property name="curriculum" value="curriculum2"></property>
+		<property name="finder" value="finder2"></property>
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial2" />
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application2" />
+			</list>
+		</property>
+		<property name="workPlans">
+			<list>
+				<ref bean="workPlan2" />
+			</list>
+		</property>
+
+	</bean>
+	
+	
+	
+	
+	<bean id="handyWorker3" class="domain.HandyWorker">
+		<property name="name" value="Javi"></property>
+		<property name="middleName" value="Rmano"></property>
+		<property name="surname" value="Camunia"></property>
+		<property name="photo"
+			value="https://misanimales.com/wp-content/uploads/2018/05/curiosidades-del-perezoso.jpg"></property>
+		<property name="email" value="camunon@hotmail.com"></property>
+		<property name="phone" value="652343567"></property>
+		<property name="address" value="C/ Lovaina"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
+		
+		
+		<property name="userAccount" ref="userAccount9">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile3"></ref>
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder1HandyWorker3" />
+				<ref bean="folder2HandyWorker3" />
+				<ref bean="folder3HandyWorker3" />
+				<ref bean="folder4HandyWorker3" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+		
+		<property name="make" value="Javi Rmano Camunia"></property>
+		<property name="curriculum" value="curriculum3"></property>
+		<property name="finder" value="finder3"></property>
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial3" />
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application3" />
+			</list>
+		</property>
+		<property name="workPlans">
+			<list>
+				<ref bean="workPlan3" />
+			</list>
+		</property>
+
+	</bean>
+	
+	
+	
+	
+	<bean id="handyWorker4" class="domain.HandyWorker">
+		<property name="name" value="Tobias"></property>
+		<property name="middleName" value="Elpen"></property>
+		<property name="surname" value="Feliz"></property>
+		<property name="photo"
+			value="https://www.peluchetes.com/contenido/uploads/2015/08/peluche-perro-salchicha.jpg"></property>
+		<property name="email" value="tobi@hotmail.com"></property>
+		<property name="phone" value="611143567"></property>
+		<property name="address" value="C/ Reja"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
+		
+		
+		<property name="userAccount" ref="userAccount10">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile3"></ref>
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder1HandyWorker4" />
+				<ref bean="folder2HandyWorker4" />
+				<ref bean="folder3HandyWorker4" />
+				<ref bean="folder4HandyWorker4" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+		
+		<property name="make" value="Tobias Elpen Feliz"></property>
+		<property name="curriculum" value="curriculum4"></property>
+		<property name="finder" value="finder4"></property>
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial4" />
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application4" />
+			</list>
+		</property>
+		<property name="workPlans">
+			<list>
+				<ref bean="workPlan4" />
+			</list>
+		</property>
+
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
