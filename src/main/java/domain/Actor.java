@@ -87,6 +87,7 @@ public abstract class Actor extends DomainEntity {
 
 	@Valid
 	@NotEmpty
+	@NotNull
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
 	public Collection<Folder> getFolders() {
 		return this.folders;
@@ -191,7 +192,6 @@ public abstract class Actor extends DomainEntity {
 		this.suspicious = suspicious;
 	}
 
-	@NotNull
 	@Valid
 	@OneToOne(optional = true)
 	public Curriculum getCurriculum() {
