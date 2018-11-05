@@ -479,7 +479,7 @@
 	</bean>
 	
 	
-	<bean id="sponsor3 class="domain.Sponsor">
+	<bean id="sponsor3" class="domain.Sponsor">
 		
 		<property name="sponsorships">
 			<list>
@@ -535,18 +535,7 @@
 		</property>
 	</bean>
 	
-	<!-- Ticketable -->
-	
-
-	<bean id="ticketable1" class="domain.Ticketable">
-	
-		<property name="ticker" value="AXB32J" />
-		
-		</property>
-	</bean>
-	
 	<!-- Tutorial -->
-
 
 	<bean id="tutorial1" class="domain.Tutorial">
 	
