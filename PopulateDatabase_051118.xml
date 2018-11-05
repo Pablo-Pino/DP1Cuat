@@ -99,6 +99,18 @@
 		</property>
 	</bean>
 	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="referee" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REFEREE" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 	
 	<bean id="userAccount7" class="security.UserAccount">
 		<property name="username" value="handywoker" />
@@ -563,8 +575,10 @@
 		<property name="educationRecords">
 			<list/>
 		</property>
-	    <property name="profesionalRecords">
-	    	<list/>
+	    <property name="professionalRecords">
+	    	<list>
+	    	<ref bean="professionalRecord1"></ref>
+	    	</list>
 	    </property>
 	    <property name="endorserRecords">
 	    	<list/>
@@ -581,7 +595,7 @@
 		<property name="educationRecords">
 			<list/>
 		</property>
-	    <property name="profesionalRecords">
+	    <property name="professionalRecords">
 	    	<list/>
 	    </property>
 	    <property name="endorserRecords">
@@ -599,7 +613,7 @@
 		<property name="educationRecords">
 			<list/>
 		</property>
-	    <property name="profesionalRecords">
+	    <property name="professionalRecords">
 	    	<list/>
 	    </property>
 	    <property name="endorserRecords">
@@ -617,7 +631,7 @@
 		<property name="educationRecords">
 			<list/>
 		</property>
-	    <property name="profesionalRecords">
+	    <property name="professionalRecords">
 	    	<list/>
 	    </property>
 	    <property name="endorserRecords">
@@ -772,6 +786,59 @@
 			</list>
 		</property>
 
+	</bean>
+	<!-- Referee -->
+	
+		<bean id="referee1" class="domain.Referee">
+		<property name="name" value="Felipe"></property>
+		<property name="middleName" value="HackerMan2"></property>
+		<property name="surname" value="Trinidad"></property>
+		<property name="photo"
+			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+		<property name="email" value="uncorreonormal@hotmail.com"></property>
+		<property name="phone" value="666666666"></property>
+		<property name="address" value="C/ se señor"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
+		
+		
+		<property name="userAccount" ref="userAccount7">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				<ref bean="socialProfile1"></ref>
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder1Referee1" />
+				<ref bean="folder2Referee1" />
+				<ref bean="folder3Referee1" />
+				<ref bean="folder4Referee1" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+
+	</bean>
+	<!-- ___________________Professional Records___________________________________-->
+	
+	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
+		<property name="company" value="NASA"></property>
+		<property name="start" value="February 6, 2010 09:30"></property>
+		<property name="end" value="May 29, 2012 15:00"></property>
+		<property name="role" value="Jefe"></property>
+		<property name="attachment"
+			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+		<property name="comments" value="Trabajo tela de bien"></property>
+		
+		<property name="curriculum" ref="curriculum1"></property>
+
+		
 	</bean>
 	
 	
@@ -1823,6 +1890,62 @@
 		</property>
 	    <property name="parentFolder" ref="folder4HandyWorker2" />
 		<property name="actor" ref="handyWorker2" />
+	</bean>
+	
+	<!--folders del Referee1 -->
+	
+	<bean id="folder1Referee1">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1Referee1" />
+		<property name="actor" ref="Referee1" />
+	</bean>
+	
+	<bean id="folder2Referee1">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2Referee1" />
+		<property name="actor" ref="Referee1" />
+	</bean>
+	
+	
+	<bean id="folder3Referee1">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3Referee1" />
+		<property name="actor" ref="Referee1" />
+	</bean>
+	
+	
+	<bean id="folder4Referee1">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4Referee1" />
+		<property name="actor" ref="Referee1" />
 	</bean>
 	
 	
