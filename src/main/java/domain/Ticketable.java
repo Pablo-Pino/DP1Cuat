@@ -6,6 +6,9 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+@Entity
+@Access(AccessType.PROPERTY)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Ticketable  extends DomainEntity {
 
 	//----------------Atributos---------------
@@ -16,7 +19,7 @@ public abstract class Ticketable  extends DomainEntity {
 	
 	@NotBlank
 	@Column(unique=true)
-	@Pattern(regexp="^\\d{6}-([A-Z]|\\d){6}$") //comprobar patrón
+	@Pattern(regexp="^\\d{6}-([A-Z]|\\d){6}$") //comprobar patrÃ³n
 	@NotNull
 	public String getTicker() {
 		return ticker;
