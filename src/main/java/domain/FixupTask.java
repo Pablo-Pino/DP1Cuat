@@ -41,7 +41,8 @@ public class FixupTask extends Ticketable {
 
 
 	//------------Getters y Setters-------
-
+	@Valid
+	@NotNull
 	@ManyToOne(optional = false)
 	public Customer getCustomer() {
 		return this.customer;
@@ -51,6 +52,8 @@ public class FixupTask extends Ticketable {
 		this.customer = customer;
 	}
 
+	@Valid
+	@NotNull
 	@ManyToOne(optional = false)
 	public Warranty getWarranty() {
 		return this.warranty;
@@ -60,6 +63,8 @@ public class FixupTask extends Ticketable {
 		this.warranty = warranty;
 	}
 
+	@Valid
+	@NotNull
 	@OneToMany(mappedBy = "fixuptask")
 	public Collection<Complaint> getComplaints() {
 		return this.complaints;
@@ -69,6 +74,8 @@ public class FixupTask extends Ticketable {
 		this.complaints = complaints;
 	}
 
+	@Valid
+	@NotNull
 	@ManyToOne(optional = false)
 	public Category getCategory() {
 		return this.category;
