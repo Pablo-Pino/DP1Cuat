@@ -3,3 +3,4 @@
 - Se ha duplicado la relación entre Actor y Message en la clase Actor del modelo Java. Un único atributo messages no permite la relación entre éstos, el sender de cada mensaje y el receiver de cada mensaje.
 - Se ha movido el atributo score de HandyWorker y Customer a Endorsable. Esto se debe a que el atributo es común a ambas clases y, por ello, se ha movido a la clase que generaliza a ambas.
 - Se ha quitado la relación entre Report y Customer en los modelos conceptual y UML. Customer y Report ya están relacionados mediante la FixupTask.
+- Se ha quitado la restricción Pattern del atributo phone. En los requisitos pone que deberían tener el pattern, pero que no es requerido.
