@@ -4,6 +4,9 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -16,16 +19,16 @@ public class Tutorial extends DomainEntity {
 
 	// Properties
 
-	private Date				moment;
-	private String				title;
-	private String				summary;
-	private Collection<String>	pictures;
+	private Date					moment;
+	private String					title;
+	private String					summary;
+	private Collection<String>		pictures;
 
 	//-------------Relaciones--------------
 
-	private HandyWorker			handyWorker;
-	private Collection<Section>	sections;
-	private Collection<Sponsorship> sponsorships;
+	private HandyWorker				handyWorker;
+	private Collection<Section>		sections;
+	private Collection<Sponsorship>	sponsorships;
 
 
 	//-------------Getters y Setters--------
@@ -82,7 +85,7 @@ public class Tutorial extends DomainEntity {
 	@NotNull
 	@Valid
 	@NotEmpty
-	@OneToMany(cascade= CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<Section> getSection() {
 		return this.sections;
 	}
@@ -90,21 +93,18 @@ public class Tutorial extends DomainEntity {
 	public void setSection(final Collection<Section> sections) {
 		this.sections = sections;
 	}
-	
-	
 
 	@NotNull
 	@Valid
-	@ManyToMany(cascade = {CascadeType.PERSIST,
-			CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@ManyToMany(cascade = {
+		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH
+	})
 	public Collection<Sponsorship> getSponsorships() {
-		return sponsorships;
+		return this.sponsorships;
 	}
 
-	public void setSponsorships(Collection<Sponsorship> sponsorships) {
+	public void setSponsorships(final Collection<Sponsorship> sponsorships) {
 		this.sponsorships = sponsorships;
 	}
 
-	
-	
 }

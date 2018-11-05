@@ -1,6 +1,7 @@
 
 package domain;
 
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -15,12 +16,11 @@ public class SocialProfile extends DomainEntity {
 	private String	networkName;
 	private String	profile;
 
-	
 	//--------Relaciones----------
-	
-	private Actor actor;
-	
-	
+
+	private Actor	actor;
+
+
 	//--------Getters y Setters------
 
 	@NotBlank
@@ -56,12 +56,13 @@ public class SocialProfile extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@ManyToOne(optional = false)
 	public Actor getActor() {
-		return actor;
+		return this.actor;
 	}
 
-	public void setActor(Actor actor) {
+	public void setActor(final Actor actor) {
 		this.actor = actor;
 	}
-	
+
 }

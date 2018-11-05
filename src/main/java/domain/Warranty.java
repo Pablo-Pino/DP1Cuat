@@ -3,6 +3,8 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -12,14 +14,15 @@ public class Warranty extends DomainEntity {
 
 	//------------Atributos---------
 
-	private String			title;
-	private String			terms;
-	private String			laws;
-	private Boolean			draft;
+	private String					title;
+	private String					terms;
+	private String					laws;
+	private Boolean					draft;
 
 	//-----------Relaciones-------------
 
 	private Collection<FixupTask>	fixupTasks;
+
 
 	//-------------Getters y Setters-------
 

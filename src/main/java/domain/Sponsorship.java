@@ -3,6 +3,10 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -13,13 +17,13 @@ public class Sponsorship extends DomainEntity {
 
 	//-----------Atributos----------
 
-	private String			banner;
-	private String			page;
-	private CreditCard		creditCard;
+	private String					banner;
+	private String					page;
+	private CreditCard				creditCard;
 
 	//---------Relaciones--------
 
-	private Sponsor			sponsor;
+	private Sponsor					sponsor;
 	private Collection<Tutorial>	tutorials;
 
 
@@ -27,8 +31,9 @@ public class Sponsorship extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@ManyToMany(cascade = {CascadeType.PERSIST,
-			CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@ManyToMany(cascade = {
+		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH
+	})
 	public Collection<Tutorial> getTutorials() {
 		return this.tutorials;
 	}
@@ -39,7 +44,7 @@ public class Sponsorship extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Sponsor getSponsor() {
 		return this.sponsor;
 	}
@@ -72,7 +77,7 @@ public class Sponsorship extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@Column(unique=true)
+	@Column(unique = true)
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}
