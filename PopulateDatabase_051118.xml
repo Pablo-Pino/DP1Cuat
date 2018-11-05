@@ -1268,7 +1268,7 @@
 	
 	
 	
-	<!-- FOLDER -->
+	<!------------------------------- FOLDER ----------------------------------------------------->
 		
 		
 		<!--folders del admin1-->
@@ -1445,15 +1445,403 @@
 		<property name="actor" ref="customer1" />
 	</bean>
 	
+	<!--folders del customer2 -->
+	
+	<bean id="folder1Customer2">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1Customer2" />
+		<property name="actor" ref="customer2" />
+	</bean>
+	
+	<bean id="folder2Customer2">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2Customer2" />
+		<property name="actor" ref="customer2" />
+	</bean>
 	
 	
+	<bean id="folder3Customer2">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3Customer2" />
+		<property name="actor" ref="customer2" />
+	</bean>
 	
 	
+	<bean id="folder4Customer2">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4Customer2" />
+		<property name="actor" ref="customer2" />
+	</bean>
 	
 	
+	<!--folders del customer3 -->
+	
+	<bean id="folder1Customer3">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1Customer3" />
+		<property name="actor" ref="customer3" />
+	</bean>
+	
+	<bean id="folder2Customer3">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2Customer3" />
+		<property name="actor" ref="customer3" />
+	</bean>
 	
 	
+	<bean id="folder3Customer3">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3Customer3" />
+		<property name="actor" ref="customer3" />
+	</bean>
 	
+	
+	<bean id="folder4Customer3">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4Customer3" />
+		<property name="actor" ref="customer3" />
+	</bean>
+	
+	
+	<!--folders del customer4 -->
+	
+	<bean id="folder1Customer4">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1Customer4" />
+		<property name="actor" ref="customer4" />
+	</bean>
+	
+	<bean id="folder2Customer4">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2Customer4" />
+		<property name="actor" ref="customer4" />
+	</bean>
+	
+	
+	<bean id="folder3Customer4">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3Customer4" />
+		<property name="actor" ref="customer4" />
+	</bean>
+	
+	
+	<bean id="folder4Customer4">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4Customer4" />
+		<property name="actor" ref="customer4" />
+	</bean>
+	
+	
+	<!--folders del HandyWorker1 -->
+	
+	<bean id="folder1HandyWorker1">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1HandyWorker1" />
+		<property name="actor" ref="handyWorker1" />
+	</bean>
+	
+	<bean id="folder2HandyWorker1">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2HandyWorker1" />
+		<property name="actor" ref="handyWorker1" />
+	</bean>
+	
+	
+	<bean id="folder3HandyWorker1">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3HandyWorker1" />
+		<property name="actor" ref="handyWorker1" />
+	</bean>
+	
+	
+	<bean id="folder4HandyWorker1">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4HandyWorker1" />
+		<property name="actor" ref="handyWorker1" />
+	</bean>
+	
+	
+	<!--folders del HandyWorker2 -->
+	
+	<bean id="folder1HandyWorker2">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1HandyWorker2" />
+		<property name="actor" ref="handyWorker2" />
+	</bean>
+	
+	<bean id="folder2HandyWorker2">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2HandyWorker2" />
+		<property name="actor" ref="handyWorker2" />
+	</bean>
+	
+	
+	<bean id="folder3HandyWorker2">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3HandyWorker2" />
+		<property name="actor" ref="handyWorker2" />
+	</bean>
+	
+	
+	<bean id="folder4HandyWorker2">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4HandyWorker2" />
+		<property name="actor" ref="handyWorker2" />
+	</bean>
+	
+	
+	<!--folders del HandyWorker3 -->
+	
+	<bean id="folder1HandyWorker3">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1HandyWorker3" />
+		<property name="actor" ref="handyWorker3" />
+	</bean>
+	
+	<bean id="folder2HandyWorker3">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2HandyWorker3" />
+		<property name="actor" ref="handyWorker3" />
+	</bean>
+	
+	
+	<bean id="folder3HandyWorker3">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3HandyWorker3" />
+		<property name="actor" ref="handyWorker3" />
+	</bean>
+	
+	
+	<bean id="folder4HandyWorker3">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4HandyWorker3" />
+		<property name="actor" ref="handyWorker3" />
+	</bean>
+	
+	
+	<!--folders del HandyWorker4 -->
+	
+	<bean id="folder1HandyWorker4">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1HandyWorker4" />
+		<property name="actor" ref="handyWorker4" />
+	</bean>
+	
+	<bean id="folder2HandyWorker4">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2HandyWorker4" />
+		<property name="actor" ref="handyWorker4" />
+	</bean>
+	
+	
+	<bean id="folder3HandyWorker4">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3HandyWorker4" />
+		<property name="actor" ref="handyWorker4" />
+	</bean>
+	
+	
+	<bean id="folder4HandyWorker4">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4HandyWorker4" />
+		<property name="actor" ref="handyWorker4" />
+	</bean>
 	
 	
 	
