@@ -64,6 +64,7 @@ public class Warranty extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<FixupTask> getFixupTasks() {
 		return this.fixupTasks;
 	}
