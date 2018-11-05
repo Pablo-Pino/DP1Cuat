@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * PopulateDatabase.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	<!-- Date formats -->
+	
+	<bean id="completeDateFormat" class="java.text.SimpleDateFormat">
+    	<constructor-arg value="dd/MM/yyyy HH:mm:ss"/>
+	</bean>
+	
+	<!-- User accounts -->
+
+	<bean id="userAccountAdmin1" class="security.UserAccount">
+		<property name="username" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccountAdmin2" class="security.UserAccount">
+		<property name="username" value="admin2" />
+		<property name="password" value="c84258e9c39059a89ab77d846ddab909" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="customer" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="super" />
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+		<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="customer" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="customer" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="customer" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Administrators -->
+	
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="Mario" />
+		<property name="middleName" value="Xavier" />
+		<property name="surname" value="García" />
+	    <property name="photo" value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+		<property name="email" value="maxagar@gmail.com" />
+		<property name="phone" value="+34(456)123456789" />
+	    <property name="address" value="C/Calle, 32" />
+		<property name="banned" value="false" />
+		<property name="suspicious" value="false" />
+		<property name="sendedMessages">
+			<list>
+				<ref bean="sendedMessage1Admin1" />
+				<ref bean="sendedMessage2Admin1" />
+				<ref bean="sendedMessage3Admin1" />
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				<ref bean="sendedMessage1Admin2" />
+				<ref bean="sendedMessage2Admin2" />
+				<ref bean="sendedMessage3Admin2" />
+			</list>
+		</property>
+		<property name="folders">
+			<list>
+				<ref bean="folder1Admin1" />
+				<ref bean="folder2Admin1" />
+				<ref bean="folder3Admin1" />
+				<ref bean="folder4Admin1" />
+			</list>
+		</property>
+	    <property name="socialProfiles">
+	    	<list>
+	    		<ref bean="socialProfile1Admin1" />
+	    		<ref bean="socialProfile2Admin1" />
+	    	</list>
+	    </property>
+		<property name="userAccount" ref="userAccountAdmin1" />
+		<property name="curriculum" ref="curriculumAdmin1" />
+	</bean>
+	
+	<bean id="administrator2" class="domain.Administrator">
+		<property name="name" value="Clara" />
+		<property name="surname" value="Prats" />
+		<property name="email" value="maxagar@gmail.com" />
+		<property name="banned" value="false" />
+		<property name="suspicious" value="false" />
+		<property name="sendedMessages">
+			<list/>
+		</property>
+		<property name="receivedMessages">
+			<list/>
+		</property>
+		<property name="folders">
+			<list>
+				<ref bean="folder1Admin1" />
+				<ref bean="folder2Admin1" />
+				<ref bean="folder3Admin1" />
+				<ref bean="folder4Admin1" />
+			</list>
+		</property>
+	    <property name="socialProfiles">
+	    	<list/>
+	    </property>
+		<property name="userAccount" ref="userAccountAdmin2" />
+	</bean>
+	
+	<!-- Application -->
+	
+	<bean id="application1" class="domain.Application">
+		<property name="price" value="3.14"/>
+	    <property name="moment">
+	    	<bean id="momentApplication1" factory-bean="completeDateFormat" factory-method="parse">
+    			<constructor-arg value="28/10/2017 23:59:59" />
+			</bean>
+	    </property>
+		<property name="status" value="PENDING" />
+		<property name="workerComments" value="I work hard" />
+		<property name="handyWorker" ref="handyWorker1" />
+		<property name="fixupTask" ref="fixupTask1" />
+	</bean>
+	
+	<bean id="application2" class="domain.Application">
+		<property name="price" value="12.34"/>
+	    <property name="moment">
+	    	<bean id="momentApplication2" factory-bean="completeDateFormat" factory-method="parse">
+    			<constructor-arg value="31/10/2018 00:00:00" />
+			</bean>
+	    </property>
+		<property name="status" value="ACCEPTED" />
+		<property name="workerComments" value="I work very hard" />
+		<property name="customerComments" value="OK" />
+		<property name="creditCard">
+			<bean name="creditCardApplication2" class="domain.CreditCard">
+				<property name="holderName" value="Paco Pepe Pérez" />
+				<property name="brandName" value="VISA" />
+				<property name="number" value="4556042640541332" />
+				<property name="expirationDate" >
+					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat" factory-method="parse">
+    					<constructor-arg value="28/10/2020 23:59:59" />
+					</bean>
+				</property>
+				<property name="cvvCode" value="452" />
+			</bean>
+		</property>
+		<property name="handyWorker" ref="handyWorker1" />
+		<property name="fixupTask" ref="fixupTask2" />
+	</bean>
+	
+	<bean id="application3" class="domain.Application">
+		<property name="price" value="10.43"/>
+	    <property name="moment" value="15:56:03" >
+	    	<bean id="momentApplication3" factory-bean="completeDateFormat" factory-method="parse">
+    			<constructor-arg value=""/>
+			</bean>
+	    </property>
+		<property name="status" value="REJECTED" />
+		<property name="handyWorker" ref="handyWorker2" />
+		<property name="fixupTask" ref="fixupTask2" />
+	</bean>
+	
+	<!-- Categories -->
+	
+	<bean id="categoryRoot">
+		<property name="name" value="ROOT" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryRoot" />
+	</bean>
+	
+	<bean id="categoryCarpentry">
+		<property name="name" value="Carpentry" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryRoot" />
+	</bean> 
+	
+	<bean id="categoryCeilingRepair">
+		<property name="name" value="CeilingRepair" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryConcreteWork" />
+	</bean>
+	
+	<bean id="categoryCleaning">
+		<property name="name" value="Cleaning" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryRoot" />
+	</bean> 
+	
+	<bean id="categoryConcreteWork">
+		<property name="name" value="ConcreteWork" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryRoot" />
+	</bean>
+	
+	<bean id="categoryDoors">
+		<property name="name" value="Carpentry" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryCarpentry" />
+	</bean> 
+	
+	<bean id="categoryElectricalWiring">
+		<property name="name" value="ElectricalWiring" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryRoot" />
+	</bean>
+	
+	<bean id="categoryFanInstallation">
+		<property name="name" value="FanInstallation" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryElectricalWiring" />
+	</bean>
+	
+	<bean id="categoryFenceFixing">
+		<property name="name" value="FenceFixing" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryHomeSecuritySystems" />
+	</bean>
+	
+	<bean id="categoryHomeSecuritySystems">
+		<property name="name" value="HomeSecuritySystems" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryRoot" />
+	</bean>
+	
+	<bean id="categoryInsulationInstallation">
+		<property name="name" value="InsulationInstallation" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryRoot" />
+	</bean>
+	
+	<bean id="categoryLampRepairs">
+		<property name="name" value="LampRepairs" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryElectricalWiring" />
+	</bean>
+	
+	<bean id="categoryMoving">
+		<property name="name" value="Moving" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryRoot" />
+	</bean>
+	
+	<bean id="categoryPainting">
+	
+	</bean>
+	
+	<bean id="categoryPestControl">
+		<property name="name" value="PestControl" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryCleaning" />
+	</bean>
+	
+	<bean id="categoryPlumbingRepairs">
+		<property name="name" value="SolarPanels" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryRoot" />
+	</bean>
+	
+	<bean id="categoryRoofing">
+		<property name="name" value="Roofing" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryConcreteWork" />
+	</bean>
+	
+	<bean id="categoryShelfInstallation">
+		<property name="name" value="ShelfInstallation" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list>
+				
+			</list>
+		</property>
+	    <property name="parentCategory" ref="categoryCarpentry" />
+	</bean>
+	
+	<bean id="categorySolarPanels">
+		<property name="name" value="SolarPanels" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryElectricalWiring" />
+	</bean>
+	
+	<bean id="categorySoundProofing">
+		<property name="name" value="SoundProofing" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryInsulationInstallation" />
+	</bean>
+	
+	<bean id="categorySprinklerRepair">
+		<property name="name" value="SprinklerRepair" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryElectricalWiring" />
+	</bean>
+	
+	<bean id="categoryWindowRepair">
+		<property name="name" value="WindowRepair" />
+		<property name="fixupTasks">
+			<list/>
+		</property>
+		<property name="childsCategories">
+			<list/>
+		</property>
+	    <property name="parentCategory" ref="categoryCarpentry" />
+	</bean>
+	
+	<!-- Complaints -->
+	
+	<bean id="complaint1" class="domain.Complaint" >
+		<property name="ticker" value="181103-RTIB32" />
+		<property name="moment">
+			<bean id="momentComplaint1" factory-bean="completeDateFormat" factory-method="parse">
+    			<constructor-arg value="03/11/2018 23:59:59" />
+			</bean>
+		</property>
+	    <property name="description" value="This fix is a fake" />
+	    <property name="attachments">
+	    	<list>
+	    		<value>https://trello-attachments.s3.amazonaws.com/5bdc2fda6f3ec4653ca5ca0e/5bdc38d6221aa411081293c9/0fd144293b39a447a86f3586caa178ac/Acme_Handy_Worker.pdf</value>
+	    		<value>https://github.com/DP1819/D03/tree/master/src/main</value>
+	    	</list>
+	    </property>
+		<property name="report" ref="report1" />
+		<property name="fixuptask" ref="fixupTask1" />
+	    <property name="referee" ref="referee1" />
+	</bean>
+	
+	<bean id="complaint2" class="domain.Complaint" >
+		<property name="ticker" value="181103-43ION6" />
+		<property name="moment">
+			<bean id="momentComplaint2" factory-bean="completeDateFormat" factory-method="parse">
+    			<constructor-arg value="03/11/2018 23:59:59" />
+			</bean>
+		</property>
+	    <property name="description" value="This fix is a fake" />
+	    <property name="attachments">
+	    	<list/>
+	    </property>
+		<property name="fixuptask" ref="fixupTask2" />
+	</bean>
+	
+	<!-- Curricula -->
+	
+	<bean id="curriculum1" class="domain.Curriculum">
+		<property name="ticker" value="181101-AC34DF" />
+		<property name="handyWorker" ref="handyWorker1" />
+		<property name="personalRecord" ref="personalRecord1" />
+		<property name="educationRecords">
+			<list/>
+		</property>
+	    <property name="profesionalRecords">
+	    	<list/>
+	    </property>
+	    <property name="endorserRecords">
+	    	<list/>
+	    </property>
+		<property name="miscellaneousRecords">
+			<list/>
+		</property>
+	</bean>
+	
+	<bean id="curriculum2" class="domain.Curriculum">
+		<property name="ticker" value="180321-ALONSO" />
+		<property name="handyWorker" ref="handyWorker2" />
+		<property name="personalRecord" ref="personalRecord2" />
+		<property name="educationRecords">
+			<list/>
+		</property>
+	    <property name="profesionalRecords">
+	    	<list/>
+	    </property>
+	    <property name="endorserRecords">
+	    	<list/>
+	    </property>
+		<property name="miscellaneousRecords">
+			<list/>
+		</property>
+	</bean>
+	
+	<bean id="curriculum3" class="domain.Curriculum">
+		<property name="ticker" value="170730-F24RAN" />
+		<property name="handyWorker" ref="handyWorker3" />
+		<property name="personalRecord" ref="personalRecord3" />
+		<property name="educationRecords">
+			<list/>
+		</property>
+	    <property name="profesionalRecords">
+	    	<list/>
+	    </property>
+	    <property name="endorserRecords">
+	    	<list/>
+	    </property>
+		<property name="miscellaneousRecords">
+			<list/>
+		</property>
+	</bean>
+	
+	<bean id="curriculum4" class="domain.Curriculum">
+		<property name="ticker" value="101010-987321" />
+		<property name="handyWorker" ref="handyWorker4" />
+		<property name="personalRecord" ref="personalRecord4" />
+		<property name="educationRecords">
+			<list/>
+		</property>
+	    <property name="profesionalRecords">
+	    	<list/>
+	    </property>
+	    <property name="endorserRecords">
+	    	<list/>
+	    </property>
+		<property name="miscellaneousRecords">
+			<list/>
+		</property>
+	</bean>
+
+</beans>
