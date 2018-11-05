@@ -3,6 +3,7 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +18,7 @@ public class Sponsor extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy="sponsor")
+	@OneToMany(mappedBy = "sponsor")
 	public Collection<Sponsorship> getSponsorships() {
 		return this.sponsorships;
 	}
