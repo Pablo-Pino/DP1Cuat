@@ -14,13 +14,26 @@ public class WorkPlan {
 
 	private Collection<Phase>	phases;
 	private FixupTask			fixupTask;
+	private HandyWorker			handyWorker;
 
 
 	//----------Getters y Setters-----
 
 	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public HandyWorker getHandyWorker() {
+		return handyWorker;
+	}
+
+	public void setHandyWorker(HandyWorker handyWorker) {
+		this.handyWorker = handyWorker;
+	}
+	
+	@NotNull
 	@NotEmpty
 	@Valid
+	@OneToMany
 	public Collection<Phase> getPhases() {
 		return this.phases;
 	}
@@ -29,6 +42,7 @@ public class WorkPlan {
 		this.phases = phases;
 	}
 
+	@OneToOne(optional = false)
 	public FixupTask getFixupTask() {
 		return this.fixupTask;
 	}
