@@ -1389,9 +1389,61 @@
 	
 	
 	
+	<!--folders del customer1 -->
+	
+	<bean id="folder1Customer1">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1Customer1" />
+		<property name="actor" ref="customer1" />
+	</bean>
+	
+	<bean id="folder2Customer1">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2Customer1" />
+		<property name="actor" ref="customer1" />
+	</bean>
 	
 	
+	<bean id="folder3Customer1">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3Customer1" />
+		<property name="actor" ref="customer1" />
+	</bean>
 	
+	
+	<bean id="folder4Customer1">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4Customer1" />
+		<property name="actor" ref="customer1" />
+	</bean>
 	
 	
 	
