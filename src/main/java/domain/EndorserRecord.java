@@ -1,6 +1,10 @@
 
 package domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -9,20 +13,22 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class EndorserRecord extends DomainEntity {
 
 	//------------Atributos---------
 
-	private String	fullName;
-	private String	photo;
-	private String	email;
-	private String	phone;
-	private String	linkedProfile;
+	private String		fullName;
+	private String		photo;
+	private String		email;
+	private String		phone;
+	private String		linkedProfile;
 
 	//------------Relaciones--------
-	
-	
-	private Curriculum curriculum;
+
+	private Curriculum	curriculum;
+
 
 	//------------Getters y Setters-----
 
@@ -49,7 +55,7 @@ public class EndorserRecord extends DomainEntity {
 
 	@NotBlank
 	@Email
-	@Pattern(regexp="^(\\w+@(\\w+(\\.\\w*)*)?)|(\\w+( \\w+)* <\\w+@(\\w+(\\.\\w*)*)?>)$")
+	@Pattern(regexp = "^(\\w+@(\\w+(\\.\\w*)*)?)|(\\w+( \\w+)* <\\w+@(\\w+(\\.\\w*)*)?>)$")
 	@NotNull
 	public String getEmail() {
 		return this.email;
@@ -83,14 +89,13 @@ public class EndorserRecord extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@ManyToOne(optional = false)
 	public Curriculum getCurriculum() {
-		return curriculum;
+		return this.curriculum;
 	}
 
-	public void setCurriculum(Curriculum curriculum) {
+	public void setCurriculum(final Curriculum curriculum) {
 		this.curriculum = curriculum;
 	}
-	
-	
 
 }
