@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +26,7 @@ public class HandyWorker extends Endorsable {
 	private Curriculum				curriculum;
 	private Finder					finder;
 	private Collection<Tutorial>	tutorials;
-	private Collection<Note>		notes;
+	private Collection<Note>		notes;			//DUDA GRANDE a Pablo: definitivamente no tiene notes?
 	private Collection<Application>	applications;
 	private Collection<WorkPlan>	workPlans;
 
@@ -43,6 +45,7 @@ public class HandyWorker extends Endorsable {
 
 	@Override
 	@Valid
+	@OneToMany(mappedBy = "handyWorker")
 	public Curriculum getCurriculum() {
 		return this.curriculum;
 	}
@@ -64,6 +67,7 @@ public class HandyWorker extends Endorsable {
 
 	@NotNull
 	@Valid
+	@OneToOne(optional = false)
 	public Finder getFinder() {
 		return this.finder;
 	}
@@ -74,6 +78,7 @@ public class HandyWorker extends Endorsable {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "handyWorker")
 	public Collection<Tutorial> getTutorials() {
 		return this.tutorials;
 	}
@@ -84,6 +89,7 @@ public class HandyWorker extends Endorsable {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "handyWorker")
 	public Collection<Application> getApplications() {
 		return this.applications;
 	}
@@ -94,6 +100,7 @@ public class HandyWorker extends Endorsable {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "handyWorker")
 	public Collection<WorkPlan> getWorkPlans() {
 		return this.workPlans;
 	}

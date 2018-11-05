@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -37,6 +38,7 @@ public class Message extends DomainEntity {
 	@NotNull
 	@NotEmpty
 	@Valid
+	@ManyToOne(optional = false)
 	public Collection<Folder> getFolders() {
 		return this.folders;
 	}
@@ -97,6 +99,7 @@ public class Message extends DomainEntity {
 
 	@Valid
 	@NotNull
+	@ManyToOne(optional = false)
 	public Actor getSender() {
 		return this.sender;
 	}
@@ -107,6 +110,7 @@ public class Message extends DomainEntity {
 
 	@Valid
 	@NotNull
+	@ManyToOne(optional = false)
 	public Actor getReceiver() {
 		return this.receiver;
 	}
