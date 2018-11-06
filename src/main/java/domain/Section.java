@@ -7,7 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -21,27 +21,27 @@ public class Section extends DomainEntity {
 
 	//------------Atributos------------
 
-	private String				title;
-	private String				text;
-	private Collection<String>	pictures;
-	private int					numberOrder;
+	private String					title;
+	private String					text;
+	private Collection<String>		pictures;
+	private int						numberOrder;
 
 	//------------Relaciones-----------
 
-	private Tutorial			tutorial;
+	private Collection<Tutorial>	tutorials;
 
 
 	//-----------Getters y Setters-------
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional = false)
-	public Tutorial getTutorial() {
-		return this.tutorial;
+	@ManyToMany
+	public Collection<Tutorial> getTutorials() {
+		return this.tutorials;
 	}
 
-	public void setTutorial(final Tutorial tutorial) {
-		this.tutorial = tutorial;
+	public void setTutorials(final Collection<Tutorial> tutorials) {
+		this.tutorials = tutorials;
 	}
 
 	@NotBlank

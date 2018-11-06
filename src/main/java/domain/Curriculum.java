@@ -22,7 +22,7 @@ public class Curriculum extends Ticketable {
 	private HandyWorker						handyWorker;
 	private PersonalRecord					personalRecord;
 	private Collection<EducationRecord>		educationRecords;
-	private Collection<ProfessionalRecord>	profesionalRecords;
+	private Collection<ProfessionalRecord>	professionalRecords;
 	private Collection<EndorserRecord>		endorserRecords;
 	private Collection<MiscellaneousRecord>	miscellaneousRecords;
 
@@ -65,12 +65,12 @@ public class Curriculum extends Ticketable {
 	@NotNull
 	@Valid
 	@OneToMany(mappedBy = "curriculum")
-	public Collection<ProfessionalRecord> getProfesionalRecords() {
-		return this.profesionalRecords;
+	public Collection<ProfessionalRecord> getProfessionalRecords() {
+		return this.professionalRecords;
 	}
 
-	public void setProfesionalRecords(final Collection<ProfessionalRecord> profesionalRecords) {
-		this.profesionalRecords = profesionalRecords;
+	public void setProfessionalRecords(final Collection<ProfessionalRecord> professionalRecords) {
+		this.professionalRecords = professionalRecords;
 	}
 
 	@NotNull

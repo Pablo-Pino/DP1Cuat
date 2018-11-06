@@ -20,7 +20,7 @@ public class CreditCard {
 
 	private String	holderName;
 	private String	brandName;
-	private int		number;
+	private String	number;
 	private Date	expirationDate;
 	private int		cvvCode;
 
@@ -48,11 +48,11 @@ public class CreditCard {
 	}
 
 	@CreditCardNumber
-	public int getNumber() {
+	public String getNumber() {
 		return this.number;
 	}
 
-	public void setNumber(final int number) {
+	public void setNumber(final String number) {
 		this.number = number;
 	}
 

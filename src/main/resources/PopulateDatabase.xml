@@ -30,6 +30,18 @@
 		</property>
 	</bean>
 
+	<bean id="userAccount15" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 	<bean id="userAccount2" class="security.UserAccount">
 		<property name="username" value="customer" />
 		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
@@ -241,8 +253,7 @@
 				<ref bean="socialProfile2Admin1" />
 			</list>
 		</property>
-		<property name="userAccount" ref="userAccountAdmin1" />
-		<property name="curriculum" ref="curriculumAdmin1" />
+		<property name="userAccount" ref="userAccount1" />
 	</bean>
 
 	<bean id="administrator2" class="domain.Administrator">
@@ -268,7 +279,7 @@
 		<property name="socialProfiles">
 			<list></list>
 		</property>
-		<property name="userAccount" ref="userAccountAdmin2" />
+		<property name="userAccount" ref="userAccount15" />
 	</bean>
 
 	<!-- Application -->
@@ -724,10 +735,7 @@
 				<ref bean="folder4Customer1" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 	</bean>
 
@@ -772,10 +780,7 @@
 				<ref bean="folder4Customer2" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 	</bean>
 
@@ -818,10 +823,7 @@
 				<ref bean="folder4Customer3" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 	</bean>
 
@@ -862,10 +864,7 @@
 				<ref bean="folder4Customer4" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 	</bean>
 	<!-- Referee -->
@@ -909,10 +908,7 @@
 				<ref bean="folder4Referee1" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 	</bean>
 	<!-- ___________________Professional Records___________________________________ -->
@@ -1220,10 +1216,7 @@
 				<ref bean="folder4Sponsor1" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 
 
@@ -1274,10 +1267,7 @@
 				<ref bean="folder4Sponsor2" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 		<property name="sponsorships">
 			<list>
@@ -1326,10 +1316,7 @@
 				<ref bean="folder4Sponsor3" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 		<property name="sponsorships">
 			<list>
@@ -1342,12 +1329,24 @@
 	<!-- Sponsorships -->
 
 
-	<bean id="sponsorship1" class="domain.Sponsor">
+	<bean id="sponsorship1" class="domain.Sponsorship">
 
 		<property name="banner" value="http://www.banner.com" />
 		<property name="page" value="http://www.page.com" />
-		<property name="creditCard" value="4111111111111111" />
-		<property name="sponsor" value="sponsor1" />
+		<property name="creditCard">
+			<bean name="creditCardSponsorship1" class="domain.CreditCard">
+				<property name="holderName" value="Juanito Doe" />
+				<property name="brandName" value="VISA" />
+				<property name="number" value="4552222697545332" />
+				<property name="expirationDate">
+					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat"
+						factory-method="parse">
+						<constructor-arg value="28/11/2020 23:59:59" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="sponsor" ref="sponsor1" />
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial1" />
@@ -1356,12 +1355,24 @@
 		</property>
 	</bean>
 
-	<bean id="sponsorship2" class="domain.Sponsor">
+	<bean id="sponsorship2" class="domain.Sponsorship">
 
 		<property name="banner" value="http://www.banner2.com" />
 		<property name="page" value="http://www.page2.com" />
-		<property name="creditCard" value="5111111111111111" />
-		<property name="sponsor" value="sponsor2" />
+		<property name="creditCard">
+			<bean name="creditCardSponsorship2" class="domain.CreditCard">
+				<property name="holderName" value="Lule Molina" />
+				<property name="brandName" value="VISA" />
+				<property name="number" value="4552222210545332" />
+				<property name="expirationDate">
+					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat"
+						factory-method="parse">
+						<constructor-arg value="12/11/2020 23:59:59" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="sponsor" ref="sponsor2" />
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial1" />
@@ -1370,12 +1381,24 @@
 		</property>
 	</bean>
 
-	<bean id="sponsorship3" class="domain.Sponsor">
+	<bean id="sponsorship3" class="domain.Sponsorship">
 
 		<property name="banner" value="http://www.banner3.com" />
 		<property name="page" value="http://www.page3.com" />
-		<property name="creditCard" value="6111111111111111" />
-		<property name="sponsor" value="sponsor3" />
+		<property name="creditCard">
+			<bean name="creditCardSponsorship3" class="domain.CreditCard">
+				<property name="holderName" value="Javier Ramirez" />
+				<property name="brandName" value="VISA" />
+				<property name="number" value="4551111110545332" />
+				<property name="expirationDate">
+					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat"
+						factory-method="parse">
+						<constructor-arg value="13/11/2020 23:59:59" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="sponsor" ref="sponsor3" />
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial1" />
@@ -1391,7 +1414,7 @@
 		<property name="moment" value="02/09/2009" />
 		<property name="title" value="Como entrenar a tu dragon" />
 		<property name="summary" value="Como se entrenan los dragones" />
-		<property name="handyWorker" value="handyWorker1" />
+		<property name="handyWorker" ref="handyWorker1" />
 		<property name="pictures">
 			<list>
 				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg
@@ -1404,7 +1427,6 @@
 		<property name="sections">
 			<list>
 				<ref bean="section1" />
-				<ref bean="section2" />
 			</list>
 		</property>
 
@@ -1422,7 +1444,7 @@
 		<property name="moment" value="12/09/2009" />
 		<property name="title" value="Como entrenar a tu dragon 2" />
 		<property name="summary" value="Como se entrenan los dragones 2" />
-		<property name="handyWorker" value="handyWorker2" />
+		<property name="handyWorker" ref="handyWorker2" />
 		<property name="pictures">
 			<list>
 				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg
@@ -1434,7 +1456,6 @@
 
 		<property name="sections">
 			<list>
-				<ref bean="section1" />
 				<ref bean="section2" />
 			</list>
 		</property>
@@ -1452,7 +1473,7 @@
 		<property name="moment" value="02/09/2011" />
 		<property name="title" value="Como entrenar a tu dragon 3" />
 		<property name="summary" value="Como se entrenan los dragones 3" />
-		<property name="handyWorker" value="handyWorker3" />
+		<property name="handyWorker" ref="handyWorker3" />
 		<property name="pictures">
 			<list>
 				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg
@@ -1464,8 +1485,7 @@
 
 		<property name="sections">
 			<list>
-				<ref bean="section1" />
-				<ref bean="section2" />
+				<ref bean="section3" />
 			</list>
 		</property>
 
@@ -1528,8 +1548,8 @@
 
 	<bean id="workPlan1" class="domain.WorkPlan">
 
-		<property name="fixupTask" value="fixupTask1" />
-		<property name="handyWoker" value="handyWorker1" />
+		<property name="fixupTask" ref="fixupTask1" />
+		<property name="handyWoker" ref="handyWorker1" />
 
 		<property name="phases">
 			<list>
@@ -1541,8 +1561,8 @@
 
 	<bean id="workPlan2" class="domain.WorkPlan">
 
-		<property name="fixupTask" value="fixupTask2" />
-		<property name="handyWoker" value="handyWorker2" />
+		<property name="fixupTask" ref="fixupTask2" />
+		<property name="handyWoker" ref="handyWorker2" />
 		<property name="phases">
 			<list>
 				<ref bean="phase1" />
@@ -1553,8 +1573,8 @@
 
 	<bean id="workPlan3" class="domain.WorkPlan">
 
-		<property name="fixupTask" value="fixupTask3" />
-		<property name="handyWoker" value="handyWorker3" />
+		<property name="fixupTask" ref="fixupTask3" />
+		<property name="handyWoker" ref="handyWorker3" />
 		<property name="phases">
 			<list>
 				<ref bean="phase3" />
@@ -1706,127 +1726,11 @@
 	<!-- __________________________________ FOLDER _________________________________ -->
 
 
-	<!--folders del admin1 -->
-
-	<bean id="folder1Admin1">
-		<property name="name" value="inBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list></list>
-		</property>
-		<property name="childFolder">
-			<list></list>
-		</property>
-		<property name="parentFolder" ref="folder1Admin1" />
-		<property name="actor" ref="administrator1" />
-	</bean>
-
-
-	<bean id="folder2Admin1">
-		<property name="name" value="outBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list></list>
-		</property>
-		<property name="childFolder">
-			<list></list>
-		</property>
-		<property name="parentFolder" ref="folder2Admin1" />
-		<property name="actor" ref="administrator1" />
-	</bean>
-
-
-	<bean id="folder3Admin1">
-		<property name="name" value="trashBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list></list>
-		</property>
-		<property name="childFolder">
-			<list></list>
-		</property>
-		<property name="parentFolder" ref="folder3Admin1" />
-		<property name="actor" ref="administrator1" />
-	</bean>
-
-
-	<bean id="folder4Admin1">
-		<property name="name" value="spamBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list></list>
-		</property>
-		<property name="childFolder">
-			<list></list>
-		</property>
-		<property name="parentFolder" ref="folder4Admin1" />
-		<property name="actor" ref="administrator1" />
-	</bean>
-
-
-
-	<!--folders del admin2 -->
-
-	<bean id="folder1Admin2">
-		<property name="name" value="inBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list></list>
-		</property>
-		<property name="childFolder">
-			<list></list>
-		</property>
-		<property name="parentFolder" ref="folder1Admin2" />
-		<property name="actor" ref="administrator2" />
-	</bean>
-
-
-	<bean id="folder2Admin2">
-		<property name="name" value="outBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list></list>
-		</property>
-		<property name="childFolder">
-			<list></list>
-		</property>
-		<property name="parentFolder" ref="folder2Admin2" />
-		<property name="actor" ref="administrator2" />
-	</bean>
-
-
-	<bean id="folder3Admin2">
-		<property name="name" value="trashBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list></list>
-		</property>
-		<property name="childFolder">
-			<list></list>
-		</property>
-		<property name="parentFolder" ref="folder3Admin2" />
-		<property name="actor" ref="administrator2" />
-	</bean>
-
-
-	<bean id="folder4Admin2">
-		<property name="name" value="spamBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list></list>
-		</property>
-		<property name="childFolder">
-			<list></list>
-		</property>
-		<property name="parentFolder" ref="folder4Admin2" />
-		<property name="actor" ref="administrator2" />
-	</bean>
-
 
 
 	<!--folders del customer1 -->
 
-	<bean id="folder1Customer1">
+	<bean id="folder1Customer1" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1841,7 +1745,7 @@
 		<property name="actor" ref="customer1" />
 	</bean>
 
-	<bean id="folder2Customer1">
+	<bean id="folder2Customer1" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1855,7 +1759,7 @@
 	</bean>
 
 
-	<bean id="folder3Customer1">
+	<bean id="folder3Customer1" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1869,7 +1773,7 @@
 	</bean>
 
 
-	<bean id="folder4Customer1">
+	<bean id="folder4Customer1" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1884,7 +1788,7 @@
 
 	<!--folders del customer2 -->
 
-	<bean id="folder1Customer2">
+	<bean id="folder1Customer2" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1898,7 +1802,7 @@
 		<property name="actor" ref="customer2" />
 	</bean>
 
-	<bean id="folder2Customer2">
+	<bean id="folder2Customer2" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1914,7 +1818,7 @@
 	</bean>
 
 
-	<bean id="folder3Customer2">
+	<bean id="folder3Customer2" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1928,7 +1832,7 @@
 	</bean>
 
 
-	<bean id="folder4Customer2">
+	<bean id="folder4Customer2" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1944,7 +1848,7 @@
 
 	<!--folders del customer3 -->
 
-	<bean id="folder1Customer3">
+	<bean id="folder1Customer3" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1957,7 +1861,7 @@
 		<property name="actor" ref="customer3" />
 	</bean>
 
-	<bean id="folder2Customer3">
+	<bean id="folder2Customer3" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1973,7 +1877,7 @@
 	</bean>
 
 
-	<bean id="folder3Customer3">
+	<bean id="folder3Customer3" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -1987,7 +1891,7 @@
 	</bean>
 
 
-	<bean id="folder4Customer3">
+	<bean id="folder4Customer3" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2003,7 +1907,7 @@
 
 	<!--folders del customer4 -->
 
-	<bean id="folder1Customer4">
+	<bean id="folder1Customer4" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2016,7 +1920,7 @@
 		<property name="actor" ref="customer4" />
 	</bean>
 
-	<bean id="folder2Customer4">
+	<bean id="folder2Customer4" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2030,7 +1934,7 @@
 	</bean>
 
 
-	<bean id="folder3Customer4">
+	<bean id="folder3Customer4" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2044,7 +1948,7 @@
 	</bean>
 
 
-	<bean id="folder4Customer4">
+	<bean id="folder4Customer4" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2060,7 +1964,7 @@
 
 	<!--folders del HandyWorker1 -->
 
-	<bean id="folder1HandyWorker1">
+	<bean id="folder1HandyWorker1" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2073,7 +1977,7 @@
 		<property name="actor" ref="handyWorker1" />
 	</bean>
 
-	<bean id="folder2HandyWorker1">
+	<bean id="folder2HandyWorker1" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2089,7 +1993,7 @@
 	</bean>
 
 
-	<bean id="folder3HandyWorker1">
+	<bean id="folder3HandyWorker1" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2103,7 +2007,7 @@
 	</bean>
 
 
-	<bean id="folder4HandyWorker1">
+	<bean id="folder4HandyWorker1" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2119,7 +2023,7 @@
 
 	<!--folders del HandyWorker2 -->
 
-	<bean id="folder1HandyWorker2">
+	<bean id="folder1HandyWorker2" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2134,7 +2038,7 @@
 		<property name="actor" ref="handyWorker2" />
 	</bean>
 
-	<bean id="folder2HandyWorker2">
+	<bean id="folder2HandyWorker2" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2148,7 +2052,7 @@
 	</bean>
 
 
-	<bean id="folder3HandyWorker2">
+	<bean id="folder3HandyWorker2" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2162,7 +2066,7 @@
 	</bean>
 
 
-	<bean id="folder4HandyWorker2">
+	<bean id="folder4HandyWorker2" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2179,7 +2083,7 @@
 
 	<!--folders del HandyWorker3 -->
 
-	<bean id="folder1HandyWorker3">
+	<bean id="folder1HandyWorker3" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2194,7 +2098,7 @@
 		<property name="actor" ref="handyWorker3" />
 	</bean>
 
-	<bean id="folder2HandyWorker3">
+	<bean id="folder2HandyWorker3" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2208,7 +2112,7 @@
 	</bean>
 
 
-	<bean id="folder3HandyWorker3">
+	<bean id="folder3HandyWorker3" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2222,7 +2126,7 @@
 	</bean>
 
 
-	<bean id="folder4HandyWorker3">
+	<bean id="folder4HandyWorker3" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2238,7 +2142,7 @@
 
 	<!--folders del HandyWorker4 -->
 
-	<bean id="folder1HandyWorker4">
+	<bean id="folder1HandyWorker4" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2251,7 +2155,7 @@
 		<property name="actor" ref="handyWorker4" />
 	</bean>
 
-	<bean id="folder2HandyWorker4">
+	<bean id="folder2HandyWorker4" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2265,7 +2169,7 @@
 	</bean>
 
 
-	<bean id="folder3HandyWorker4">
+	<bean id="folder3HandyWorker4" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2279,7 +2183,7 @@
 	</bean>
 
 
-	<bean id="folder4HandyWorker4">
+	<bean id="folder4HandyWorker4" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2295,7 +2199,7 @@
 
 	<!--folders del Referee1 -->
 
-	<bean id="folder1Referee1">
+	<bean id="folder1Referee1" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2308,7 +2212,7 @@
 		<property name="actor" ref="referee1" />
 	</bean>
 
-	<bean id="folder2Referee1">
+	<bean id="folder2Referee1" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2322,7 +2226,7 @@
 	</bean>
 
 
-	<bean id="folder3Referee1">
+	<bean id="folder3Referee1" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2336,7 +2240,7 @@
 	</bean>
 
 
-	<bean id="folder4Referee1">
+	<bean id="folder4Referee1" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2353,7 +2257,7 @@
 
 	<!-- folders del Sponsor1 -->
 
-	<bean id="folder1Sponsor1">
+	<bean id="folder1Sponsor1" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2366,7 +2270,7 @@
 		<property name="actor" ref="sponsor1" />
 	</bean>
 
-	<bean id="folder2Sponsor1">
+	<bean id="folder2Sponsor1" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2379,7 +2283,7 @@
 		<property name="actor" ref="sponsor1" />
 	</bean>
 
-	<bean id="folder3Sponsor1">
+	<bean id="folder3Sponsor1" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2393,7 +2297,7 @@
 	</bean>
 
 
-	<bean id="folder4Sponsor1">
+	<bean id="folder4Sponsor1" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2411,7 +2315,7 @@
 
 	<!-- folders del Sponsor2 -->
 
-	<bean id="folder1Sponsor2">
+	<bean id="folder1Sponsor2" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2424,7 +2328,7 @@
 		<property name="actor" ref="sponsor2" />
 	</bean>
 
-	<bean id="folder2Sponsor2">
+	<bean id="folder2Sponsor2" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2437,7 +2341,7 @@
 		<property name="actor" ref="sponsor2" />
 	</bean>
 
-	<bean id="folder3Sponsor2">
+	<bean id="folder3Sponsor2" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2451,7 +2355,7 @@
 	</bean>
 
 
-	<bean id="folder4Sponsor2">
+	<bean id="folder4Sponsor2" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2467,7 +2371,7 @@
 
 	<!-- folders del Sponsor3 -->
 
-	<bean id="folder1Sponsor3">
+	<bean id="folder1Sponsor3" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2480,7 +2384,7 @@
 		<property name="actor" ref="sponsor3" />
 	</bean>
 
-	<bean id="folder2Sponsor3">
+	<bean id="folder2Sponsor3" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2493,7 +2397,7 @@
 		<property name="actor" ref="sponsor3" />
 	</bean>
 
-	<bean id="folder3Sponsor3">
+	<bean id="folder3Sponsor3" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2507,7 +2411,7 @@
 	</bean>
 
 
-	<bean id="folder4Sponsor3">
+	<bean id="folder4Sponsor3" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2581,7 +2485,7 @@
 
 	<!-- folders del administrator2 -->
 
-	<bean id="folder1Administrator2">
+	<bean id="folder1Administrator2" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2594,7 +2498,7 @@
 		<property name="actor" ref="administrator2" />
 	</bean>
 
-	<bean id="folder2Administrator2">
+	<bean id="folder2Administrator2" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2607,7 +2511,7 @@
 		<property name="actor" ref="administrator2" />
 	</bean>
 
-	<bean id="folder3Administrator2">
+	<bean id="folder3Administrator2" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2621,7 +2525,7 @@
 	</bean>
 
 
-	<bean id="folder4Administrator2">
+	<bean id="folder4Administrator2" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2645,8 +2549,7 @@
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial1" />
-				<ref bean="tutorial2" />
-				<ref bean="tutorial3" />
+
 			</list>
 		</property>
 	</bean>
@@ -2658,8 +2561,20 @@
 		<property name="numberOrder" value="3"></property>
 		<property name="tutorials">
 			<list>
-				<ref bean="tutorial1" />
+
 				<ref bean="tutorial2" />
+
+			</list>
+		</property>
+	</bean>
+
+	<bean id="section3" class="domain.Section">
+		<property name="title" value="Example section 3"></property>
+		<property name="text" value="Text 3"></property>
+		<property name="pictures" value="http://www.genrecords.org/mofiles/exms.html"></property>
+		<property name="numberOrder" value="3"></property>
+		<property name="tutorials">
+			<list>
 				<ref bean="tutorial3" />
 			</list>
 		</property>
@@ -2686,35 +2601,30 @@
 	<bean id="socialProfile1" class="domain.SocialProfile">
 		<property name="nick" value="Manolete"></property>
 		<property name="networkName" value="Twitter"></property>
-		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="actor" ref="handyWorker1" />
 	</bean>
 
 	<bean id="socialProfile2" class="domain.SocialProfile">
 		<property name="nick" value="Manolete2"></property>
 		<property name="networkName" value="Twitter"></property>
-		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="actor" ref="handyWorker2" />
 	</bean>
 
 	<bean id="socialProfile3" class="domain.SocialProfile">
 		<property name="nick" value="Manolete3"></property>
 		<property name="networkName" value="Twitter"></property>
-		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="actor" ref="handyWorker3" />
 	</bean>
 
 	<bean id="socialProfile1Admin1" class="domain.SocialProfile">
 		<property name="nick" value="Manolete4"></property>
 		<property name="networkName" value="Twitter"></property>
-		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="actor" ref="administrator1" />
 	</bean>
 
 	<bean id="socialProfile2Admin1" class="domain.SocialProfile">
 		<property name="nick" value="Manolete5"></property>
 		<property name="networkName" value="Twitter"></property>
-		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="actor" ref="administrator1" />
 	</bean>
 
@@ -2761,14 +2671,11 @@
 				<ref bean="folder4HandyWorker1" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 		<property name="make" value="Antonio Grinch Papp"></property>
-		<property name="curriculum" value="curriculum1"></property>
-		<property name="finder" value="finder1"></property>
+		<property name="curriculum" ref="curriculum1"></property>
+		<property name="finder" ref="finder1"></property>
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial1" />
@@ -2833,14 +2740,11 @@
 				<ref bean="folder4HandyWorker2" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 		<property name="make" value="Luis Pokemaniako Zumarraga"></property>
-		<property name="curriculum" value="curriculum2"></property>
-		<property name="finder" value="finder2"></property>
+		<property name="curriculum" ref="curriculum2"></property>
+		<property name="finder" ref="finder2"></property>
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial2" />
@@ -2903,14 +2807,11 @@
 				<ref bean="folder4HandyWorker3" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 		<property name="make" value="Javi Rmano Camunia"></property>
-		<property name="curriculum" value="curriculum3"></property>
-		<property name="finder" value="finder3"></property>
+		<property name="curriculum" ref="curriculum3"></property>
+		<property name="finder" ref="finder3"></property>
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial3" />
@@ -2971,14 +2872,11 @@
 				<ref bean="folder4HandyWorker4" />
 			</list>
 		</property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
+
 
 		<property name="make" value="Tobias Elpen Feliz"></property>
-		<property name="curriculum" value="curriculum4"></property>
-		<property name="finder" value="finder4"></property>
+		<property name="curriculum" ref="curriculum4"></property>
+		<property name="finder" ref="finder4"></property>
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial4" />
@@ -3020,8 +2918,8 @@
 				<ref bean="folder1Customer1" />
 			</list>
 		</property>
-		<property name="sender" value="handyWorker1"></property>
-		<property name="receiver" value="customer1"></property>
+		<property name="sender" ref="handyWorker1"></property>
+		<property name="receiver" ref="customer1"></property>
 	</bean>
 
 
@@ -3041,8 +2939,8 @@
 				<ref bean="folder2Customer2" />
 			</list>
 		</property>
-		<property name="sender" value="customer2"></property>
-		<property name="receiver" value="handyWorker2"></property>
+		<property name="sender" ref="customer2"></property>
+		<property name="receiver" ref="handyWorker2"></property>
 
 	</bean>
 
@@ -3062,8 +2960,8 @@
 				<ref bean="folder2Customer3" />
 			</list>
 		</property>
-		<property name="sender" value="customer3"></property>
-		<property name="receiver" value="handyWorker3"></property>
+		<property name="sender" ref="customer3"></property>
+		<property name="receiver" ref="handyWorker3"></property>
 
 	</bean>
 
@@ -3132,8 +3030,8 @@
 		<property name="email" value="elgrinch@hotmail.com"></property>
 		<property name="phone" value="652655856"></property>
 		<property name="linkedlnProfile"
-			ref="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" value="curriculum1"></property>
+			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+		<property name="curriculum" ref="curriculum1"></property>
 
 	</bean>
 
@@ -3145,8 +3043,8 @@
 		<property name="email" value="pokeluisito@hotmail.com"></property>
 		<property name="phone" value="652653567"></property>
 		<property name="linkedlnProfile"
-			ref="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" value="curriculum2"></property>
+			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+		<property name="curriculum" ref="curriculum2"></property>
 
 	</bean>
 
@@ -3157,8 +3055,8 @@
 		<property name="email" value="camunon@hotmail.com"></property>
 		<property name="phone" value="652343567"></property>
 		<property name="linkedlnProfile"
-			ref="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" value="curriculum3"></property>
+			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+		<property name="curriculum" ref="curriculum3"></property>
 
 	</bean>
 
@@ -3170,8 +3068,8 @@
 		<property name="email" value="tobi@hotmail.com"></property>
 		<property name="phone" value="611143567"></property>
 		<property name="linkedlnProfile"
-			ref="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" value="curriculum4"></property>
+			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+		<property name="curriculum" ref="curriculum4"></property>
 
 	</bean>
 
