@@ -1126,7 +1126,7 @@
 		<property name="banner" value="http://www.banner.com" />
 		<property name="page" value="http://www.page.com" />
 		<property name="creditCard" value="4111111111111111" />
-		<property name="sponsor" value="Juan Manuel Aceituna" />
+		<property name="sponsor" value="sponsor1" />
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial1" />
@@ -1140,7 +1140,7 @@
 		<property name="banner" value="http://www.banner2.com" />
 		<property name="page" value="http://www.page2.com" />
 		<property name="creditCard" value="5111111111111111" />
-		<property name="sponsor" value="Alfonso Aceituna" />
+		<property name="sponsor" value="sponsor2" />
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial1" />
@@ -1154,7 +1154,7 @@
 		<property name="banner" value="http://www.banner3.com" />
 		<property name="page" value="http://www.page3.com" />
 		<property name="creditCard" value="6111111111111111" />
-		<property name="sponsor" value="Elena SinAnchoa" />
+		<property name="sponsor" value="sponsor3" />
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial1" />
@@ -1170,11 +1170,11 @@
 		<property name="moment" value="02/09/2009" />
 		<property name="title" value="Como entrenar a tu dragon" />
 		<property name="summary" value="Como se entrenan los dragones" />
-		<property name="handyWorker" value="Juan Manuel Aceituna" />
+		<property name="handyWorker" value="handyWorker1" />
 		<property name="pictures">
 			<list>
-				<ref bean="picture1" />
-				<ref bean="picture2" />	
+				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
+				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />	
 			</list>
 		</property>
 		
@@ -1199,11 +1199,11 @@
 		<property name="moment" value="12/09/2009" />
 		<property name="title" value="Como entrenar a tu dragon 2" />
 		<property name="summary" value="Como se entrenan los dragones 2" />
-		<property name="handyWorker" value="Poncho Aceituna" />
+		<property name="handyWorker" value="handyWorker2" />
 		<property name="pictures">
 			<list>
-				<ref bean="picture1" />
-				<ref bean="picture2" />	
+				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
+				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />	
 			</list>
 		</property>
 		
@@ -1227,11 +1227,11 @@
 		<property name="moment" value="02/09/2011" />
 		<property name="title" value="Como entrenar a tu dragon 3" />
 		<property name="summary" value="Como se entrenan los dragones 3" />
-		<property name="handyWorker" value="Elena Aceituna" />
+		<property name="handyWorker" value="handyWorker3" />
 		<property name="pictures">
 			<list>
-				<ref bean="picture1" />
-				<ref bean="picture2" />	
+				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
+				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />	
 			</list>
 		</property>
 		
@@ -1302,7 +1302,7 @@
 	<bean id="workPlan1" class="domain.WorkPlan">
 	
 		<property name="fixupTask" value="fixupTask1" />
-		<property name="handyWoker" value="Elena Worker" />
+		<property name="handyWoker" value="handyWorker1" />
 		
 		<property name="phases">
 			<list>
@@ -1315,7 +1315,7 @@
 	<bean id="workPlan2" class="domain.WorkPlan">
 	
 		<property name="fixupTask" value="fixupTask2" />
-		<property name="handyWoker" value="Pablo Worker" />
+		<property name="handyWoker" value="handyWorker2" />
 		<property name="phases">
 			<list>
 				<ref bean="phase1" />
@@ -1327,7 +1327,7 @@
 	<bean id="workPlan3" class="domain.WorkPlan">
 	
 		<property name="fixupTask" value="fixupTask3" />
-		<property name="handyWoker" value="Juan Worker" />
+		<property name="handyWoker" value="handyWorker3" />
 		<property name="phases">
 			<list>
 				<ref bean="phase3" />
