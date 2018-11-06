@@ -667,10 +667,10 @@
 
 		<property name="folders">
 			<list>
-				<ref bean="folder1" />
-				<ref bean="folder2" />
-				<ref bean="folder3" />
-				<ref bean="folder4" />
+				<ref bean="folder1Customer1" />
+				<ref bean="folder2Customer1" />
+				<ref bean="folder3Customer1" />
+				<ref bean="folder4Customer1" />
 			</list>
 		</property>
 		<property name="messages">
@@ -704,10 +704,10 @@
 
 		<property name="folders">
 			<list>
-				<ref bean="folder5" />
-				<ref bean="folder6" />
-				<ref bean="folder7" />
-				<ref bean="folder8" />
+				<ref bean="folder1Customer2" />
+				<ref bean="folder2Customer2" />
+				<ref bean="folder3Customer2" />
+				<ref bean="folder4Customer2" />
 			</list>
 		</property>
 		<property name="messages">
@@ -740,10 +740,10 @@
 
 		<property name="folders">
 			<list>
-				<ref bean="folder9" />
-				<ref bean="folder10" />
-				<ref bean="folder11" />
-				<ref bean="folder12" />
+				<ref bean="folder1Customer3" />
+				<ref bean="folder2Customer3" />
+				<ref bean="folder3Customer3" />
+				<ref bean="folder4Customer3" />
 			</list>
 		</property>
 		<property name="messages">
@@ -775,10 +775,10 @@
 
 		<property name="folders">
 			<list>
-				<ref bean="folder13" />
-				<ref bean="folder14" />
-				<ref bean="folder15" />
-				<ref bean="folder16" />
+				<ref bean="folder1Customer4" />
+				<ref bean="folder2Customer4" />
+				<ref bean="folder3Customer4" />
+				<ref bean="folder4Customer4" />
 			</list>
 		</property>
 		<property name="messages">
@@ -1337,7 +1337,7 @@
 	</bean>
 	
 	
-	<!-------------------Phase-------------------------------->
+	<!-- Phase -->
 	
 	<bean id="phase1" class="domain.Phase">
 	
@@ -1382,7 +1382,7 @@
 	</bean>
 	
 	
-	<!-------------------FixupTask-------------------------------->
+	<!--____________ FixupTask_________________________________ -->
 	
 	<bean id="fixupTask1" class="domain.FixupTask">
 		<property name="moment" value="February 16, 2017 09:30"></property>
@@ -1925,61 +1925,6 @@
 		<property name="actor" ref="handyWorker2" />
 	</bean>
 	
-	<!--folders del Referee1 -->
-	
-	<bean id="folder1Referee1">
-		<property name="name" value="inBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list/>
-		</property>
-		<property name="childFolder">
-			<list/>
-		</property>
-	    <property name="parentFolder" ref="folder1Referee1" />
-		<property name="actor" ref="Referee1" />
-	</bean>
-	
-	<bean id="folder2Referee1">
-		<property name="name" value="outBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list/>
-		</property>
-		<property name="childFolder">
-			<list/>
-		</property>
-	    <property name="parentFolder" ref="folder2Referee1" />
-		<property name="actor" ref="Referee1" />
-	</bean>
-	
-	
-	<bean id="folder3Referee1">
-		<property name="name" value="trashBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list/>
-		</property>
-		<property name="childFolder">
-			<list/>
-		</property>
-	    <property name="parentFolder" ref="folder3Referee1" />
-		<property name="actor" ref="Referee1" />
-	</bean>
-	
-	
-	<bean id="folder4Referee1">
-		<property name="name" value="spamBox" />
-		<property name="system" value="true" />
-		<property name="messages">
-			<list/>
-		</property>
-		<property name="childFolder">
-			<list/>
-		</property>
-	    <property name="parentFolder" ref="folder4Referee1" />
-		<property name="actor" ref="Referee1" />
-	</bean>
 	
 	
 	<!--folders del HandyWorker3 -->
@@ -2094,6 +2039,64 @@
 	    <property name="parentFolder" ref="folder4HandyWorker4" />
 		<property name="actor" ref="handyWorker4" />
 	</bean>
+	
+	
+	<!--folders del Referee1 -->
+	
+	<bean id="folder1Referee1">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1Referee1" />
+		<property name="actor" ref="Referee1" />
+	</bean>
+	
+	<bean id="folder2Referee1">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2Referee1" />
+		<property name="actor" ref="Referee1" />
+	</bean>
+	
+	
+	<bean id="folder3Referee1">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3Referee1" />
+		<property name="actor" ref="Referee1" />
+	</bean>
+	
+	
+	<bean id="folder4Referee1">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4Referee1" />
+		<property name="actor" ref="Referee1" />
+	</bean>
+	
 	
 	
 	
