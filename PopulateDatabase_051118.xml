@@ -164,6 +164,47 @@
 	</bean>
 	
 	
+	<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="sponsor" />
+		<property name="password" value="08391c959fc8bd0b672c596c4d6bcdcd" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="userAccount12" class="security.UserAccount">
+		<property name="username" value="sponsor" />
+		<property name="password" value="08391c959fc8bd0b672c596c4d6bcdcd" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="userAccount13" class="security.UserAccount">
+		<property name="username" value="sponsor" />
+		<property name="password" value="08391c959fc8bd0b672c596c4d6bcdcd" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	
 	
 	
 	<!-- Other domain beans come here -->	
@@ -1098,6 +1139,30 @@
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		
+		<property name="userAccount" ref="userAccount11">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder1Sponsor1" />
+				<ref bean="folder2Sponsor1" />
+				<ref bean="folder3Sponsor1" />
+				<ref bean="folder4Sponsor1" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+		
+		
+		
 		<property name="sponsorships">
 			<list>
 				<ref bean="sponsorship1" />
@@ -1119,6 +1184,28 @@
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		
+		<property name="userAccount" ref="userAccount12">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder1Sponsor2" />
+				<ref bean="folder2Sponsor2" />
+				<ref bean="folder3Sponsor2" />
+				<ref bean="folder4Sponsor2" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+		
 		<property name="sponsorships">
 			<list>
 				<ref bean="sponsorship2" />
@@ -1139,6 +1226,28 @@
 		<property name="address" value="C/ Duero"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
+		
+		<property name="userAccount" ref="userAccount13">
+		</property>
+		
+		<property name="socialProfiles">
+			<list>
+				
+			</list>
+		</property>
+
+		<property name="folders">
+			<list>
+				<ref bean="folder1Sponsor3" />
+				<ref bean="folder2Sponsor3" />
+				<ref bean="folder3Sponsor3" />
+				<ref bean="folder4Sponsor3" />
+			</list>
+		</property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
 		
 		<property name="sponsorships">
 			<list>
