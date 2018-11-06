@@ -544,7 +544,7 @@
 	    <property name="attachments">
 	    	<list>
 	    		<value>https://trello-attachments.s3.amazonaws.com/5bdc2fda6f3ec4653ca5ca0e/5bdc38d6221aa411081293c9/0fd144293b39a447a86f3586caa178ac/Acme_Handy_Worker.pdf</value>
-	    		<value>https://github.com/DP1819/D03/tree/master/src/main</value>
+	    		<value>"https://github.com/DP1819/D03/tree/master/src/main"</value>
 	    	</list>
 	    </property>
 		<property name="report" ref="report1" />
@@ -1086,32 +1086,62 @@
 	<!-- Sponsor -->
 
 	<bean id="sponsor1" class="domain.Sponsor">
+	
+		<property name="name" value="Nacho"></property>
+		<property name="middleName" value="Militar"></property>
+		<property name="surname" value="Barba"></property>
+		<property name="photo"
+			value="https://static.boredpanda.com/blog/wp-content/uploads/2014/10/funny-military-soldiers-photos-33__605.jpg"></property>
+		<property name="email" value="nachete@hotmail.com"></property>
+		<property name="phone" value="658597856"></property>
+		<property name="address" value="C/ Vietnam"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
 		
 		<property name="sponsorships">
 			<list>
 				<ref bean="sponsorship1" />
-				<ref bean="sponsorship2" />	
 			</list>
 		</property>
 	</bean>
 	
 	
 	<bean id="sponsor2" class="domain.Sponsor">
+	
+		<property name="name" value="Jesus"></property>
+		<property name="middleName" value="Murcia"></property>
+		<property name="surname" value="Gomez"></property>
+		<property name="photo"
+			value="https://cdn.memegenerator.es/imagenes/memes/full/24/87/24874063.jpg"></property>
+		<property name="email" value="yisusmurciano@gmail.com"></property>
+		<property name="phone" value="655613256"></property>
+		<property name="address" value="C/ Achoooooo"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
 		
 		<property name="sponsorships">
 			<list>
-				<ref bean="sponsorship1" />
-				<ref bean="sponsorship2" />	
+				<ref bean="sponsorship2" />
 			</list>
 		</property>
 	</bean>
 	
 	
 	<bean id="sponsor3" class="domain.Sponsor">
+	
+		<property name="name" value="Javier"></property>
+		<property name="middleName" value="JovenJavier"></property>
+		<property name="surname" value="Ramirez"></property>
+		<property name="photo"
+			value="https://vignette.wikia.nocookie.net/disney/images/8/82/PeterPan.png/revision/latest?cb=20121006101543&path-prefix=es"></property>
+		<property name="email" value="ramire@gmail.com"></property>
+		<property name="phone" value="655613333"></property>
+		<property name="address" value="C/ Duero"></property>
+		<property name="banned" value="false"></property>
+		<property name="suspicious" value="false"></property>
 		
 		<property name="sponsorships">
 			<list>
-				<ref bean="sponsorship1" />
 				<ref bean="sponsorship3" />	
 			</list>
 		</property>
@@ -1173,8 +1203,8 @@
 		<property name="handyWorker" value="handyWorker1" />
 		<property name="pictures">
 			<list>
-				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
-				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />	
+				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg</value>
+				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg</value>
 			</list>
 		</property>
 		
@@ -1202,8 +1232,8 @@
 		<property name="handyWorker" value="handyWorker2" />
 		<property name="pictures">
 			<list>
-				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
-				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />	
+				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg</value>
+				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg</value>
 			</list>
 		</property>
 		
@@ -1230,8 +1260,8 @@
 		<property name="handyWorker" value="handyWorker3" />
 		<property name="pictures">
 			<list>
-				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
-				<ref bean="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />	
+				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg</value>
+				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg</value>
 			</list>
 		</property>
 		
@@ -2053,7 +2083,7 @@
 			<list/>
 		</property>
 	    <property name="parentFolder" ref="folder1Referee1" />
-		<property name="actor" ref="Referee1" />
+		<property name="actor" ref="referee1" />
 	</bean>
 	
 	<bean id="folder2Referee1">
@@ -2066,7 +2096,7 @@
 			<list/>
 		</property>
 	    <property name="parentFolder" ref="folder2Referee1" />
-		<property name="actor" ref="Referee1" />
+		<property name="actor" ref="referee1" />
 	</bean>
 	
 	
@@ -2080,7 +2110,7 @@
 			<list/>
 		</property>
 	    <property name="parentFolder" ref="folder3Referee1" />
-		<property name="actor" ref="Referee1" />
+		<property name="actor" ref="referee1" />
 	</bean>
 	
 	
@@ -2094,10 +2124,179 @@
 			<list/>
 		</property>
 	    <property name="parentFolder" ref="folder4Referee1" />
-		<property name="actor" ref="Referee1" />
+		<property name="actor" ref="referee1" />
 	</bean>
 	
 	
+	
+	<!-- folders del Sponsor1 -->
+	
+	<bean id="folder1Sponsor1">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1Sponsor1" />
+		<property name="actor" ref="sponsor1" />
+	</bean>
+	
+	<bean id="folder2Sponsor1">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2Sponsor1" />
+		<property name="actor" ref="sponsor1" />
+	</bean>
+	
+		<bean id="folder3Sponsor1">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3Sponsor1" />
+		<property name="actor" ref="sponsor1" />
+	</bean>
+	
+	
+	<bean id="folder4Sponsor1">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4Sponsor1" />
+		<property name="actor" ref="sponsor1" />
+	</bean>
+	
+	
+	
+	
+	<!-- folders del Sponsor2 -->
+	
+	<bean id="folder1Sponsor2">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1Sponsor2" />
+		<property name="actor" ref="sponsor2" />
+	</bean>
+	
+	<bean id="folder2Sponsor2">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2Sponsor2" />
+		<property name="actor" ref="sponsor2" />
+	</bean>
+	
+		<bean id="folder3Sponsor2">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3Sponsor2" />
+		<property name="actor" ref="sponsor2" />
+	</bean>
+	
+	
+	<bean id="folder4Sponsor2">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4Sponsor2" />
+		<property name="actor" ref="sponsor2" />
+	</bean>
+	
+	
+	<!-- folders del Sponsor3 -->
+	
+	<bean id="folder1Sponsor3">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder1Sponsor3" />
+		<property name="actor" ref="sponsor3" />
+	</bean>
+	
+	<bean id="folder2Sponsor3">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder2Sponsor3" />
+		<property name="actor" ref="sponsor3" />
+	</bean>
+	
+		<bean id="folder3Sponsor3">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder3Sponsor3" />
+		<property name="actor" ref="sponsor3" />
+	</bean>
+	
+	
+	<bean id="folder4Sponsor3">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="messages">
+			<list/>
+		</property>
+		<property name="childFolder">
+			<list/>
+		</property>
+	    <property name="parentFolder" ref="folder4Sponsor3" />
+		<property name="actor" ref="sponsor3" />
+	</bean>
 	
 	
 	<!-- ___________________Sections___________________________________-->
