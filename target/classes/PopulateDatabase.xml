@@ -106,7 +106,7 @@
 	</bean>
 
 
-	<bean id="userAccount7" class="security.UserAccount">
+	<bean id="userAccount14" class="security.UserAccount">
 		<property name="username" value="handywoker" />
 		<property name="password" value="24da2ce4fb8a46c3d44d2c72305a31a2" />
 		<property name="authorities">
@@ -202,6 +202,7 @@
 
 
 	<!-- Other domain beans come here -->
+
 
 	<!-- Administrators -->
 
@@ -317,10 +318,10 @@
 
 	<bean id="application3" class="domain.Application">
 		<property name="price" value="10.43" />
-		<property name="moment" value="15:56:03">
+		<property name="moment">
 			<bean id="momentApplication3" factory-bean="completeDateFormat"
 				factory-method="parse">
-				<constructor-arg value="" />
+				<constructor-arg value="12/10/2017 00:00:00" />
 			</bean>
 		</property>
 		<property name="status" value="REJECTED" />
@@ -1062,7 +1063,7 @@
 
 	</bean>
 
-	<bean id="endorserRecord2" class="domain.EndorserRecord">
+	<bean id="endorserRecord4" class="domain.EndorserRecord">
 		<property name="fullName" value="Disney"></property>
 		<property name="photo"
 			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
@@ -2520,10 +2521,9 @@
 	</bean>
 
 
-
 	<!-- folders del administrator1 -->
 
-	<bean id="folder1Administrator1">
+	<bean id="folder1Administrator1" class="domain.Folder">
 		<property name="name" value="inBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2536,7 +2536,7 @@
 		<property name="actor" ref="administrator1" />
 	</bean>
 
-	<bean id="folder2Administrator1">
+	<bean id="folder2Administrator1" class="domain.Folder">
 		<property name="name" value="outBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2549,7 +2549,7 @@
 		<property name="actor" ref="administrator1" />
 	</bean>
 
-	<bean id="folder3Administrator1">
+	<bean id="folder3Administrator1" class="domain.Folder">
 		<property name="name" value="trashBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2563,7 +2563,7 @@
 	</bean>
 
 
-	<bean id="folder4Administrator1">
+	<bean id="folder4Administrator1" class="domain.Folder">
 		<property name="name" value="spamBox" />
 		<property name="system" value="true" />
 		<property name="messages">
@@ -2575,6 +2575,8 @@
 		<property name="parentFolder" ref="folder4Administrator1" />
 		<property name="actor" ref="administrator1" />
 	</bean>
+
+
 
 
 	<!-- folders del administrator2 -->
@@ -2681,35 +2683,35 @@
 	</bean>
 
 	<!-- _______________________________SocialProfile________________________________________________ -->
-	<bean id="socialProfile1" class="domain.SocialProfiles">
+	<bean id="socialProfile1" class="domain.SocialProfile">
 		<property name="nick" value="Manolete"></property>
 		<property name="networkName" value="Twitter"></property>
 		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="actor" ref="handyWorker1" />
 	</bean>
 
-	<bean id="socialProfile2" class="domain.SocialProfiles">
+	<bean id="socialProfile2" class="domain.SocialProfile">
 		<property name="nick" value="Manolete2"></property>
 		<property name="networkName" value="Twitter"></property>
 		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="actor" ref="handyWorker2" />
 	</bean>
 
-	<bean id="socialProfile3" class="domain.SocialProfiles">
+	<bean id="socialProfile3" class="domain.SocialProfile">
 		<property name="nick" value="Manolete3"></property>
 		<property name="networkName" value="Twitter"></property>
 		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="actor" ref="handyWorker3" />
 	</bean>
 
-	<bean id="socialProfile1Admin1" class="domain.SocialProfiles">
+	<bean id="socialProfile1Admin1" class="domain.SocialProfile">
 		<property name="nick" value="Manolete4"></property>
 		<property name="networkName" value="Twitter"></property>
 		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="actor" ref="administrator1" />
 	</bean>
 
-	<bean id="socialProfile2Admin1" class="domain.SocialProfiles">
+	<bean id="socialProfile2Admin1" class="domain.SocialProfile">
 		<property name="nick" value="Manolete5"></property>
 		<property name="networkName" value="Twitter"></property>
 		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
@@ -2732,7 +2734,7 @@
 		<property name="suspicious" value="false"></property>
 
 
-		<property name="userAccount" ref="userAccount7">
+		<property name="userAccount" ref="userAccount14">
 		</property>
 
 		<property name="socialProfiles">
