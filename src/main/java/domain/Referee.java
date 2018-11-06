@@ -3,6 +3,7 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -14,9 +15,10 @@ public class Referee extends Actor {
 
 
 	//----------Getters y Setters-------
-	
+
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "report")
 	public Collection<Report> getReports() {
 		return this.reports;
 	}

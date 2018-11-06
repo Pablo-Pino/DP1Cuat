@@ -4,6 +4,8 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -40,6 +42,7 @@ public class Report extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "note")
 	public Collection<Note> getNotes() {
 		return this.notes;
 	}
@@ -50,6 +53,7 @@ public class Report extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@OneToOne(optional = true)
 	public Complaint getComplaint() {
 		return this.complaint;
 	}
