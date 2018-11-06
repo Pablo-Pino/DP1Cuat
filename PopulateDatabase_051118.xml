@@ -1337,7 +1337,7 @@
 	</bean>
 	
 	
-	<!-------------------Phase-------------------------------->
+	<!-- Phase -->
 	
 	<bean id="phase1" class="domain.Phase">
 	
@@ -1382,7 +1382,7 @@
 	</bean>
 	
 	
-	<!-------------------FixupTask-------------------------------->
+	<!--____________ FixupTask_________________________________ -->
 	
 	<bean id="fixupTask1" class="domain.FixupTask">
 		<property name="moment" value="February 16, 2017 09:30"></property>
