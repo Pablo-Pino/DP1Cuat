@@ -21,6 +21,8 @@ public class Finder extends DomainEntity {
 	private Double		maxPrice;
 	private Date		start;
 	private Date		end;
+	private Date 		minimumDate;
+	private Date		maximumDate;
 
 	//--------------Relaciones--------
 
@@ -29,11 +31,29 @@ public class Finder extends DomainEntity {
 
 
 	//--------------Getters y Setters------
+	
+	
 
 	@Valid
 	@ManyToOne(optional = true)
 	public Category getCategory() {
 		return this.category;
+	}
+
+	public Date getMinimumDate() {
+		return minimumDate;
+	}
+
+	public void setMinimumDate(Date minimumDate) {
+		this.minimumDate = minimumDate;
+	}
+
+	public Date getMaximumDate() {
+		return maximumDate;
+	}
+
+	public void setMaximumDate(Date maximumDate) {
+		this.maximumDate = maximumDate;
 	}
 
 	public void setCategory(final Category category) {
