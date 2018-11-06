@@ -1494,7 +1494,7 @@
 	
 	
 	
-	<!------------------------------- FOLDER ----------------------------------------------------->
+	<!-- __________________________________ FOLDER _________________________________ -->
 		
 		
 		<!--folders del admin1-->
@@ -2325,7 +2325,10 @@
 				<ref bean="tutorial3" />
 			</list>
 	</bean>
-	<!------------------------Settings----------------------------------------------->
+	
+	
+	<!-- __________________________Settings_______________________________________________ -->
+	
 	<bean id="settings1" class="domain.Settings">
 		<property name="systemName" value="Benhill County GArchives Historical Records"></property>
 		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
@@ -2340,7 +2343,7 @@
 		<property name="negativeWords" value="Mal"></property>
 	</bean>
 	
-	<!------------------------SocialProfile----------------------------------------------->
+	<!-- _______________________________SocialProfile________________________________________________ -->
 	<bean id="socialProfile1" class="domain.SocialProfiles">
 		<property name="nick" value="Manolete"></property>
 		<property name="networkName" value="Twitter"></property>
@@ -2376,7 +2379,7 @@
 		<property name="actor" ref="administrator1" />
 	</bean>
 	
-	<!------------------------HANDYWORKER----------------------------------------------->
+	<!-- _______________________________________HANDYWORKER ______________________________________________ -->
 	
 	
 	<bean id="handyWorker1" class="domain.HandyWorker">
@@ -2615,12 +2618,12 @@
 	
 	
 	
-	<!-------------------------------MESSAGES-------------------------->
+	<!--__________________________MESSAGES _________________________________ -->
 	
 	
 	
 	
-	<!---    message1 ====>   HW1 TO CUST1   --->
+	<!--    message1 ====>   HW1 TO CUST1   -->
 	
 	<bean id="message1" class="domain.Message">
 		<property name="moment" value="July 12, 2017 12:00"></property>
@@ -2641,7 +2644,7 @@
 	
 	
 	
-	<!---    message2 ====>   CUST2 TO HW2   --->
+	<!--    message2 ====>   CUST2 TO HW2   -->
 	
 	<bean id="message2" class="domain.Message">
 		<property name="moment" value="July 13, 2017 12:00"></property>
@@ -2662,7 +2665,7 @@
 	
 	
 	
-	<!---    message3 ====>   CUST3 TO HW3   --->
+	<!--    message3 ====>   CUST3 TO HW3   -->
 	
 	<bean id="message3" class="domain.Message">
 		<property name="moment" value="July 14, 2017 12:00"></property>
@@ -2690,7 +2693,7 @@
 	
 	
 	
-	<!----------------Miscellaneous Records----------------------------->
+	<!-- _____________________________Miscellaneous Records___________________________________ -->
 	
 	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
 		<property name="title" value="Benhill County GaArchives Historical Records"></property>
@@ -2716,7 +2719,7 @@
 	
 	
 	
-	<!--------------------------------NOTE--------------------------------->
+	<!-- ______________________________NOTE______________________________________ -->
 	
 	
 	<bean id="note1" class="domain.Note">
@@ -2738,7 +2741,7 @@
 	
 	
 	
-	<!-----------------------PersonalRecord----------------------------------->
+	<!-- ________________________PersonalRecord________________________________________ -->
 	
 	
 	<bean id="personalRecord1" class="domain.PersonalRecord">
