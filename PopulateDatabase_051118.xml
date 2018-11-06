@@ -2097,9 +2097,32 @@
 	
 	
 	
+	<!-- ___________________Sections___________________________________-->
+	<bean id="section1" class="domain.Section">
+		<property name="title" value="Benhill County GaArchives Historical Records"></property>
+		<property name="text" value="Text 1"></property>
+		<property name="pictures" value="http://www.genrecords.org/mofiles/exms.html"></property>
+		<property name="numberOrder" value="0"></property>
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial1" />
+				<ref bean="tutorial2" />
+				<ref bean="tutorial3" />
+			</list>
+	</bean>
 	
-	
-	
+	<bean id="section2" class="domain.Section">
+		<property name="title" value="Benhill County GArchives Historical Records"></property>
+		<property name="text" value="Text 2"></property>
+		<property name="pictures" value="http://www.genrecords.org/mofiles/exms.html"></property>
+		<property name="numberOrder" value="3"></property>
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial1" />
+				<ref bean="tutorial2" />
+				<ref bean="tutorial3" />
+			</list>
+	</bean>
 	
 	<!------------------------HANDYWORKER----------------------------------------------->
 	
