@@ -26,31 +26,18 @@ public class HandyWorker extends Endorsable {
 	private Curriculum				curriculum;
 	private Finder					finder;
 	private Collection<Tutorial>	tutorials;
-	private Collection<Note>		notes;			//DUDA GRANDE a Pablo: definitivamente no tiene notes?
 	private Collection<Application>	applications;
 	private Collection<WorkPlan>	workPlans;
 
 
 	//-------------Getters y Setters----
 
-	@NotNull
 	@Valid
-	public Collection<Note> getNotes() {
-		return this.notes;
-	}
-
-	public void setNotes(final Collection<Note> notes) {
-		this.notes = notes;
-	}
-
-	@Override
-	@Valid
-	@OneToMany(mappedBy = "handyWorker")
+	@OneToOne(optional = true)
 	public Curriculum getCurriculum() {
 		return this.curriculum;
 	}
 
-	@Override
 	public void setCurriculum(final Curriculum curriculum) {
 		this.curriculum = curriculum;
 	}

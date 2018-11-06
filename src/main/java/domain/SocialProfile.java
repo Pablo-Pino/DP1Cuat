@@ -1,12 +1,18 @@
 
 package domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class SocialProfile extends DomainEntity {
 
 	//----------Atributos---------
@@ -15,12 +21,11 @@ public class SocialProfile extends DomainEntity {
 	private String	networkName;
 	private String	profile;
 
-	
 	//--------Relaciones----------
-	
-	private Actor actor;
-	
-	
+
+	private Actor	actor;
+
+
 	//--------Getters y Setters------
 
 	@NotBlank
@@ -56,12 +61,13 @@ public class SocialProfile extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@ManyToOne(optional = false)
 	public Actor getActor() {
-		return actor;
+		return this.actor;
 	}
 
-	public void setActor(Actor actor) {
+	public void setActor(final Actor actor) {
 		this.actor = actor;
 	}
-	
+
 }

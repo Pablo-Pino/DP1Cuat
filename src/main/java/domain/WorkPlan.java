@@ -3,6 +3,9 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -11,7 +14,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class WorkPlan {
+@Entity
+@Access(AccessType.PROPERTY)
+public class WorkPlan extends DomainEntity {
 
 	//----------Relaciones--------
 
@@ -36,7 +41,7 @@ public class WorkPlan {
 	@NotNull
 	@NotEmpty
 	@Valid
-	@OneToMany
+	@OneToMany(mappedBy = "workPlan")
 	public Collection<Phase> getPhases() {
 		return this.phases;
 	}

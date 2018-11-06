@@ -6,7 +6,9 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -38,7 +40,7 @@ public class Message extends DomainEntity {
 	@NotNull
 	@NotEmpty
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToMany
 	public Collection<Folder> getFolders() {
 		return this.folders;
 	}
@@ -89,6 +91,7 @@ public class Message extends DomainEntity {
 	}
 
 	@NotNull
+	@ElementCollection
 	public Collection<String> getTags() {
 		return this.tags;
 	}

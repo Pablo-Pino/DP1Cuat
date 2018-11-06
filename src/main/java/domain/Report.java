@@ -4,6 +4,12 @@ package domain;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -11,6 +17,8 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Report extends DomainEntity {
 
 	//-----------Atributos-----------
@@ -40,6 +48,7 @@ public class Report extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@OneToMany(mappedBy = "report")
 	public Collection<Note> getNotes() {
 		return this.notes;
 	}
@@ -50,6 +59,7 @@ public class Report extends DomainEntity {
 
 	@NotNull
 	@Valid
+	@OneToOne(optional = false)
 	public Complaint getComplaint() {
 		return this.complaint;
 	}
@@ -60,6 +70,7 @@ public class Report extends DomainEntity {
 
 	@URL
 	@NotNull
+	@ElementCollection
 	public Collection<String> getAttachments() {
 		return this.attachments;
 	}
@@ -78,6 +89,7 @@ public class Report extends DomainEntity {
 		this.description = description;
 	}
 
+	@NotNull
 	public boolean getDraft() {
 		return this.draft;
 	}

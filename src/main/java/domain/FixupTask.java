@@ -9,6 +9,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -150,7 +151,7 @@ public class FixupTask extends Ticketable {
 	}
 
 	@Valid
-	@OneToMany(mappedBy = "fixupTask")
+	@OneToOne(optional = true)
 	public WorkPlan getWorkPlan() {
 		return this.workPlan;
 	}

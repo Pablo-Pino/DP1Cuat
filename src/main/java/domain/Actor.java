@@ -47,7 +47,6 @@ public abstract class Actor extends DomainEntity {
 	private Collection<Folder>			folders;
 	private Collection<SocialProfile>	socialProfiles;
 	private UserAccount					userAccount;
-	private Curriculum					curriculum;
 
 
 	//-----------Getters y Setters------
@@ -190,16 +189,6 @@ public abstract class Actor extends DomainEntity {
 
 	public void setSuspicious(final Boolean suspicious) {
 		this.suspicious = suspicious;
-	}
-
-	@Valid
-	@OneToOne(optional = true)
-	public Curriculum getCurriculum() {
-		return this.curriculum;
-	}
-
-	public void setCurriculum(final Curriculum curriculum) {
-		this.curriculum = curriculum;
 	}
 
 }

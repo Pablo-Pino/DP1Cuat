@@ -18,34 +18,10 @@ public class Customer extends Endorsable {
 
 	//----------Relaciones---------
 
-	private Collection<Note>		notes;
-	private Collection<Complaint>	complaints;
 	private Collection<FixupTask>	fixupTasks;
 
 
 	//----------Getters y Setters------
-
-	@Valid
-	@NotNull
-	@OneToMany(mappedBy = "actor")
-	public Collection<Note> getNotes() {
-		return this.notes;
-	}
-
-	public void setNotes(final Collection<Note> notes) {
-		this.notes = notes;
-	}
-
-	@Valid
-	@NotNull
-	@OneToMany(mappedBy = "customer")
-	public Collection<Complaint> getComplaints() {
-		return this.complaints;
-	}
-
-	public void setComplaints(final Collection<Complaint> complaints) {
-		this.complaints = complaints;
-	}
 
 	@Valid
 	@NotNull
