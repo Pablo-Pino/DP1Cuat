@@ -841,7 +841,40 @@
 		
 	</bean>
 	
+		<!-- ___________________Reports___________________________________-->
 	
+	<bean id="report1" class="domain.Report">
+		<property name="descripcion" value="Descripcion 1"></property>
+		<property name="date" value="May 29, 2012 15:00"></property>
+		<property name="attachment"
+			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+		<property name="draft" value="true"></property>
+		<property name="notes">
+		<list>
+				<ref bean="note1" />
+	   </list>
+	   </property>
+		<property name="complaint" ref="complaint1"></property>
+
+		
+	</bean>
+		
+		
+	<bean id="report2" class="domain.Report">
+		<property name="descripcion" value="Descripcion 2"></property>
+		<property name="date" value="May 29, 2012 15:00"></property>
+		<property name="attachment"
+			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+		<property name="draft" value="true"></property>
+		<property name="notes">
+		<list>
+				<ref bean="note2" />
+	   </list>
+	   </property>
+		<property name="complaint" ref="complaint2"></property>
+
+		
+	</bean>
 	<!-- ___________________Education Records___________________________________-->
 	<bean id="educationRecord1" class="domain.EducationRecord">
 		<property name="diplomaTitle" value="Bachillerato"></property>
