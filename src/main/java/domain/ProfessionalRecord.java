@@ -27,7 +27,7 @@ public class ProfessionalRecord extends DomainEntity {
 	private String		attachment;
 	private String		comments;
 
-	//------Relationships------------
+	//------------Relaciones--------
 
 	private Curriculum	curriculum;
 
