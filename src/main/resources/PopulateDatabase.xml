@@ -1376,7 +1376,7 @@
 		<property name="tutorials">
 			<list>
 				<ref bean="tutorial1" />
-				<ref bean="tutorial2" />
+				<ref bean="tutorial3" />
 			</list>
 		</property>
 	</bean>
@@ -1401,7 +1401,7 @@
 		<property name="sponsor" ref="sponsor3" />
 		<property name="tutorials">
 			<list>
-				<ref bean="tutorial1" />
+				<ref bean="tutorial2" />
 				<ref bean="tutorial3" />
 			</list>
 		</property>
