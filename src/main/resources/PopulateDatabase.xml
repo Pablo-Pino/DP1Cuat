@@ -437,7 +437,7 @@
 		<property name="childsCategories">
 			<list>
 				<ref bean="categoryFanInstallation" />
-				<ref bean="categoryLampRepairsl" />
+				<ref bean="categoryLampRepairs" />
 				<ref bean="categorySolarPanels" />
 				<ref bean="categorySprinklerRepair" />
 			</list>
@@ -653,6 +653,84 @@
 		</property>
 		<property name="fixuptask" ref="fixupTask2" />
 	</bean>
+	
+	<!-- ________________________PersonalRecord________________________________________ -->
+
+
+	<bean id="personalRecord1" class="domain.PersonalRecord">
+		<property name="fullName" value="Antonio Grinch Papp"></property>
+		<property name="photo"
+			value="https://www.cinetecamadrid.com/sites/default/files/activity/image/imagen_EL_GRINCH00_0.jpg"></property>
+		<property name="email" value="elgrinch@hotmail.com"></property>
+		<property name="phone" value="652655856"></property>
+		<property name="linkedlnProfile"
+			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+		<property name="curriculum" ref="curriculum1"></property>
+
+	</bean>
+
+
+	<bean id="personalRecord2" class="domain.PersonalRecord">
+		<property name="fullName" value="Luis Pokemaniako Zumarraga"></property>
+		<property name="photo"
+			value="https://cdn.memegenerator.es/imagenes/memes/full/16/43/16433834.jpg"></property>
+		<property name="email" value="pokeluisito@hotmail.com"></property>
+		<property name="phone" value="652653567"></property>
+		<property name="linkedlnProfile"
+			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+		<property name="curriculum" ref="curriculum2"></property>
+
+	</bean>
+
+	<bean id="personalRecord3" class="domain.PersonalRecord">
+		<property name="fullName" value="Javi Rmano Camunia"></property>
+		<property name="photo"
+			value="https://misanimales.com/wp-content/uploads/2018/05/curiosidades-del-perezoso.jpg"></property>
+		<property name="email" value="camunon@hotmail.com"></property>
+		<property name="phone" value="652343567"></property>
+		<property name="linkedlnProfile"
+			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+		<property name="curriculum" ref="curriculum3"></property>
+
+	</bean>
+
+
+	<bean id="personalRecord4" class="domain.PersonalRecord">
+		<property name="fullName" value="Tobias Elpen Feliz"></property>
+		<property name="photo"
+			value="https://www.peluchetes.com/contenido/uploads/2015/08/peluche-perro-salchicha.jpg"></property>
+		<property name="email" value="tobi@hotmail.com"></property>
+		<property name="phone" value="611143567"></property>
+		<property name="linkedlnProfile"
+			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+		<property name="curriculum" ref="curriculum4"></property>
+
+	</bean>
+	
+	<!-- _____________________________Miscellaneous Records___________________________________ -->
+
+	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
+		<property name="title" value="Benhill County GaArchives Historical Records"></property>
+		<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
+		<property name="comments" value="Muy interesante"></property>
+
+		<property name="curriculum" ref="curriculum1"></property>
+
+	</bean>
+
+	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
+		<property name="title" value="Death Certificate of John Doe 1930"></property>
+		<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
+		<property name="comments" value="Poco interesante"></property>
+
+		<property name="curriculum" ref="curriculum2"></property>
+
+	</bean>
+
+
+
+	
+	
 
 	<!-- Curricula -->
 
@@ -984,7 +1062,7 @@
 
 
 	<bean id="report2" class="domain.Report">
-		<property name="descripction" value="Descripcion 2"></property>
+		<property name="description" value="Descripcion 2"></property>
 		<property name="moment" value="May 29, 2012 15:00"></property>
 		<property name="attachments"
 			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
@@ -1138,7 +1216,7 @@
 
 	</bean>
 
-	<!-- ___________________Endorsable__________________________________ -->
+	<!-- ___________________Endorsable__________________________________ 
 	<bean id="endorsable1" class="domain.Endorsable">
 		<property name="score" value="0.75"></property>
 		<property name="endorsements">
@@ -1177,39 +1255,39 @@
 			</list>
 		</property>
 
-	</bean>
+	</bean>  -->
 
 
 	<!-- ___________________Endorsement__________________________________ -->
 	<bean id="endorsement1" class="domain.Endorsement">
 		<property name="moment" value="February 12, 2017 12:00"></property>
 		<property name="comments" value="Estoy muy contenta"></property>
-		<property name="sender" ref="endorsable1"></property>
-		<property name="receiver" ref="endorsable2"></property>
+		<property name="sender" ref="customer1"></property>
+		<property name="receiver" ref="handyWorker1"></property>
 
 	</bean>
 
 	<bean id="endorsement2" class="domain.Endorsement">
 		<property name="moment" value="February 12, 2016 12:00"></property>
 		<property name="comments" value="NO estoy muy contenta"></property>
-		<property name="sender" ref="endorsable2"></property>
-		<property name="receiver" ref="endorsable3"></property>
+		<property name="sender" ref="handyWorker2"></property>
+		<property name="receiver" ref="customer2"></property>
 
 	</bean>
 
 	<bean id="endorsement3" class="domain.Endorsement">
 		<property name="moment" value="January 22, 2016 22:00"></property>
 		<property name="comments" value="nada que añadir por aqui"></property>
-		<property name="sender" ref="endorsable3"></property>
-		<property name="receiver" ref="endorsable4"></property>
+		<property name="sender" ref="customer3"></property>
+		<property name="receiver" ref="handyWorker3"></property>
 
 	</bean>
 
 	<bean id="endorsement4" class="domain.Endorsement">
 		<property name="moment" value="December 22, 2017 22:10"></property>
 		<property name="comments" value="estoy muy descontento y lo pongo aqui"></property>
-		<property name="sender" ref="endorsable4"></property>
-		<property name="receiver" ref="endorsable1"></property>
+		<property name="sender" ref="customer4"></property>
+		<property name="receiver" ref="handyWorker4"></property>
 
 	</bean>
 
@@ -1531,60 +1609,45 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- Phase -->
 
-	<!-- Warranties -->
+	<bean id="phase1" class="domain.Phase">
 
-
-	<bean id="warranty1" class="domain.Warranty">
-
-		<property name="title" value="El titulo de Warranty" />
-		<property name="terms" value="Terminos, muchos terminos" />
-		<property name="laws" value="Leyes,muchas leyes" />
-		<property name="draft" value="Ejemplo de draft" />
-		<property name="fixupTasks">
-			<list>
-				<ref bean="fixupTask1" />
-				<ref bean="fixupTask2" />
-			</list>
-		</property>
+		<property name="title" value="phase1" />
+		<property name="description" value="Coger el telefono antes de hacer nada" />
+		<property name="start" value="February 17, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="workPlan" ref="workPlan1"></property>
 	</bean>
 
-	<bean id="warranty2" class="domain.Warranty">
+	<bean id="phase2" class="domain.Phase">
 
-		<property name="title" value="El titulo de Warranty 2" />
-		<property name="terms" value="Terminos, muchos terminos 2" />
-		<property name="laws" value="Leyes,muchas leyes 2" />
-		<property name="draft" value="Ejemplo de draft 2" />
-		<property name="fixupTasks">
-			<list>
-				<ref bean="fixupTask1" />
-				<ref bean="fixupTask2" />
-			</list>
-		</property>
+		<property name="title" value="phase2" />
+		<property name="description" value="Coger el telefono antes de hacer nada" />
+		<property name="start" value="February 16, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="workPlan" ref="workPlan2"></property>
 	</bean>
 
-	<bean id="warranty3" class="domain.Warranty">
+	<bean id="phase3" class="domain.Phase">
 
-		<property name="title" value="El titulo de Warranty 3" />
-		<property name="terms" value="Terminos, muchos terminos 3" />
-		<property name="laws" value="Leyes,muchas leyes 3" />
-		<property name="draft" value="Ejemplo de draft 3" />
-		<property name="fixupTasks">
-			<list>
-				<ref bean="fixupTask1" />
-				<ref bean="fixupTask2" />
-			</list>
-		</property>
+		<property name="title" value="phase3" />
+		<property name="description" value="Coger el telefono antes de hacer nada" />
+		<property name="start" value="February 15, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="workPlan" ref="workPlan3"></property>
 	</bean>
 
-
+	
+	
 	<!-- WorkPlan -->
 
 
 	<bean id="workPlan1" class="domain.WorkPlan">
 
 		<property name="fixupTask" ref="fixupTask1" />
-		<property name="handyWoker" ref="handyWorker1" />
+		<property name="handyWorker" ref="handyWorker1" />
 
 		<property name="phases">
 			<list>
@@ -1597,7 +1660,7 @@
 	<bean id="workPlan2" class="domain.WorkPlan">
 
 		<property name="fixupTask" ref="fixupTask2" />
-		<property name="handyWoker" ref="handyWorker2" />
+		<property name="handyWorker" ref="handyWorker2" />
 		<property name="phases">
 			<list>
 				<ref bean="phase1" />
@@ -1609,7 +1672,7 @@
 	<bean id="workPlan3" class="domain.WorkPlan">
 
 		<property name="fixupTask" ref="fixupTask3" />
-		<property name="handyWoker" ref="handyWorker3" />
+		<property name="handyWorker" ref="handyWorker3" />
 		<property name="phases">
 			<list>
 				<ref bean="phase3" />
@@ -1619,51 +1682,15 @@
 	</bean>
 
 
-	<!-- Phase -->
-
-	<bean id="phase1" class="domain.Phase">
-
-		<property name="title" value="phase1" />
-		<property name="descripción" value="Coger el telefono antes de hacer nada" />
-		<property name="start" value="February 17, 2017 09:30"></property>
-		<property name="end" value="February 18, 2017 09:30"></property>
-		<property name="workplans">
-			<list>
-				<ref bean="workplan1" />
-				<ref bean="workplan2" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="phase2" class="domain.Phase">
-
-		<property name="title" value="phase2" />
-		<property name="descripción" value="Coger el telefono antes de hacer nada" />
-		<property name="start" value="February 16, 2017 09:30"></property>
-		<property name="end" value="February 18, 2017 09:30"></property>
-		<property name="workplans">
-			<list>
-				<ref bean="workplan1" />
-				<ref bean="workplan3" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="phase3" class="domain.Phase">
-
-		<property name="title" value="phase1" />
-		<property name="descripción" value="Coger el telefono antes de hacer nada" />
-		<property name="start" value="February 15, 2017 09:30"></property>
-		<property name="end" value="February 18, 2017 09:30"></property>
-		<property name="workplans">
-			<list>
-				<ref bean="workplan2" />
-				<ref bean="workplan3" />
-			</list>
-		</property>
-	</bean>
+	
+	
+	
+	
 
 
+	
+	
+	
 	<!--____________ FixupTask_________________________________ -->
 
 	<bean id="fixupTask1" class="domain.FixupTask">
@@ -1755,8 +1782,53 @@
 
 	</bean>
 
+	
+
+	
+<!-- Warranties -->
 
 
+	<bean id="warranty1" class="domain.Warranty">
+
+		<property name="title" value="El titulo de Warranty" />
+		<property name="terms" value="Terminos, muchos terminos" />
+		<property name="laws" value="Leyes,muchas leyes" />
+		<property name="draft" value="true" />
+		<property name="fixupTasks">
+			<list>
+				<ref bean="fixupTask1" />
+				<ref bean="fixupTask2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="warranty2" class="domain.Warranty">
+
+		<property name="title" value="El titulo de Warranty 2" />
+		<property name="terms" value="Terminos, muchos terminos 2" />
+		<property name="laws" value="Leyes,muchas leyes 2" />
+		<property name="draft" value="false" />
+		<property name="fixupTasks">
+			<list>
+				<ref bean="fixupTask1" />
+				<ref bean="fixupTask2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="warranty3" class="domain.Warranty">
+
+		<property name="title" value="El titulo de Warranty 3" />
+		<property name="terms" value="Terminos, muchos terminos 3" />
+		<property name="laws" value="Leyes,muchas leyes 3" />
+		<property name="draft" value="false" />
+		<property name="fixupTasks">
+			<list>
+				<ref bean="fixupTask2" />
+			</list>
+		</property>
+	</bean>
+	
 
 	<!-- __________________________________ FOLDER _________________________________ -->
 
@@ -2914,17 +2986,17 @@
 		<property name="finder" ref="finder4"></property>
 		<property name="tutorials">
 			<list>
-				<ref bean="tutorial4" />
+				
 			</list>
 		</property>
 		<property name="applications">
 			<list>
-				<ref bean="application4" />
+				
 			</list>
 		</property>
 		<property name="workPlans">
 			<list>
-				<ref bean="workPlan4" />
+				
 			</list>
 		</property>
 
@@ -3007,29 +3079,7 @@
 
 
 
-	<!-- _____________________________Miscellaneous Records___________________________________ -->
-
-	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
-		<property name="title" value="Benhill County GaArchives Historical Records"></property>
-		<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
-		<property name="comments" value="Muy interesante"></property>
-
-		<property name="curriculum" ref="curriculum1"></property>
-
-	</bean>
-
-	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
-		<property name="title" value="Death Certificate of John Doe 1930"></property>
-		<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
-		<property name="comments" value="Poco interesante"></property>
-
-		<property name="curriculum" ref="curriculum2"></property>
-
-	</bean>
-
-
-
-
+	
 
 
 
@@ -3055,59 +3105,7 @@
 
 
 
-	<!-- ________________________PersonalRecord________________________________________ -->
-
-
-	<bean id="personalRecord1" class="domain.PersonalRecord">
-		<property name="fullName" value="Antonio Grinch Papp"></property>
-		<property name="photo"
-			value="https://www.cinetecamadrid.com/sites/default/files/activity/image/imagen_EL_GRINCH00_0.jpg"></property>
-		<property name="email" value="elgrinch@hotmail.com"></property>
-		<property name="phone" value="652655856"></property>
-		<property name="linkedlnProfile"
-			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" ref="curriculum1"></property>
-
-	</bean>
-
-
-	<bean id="personalRecord2" class="domain.PersonalRecord">
-		<property name="fullName" value="Luis Pokemaniako Zumarraga"></property>
-		<property name="photo"
-			value="https://cdn.memegenerator.es/imagenes/memes/full/16/43/16433834.jpg"></property>
-		<property name="email" value="pokeluisito@hotmail.com"></property>
-		<property name="phone" value="652653567"></property>
-		<property name="linkedlnProfile"
-			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" ref="curriculum2"></property>
-
-	</bean>
-
-	<bean id="personalRecord3" class="domain.PersonalRecord">
-		<property name="fullName" value="Javi Rmano Camunia"></property>
-		<property name="photo"
-			value="https://misanimales.com/wp-content/uploads/2018/05/curiosidades-del-perezoso.jpg"></property>
-		<property name="email" value="camunon@hotmail.com"></property>
-		<property name="phone" value="652343567"></property>
-		<property name="linkedlnProfile"
-			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" ref="curriculum3"></property>
-
-	</bean>
-
-
-	<bean id="personalRecord4" class="domain.PersonalRecord">
-		<property name="fullName" value="Tobias Elpen Feliz"></property>
-		<property name="photo"
-			value="https://www.peluchetes.com/contenido/uploads/2015/08/peluche-perro-salchicha.jpg"></property>
-		<property name="email" value="tobi@hotmail.com"></property>
-		<property name="phone" value="611143567"></property>
-		<property name="linkedlnProfile"
-			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" ref="curriculum4"></property>
-
-	</bean>
-
+	
 
 
 
