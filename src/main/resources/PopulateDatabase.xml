@@ -342,62 +342,83 @@
 
 	<!-- Categories -->
 
-	<bean id="categoryRoot">
+	<bean id="categoryRoot" class="domain.Category">
 		<property name="name" value="ROOT" />
 		<property name="fixupTasks">
-			<list></list>
+			<list>
+			</list>
 		</property>
 		<property name="childsCategories">
-			<list></list>
+			<list>
+				<ref bean="categoryCarpentry">
+				<ref bean="categoryCleaning">
+				<ref bean="categoryConcreteWork">
+				<ref bean="categoryElectricalWiring">
+				<ref bean="categoryHomeSecuritySystems">
+				<ref bean="categoryInsulationInstallation">
+				<ref bean="categoryMoving">
+				<ref bean="categoryPlumbingRepairs">
+			</list>
 		</property>
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
-	<bean id="categoryCarpentry">
+	<bean id="categoryCarpentry" class="domain.Category">
 		<property name="name" value="Carpentry" />
 		<property name="fixupTasks">
 			<list></list>
 		</property>
 		<property name="childsCategories">
-			<list></list>
+			<list>
+				<ref bean="categoryWindowRepair">
+				<ref bean="categoryDoors">
+				<ref bean="categoryShelfInstallation">
+			</list>
 		</property>
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
-	<bean id="categoryCeilingRepair">
+	<bean id="categoryCeilingRepair" class="domain.Category">
 		<property name="name" value="CeilingRepair" />
 		<property name="fixupTasks">
 			<list></list>
 		</property>
 		<property name="childsCategories">
-			<list></list>
+			<list>
+				
+			</list>
 		</property>
 		<property name="parentCategory" ref="categoryConcreteWork" />
 	</bean>
 
-	<bean id="categoryCleaning">
+	<bean id="categoryCleaning" class="domain.Category">
 		<property name="name" value="Cleaning" />
 		<property name="fixupTasks">
 			<list></list>
 		</property>
 		<property name="childsCategories">
-			<list></list>
+			<list>
+				<ref bean="categoryPestControl">
+			</list>
 		</property>
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
-	<bean id="categoryConcreteWork">
+	<bean id="categoryConcreteWork" class="domain.Category">
 		<property name="name" value="ConcreteWork" />
 		<property name="fixupTasks">
 			<list></list>
 		</property>
 		<property name="childsCategories">
-			<list></list>
+			<list>
+				<ref bean="categoryRoofing">
+				<ref bean="categoryCeilingRepair">
+			</list>
 		</property>
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
-	<bean id="categoryDoors">
+	<bean id="categoryDoors" class="domain.Category">
 		<property name="name" value="Carpentry" />
 		<property name="fixupTasks">
 			<list></list>
@@ -408,18 +429,23 @@
 		<property name="parentCategory" ref="categoryCarpentry" />
 	</bean>
 
-	<bean id="categoryElectricalWiring">
+	<bean id="categoryElectricalWiring" class="domain.Category">
 		<property name="name" value="ElectricalWiring" />
 		<property name="fixupTasks">
 			<list></list>
 		</property>
 		<property name="childsCategories">
-			<list></list>
+			<list>
+				<ref bean="categoryFanInstallation">
+				<ref bean="categoryLampRepairsl">
+				<ref bean="categorySolarPanels">
+				<ref bean="categorySprinklerRepair">
+			</list>
 		</property>
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
-	<bean id="categoryFanInstallation">
+	<bean id="categoryFanInstallation" class="domain.Category">
 		<property name="name" value="FanInstallation" />
 		<property name="fixupTasks">
 			<list></list>
@@ -430,7 +456,7 @@
 		<property name="parentCategory" ref="categoryElectricalWiring" />
 	</bean>
 
-	<bean id="categoryFenceFixing">
+	<bean id="categoryFenceFixing" class="domain.Category">
 		<property name="name" value="FenceFixing" />
 		<property name="fixupTasks">
 			<list />
@@ -441,29 +467,33 @@
 		<property name="parentCategory" ref="categoryHomeSecuritySystems" />
 	</bean>
 
-	<bean id="categoryHomeSecuritySystems">
+	<bean id="categoryHomeSecuritySystems" class="domain.Category">
 		<property name="name" value="HomeSecuritySystems" />
 		<property name="fixupTasks">
 			<list />
 		</property>
 		<property name="childsCategories">
-			<list />
+			<list>
+				<ref bean="categoryFenceFixing">
+			</list>
 		</property>
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
-	<bean id="categoryInsulationInstallation">
+	<bean id="categoryInsulationInstallation" class="domain.Category">
 		<property name="name" value="InsulationInstallation" />
 		<property name="fixupTasks">
 			<list />
 		</property>
 		<property name="childsCategories">
-			<list />
+			<list>
+				<ref bean="categorySoundProofing">
+			</list>
 		</property>
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
-	<bean id="categoryLampRepairs">
+	<bean id="categoryLampRepairs" class="domain.Category">
 		<property name="name" value="LampRepairs" />
 		<property name="fixupTasks">
 			<list />
@@ -474,7 +504,7 @@
 		<property name="parentCategory" ref="categoryElectricalWiring" />
 	</bean>
 
-	<bean id="categoryMoving">
+	<bean id="categoryMoving" class="domain.Category">
 		<property name="name" value="Moving" />
 		<property name="fixupTasks">
 			<list />
@@ -485,11 +515,18 @@
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
-	<bean id="categoryPainting">
-
+	<bean id="categoryPainting" class="domain.Category">
+		<property name="name" value="Painting" />
+		<property name="fixupTasks">
+			<list></list>
+		</property>
+		<property name="childsCategories">
+			<list></list>
+		</property>
+		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
-	<bean id="categoryPestControl">
+	<bean id="categoryPestControl" class="domain.Category">
 		<property name="name" value="PestControl" />
 		<property name="fixupTasks">
 			<list />
@@ -500,7 +537,7 @@
 		<property name="parentCategory" ref="categoryCleaning" />
 	</bean>
 
-	<bean id="categoryPlumbingRepairs">
+	<bean id="categoryPlumbingRepairs" class="domain.Category">
 		<property name="name" value="SolarPanels" />
 		<property name="fixupTasks">
 			<list />
@@ -511,7 +548,7 @@
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
-	<bean id="categoryRoofing">
+	<bean id="categoryRoofing" class="domain.Category">
 		<property name="name" value="Roofing" />
 		<property name="fixupTasks">
 			<list />
@@ -522,7 +559,7 @@
 		<property name="parentCategory" ref="categoryConcreteWork" />
 	</bean>
 
-	<bean id="categoryShelfInstallation">
+	<bean id="categoryShelfInstallation" class="domain.Category">
 		<property name="name" value="ShelfInstallation" />
 		<property name="fixupTasks">
 			<list />
@@ -535,7 +572,7 @@
 		<property name="parentCategory" ref="categoryCarpentry" />
 	</bean>
 
-	<bean id="categorySolarPanels">
+	<bean id="categorySolarPanels" class="domain.Category">
 		<property name="name" value="SolarPanels" />
 		<property name="fixupTasks">
 			<list />
@@ -546,7 +583,7 @@
 		<property name="parentCategory" ref="categoryElectricalWiring" />
 	</bean>
 
-	<bean id="categorySoundProofing">
+	<bean id="categorySoundProofing" class="domain.Category">
 		<property name="name" value="SoundProofing" />
 		<property name="fixupTasks">
 			<list />
@@ -557,7 +594,7 @@
 		<property name="parentCategory" ref="categoryInsulationInstallation" />
 	</bean>
 
-	<bean id="categorySprinklerRepair">
+	<bean id="categorySprinklerRepair" class="domain.Category">
 		<property name="name" value="SprinklerRepair" />
 		<property name="fixupTasks">
 			<list />
@@ -568,7 +605,7 @@
 		<property name="parentCategory" ref="categoryElectricalWiring" />
 	</bean>
 
-	<bean id="categoryWindowRepair">
+	<bean id="categoryWindowRepair" class="domain.Category">
 		<property name="name" value="WindowRepair" />
 		<property name="fixupTasks">
 			<list />
@@ -1645,7 +1682,7 @@
 		</property>
 		<property name="customer" ref="customer1">
 		</property>
-		<property name="category" ref="category1">
+		<property name="category" ref="categoryCarpentry">
 		</property>
 		<property name="warranty" ref="warranty1">
 		</property>
@@ -1676,7 +1713,7 @@
 		</property>
 		<property name="customer" ref="customer2">
 		</property>
-		<property name="category" ref="category2">
+		<property name="category" ref="categoryCleaning">
 		</property>
 		<property name="warranty" ref="warranty2">
 		</property>
@@ -1704,7 +1741,7 @@
 		</property>
 		<property name="customer" ref="customer1">
 		</property>
-		<property name="category" ref="category1">
+		<property name="category" ref="categoryCarpentry">
 		</property>
 		<property name="warranty" ref="warranty1">
 		</property>
