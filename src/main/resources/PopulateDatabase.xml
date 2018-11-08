@@ -385,7 +385,7 @@
 		</property>
 		<property name="childsCategories">
 			<list>
-				
+
 			</list>
 		</property>
 		<property name="parentCategory" ref="categoryConcreteWork" />
@@ -653,7 +653,7 @@
 		</property>
 		<property name="fixuptask" ref="fixupTask2" />
 	</bean>
-	
+
 	<!-- ________________________PersonalRecord________________________________________ -->
 
 
@@ -706,7 +706,7 @@
 		<property name="curriculum" ref="curriculum4"></property>
 
 	</bean>
-	
+
 	<!-- _____________________________Miscellaneous Records___________________________________ -->
 
 	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
@@ -728,9 +728,25 @@
 	</bean>
 
 
+<!-- ___________________Professional Records___________________________________ -->
 
-	
-	
+	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
+		<property name="company" value="NASA"></property>
+		<property name="start" value="February 6, 2010 09:30"></property>
+		<property name="end" value="May 29, 2012 15:00"></property>
+		<property name="role" value="Jefe"></property>
+		<property name="attachment"
+			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+		<property name="comments" value="Trabajo tela de bien"></property>
+
+		<property name="curriculum" ref="curriculum1"></property>
+
+
+	</bean>
+
+
+
+
 
 	<!-- Curricula -->
 
@@ -1026,21 +1042,7 @@
 
 
 	</bean>
-	<!-- ___________________Professional Records___________________________________ -->
-
-	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
-		<property name="company" value="NASA"></property>
-		<property name="start" value="February 6, 2010 09:30"></property>
-		<property name="end" value="May 29, 2012 15:00"></property>
-		<property name="role" value="Jefe"></property>
-		<property name="attachment"
-			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
-		<property name="comments" value="Trabajo tela de bien"></property>
-
-		<property name="curriculum" ref="curriculum1"></property>
-
-
-	</bean>
+	
 
 	<!-- ___________________Reports___________________________________ -->
 
@@ -1188,7 +1190,7 @@
 	</bean>
 
 	<!-- ___________________Finders __________________________________ -->
-	
+
 	<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="cocina"></property>
 		<property name="maxPrice" value="1200.0"></property>
@@ -1216,46 +1218,17 @@
 
 	</bean>
 
-	<!-- ___________________Endorsable__________________________________ 
-	<bean id="endorsable1" class="domain.Endorsable">
-		<property name="score" value="0.75"></property>
-		<property name="endorsements">
-			<list>
-				<ref bean="endorsement1"></ref>
-			</list>
-		</property>
-
-	</bean>
-
-	<bean id="endorsable2" class="domain.Endorsable">
-		<property name="score" value="-0.75"></property>
-		<property name="endorsements">
-			<list>
-				<ref bean="endorsement2"></ref>
-			</list>
-		</property>
-
-	</bean>
-
-	<bean id="endorsable3" class="domain.Endorsable">
-		<property name="score" value="0.25"></property>
-		<property name="endorsements">
-			<list>
-				<ref bean="endorsement3"></ref>
-			</list>
-		</property>
-
-	</bean>
-
-	<bean id="endorsable4" class="domain.Endorsable">
-		<property name="score" value="0.35"></property>
-		<property name="endorsements">
-			<list>
-				<ref bean="endorsement4"></ref>
-			</list>
-		</property>
-
-	</bean>  -->
+	<!-- ___________________Endorsable__________________________________ <bean 
+		id="endorsable1" class="domain.Endorsable"> <property name="score" value="0.75"></property> 
+		<property name="endorsements"> <list> <ref bean="endorsement1"></ref> </list> 
+		</property> </bean> <bean id="endorsable2" class="domain.Endorsable"> <property 
+		name="score" value="-0.75"></property> <property name="endorsements"> <list> 
+		<ref bean="endorsement2"></ref> </list> </property> </bean> <bean id="endorsable3" 
+		class="domain.Endorsable"> <property name="score" value="0.25"></property> 
+		<property name="endorsements"> <list> <ref bean="endorsement3"></ref> </list> 
+		</property> </bean> <bean id="endorsable4" class="domain.Endorsable"> <property 
+		name="score" value="0.35"></property> <property name="endorsements"> <list> 
+		<ref bean="endorsement4"></ref> </list> </property> </bean> -->
 
 
 	<!-- ___________________Endorsement__________________________________ -->
@@ -1609,7 +1582,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- Phase -->
 
 	<bean id="phase1" class="domain.Phase">
@@ -1639,8 +1612,8 @@
 		<property name="workPlan" ref="workPlan3"></property>
 	</bean>
 
-	
-	
+
+
 	<!-- WorkPlan -->
 
 
@@ -1682,15 +1655,15 @@
 	</bean>
 
 
-	
-	
-	
-	
+
 
 
 	
-	
-	
+
+
+
+
+
 	<!--____________ FixupTask_________________________________ -->
 
 	<bean id="fixupTask1" class="domain.FixupTask">
@@ -1770,7 +1743,7 @@
 		</property>
 		<property name="category" ref="categoryCarpentry">
 		</property>
-		<property name="warranty" ref="warranty1">
+		<property name="warranty" ref="warranty3">
 		</property>
 		<property name="applications">
 			<list>
@@ -1782,9 +1755,7 @@
 
 	</bean>
 
-	
 
-	
 <!-- Warranties -->
 
 
@@ -1798,6 +1769,7 @@
 			<list>
 				<ref bean="fixupTask1" />
 				<ref bean="fixupTask2" />
+				
 			</list>
 		</property>
 	</bean>
@@ -1810,7 +1782,7 @@
 		<property name="draft" value="false" />
 		<property name="fixupTasks">
 			<list>
-				<ref bean="fixupTask1" />
+				
 				<ref bean="fixupTask2" />
 			</list>
 		</property>
@@ -1824,11 +1796,14 @@
 		<property name="draft" value="false" />
 		<property name="fixupTasks">
 			<list>
-				<ref bean="fixupTask2" />
+				<ref bean="fixupTask3" />
+				
 			</list>
 		</property>
 	</bean>
-	
+
+
+
 
 	<!-- __________________________________ FOLDER _________________________________ -->
 
@@ -2986,17 +2961,17 @@
 		<property name="finder" ref="finder4"></property>
 		<property name="tutorials">
 			<list>
-				
+
 			</list>
 		</property>
 		<property name="applications">
 			<list>
-				
+
 			</list>
 		</property>
 		<property name="workPlans">
 			<list>
-				
+
 			</list>
 		</property>
 
@@ -3079,7 +3054,7 @@
 
 
 
-	
+
 
 
 
@@ -3105,7 +3080,7 @@
 
 
 
-	
+
 
 
 
