@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -78,7 +77,6 @@ public class Complaint extends Ticketable {
 	}
 
 	@NotNull
-	@URL
 	@ElementCollection
 	public Collection<String> getAttachments() {
 		return this.attachments;

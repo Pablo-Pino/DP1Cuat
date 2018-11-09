@@ -17,7 +17,6 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -69,7 +68,6 @@ public class Tutorial extends DomainEntity {
 		this.summary = summary;
 	}
 
-	@URL
 	@ElementCollection
 	public Collection<String> getPictures() {
 		return this.pictures;
