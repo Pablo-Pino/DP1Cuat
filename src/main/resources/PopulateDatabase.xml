@@ -19,8 +19,8 @@
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
-		<property name="username" value="admin" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="username" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -31,8 +31,8 @@
 	</bean>
 
 	<bean id="userAccount15" class="security.UserAccount">
-		<property name="username" value="admin" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="username" value="admin2" />
+		<property name="password" value="c84258e9c39059a89ab77d846ddab909" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -43,8 +43,8 @@
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="customer1" />
+		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -70,8 +70,8 @@
 	</bean>
 
 	<bean id="userAccount4" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="customer2" />
+		<property name="password" value="5ce4d191fd14ac85a1469fb8c29b7a7b" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -82,8 +82,8 @@
 	</bean>
 
 	<bean id="userAccount5" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="customer3" />
+		<property name="password" value="033f7f6121501ae98285ad77f216d5e7" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -94,8 +94,8 @@
 	</bean>
 
 	<bean id="userAccount6" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="customer4" />
+		<property name="password" value="55feb130be438e686ad6a80d12dd8f44" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -106,8 +106,8 @@
 	</bean>
 
 	<bean id="userAccount7" class="security.UserAccount">
-		<property name="username" value="referee" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="referee1" />
+		<property name="password" value="092d469d0a71c8002e32f808b861f9a4" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -119,8 +119,8 @@
 
 
 	<bean id="userAccount14" class="security.UserAccount">
-		<property name="username" value="handywoker" />
-		<property name="password" value="24da2ce4fb8a46c3d44d2c72305a31a2" />
+		<property name="username" value="handywoker1" />
+		<property name="password" value="719ef6a0a8ecc67396974f9659f5880d" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -132,8 +132,8 @@
 
 
 	<bean id="userAccount8" class="security.UserAccount">
-		<property name="username" value="handywoker" />
-		<property name="password" value="24da2ce4fb8a46c3d44d2c72305a31a2" />
+		<property name="username" value="handywoker2" />
+		<property name="password" value="b76bd68be84abed21def45dbc6248dce" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -145,8 +145,8 @@
 
 
 	<bean id="userAccount9" class="security.UserAccount">
-		<property name="username" value="handywoker" />
-		<property name="password" value="24da2ce4fb8a46c3d44d2c72305a31a2" />
+		<property name="username" value="handywoker3" />
+		<property name="password" value="40018833b495c4530c54d2c774a5533e" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -158,8 +158,8 @@
 
 
 	<bean id="userAccount10" class="security.UserAccount">
-		<property name="username" value="handywoker" />
-		<property name="password" value="24da2ce4fb8a46c3d44d2c72305a31a2" />
+		<property name="username" value="handywoker4" />
+		<property name="password" value="6cc69e0ffd81eefb7ab28cea37debd03" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -171,8 +171,8 @@
 
 
 	<bean id="userAccount11" class="security.UserAccount">
-		<property name="username" value="sponsor" />
-		<property name="password" value="08391c959fc8bd0b672c596c4d6bcdcd" />
+		<property name="username" value="sponsor1" />
+		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -184,8 +184,8 @@
 
 
 	<bean id="userAccount12" class="security.UserAccount">
-		<property name="username" value="sponsor" />
-		<property name="password" value="08391c959fc8bd0b672c596c4d6bcdcd" />
+		<property name="username" value="sponsor2" />
+		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -197,8 +197,8 @@
 
 
 	<bean id="userAccount13" class="security.UserAccount">
-		<property name="username" value="sponsor" />
-		<property name="password" value="08391c959fc8bd0b672c596c4d6bcdcd" />
+		<property name="username" value="sponsor3" />
+		<property name="password" value="857a54956061fdc1b88d7722cafe6519" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -260,6 +260,7 @@
 		<property name="name" value="Clara" />
 		<property name="surname" value="Prats" />
 		<property name="email" value="maxagar@gmail.com" />
+		<property name="phone" value="+34(456)123456759" />
 		<property name="banned" value="false" />
 		<property name="suspicious" value="false" />
 		<property name="sendedMessages">
@@ -662,10 +663,9 @@
 		<property name="photo"
 			value="https://www.cinetecamadrid.com/sites/default/files/activity/image/imagen_EL_GRINCH00_0.jpg"></property>
 		<property name="email" value="elgrinch@hotmail.com"></property>
-		<property name="phone" value="652655856"></property>
+		<property name="phone" value="+34(456)123456722"></property>
 		<property name="linkedlnProfile"
 			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" ref="curriculum1"></property>
 
 	</bean>
 
@@ -675,10 +675,9 @@
 		<property name="photo"
 			value="https://cdn.memegenerator.es/imagenes/memes/full/16/43/16433834.jpg"></property>
 		<property name="email" value="pokeluisito@hotmail.com"></property>
-		<property name="phone" value="652653567"></property>
+		<property name="phone" value="+34(456)123456721"></property>
 		<property name="linkedlnProfile"
 			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" ref="curriculum2"></property>
 
 	</bean>
 
@@ -687,10 +686,9 @@
 		<property name="photo"
 			value="https://misanimales.com/wp-content/uploads/2018/05/curiosidades-del-perezoso.jpg"></property>
 		<property name="email" value="camunon@hotmail.com"></property>
-		<property name="phone" value="652343567"></property>
+		<property name="phone" value="+34(456)123456720"></property>
 		<property name="linkedlnProfile"
 			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" ref="curriculum3"></property>
 
 	</bean>
 
@@ -700,10 +698,8 @@
 		<property name="photo"
 			value="https://www.peluchetes.com/contenido/uploads/2015/08/peluche-perro-salchicha.jpg"></property>
 		<property name="email" value="tobi@hotmail.com"></property>
-		<property name="phone" value="611163217"></property>
-		<property name="linkedlnProfile"
-			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-		<property name="curriculum" ref="curriculum4"></property>
+		<property name="phone" value="+34(456)123456719"></property>
+		<property name="linkedlnProfile" value="https://www.linkedin.com"></property>
 
 	</bean>
 
@@ -714,7 +710,6 @@
 		<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="comments" value="Muy interesante"></property>
 
-		<property name="curriculum" ref="curriculum1"></property>
 
 	</bean>
 
@@ -723,12 +718,11 @@
 		<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
 		<property name="comments" value="Poco interesante"></property>
 
-		<property name="curriculum" ref="curriculum2"></property>
 
 	</bean>
 
 
-<!-- ___________________Professional Records___________________________________ -->
+	<!-- ___________________Professional Records___________________________________ -->
 
 	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
 		<property name="company" value="NASA"></property>
@@ -739,7 +733,6 @@
 			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
 		<property name="comments" value="Trabajo tela de bien"></property>
 
-		<property name="curriculum" ref="curriculum1"></property>
 
 
 	</bean>
@@ -755,7 +748,7 @@
 		<property name="handyWorker" ref="handyWorker1" />
 		<property name="personalRecord" ref="personalRecord1" />
 		<property name="educationRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="professionalRecords">
 			<list>
@@ -763,10 +756,10 @@
 			</list>
 		</property>
 		<property name="endorserRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="miscellaneousRecords">
-			<list />
+			<list></list>
 		</property>
 	</bean>
 
@@ -775,16 +768,16 @@
 		<property name="handyWorker" ref="handyWorker2" />
 		<property name="personalRecord" ref="personalRecord2" />
 		<property name="educationRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="professionalRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="endorserRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="miscellaneousRecords">
-			<list />
+			<list></list>
 		</property>
 	</bean>
 
@@ -793,34 +786,34 @@
 		<property name="handyWorker" ref="handyWorker3" />
 		<property name="personalRecord" ref="personalRecord3" />
 		<property name="educationRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="professionalRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="endorserRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="miscellaneousRecords">
-			<list />
+			<list></list>
 		</property>
 	</bean>
 
 	<bean id="curriculum4" class="domain.Curriculum">
-		<property name="ticker" value="101010-987321" />
+		<property name="ticker" value="101010-F24RAE" />
 		<property name="handyWorker" ref="handyWorker4" />
 		<property name="personalRecord" ref="personalRecord4" />
 		<property name="educationRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="professionalRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="endorserRecords">
-			<list />
+			<list></list>
 		</property>
 		<property name="miscellaneousRecords">
-			<list />
+			<list></list>
 		</property>
 	</bean>
 
@@ -832,10 +825,11 @@
 		<property name="photo"
 			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="uncorreonormal@hotmail.com"></property>
-		<property name="phone" value="658225856"></property>
+		<property name="phone" value="+34(456)123456718"></property>
 		<property name="address" value="C/ sal y arena"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
+		<property name="score" value="0.75"></property>
 
 
 		<property name="userAccount" ref="userAccount2">
@@ -843,7 +837,6 @@
 
 		<property name="socialProfiles">
 			<list>
-				<ref bean="socialProfile1"></ref>
 			</list>
 		</property>
 
@@ -867,6 +860,18 @@
 			</list>
 		</property>
 
+		<property name="fixupTasks">
+			<list>
+
+			</list>
+		</property>
+		
+		<property name="endorsements">
+			<list>
+
+			</list>
+		</property>
+
 
 	</bean>
 
@@ -877,10 +882,11 @@
 		<property name="photo"
 			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="uncorreomaslargo@hotmail.com"></property>
-		<property name="phone" value="655525856"></property>
+		<property name="phone" value="+34(456)123456717"></property>
 		<property name="address" value="C/ esperanza de rafael"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
+		<property name="score" value="0.75"></property>
 
 		<property name="userAccount" ref="userAccount4">
 		</property>
@@ -912,6 +918,17 @@
 			</list>
 		</property>
 
+		<property name="fixupTasks">
+			<list>
+
+			</list>
+		</property>
+		<property name="endorsements">
+			<list>
+
+			</list>
+		</property>
+
 
 	</bean>
 
@@ -922,10 +939,11 @@
 		<property name="photo"
 			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="juandelaaceitunaynooliva@hotmail.com"></property>
-		<property name="phone" value="674525856"></property>
+		<property name="phone" value="+34(456)123456716"></property>
 		<property name="address" value="C/ Perdida de la mano de Dios"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
+		<property name="score" value="0.81"></property>
 
 		<property name="userAccount" ref="userAccount5">
 		</property>
@@ -954,6 +972,17 @@
 				<ref bean="folder4Customer3" />
 			</list>
 		</property>
+		<property name="fixupTasks">
+			<list>
+
+			</list>
+		</property>
+		
+		<property name="endorsements">
+			<list>
+
+			</list>
+		</property>
 
 
 	</bean>
@@ -965,10 +994,11 @@
 		<property name="photo"
 			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="tomaslena@hotmail.com"></property>
-		<property name="phone" value="677525856"></property>
+		<property name="phone" value="+34(456)123456715"></property>
 		<property name="address" value="C/ pasada la estacion del ave"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
+		<property name="score" value="0.65"></property>
 
 		<property name="userAccount" ref="userAccount6">
 		</property>
@@ -995,6 +1025,18 @@
 				<ref bean="folder4Customer4" />
 			</list>
 		</property>
+		
+		<property name="fixupTasks">
+			<list>
+
+			</list>
+		</property>
+		
+		<property name="endorsements">
+			<list>
+
+			</list>
+		</property>
 
 
 	</bean>
@@ -1007,7 +1049,7 @@
 		<property name="photo"
 			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="uncorreonormal@hotmail.com"></property>
-		<property name="phone" value="666666666"></property>
+		<property name="phone" value="+34(456)123456714"></property>
 		<property name="address" value="C/ se señor"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
@@ -1018,7 +1060,7 @@
 
 		<property name="socialProfiles">
 			<list>
-				<ref bean="socialProfile1"></ref>
+
 			</list>
 		</property>
 
@@ -1039,10 +1081,15 @@
 				<ref bean="folder4Referee1" />
 			</list>
 		</property>
+		
+		<property name="complaints">
+			<list>
+			</list>
+		</property>
 
 
 	</bean>
-	
+
 
 	<!-- ___________________Reports___________________________________ -->
 
@@ -1088,7 +1135,6 @@
 			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
 		<property name="comments" value="Un cinco pelao he sacao."></property>
 
-		<property name="curriculum" ref="curriculum1"></property>
 
 
 	</bean>
@@ -1102,7 +1148,6 @@
 			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
 		<property name="comments" value="He peloteado que da gusto."></property>
 
-		<property name="curriculum" ref="curriculum2"></property>
 
 
 	</bean>
@@ -1117,7 +1162,6 @@
 			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
 		<property name="comments" value="Cuidado con los curas"></property>
 
-		<property name="curriculum" ref="curriculum3"></property>
 
 	</bean>
 
@@ -1132,7 +1176,6 @@
 			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
 		<property name="comments" value="Cuidado con los fanaticos de satanas"></property>
 
-		<property name="curriculum" ref="curriculum4"></property>
 
 	</bean>
 
@@ -1142,11 +1185,10 @@
 		<property name="photo"
 			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="lipasam@gmail.es"></property>
-		<property name="phone" value="954586598"></property>
+		<property name="phone" value="+34(456)123456713"></property>
 		<property name="linkedProfile" value="http://www.linkedin.com/in/lipasam"></property>
 
 
-		<property name="curriculum" ref="curriculum1"></property>
 
 	</bean>
 
@@ -1155,11 +1197,10 @@
 		<property name="photo"
 			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="Emasesa@gmail.es"></property>
-		<property name="phone" value="957586598"></property>
+		<property name="phone" value="+34(456)123456712"></property>
 		<property name="linkedProfile" value="http://www.linkedin.com/in/emasesa"></property>
 
 
-		<property name="curriculum" ref="curriculum2"></property>
 
 	</bean>
 
@@ -1168,11 +1209,10 @@
 		<property name="photo"
 			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="vips@gmail.es"></property>
-		<property name="phone" value="957456598"></property>
+		<property name="phone" value="+34(456)123456711"></property>
 		<property name="linkedProfile" value="http://www.linkedin.com/in/emasesa"></property>
 
 
-		<property name="curriculum" ref="curriculum3"></property>
 
 	</bean>
 
@@ -1181,11 +1221,10 @@
 		<property name="photo"
 			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="disneyfantasy@gmail.es"></property>
-		<property name="phone" value="954571258"></property>
+		<property name="phone" value="+34(456)1234567"></property>
 		<property name="linkedProfile" value="http://www.linkedin.com/in/disney"></property>
 
 
-		<property name="curriculum" ref="curriculum4"></property>
 
 	</bean>
 
@@ -1274,7 +1313,7 @@
 		<property name="photo"
 			value="https://static.boredpanda.com/blog/wp-content/uploads/2014/10/funny-military-soldiers-photos-33__605.jpg"></property>
 		<property name="email" value="nachete@hotmail.com"></property>
-		<property name="phone" value="658597856"></property>
+		<property name="phone" value="+34(456)123456757"></property>
 		<property name="address" value="C/ Vietnam"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
@@ -1325,7 +1364,7 @@
 		<property name="photo"
 			value="https://cdn.memegenerator.es/imagenes/memes/full/24/87/24874063.jpg"></property>
 		<property name="email" value="yisusmurciano@gmail.com"></property>
-		<property name="phone" value="655613256"></property>
+		<property name="phone" value="+34(456)123456756"></property>
 		<property name="address" value="C/ Achoooooo"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
@@ -1374,7 +1413,7 @@
 		<property name="photo"
 			value="http://blogs.elespectador.com/wp-content/uploads/2015/09/Peter_Pan2.jpg"></property>
 		<property name="email" value="ramire@gmail.com"></property>
-		<property name="phone" value="655613333"></property>
+		<property name="phone" value="+34(456)123456755"></property>
 		<property name="address" value="C/ Duero"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
@@ -1658,7 +1697,7 @@
 
 
 
-	
+
 
 
 
@@ -1673,6 +1712,7 @@
 		<property name="maximumPrice" value="15.00"></property>
 		<property name="start" value="February 17, 2017 09:30"></property>
 		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="ticker" value="181103-RTIB01" />
 
 		<property name="complaints">
 			<list>
@@ -1705,6 +1745,7 @@
 		<property name="maximumPrice" value="14.00"></property>
 		<property name="start" value="October 12, 2017 09:30"></property>
 		<property name="end" value="October 18, 2017 09:30"></property>
+		<property name="ticker" value="181103-RTIB02" />
 
 		<property name="complaints">
 			<list>
@@ -1731,9 +1772,10 @@
 		<property name="moment" value="June 11, 2017 09:30"></property>
 		<property name="description" value="Hay que coserle el brazo a Woody"></property>
 		<property name="address" value="C/ Toy Story N2"></property>
-		<property name="maximumPrice" value="500.00"></property>
+		<property name="maximumPrice" value="50.00"></property>
 		<property name="start" value="June 12, 2017 09:30"></property>
 		<property name="end" value="June 18, 2017 09:30"></property>
+		<property name="ticker" value="181103-RTIB03" />
 
 		<property name="complaints">
 			<list>
@@ -1756,7 +1798,7 @@
 	</bean>
 
 
-<!-- Warranties -->
+	<!-- Warranties -->
 
 
 	<bean id="warranty1" class="domain.Warranty">
@@ -1769,7 +1811,7 @@
 			<list>
 				<ref bean="fixupTask1" />
 				<ref bean="fixupTask2" />
-				
+
 			</list>
 		</property>
 	</bean>
@@ -1782,7 +1824,7 @@
 		<property name="draft" value="false" />
 		<property name="fixupTasks">
 			<list>
-				
+
 				<ref bean="fixupTask2" />
 			</list>
 		</property>
@@ -1797,7 +1839,7 @@
 		<property name="fixupTasks">
 			<list>
 				<ref bean="fixupTask3" />
-				
+
 			</list>
 		</property>
 	</bean>
@@ -2663,51 +2705,52 @@
 	</bean>
 
 
-	<!-- __________________________Settings_______________________________________________ -->
-
-	<bean id="settings1" class="domain.Settings">
-		<property name="systemName" value="Benhill County GArchives Historical Records"></property>
-		<property name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property>
-		<property name="welcomeMessage" value="Buenas tardes"></property>
-		<property name="spamWords" value="palabrotas"></property>
-		<property name="vat" value="21"></property>
-		<property name="countryCode" value="34"></property>
-		<property name="creditCardMakes" value="Text"></property>
-		<property name="finderCacheHours" value="14"></property>
-		<property name="maxCacheResults" value="10"></property>
-		<property name="positiveWords" value="Bien"></property>
-		<property name="negativeWords" value="Mal"></property>
-	</bean>
+	<!-- __________________________Settings_______________________________________________ 
+		<bean id="settings1" class="domain.Settings"> <property name="systemName" 
+		value="Benhill County GArchives Historical Records"></property> <property 
+		name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property> 
+		<property name="welcomeMessage" value="Buenas tardes"></property> <property 
+		name="spamWords" value="palabrotas"></property> <property name="vat" value="21"></property> 
+		<property name="countryCode" value="34"></property> <property name="creditCardMakes" 
+		value="Text"></property> <property name="finderCacheHours" value="14"></property> 
+		<property name="maxCacheResults" value="10"></property> <property name="positiveWords" 
+		value="Bien"></property> <property name="negativeWords" value="Mal"></property> 
+		</bean> -->
 
 	<!-- _______________________________SocialProfile________________________________________________ -->
 	<bean id="socialProfile1" class="domain.SocialProfile">
 		<property name="nick" value="Manolete"></property>
 		<property name="networkName" value="Twitter"></property>
 		<property name="actor" ref="handyWorker1" />
+		<property name="profile" value="https://profile.es/"></property>
 	</bean>
 
 	<bean id="socialProfile2" class="domain.SocialProfile">
 		<property name="nick" value="Manolete2"></property>
 		<property name="networkName" value="Twitter"></property>
 		<property name="actor" ref="handyWorker2" />
+		<property name="profile" value="https://profile.es/"></property>
 	</bean>
 
 	<bean id="socialProfile3" class="domain.SocialProfile">
 		<property name="nick" value="Manolete3"></property>
 		<property name="networkName" value="Twitter"></property>
 		<property name="actor" ref="handyWorker3" />
+		<property name="profile" value="https://profile.es/"></property>
 	</bean>
 
 	<bean id="socialProfile1Admin1" class="domain.SocialProfile">
 		<property name="nick" value="Manolete4"></property>
 		<property name="networkName" value="Twitter"></property>
 		<property name="actor" ref="administrator1" />
+		<property name="profile" value="https://profile.es/"></property>
 	</bean>
 
 	<bean id="socialProfile2Admin1" class="domain.SocialProfile">
 		<property name="nick" value="Manolete5"></property>
 		<property name="networkName" value="Twitter"></property>
 		<property name="actor" ref="administrator1" />
+		<property name="profile" value="https://profile.es/"></property>
 	</bean>
 
 	<!-- _______________________________________HANDYWORKER ______________________________________________ -->
@@ -2720,10 +2763,11 @@
 		<property name="photo"
 			value="https://www.cinetecamadrid.com/sites/default/files/activity/image/imagen_EL_GRINCH00_0.jpg"></property>
 		<property name="email" value="elgrinch@hotmail.com"></property>
-		<property name="phone" value="652655856"></property>
+		<property name="phone" value="+34(456)123456754"></property>
 		<property name="address" value="C/ Polo Norte"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
+		<property name="score" value="0.95"></property>
 
 
 		<property name="userAccount" ref="userAccount14">
@@ -2789,10 +2833,11 @@
 		<property name="photo"
 			value="https://cdn.memegenerator.es/imagenes/memes/full/16/43/16433834.jpg"></property>
 		<property name="email" value="pokeluisito@hotmail.com"></property>
-		<property name="phone" value="652653567"></property>
+		<property name="phone" value="+34(456)123456753"></property>
 		<property name="address" value="C/ Rataland"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
+		<property name="score" value="0.85"></property>
 
 
 		<property name="userAccount" ref="userAccount8">
@@ -2855,10 +2900,11 @@
 		<property name="photo"
 			value="https://misanimales.com/wp-content/uploads/2018/05/curiosidades-del-perezoso.jpg"></property>
 		<property name="email" value="camunon@hotmail.com"></property>
-		<property name="phone" value="652343567"></property>
+		<property name="phone" value="+34(456)123456752"></property>
 		<property name="address" value="C/ Lovaina"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
+		<property name="score" value="0.75"></property>
 
 
 		<property name="userAccount" ref="userAccount9">
@@ -2922,10 +2968,11 @@
 		<property name="photo"
 			value="https://www.peluchetes.com/contenido/uploads/2015/08/peluche-perro-salchicha.jpg"></property>
 		<property name="email" value="tobi@hotmail.com"></property>
-		<property name="phone" value="611143567"></property>
+		<property name="phone" value="+34(456)123456751"></property>
 		<property name="address" value="C/ Reja"></property>
 		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
+		<property name="score" value="0.66"></property>
 
 
 		<property name="userAccount" ref="userAccount10">

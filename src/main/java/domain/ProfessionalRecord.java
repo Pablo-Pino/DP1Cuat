@@ -6,8 +6,6 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -20,17 +18,15 @@ public class ProfessionalRecord extends DomainEntity {
 
 	//-----------Atributos----------
 
-	private String		company;
-	private Date		start;
-	private Date		end;
-	private String		role;
-	private String		attachment;
-	private String		comments;
+	private String	company;
+	private Date	start;
+	private Date	end;
+	private String	role;
+	private String	attachment;
+	private String	comments;
+
 
 	//------------Relaciones--------
-
-	private Curriculum	curriculum;
-
 
 	//-----------Getters y Setters-----
 
@@ -87,17 +83,6 @@ public class ProfessionalRecord extends DomainEntity {
 
 	public void setComments(final String comments) {
 		this.comments = comments;
-	}
-
-	@NotNull
-	@Valid
-	@ManyToOne(optional = false)
-	public Curriculum getCurriculum() {
-		return this.curriculum;
-	}
-
-	public void setCurriculum(final Curriculum curriculum) {
-		this.curriculum = curriculum;
 	}
 
 }

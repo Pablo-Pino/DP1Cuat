@@ -3,6 +3,9 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -11,19 +14,21 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
+@Embeddable
+@Access(AccessType.PROPERTY)
 public class Settings extends DomainEntity {
 
 	//-----------Atributos-----------
 
-	private String	systemName;
-	private String	banner;
-	private String	welcomeMessage;
+	private String				systemName;
+	private String				banner;
+	private String				welcomeMessage;
 	private Collection<String>	spamWords;
-	private int		vat;
-	private String	countryCode;
+	private int					vat;
+	private String				countryCode;
 	private Collection<String>	creditCardMakes;
-	private int		finderCacheHours;
-	private int		maxCacheResults;
+	private int					finderCacheHours;
+	private int					maxCacheResults;
 	private Collection<String>	positiveWords;
 	private Collection<String>	negativeWords;
 
@@ -81,7 +86,7 @@ public class Settings extends DomainEntity {
 	}
 
 	@NotBlank
-	@Pattern(regexp="\\+\\d{1,3}")
+	@Pattern(regexp = "\\+\\d{1,3}")
 	public String getCountryCode() {
 		return this.countryCode;
 	}

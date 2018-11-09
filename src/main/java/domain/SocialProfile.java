@@ -49,7 +49,6 @@ public class SocialProfile extends DomainEntity {
 	}
 
 	@URL
-	@NotBlank
 	@NotNull
 	public String getProfile() {
 		return this.profile;

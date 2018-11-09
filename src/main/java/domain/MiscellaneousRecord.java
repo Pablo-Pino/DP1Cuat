@@ -4,8 +4,6 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -17,14 +15,12 @@ public class MiscellaneousRecord extends DomainEntity {
 
 	//----------Atributos-------------
 
-	private String		title;
-	private String		attachment;
-	private String		comments;
+	private String	title;
+	private String	attachment;
+	private String	comments;
+
 
 	//----------Relationships---------
-
-	private Curriculum	curriculum;
-
 
 	//-----------Getters y Setters------
 
@@ -53,17 +49,6 @@ public class MiscellaneousRecord extends DomainEntity {
 
 	public void setComments(final String comments) {
 		this.comments = comments;
-	}
-
-	@Valid
-	@NotNull
-	@ManyToOne(optional = false)
-	public Curriculum getCurriculum() {
-		return this.curriculum;
-	}
-
-	public void setCurriculum(final Curriculum curriculum) {
-		this.curriculum = curriculum;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -43,7 +44,7 @@ public class Curriculum extends Ticketable {
 
 	@NotNull
 	@Valid
-	@OneToOne(optional = false)
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	public PersonalRecord getPersonalRecord() {
 		return this.personalRecord;
 	}
@@ -53,7 +54,7 @@ public class Curriculum extends Ticketable {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "curriculum")
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<EducationRecord> getEducationRecords() {
 		return this.educationRecords;
 	}
@@ -64,7 +65,7 @@ public class Curriculum extends Ticketable {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "curriculum")
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<ProfessionalRecord> getProfessionalRecords() {
 		return this.professionalRecords;
 	}
@@ -75,7 +76,7 @@ public class Curriculum extends Ticketable {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "curriculum")
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<EndorserRecord> getEndorserRecords() {
 		return this.endorserRecords;
 	}
@@ -86,7 +87,7 @@ public class Curriculum extends Ticketable {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "curriculum")
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<MiscellaneousRecord> getMiscellaneousRecords() {
 		return this.miscellaneousRecords;
 	}
