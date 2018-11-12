@@ -64,7 +64,7 @@ public class Application extends DomainEntity {
 		this.handyWorker = handyWorker;
 	}
 
-	@Digits(fraction = 2, integer = 0)
+	@Digits(fraction = 2, integer = 100)
 	@Min(value = 0)
 	public double getPrice() {
 		return this.price;

@@ -67,7 +67,6 @@ public class Settings extends DomainEntity {
 		this.welcomeMessage = welcomeMessage;
 	}
 
-	@NotBlank
 	@NotNull
 	@ElementCollection
 	public Collection<String> getSpamWords() {
@@ -97,7 +96,6 @@ public class Settings extends DomainEntity {
 		this.countryCode = countryCode;
 	}
 
-	@NotBlank
 	@NotNull
 	@ElementCollection
 	public Collection<String> getCreditCardMakes() {

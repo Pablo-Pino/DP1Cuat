@@ -3,6 +3,7 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -87,7 +88,7 @@ public class PersonalRecord extends DomainEntity {
 	}
 
 	@Valid
-	@OneToOne(optional = false)
+	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	public Curriculum getCurriculum() {
 		return this.curriculum;
 	}
