@@ -22,15 +22,15 @@ public class Complaint extends Ticketable {
 
 	//----------Atributos-----------
 
-	private Date				moment;
-	private String				description;
-	private Collection<String>	attachments;
+	private Date			moment;
+	private String			description;
+	private Collection<Url>	attachments;
 
 	//----------Relaciones---------
 
-	private Report				report;
-	private FixupTask			fixuptask;
-	private Referee				referee;
+	private Report			report;
+	private FixupTask		fixuptask;
+	private Referee			referee;
 
 
 	//----------Getters y Setters--------------------
@@ -46,7 +46,6 @@ public class Complaint extends Ticketable {
 	}
 
 	@Valid
-	@NotNull
 	@OneToOne(optional = false)
 	public FixupTask getFixuptask() {
 		return this.fixuptask;
@@ -77,12 +76,13 @@ public class Complaint extends Ticketable {
 	}
 
 	@NotNull
+	@Valid
 	@ElementCollection
-	public Collection<String> getAttachments() {
+	public Collection<Url> getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final Collection<String> attachments) {
+	public void setAttachments(final Collection<Url> attachments) {
 		this.attachments = attachments;
 	}
 

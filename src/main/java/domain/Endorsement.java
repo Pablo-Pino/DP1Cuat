@@ -30,7 +30,6 @@ public class Endorsement extends DomainEntity {
 
 	//---------Getters y Setters------
 
-	@NotNull
 	@Valid
 	@OneToOne(optional = false)
 	public Endorsable getSender() {
@@ -41,7 +40,6 @@ public class Endorsement extends DomainEntity {
 		this.sender = sender;
 	}
 
-	@NotNull
 	@Valid
 	@OneToOne(optional = false)
 	public Endorsable getReceiver() {

@@ -22,25 +22,37 @@ public abstract class Endorsable extends Actor {
 
 	// Relationships
 
-	private Collection<Endorsement>	endorsements;
+	private Collection<Endorsement>	sendedEndorsements;
+	private Collection<Endorsement>	receivedEndorsements;
 
 
 	//----------Getters y Setters
 
-	@NotNull
-	@Valid
-	@OneToMany
-	public Collection<Endorsement> getEndorsements() {
-		return this.endorsements;
-	}
-
-	public void setEndorsements(final Collection<Endorsement> endorsements) {
-		this.endorsements = endorsements;
-	}
-
 	@Range(min = -1, max = 1)
 	public double getScore() {
 		return this.score;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "sender")
+	public Collection<Endorsement> getSendedEndorsements() {
+		return this.sendedEndorsements;
+	}
+
+	public void setSendedEndorsements(final Collection<Endorsement> sendedEndorsements) {
+		this.sendedEndorsements = sendedEndorsements;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "receiver")
+	public Collection<Endorsement> getReceivedEndorsements() {
+		return this.receivedEndorsements;
+	}
+
+	public void setReceivedEndorsements(final Collection<Endorsement> receivedEndorsements) {
+		this.receivedEndorsements = receivedEndorsements;
 	}
 
 	public void setScore(final double score) {

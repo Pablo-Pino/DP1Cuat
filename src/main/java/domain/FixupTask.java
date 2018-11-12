@@ -27,7 +27,7 @@ public class FixupTask extends Ticketable {
 	private Date					moment;
 	private String					description;
 	private String					address;
-	private Double					maximumPrice;
+	private double					maximumPrice;
 	private Date					start;
 	private Date					end;
 
@@ -43,7 +43,6 @@ public class FixupTask extends Ticketable {
 
 	//------------Getters y Setters-------
 	@Valid
-	@NotNull
 	@ManyToOne(optional = false)
 	public Customer getCustomer() {
 		return this.customer;
@@ -54,7 +53,6 @@ public class FixupTask extends Ticketable {
 	}
 
 	@Valid
-	@NotNull
 	@ManyToOne(optional = false)
 	public Warranty getWarranty() {
 		return this.warranty;
@@ -76,7 +74,6 @@ public class FixupTask extends Ticketable {
 	}
 
 	@Valid
-	@NotNull
 	@ManyToOne(optional = false)
 	public Category getCategory() {
 		return this.category;
@@ -87,6 +84,7 @@ public class FixupTask extends Ticketable {
 	}
 
 	@Past
+	@NotNull
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -113,16 +111,17 @@ public class FixupTask extends Ticketable {
 		this.address = address;
 	}
 
-	@Digits(fraction = 0, integer = 2)
+	@Digits(fraction = 2, integer = 100)
 	@Min(value = 0)
-	public Double getMaximumPrice() {
+	public double getMaximumPrice() {
 		return this.maximumPrice;
 	}
 
-	public void setMaximumPrice(final Double maximumPrice) {
+	public void setMaximumPrice(final double maximumPrice) {
 		this.maximumPrice = maximumPrice;
 	}
 
+	@NotNull
 	public Date getStart() {
 		return this.start;
 	}
@@ -131,6 +130,7 @@ public class FixupTask extends Ticketable {
 		this.start = start;
 	}
 
+	@NotNull
 	public Date getEnd() {
 		return this.end;
 	}

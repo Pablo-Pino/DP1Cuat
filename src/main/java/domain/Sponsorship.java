@@ -47,7 +47,6 @@ public class Sponsorship extends DomainEntity {
 		this.tutorials = tutorials;
 	}
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public Sponsor getSponsor() {

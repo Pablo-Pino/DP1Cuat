@@ -27,7 +27,7 @@ public class Tutorial extends DomainEntity {
 	private Date					moment;
 	private String					title;
 	private String					summary;
-	private Collection<String>		pictures;
+	private Collection<Url>			pictures;
 
 	//-------------Relaciones--------------
 
@@ -68,16 +68,17 @@ public class Tutorial extends DomainEntity {
 		this.summary = summary;
 	}
 
+	@NotNull
+	@Valid
 	@ElementCollection
-	public Collection<String> getPictures() {
+	public Collection<Url> getPictures() {
 		return this.pictures;
 	}
 
-	public void setPictures(final Collection<String> pictures) {
+	public void setPictures(final Collection<Url> pictures) {
 		this.pictures = pictures;
 	}
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public HandyWorker getHandyWorker() {

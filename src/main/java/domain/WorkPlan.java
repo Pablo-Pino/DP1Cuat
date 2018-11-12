@@ -27,7 +27,6 @@ public class WorkPlan extends DomainEntity {
 
 	//----------Getters y Setters-----
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public HandyWorker getHandyWorker() {
@@ -50,6 +49,7 @@ public class WorkPlan extends DomainEntity {
 		this.phases = phases;
 	}
 
+	@Valid
 	@OneToOne(optional = false)
 	public FixupTask getFixupTask() {
 		return this.fixupTask;

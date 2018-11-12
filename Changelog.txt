@@ -1,0 +1,23 @@
+12/11/2018
+
+- Se ha duplicado la relación entre Actor y Message en la clase Actor del modelo Java. Un único atributo messages no permite la relación entre éstos, el sender de cada mensaje y el receiver de cada mensaje. (Hecho)
+- Se ha duplicado la relación entre Endorsement y Endorsable en la clase Endorsable del modelo Java. Un único atributo endorsements no permite la relación entre éstos, el sender de cada endorsement y el receiver de cada endorsement. (Hecho)
+- Se ha movido el atributo score de HandyWorker y Customer a Endorsable. Esto se debe a que el atributo es común a ambas clases y, por ello, se ha movido a la clase que generaliza a ambas. (Hecho en MC y UML y Java)
+- Se ha quitado la relación entre Report y Customer en los modelos conceptual y UML. Customer y Report ya están relacionados mediante la FixupTask. (Hecho en MC y UML y Java)
+- Se ha quitado la restricción Pattern del atributo phone. En los requisitos pone que deberían tener el pattern, pero que no es requerido. Esto se ha hecho en las clases Actor, PersonalRecord y EndorserRecord (Hecho en MC y UML y Java). 
+- Se ha añadido una relación en Workplan, con Handyworker (Hecho en MC y UML y Java)
+- Se ha añadido la restricción NotBlank al atributo phone de PersonalRecord (Hecho en MC y UML y Java).
+- Se ha añadido el datatype URL, para poder aplicar las restricciones de tipo URL en colecciones, en las que no se puede aplicar correctamente. (Hecho en MC y UML y Java)
+- Se ha cambiado el tipo String por URL en los atributos: pictures de Tutorial, pictures de Section, attachments de Complaint, attachments de Report (hecho en MC y UML y Java)
+- Añadidas anotaciones en UML en Application para que tan sólo haya una Application por Task y Worker (Hecho en UML y Java)
++ Se ha puesto la restricción de una Application por Task y Worker en el modelo Java.
+- Añadida la restricción Min(0) en el price de Application.
+- El cvvCode de CreditCard ha pasado de int a Integer con restricción @NotNull, debido a que de la otra forma da error.
+- El valor de Digits de price en Application estaba mal puesto, eran 2 dígitos decimales y cualquier número de enteros.
++ Se ha puesto los mappedBy en los OneToMany de Curriculum.
+- Añadidas anotaciones @NotNull en los atributos moment, start y end de FixupTask.
+- Añadidas anotaciones @ElementCollection en los atributos spamWords, creditCardMakes, positiveWords y negativeWords de Settings.
++ Se ha puesto los mappedBy en los OneToMany de Warranty.
+- Añadido atributo curriculum en EndorserRecord, EducationRecord, MiscellaneousRecord, PersonalRecord y ProfesionalRecord, debido a que es así como aparece en el UML.
+
+

@@ -13,7 +13,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -23,7 +22,7 @@ public class Section extends DomainEntity {
 
 	private String					title;
 	private String					text;
-	private Collection<String>		pictures;
+	private Collection<Url>			pictures;
 	private int						numberOrder;
 
 	//------------Relaciones-----------
@@ -64,13 +63,14 @@ public class Section extends DomainEntity {
 		this.text = text;
 	}
 
-	@URL
+	@NotNull
+	@Valid
 	@ElementCollection
-	public Collection<String> getPictures() {
+	public Collection<Url> getPictures() {
 		return this.pictures;
 	}
 
-	public void setPictures(final Collection<String> pictures) {
+	public void setPictures(final Collection<Url> pictures) {
 		this.pictures = pictures;
 	}
 

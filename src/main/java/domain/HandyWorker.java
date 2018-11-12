@@ -52,7 +52,6 @@ public class HandyWorker extends Endorsable {
 		this.make = make;
 	}
 
-	@NotNull
 	@Valid
 	@OneToOne(optional = false)
 	public Finder getFinder() {

@@ -4,6 +4,8 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -17,14 +19,16 @@ public class EndorserRecord extends DomainEntity {
 
 	//------------Atributos---------
 
-	private String	fullName;
-	private String	photo;
-	private String	email;
-	private String	phone;
-	private String	linkedProfile;
-
+	private String		fullName;
+	private String		photo;
+	private String		email;
+	private String		phone;
+	private String		linkedProfile;
 
 	//------------Relaciones--------
+
+	private Curriculum	curriculum;
+
 
 	//------------Getters y Setters-----
 
@@ -62,7 +66,6 @@ public class EndorserRecord extends DomainEntity {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "^(\\+\\d{1,3}(\\(\\d{1,3}\\))?)\\d{4,}$")
 	@NotNull
 	public String getPhone() {
 		return this.phone;
@@ -81,6 +84,16 @@ public class EndorserRecord extends DomainEntity {
 
 	public void setLinkedProfile(final String linkedProfile) {
 		this.linkedProfile = linkedProfile;
+	}
+
+	@Valid
+	@ManyToOne(optional = false)
+	public Curriculum getCurriculum() {
+		return this.curriculum;
+	}
+
+	public void setCurriculum(final Curriculum curriculum) {
+		this.curriculum = curriculum;
 	}
 
 }

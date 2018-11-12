@@ -68,7 +68,6 @@ public class Phase extends DomainEntity {
 		this.end = end;
 	}
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public WorkPlan getWorkPlan() {

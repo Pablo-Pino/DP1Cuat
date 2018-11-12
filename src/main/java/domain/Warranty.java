@@ -72,7 +72,7 @@ public class Warranty extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "warranty")
 	public Collection<FixupTask> getFixupTasks() {
 		return this.fixupTasks;
 	}

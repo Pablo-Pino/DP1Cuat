@@ -74,7 +74,6 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@Valid
-	@NotNull
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
 	public UserAccount getUserAccount() {
 		return this.userAccount;
@@ -156,7 +155,6 @@ public abstract class Actor extends DomainEntity {
 		this.email = email;
 	}
 
-	@Pattern(regexp = "^(\\+\\d{1,3}(\\(\\d{1,3}\\))?)\\d{4,}$")
 	public String getPhone() {
 		return this.phone;
 	}

@@ -71,7 +71,6 @@ public class Category extends DomainEntity {
 	}
 
 	@Valid
-	@NotNull
 	@ManyToOne(optional = false)
 	public Category getParentCategory() {
 		return this.parentCategory;

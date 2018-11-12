@@ -24,7 +24,7 @@ public class Report extends DomainEntity {
 
 	private Date				moment;
 	private String				description;
-	private Collection<String>	attachments;
+	private Collection<Url>		attachments;
 	private boolean				draft;
 
 	//-----------Relaciones----------
@@ -56,7 +56,6 @@ public class Report extends DomainEntity {
 		this.notes = notes;
 	}
 
-	@NotNull
 	@Valid
 	@OneToOne(optional = false)
 	public Complaint getComplaint() {
@@ -68,12 +67,13 @@ public class Report extends DomainEntity {
 	}
 
 	@NotNull
+	@Valid
 	@ElementCollection
-	public Collection<String> getAttachments() {
+	public Collection<Url> getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final Collection<String> attachments) {
+	public void setAttachments(final Collection<Url> attachments) {
 		this.attachments = attachments;
 	}
 

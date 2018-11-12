@@ -7,8 +7,11 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -17,18 +20,16 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-/*
- * @Table(uniqueConstraints = {
- * 
- * @UniqueConstraint(columnNames = {
- * "handyworker_id", "fixuptask_id"
- * })
- * })
- */
+@Table(uniqueConstraints = {
+	@UniqueConstraint(columnNames = {
+		"handy_worker", "fixup_task"
+	})
+})
 public class Application extends DomainEntity {
 
 	//----------Atributos----------
-	private Double		price;
+
+	private double		price;
 	private Date		moment;
 	private String		status;
 	private String		workerComments;
@@ -44,7 +45,6 @@ public class Application extends DomainEntity {
 	//-----------Getters y Setters---------
 
 	@Valid
-	@NotNull
 	@ManyToOne(optional = false)
 	public FixupTask getFixupTask() {
 		return this.fixupTask;
@@ -55,7 +55,6 @@ public class Application extends DomainEntity {
 	}
 
 	@Valid
-	@NotNull
 	@ManyToOne(optional = false)
 	public HandyWorker getHandyWorker() {
 		return this.handyWorker;
@@ -65,7 +64,8 @@ public class Application extends DomainEntity {
 		this.handyWorker = handyWorker;
 	}
 
-	@Digits(fraction = 0, integer = 2)
+	@Digits(fraction = 2, integer = 0)
+	@Min(value = 0)
 	public double getPrice() {
 		return this.price;
 	}

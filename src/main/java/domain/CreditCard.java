@@ -22,7 +22,7 @@ public class CreditCard {
 	private String	brandName;
 	private String	number;
 	private Date	expirationDate;
-	private int		cvvCode;
+	private Integer	cvvCode;
 
 
 	//---------Getters y Setters-------------
@@ -48,6 +48,7 @@ public class CreditCard {
 	}
 
 	@CreditCardNumber
+	@NotBlank
 	public String getNumber() {
 		return this.number;
 	}
@@ -66,11 +67,12 @@ public class CreditCard {
 	}
 
 	@Range(min = 100, max = 999)
-	public int getCvvCode() {
+	@NotNull
+	public Integer getCvvCode() {
 		return this.cvvCode;
 	}
 
-	public void setCvvCode(final int cvvCode) {
+	public void setCvvCode(final Integer cvvCode) {
 		this.cvvCode = cvvCode;
 	}
 

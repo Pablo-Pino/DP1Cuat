@@ -58,7 +58,6 @@ public class SocialProfile extends DomainEntity {
 		this.profile = profile;
 	}
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public Actor getActor() {

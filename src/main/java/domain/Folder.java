@@ -91,7 +91,6 @@ public class Folder extends DomainEntity {
 		this.parentFolder = parentFolder;
 	}
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public Actor getActor() {

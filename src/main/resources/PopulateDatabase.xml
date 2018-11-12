@@ -215,7 +215,6 @@
 
 	<!-- Other domain beans come here -->
 
-
 	<!-- Administrators -->
 
 	<bean id="administrator1" class="domain.Administrator">
@@ -630,9 +629,12 @@
 		<property name="description" value="This fix is a fake" />
 		<property name="attachments">
 			<list>
-				<value>https://trello-attachments.s3.amazonaws.com/5bdc2fda6f3ec4653ca5ca0e/5bdc38d6221aa411081293c9/0fd144293b39a447a86f3586caa178ac/Acme_Handy_Worker.pdf
-				</value>
-				<value>"https://github.com/DP1819/D03/tree/master/src/main"</value>
+				<bean id="url1Complaint1" class="domain.Url">
+					<property name="url" value="https://trello-attachments.s3.amazonaws.com/5bdc2fda6f3ec4653ca5ca0e/5bdc38d6221aa411081293c9/0fd144293b39a447a86f3586caa178ac/Acme_Handy_Worker.pdf" />
+				</bean>
+				<bean id="url2Complaint1" class="domain.Url">
+					<property name="url" value="https://github.com/DP1819/D03/tree/master/src/main" />
+				</bean>
 			</list>
 		</property>
 		<property name="report" ref="report1" />
@@ -655,168 +657,21 @@
 		<property name="fixuptask" ref="fixupTask2" />
 	</bean>
 
+	<!-- Curricula -->
+
+	
+	
+	
+	
+	
+
+
 	<!-- ________________________PersonalRecord________________________________________ -->
-
-
-	<bean id="personalRecord1" class="domain.PersonalRecord">
-		<property name="fullName" value="Antonio Grinch Papp"></property>
-		<property name="photo"
-			value="https://www.cinetecamadrid.com/sites/default/files/activity/image/imagen_EL_GRINCH00_0.jpg"></property>
-		<property name="email" value="elgrinch@hotmail.com"></property>
-		<property name="phone" value="+34(456)123456722"></property>
-		<property name="linkedlnProfile"
-			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-
-	</bean>
-
-
-	<bean id="personalRecord2" class="domain.PersonalRecord">
-		<property name="fullName" value="Luis Pokemaniako Zumarraga"></property>
-		<property name="photo"
-			value="https://cdn.memegenerator.es/imagenes/memes/full/16/43/16433834.jpg"></property>
-		<property name="email" value="pokeluisito@hotmail.com"></property>
-		<property name="phone" value="+34(456)123456721"></property>
-		<property name="linkedlnProfile"
-			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-
-	</bean>
-
-	<bean id="personalRecord3" class="domain.PersonalRecord">
-		<property name="fullName" value="Javi Rmano Camunia"></property>
-		<property name="photo"
-			value="https://misanimales.com/wp-content/uploads/2018/05/curiosidades-del-perezoso.jpg"></property>
-		<property name="email" value="camunon@hotmail.com"></property>
-		<property name="phone" value="+34(456)123456720"></property>
-		<property name="linkedlnProfile"
-			value="https://www.linkedin.com/company/grinch.spielverderber"></property>
-
-	</bean>
-
-
-	<bean id="personalRecord4" class="domain.PersonalRecord">
-		<property name="fullName" value="Tobias Elpen Feliz"></property>
-		<property name="photo"
-			value="https://www.peluchetes.com/contenido/uploads/2015/08/peluche-perro-salchicha.jpg"></property>
-		<property name="email" value="tobi@hotmail.com"></property>
-		<property name="phone" value="+34(456)123456719"></property>
-		<property name="linkedlnProfile" value="https://www.linkedin.com"></property>
-
-	</bean>
 
 	<!-- _____________________________Miscellaneous Records___________________________________ -->
 
-	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
-		<property name="title" value="Benhill County GaArchives Historical Records"></property>
-		<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
-		<property name="comments" value="Muy interesante"></property>
-
-
-	</bean>
-
-	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
-		<property name="title" value="Death Certificate of John Doe 1930"></property>
-		<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
-		<property name="comments" value="Poco interesante"></property>
-
-
-	</bean>
-
-
 	<!-- ___________________Professional Records___________________________________ -->
-
-	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
-		<property name="company" value="NASA"></property>
-		<property name="start" value="February 6, 2010 09:30"></property>
-		<property name="end" value="May 29, 2012 15:00"></property>
-		<property name="role" value="Jefe"></property>
-		<property name="attachment"
-			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
-		<property name="comments" value="Trabajo tela de bien"></property>
-
-
-
-	</bean>
-
-
-
-
-
-	<!-- Curricula -->
-
-	<bean id="curriculum1" class="domain.Curriculum">
-		<property name="ticker" value="181101-AC34DF" />
-		<property name="handyWorker" ref="handyWorker1" />
-		<property name="personalRecord" ref="personalRecord1" />
-		<property name="educationRecords">
-			<list></list>
-		</property>
-		<property name="professionalRecords">
-			<list>
-				<ref bean="professionalRecord1"></ref>
-			</list>
-		</property>
-		<property name="endorserRecords">
-			<list></list>
-		</property>
-		<property name="miscellaneousRecords">
-			<list></list>
-		</property>
-	</bean>
-
-	<bean id="curriculum2" class="domain.Curriculum">
-		<property name="ticker" value="180321-ALONSO" />
-		<property name="handyWorker" ref="handyWorker2" />
-		<property name="personalRecord" ref="personalRecord2" />
-		<property name="educationRecords">
-			<list></list>
-		</property>
-		<property name="professionalRecords">
-			<list></list>
-		</property>
-		<property name="endorserRecords">
-			<list></list>
-		</property>
-		<property name="miscellaneousRecords">
-			<list></list>
-		</property>
-	</bean>
-
-	<bean id="curriculum3" class="domain.Curriculum">
-		<property name="ticker" value="170730-F24RAN" />
-		<property name="handyWorker" ref="handyWorker3" />
-		<property name="personalRecord" ref="personalRecord3" />
-		<property name="educationRecords">
-			<list></list>
-		</property>
-		<property name="professionalRecords">
-			<list></list>
-		</property>
-		<property name="endorserRecords">
-			<list></list>
-		</property>
-		<property name="miscellaneousRecords">
-			<list></list>
-		</property>
-	</bean>
-
-	<bean id="curriculum4" class="domain.Curriculum">
-		<property name="ticker" value="101010-F24RAE" />
-		<property name="handyWorker" ref="handyWorker4" />
-		<property name="personalRecord" ref="personalRecord4" />
-		<property name="educationRecords">
-			<list></list>
-		</property>
-		<property name="professionalRecords">
-			<list></list>
-		</property>
-		<property name="endorserRecords">
-			<list></list>
-		</property>
-		<property name="miscellaneousRecords">
-			<list></list>
-		</property>
-	</bean>
-
+	
 	<!-- ___________________Customers___________________________________ -->
 	<bean id="customer1" class="domain.Customer">
 		<property name="name" value="Alfonso"></property>
@@ -866,10 +721,11 @@
 			</list>
 		</property>
 		
-		<property name="endorsements">
-			<list>
-
-			</list>
+		<property name="sendedEndorsements">
+			<list/>
+		</property>
+		<property name="receivedEndorsements">
+			<list/>
 		</property>
 
 
@@ -923,10 +779,11 @@
 
 			</list>
 		</property>
-		<property name="endorsements">
-			<list>
-
-			</list>
+		<property name="sendedEndorsements">
+			<list/>
+		</property>
+		<property name="receivedEndorsements">
+			<list/>
 		</property>
 
 
@@ -978,10 +835,11 @@
 			</list>
 		</property>
 		
-		<property name="endorsements">
-			<list>
-
-			</list>
+		<property name="sendedEndorsements">
+			<list/>
+		</property>
+		<property name="receivedEndorsements">
+			<list/>
 		</property>
 
 
@@ -1032,10 +890,11 @@
 			</list>
 		</property>
 		
-		<property name="endorsements">
-			<list>
-
-			</list>
+		<property name="sendedEndorsements">
+			<list/>
+		</property>
+		<property name="receivedEndorsements">
+			<list/>
 		</property>
 
 
@@ -1096,8 +955,13 @@
 	<bean id="report1" class="domain.Report">
 		<property name="description" value="Descripcion 1"></property>
 		<property name="moment" value="May 29, 2012 15:00"></property>
-		<property name="attachments"
-			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+		<property name="attachments">
+			<list>
+				<bean id="url1Report1" class="domain.Url">
+					<property name="url" value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg" />
+				</bean>
+			</list>
+		</property>
 		<property name="draft" value="true"></property>
 		<property name="notes">
 			<list>
@@ -1113,8 +977,11 @@
 	<bean id="report2" class="domain.Report">
 		<property name="description" value="Descripcion 2"></property>
 		<property name="moment" value="May 29, 2012 15:00"></property>
-		<property name="attachments"
-			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+		<property name="attachments">
+			<bean id="url1Report2" class="domain.Url">
+				<property name="url" value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg" />
+			</bean>
+		</property>
 		<property name="draft" value="true"></property>
 		<property name="notes">
 			<list>
@@ -1126,107 +993,8 @@
 
 	</bean>
 	<!-- ___________________Education Records___________________________________ -->
-	<bean id="educationRecord1" class="domain.EducationRecord">
-		<property name="diplomaTitle" value="Bachillerato"></property>
-		<property name="start" value="February 6, 2010 09:30"></property>
-		<property name="end" value="May 29, 2012 15:00"></property>
-		<property name="institution" value="Academia Preuniversitaria"></property>
-		<property name="attachment"
-			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
-		<property name="comments" value="Un cinco pelao he sacao."></property>
-
-
-
-	</bean>
-
-	<bean id="educationRecord2" class="domain.EducationRecord">
-		<property name="diplomaTitle" value="Bachillerato"></property>
-		<property name="start" value="February 22, 2010 09:30"></property>
-		<property name="end" value="May 29, 2012 15:02"></property>
-		<property name="institution" value="Academia militar"></property>
-		<property name="attachment"
-			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
-		<property name="comments" value="He peloteado que da gusto."></property>
-
-
-
-	</bean>
-
-	<bean id="educationRecord3" class="domain.EducationRecord">
-		<property name="diplomaTitle" value="ESO"></property>
-		<property name="start" value="December 12, 2014 19:30"></property>
-		<property name="end" value="May 29, 2016 15:02"></property>
-		<property name="institution"
-			value="Academia eclesiastica Satanas por aqui no vengas mas"></property>
-		<property name="attachment"
-			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
-		<property name="comments" value="Cuidado con los curas"></property>
-
-
-	</bean>
-
-
-	<bean id="educationRecord4" class="domain.EducationRecord">
-		<property name="diplomaTitle" value="ESO"></property>
-		<property name="start" value="December 15, 2013 09:30"></property>
-		<property name="end" value="May 29, 2016 15:02"></property>
-		<property name="institution"
-			value="Academia Satanica Satanas por aqui no ven mas"></property>
-		<property name="attachment"
-			value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
-		<property name="comments" value="Cuidado con los fanaticos de satanas"></property>
-
-
-	</bean>
 
 	<!-- ___________________Endorsers Records___________________________________ -->
-	<bean id="endorserRecord1" class="domain.EndorserRecord">
-		<property name="fullName" value="Lipasam"></property>
-		<property name="photo"
-			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
-		<property name="email" value="lipasam@gmail.es"></property>
-		<property name="phone" value="+34(456)123456713"></property>
-		<property name="linkedProfile" value="http://www.linkedin.com/in/lipasam"></property>
-
-
-
-	</bean>
-
-	<bean id="endorserRecord2" class="domain.EndorserRecord">
-		<property name="fullName" value="Emasesa"></property>
-		<property name="photo"
-			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
-		<property name="email" value="Emasesa@gmail.es"></property>
-		<property name="phone" value="+34(456)123456712"></property>
-		<property name="linkedProfile" value="http://www.linkedin.com/in/emasesa"></property>
-
-
-
-	</bean>
-
-	<bean id="endorserRecord3" class="domain.EndorserRecord">
-		<property name="fullName" value="Vips"></property>
-		<property name="photo"
-			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
-		<property name="email" value="vips@gmail.es"></property>
-		<property name="phone" value="+34(456)123456711"></property>
-		<property name="linkedProfile" value="http://www.linkedin.com/in/emasesa"></property>
-
-
-
-	</bean>
-
-	<bean id="endorserRecord4" class="domain.EndorserRecord">
-		<property name="fullName" value="Disney"></property>
-		<property name="photo"
-			value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
-		<property name="email" value="disneyfantasy@gmail.es"></property>
-		<property name="phone" value="+34(456)1234567"></property>
-		<property name="linkedProfile" value="http://www.linkedin.com/in/disney"></property>
-
-
-
-	</bean>
 
 	<!-- ___________________Finders __________________________________ -->
 
@@ -1465,13 +1233,14 @@
 			<bean name="creditCardSponsorship1" class="domain.CreditCard">
 				<property name="holderName" value="Juanito Doe" />
 				<property name="brandName" value="VISA" />
-				<property name="number" value="4552222697545332" />
+				<property name="number" value="4929611293211664" />
 				<property name="expirationDate">
 					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat"
 						factory-method="parse">
 						<constructor-arg value="28/11/2020 23:59:59" />
 					</bean>
 				</property>
+				<property name="cvvCode" value="323" />
 			</bean>
 		</property>
 		<property name="sponsor" ref="sponsor1" />
@@ -1491,13 +1260,14 @@
 			<bean name="creditCardSponsorship2" class="domain.CreditCard">
 				<property name="holderName" value="Lule Molina" />
 				<property name="brandName" value="VISA" />
-				<property name="number" value="4552222210545332" />
+				<property name="number" value="4929611293211664" />
 				<property name="expirationDate">
 					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat"
 						factory-method="parse">
 						<constructor-arg value="12/11/2020 23:59:59" />
 					</bean>
 				</property>
+				<property name="cvvCode" value="456" />
 			</bean>
 		</property>
 		<property name="sponsor" ref="sponsor2" />
@@ -1517,13 +1287,14 @@
 			<bean name="creditCardSponsorship3" class="domain.CreditCard">
 				<property name="holderName" value="Javier Ramirez" />
 				<property name="brandName" value="VISA" />
-				<property name="number" value="4551111110545332" />
+				<property name="number" value="4929611293211664" />
 				<property name="expirationDate">
 					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat"
 						factory-method="parse">
 						<constructor-arg value="13/11/2020 23:59:59" />
 					</bean>
 				</property>
+				<property name="cvvCode" value="574" />
 			</bean>
 		</property>
 		<property name="sponsor" ref="sponsor3" />
@@ -1545,10 +1316,12 @@
 		<property name="handyWorker" ref="handyWorker1" />
 		<property name="pictures">
 			<list>
-				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg
-				</value>
-				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg
-				</value>
+				<bean id="url1Tutorial1" class="domain.Url">
+					<property name="url" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
+				</bean>
+				<bean id="url2Tutorial1" class="domain.Url">
+					<property name="url" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
+				</bean>
 			</list>
 		</property>
 
@@ -1574,10 +1347,12 @@
 		<property name="handyWorker" ref="handyWorker2" />
 		<property name="pictures">
 			<list>
-				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg
-				</value>
-				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg
-				</value>
+				<bean id="url1Tutorial2" class="domain.Url">
+					<property name="url" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
+				</bean>
+				<bean id="url2Tutorial3" class="domain.Url">
+					<property name="url" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
+				</bean>
 			</list>
 		</property>
 
@@ -1602,10 +1377,12 @@
 		<property name="handyWorker" ref="handyWorker3" />
 		<property name="pictures">
 			<list>
-				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg
-				</value>
-				<value>https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg
-				</value>
+				<bean name="url1Tutorial3" class="domain.Url">
+					<property name="url" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
+				</bean>
+				<bean name="url2Tutorial3" class="domain.Url">
+					<property name="url" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
+				</bean>
 			</list>
 		</property>
 
@@ -2668,7 +2445,11 @@
 	<bean id="section1" class="domain.Section">
 		<property name="title" value="Benhill County GaArchives Historical Records"></property>
 		<property name="text" value="Text 1"></property>
-		<property name="pictures" value="http://www.genrecords.org/mofiles/exms.html"></property>
+		<property name="pictures">
+			<bean id="url1Section1" class="domain.Url">
+				<property name="url" value="http://www.genrecords.org/mofiles/exms.html" />
+			</bean>
+		</property>
 		<property name="numberOrder" value="0"></property>
 		<property name="tutorials">
 			<list>
@@ -2681,7 +2462,11 @@
 	<bean id="section2" class="domain.Section">
 		<property name="title" value="Benhill County GArchives Historical Records"></property>
 		<property name="text" value="Text 2"></property>
-		<property name="pictures" value="http://www.genrecords.org/mofiles/exms.html"></property>
+		<property name="pictures" >
+			<bean id="url1Section2" class="domain.Url">
+				<property name="url" value="http://www.genrecords.org/mofiles/exms.html" />
+			</bean>
+		</property>
 		<property name="numberOrder" value="3"></property>
 		<property name="tutorials">
 			<list>
@@ -2695,7 +2480,11 @@
 	<bean id="section3" class="domain.Section">
 		<property name="title" value="Example section 3"></property>
 		<property name="text" value="Text 3"></property>
-		<property name="pictures" value="http://www.genrecords.org/mofiles/exms.html"></property>
+		<property name="pictures" >
+			<bean id="url1Section3" class="domain.Url">
+				<property name="url" value="http://www.genrecords.org/mofiles/exms.html" />
+			</bean>
+		</property>
 		<property name="numberOrder" value="3"></property>
 		<property name="tutorials">
 			<list>
@@ -2797,6 +2586,12 @@
 				<ref bean="folder4HandyWorker1" />
 			</list>
 		</property>
+		<property name="sendedEndorsements" >
+			<list/>
+		</property>
+		<property name="receivedEndorsements" >
+			<list/>
+		</property>
 
 
 		<property name="make" value="Antonio Grinch Papp"></property>
@@ -2867,8 +2662,12 @@
 				<ref bean="folder4HandyWorker2" />
 			</list>
 		</property>
-
-
+		<property name="sendedEndorsements">
+			<list/>
+		</property>
+		<property name="receivedEndorsements" >
+			<list/>
+		</property>
 		<property name="make" value="Luis Pokemaniako Zumarraga"></property>
 		<property name="curriculum" ref="curriculum2"></property>
 		<property name="finder" ref="finder2"></property>
@@ -2935,7 +2734,12 @@
 				<ref bean="folder4HandyWorker3" />
 			</list>
 		</property>
-
+		<property name="sendedEndorsements" >
+			<list/>
+		</property>
+		<property name="receivedEndorsements" >
+			<list/>
+		</property>
 
 		<property name="make" value="Javi Rmano Camunia"></property>
 		<property name="curriculum" ref="curriculum3"></property>
@@ -3001,7 +2805,12 @@
 				<ref bean="folder4HandyWorker4" />
 			</list>
 		</property>
-
+		<property name="sendedEndorsements">
+			<list />
+		</property>
+		<property name="receivedEndorsements" >
+			<list/>
+		</property>
 
 		<property name="make" value="Tobias Elpen Feliz"></property>
 		<property name="curriculum" ref="curriculum4"></property>
@@ -3123,8 +2932,241 @@
 		<property name="report" ref="report2"></property>
 
 	</bean>
+	
+	<bean id="educationRecord1" class="domain.EducationRecord">
+					<property name="diplomaTitle" value="Bachillerato"></property>
+					<property name="start" value="February 6, 2010 09:30"></property>
+					<property name="end" value="May 29, 2012 15:00"></property>
+					<property name="institution" value="Academia Preuniversitaria"></property>
+					<property name="attachment"
+						value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+					<property name="comments" value="Un cinco pelao he sacao."></property>
+					<property name="curriculum" ref="curriculum1" />
+				</bean>
+				
+	<bean id="educationRecord2" class="domain.EducationRecord">
+					<property name="diplomaTitle" value="Bachillerato"></property>
+					<property name="start" value="February 22, 2010 09:30"></property>
+					<property name="end" value="May 29, 2012 15:02"></property>
+					<property name="institution" value="Academia militar"></property>
+					<property name="attachment"
+						value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+					<property name="comments" value="He peloteado que da gusto."></property>
+					<property name="curriculum" ref="curriculum1" />
+				</bean>
+	
+	<bean id="educationRecord3" class="domain.EducationRecord">
+					<property name="diplomaTitle" value="ESO"></property>
+					<property name="start" value="December 12, 2014 19:30"></property>
+					<property name="end" value="May 29, 2016 15:02"></property>
+					<property name="institution"
+						value="Academia eclesiastica Satanas por aqui no vengas mas"></property>
+					<property name="attachment"
+						value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+					<property name="comments" value="Cuidado con los curas"></property>
+					<property name="curriculum" ref="curriculum2" />
+				</bean>
+	
+	<bean id="educationRecord4" class="domain.EducationRecord">
+					<property name="diplomaTitle" value="ESO"></property>
+					<property name="start" value="December 15, 2013 09:30"></property>
+					<property name="end" value="May 29, 2016 15:02"></property>
+					<property name="institution"
+						value="Academia Satanica Satanas por aqui no ven mas"></property>
+					<property name="attachment"
+						value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+					<property name="comments" value="Cuidado con los fanaticos de satanas"></property>
+					<property name="curriculum" ref="curriculum3" />
+				</bean>
+				
+	<bean id="endorserRecord1" class="domain.EndorserRecord">
+					<property name="fullName" value="Lipasam"></property>
+					<property name="photo"
+						value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+					<property name="email" value="lipasam@gmail.es"></property>
+					<property name="phone" value="+34(456)123456713"></property>
+					<property name="linkedProfile" value="http://www.linkedin.com/in/lipasam"></property>
+					<property name="curriculum" ref="curriculum1" />
+				</bean>
+				
+	<bean id="endorserRecord2" class="domain.EndorserRecord">
+					<property name="fullName" value="Emasesa"></property>
+					<property name="photo"
+						value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+					<property name="email" value="Emasesa@gmail.es"></property>
+					<property name="phone" value="+34(456)123456712"></property>
+					<property name="linkedProfile" value="http://www.linkedin.com/in/emasesa"></property>
+					<property name="curriculum" ref="curriculum1" />
+				</bean>
+				
+	<bean id="endorserRecord3" class="domain.EndorserRecord">
+					<property name="fullName" value="Vips"></property>
+					<property name="photo"
+						value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+					<property name="email" value="vips@gmail.es"></property>
+					<property name="phone" value="+34(456)123456711"></property>
+					<property name="linkedProfile" value="http://www.linkedin.com/in/emasesa"></property>
+					<property name="curriculum" ref="curriculum2" />
+				</bean>
+		
+	<bean id="endorserRecord4" class="domain.EndorserRecord">
+					<property name="fullName" value="Disney"></property>
+					<property name="photo"
+						value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
+					<property name="email" value="disneyfantasy@gmail.es"></property>
+					<property name="phone" value="+34(456)1234567"></property>
+					<property name="linkedProfile" value="http://www.linkedin.com/in/disney"></property>
+					<property name="curriculum" ref="curriculum3" />
+				</bean>
+	
+	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
+					<property name="company" value="NASA"></property>
+					<property name="start" value="February 6, 2010 09:30"></property>
+					<property name="end" value="May 29, 2012 15:00"></property>
+					<property name="role" value="Jefe"></property>
+					<property name="attachment"
+						value="https://www.lifewire.com/thmb/-h08oONgxcBRcaYOTiMuJd8ogVU=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-469187056-57cdf0a45f9b5829f4457c9a.jpg"></property>
+					<property name="comments" value="Trabajo tela de bien"></property>
+					<property name="curriculum" ref="curriculum1" />
+				</bean>
+	
+	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
+					<property name="title" value="Benhill County GaArchives Historical Records"></property>
+					<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
+					<property name="comments" value="Muy interesante"></property>
+					<property name="curriculum" ref="curriculum1" />
+				</bean>
+	
+	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
+					<property name="title" value="Death Certificate of John Doe 1930"></property>
+					<property name="attachment" value="http://www.genrecords.org/mofiles/exms.html"></property>
+					<property name="comments" value="Poco interesante"></property>
+					<property name="curriculum" ref="curriculum1" />
+				</bean>
 
+	<bean id="personalRecord1" class="domain.PersonalRecord">
+				<property name="fullName" value="Antonio Grinch Papp"></property>
+				<property name="photo"
+					value="https://www.cinetecamadrid.com/sites/default/files/activity/image/imagen_EL_GRINCH00_0.jpg"></property>
+				<property name="email" value="elgrinch@hotmail.com"></property>
+				<property name="phone" value="+34(456)123456722"></property>
+				<property name="linkedlnProfile"
+					value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+				<property name="curriculum" ref="curriculum1" />
+			</bean>
+			
+	<bean id="personalRecord2" class="domain.PersonalRecord">
+				<property name="fullName" value="Luis Pokemaniako Zumarraga"></property>
+				<property name="photo"
+					value="https://cdn.memegenerator.es/imagenes/memes/full/16/43/16433834.jpg"></property>
+				<property name="email" value="pokeluisito@hotmail.com"></property>
+				<property name="phone" value="+34(456)123456721"></property>
+				<property name="linkedlnProfile"
+					value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+				<property name="curriculum" ref="curriculum2" />
+			</bean>
 
+	<bean id="personalRecord3" class="domain.PersonalRecord">
+				<property name="fullName" value="Javi Rmano Camunia"></property>
+				<property name="photo"
+					value="https://misanimales.com/wp-content/uploads/2018/05/curiosidades-del-perezoso.jpg"></property>
+				<property name="email" value="camunon@hotmail.com"></property>
+				<property name="phone" value="+34(456)123456720"></property>
+				<property name="linkedlnProfile"
+					value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+				<property name="curriculum" ref="curriculum3"/>
+			</bean>
+			
+	<bean id="personalRecord4" class="domain.PersonalRecord">
+				<property name="fullName" value="Tobias Elpen Feliz"></property>
+				<property name="photo"
+					value="https://www.peluchetes.com/contenido/uploads/2015/08/peluche-perro-salchicha.jpg"></property>
+				<property name="email" value="tobi@hotmail.com"></property>
+				<property name="phone" value="+34(456)123456719"></property>
+				<property name="linkedlnProfile" value="https://www.linkedin.com"></property>
+				<property name="curriculum" ref="curriculum4" />
+			</bean>
+
+	<bean id="curriculum1" class="domain.Curriculum">
+		<property name="ticker" value="181101-AC34DF" />
+		<property name="handyWorker" ref="handyWorker1" />
+		<property name="personalRecord" ref="personalRecord1" />
+		<property name="educationRecords">
+			<list>
+			</list>
+		</property>
+		<property name="professionalRecords">
+			<list>
+			</list>
+		</property>
+		<property name="endorserRecords">
+			<list>
+			</list>
+		</property>
+		<property name="miscellaneousRecords">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="curriculum2" class="domain.Curriculum">
+		<property name="ticker" value="180321-ALONSO" />
+		<property name="handyWorker" ref="handyWorker2" />
+		<property name="personalRecord" ref="personalRecord2" />
+		<property name="educationRecords">
+			<list>
+			</list>
+		</property>
+		<property name="professionalRecords">
+			<list></list>
+		</property>
+		<property name="endorserRecords">
+			<list>
+			</list>
+		</property>
+		<property name="miscellaneousRecords">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="curriculum3" class="domain.Curriculum">
+		<property name="ticker" value="170730-F24RAN" />
+		<property name="handyWorker" ref="handyWorker3" />
+		<property name="personalRecord" ref="personalRecord3" />
+		<property name="educationRecords">
+			<list>
+			</list>
+		</property>
+		<property name="professionalRecords">
+			<list></list>
+		</property>
+		<property name="endorserRecords">
+			<list>
+			</list>
+		</property>
+		<property name="miscellaneousRecords">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="curriculum4" class="domain.Curriculum">
+		<property name="ticker" value="101010-F24RAE" />
+		<property name="handyWorker" ref="handyWorker4" />
+		<property name="personalRecord" ref="personalRecord4" />
+		<property name="educationRecords">
+			<list>
+			</list>
+		</property>
+		<property name="professionalRecords">
+			<list></list>
+		</property>
+		<property name="endorserRecords">
+			<list></list>
+		</property>
+		<property name="miscellaneousRecords">
+			<list></list>
+		</property>
+	</bean>
 
 
 

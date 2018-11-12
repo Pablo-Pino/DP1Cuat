@@ -32,7 +32,6 @@ public class Note extends DomainEntity {
 
 	//------------Getters y Setters-------
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public Report getReport() {
