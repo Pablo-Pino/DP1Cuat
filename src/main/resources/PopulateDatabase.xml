@@ -1005,6 +1005,7 @@
 		<property name="notes">
 			<list>
 				<ref bean="note2" />
+				<ref bean="note3" />
 			</list>
 		</property>
 		<property name="complaint" ref="complaint2"></property>
@@ -2947,6 +2948,12 @@
 	<bean id="note2" class="domain.Note">
 		<property name="moment" value="June 22, 2017 21:00"></property>
 		<property name="comments" value="Es un comentario de la nota 2"></property>
+		<property name="report" ref="report2"></property>
+	</bean>
+	
+	<bean id="note3" class="domain.Note">
+		<property name="moment" value="June 21, 2017 21:00"></property>
+		<property name="comments" value="Es un comentario de la nota 3"></property>
 		<property name="report" ref="report2"></property>
 	</bean>
 
