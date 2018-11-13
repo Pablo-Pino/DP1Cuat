@@ -323,7 +323,7 @@
 				<property name="cvvCode" value="452" />
 			</bean>
 		</property>
-		<property name="handyWorker" ref="handyWorker1" />
+		<property name="handyWorker" ref="handyWorker2" />
 		<property name="fixupTask" ref="fixupTask2" />
 	</bean>
 
@@ -336,7 +336,37 @@
 			</bean>
 		</property>
 		<property name="status" value="REJECTED" />
-		<property name="handyWorker" ref="handyWorker2" />
+		<property name="handyWorker" ref="handyWorker3" />
+		<property name="fixupTask" ref="fixupTask3" />
+	</bean>
+	
+	
+	<bean id="application4" class="domain.Application">
+		<property name="price" value="11.34" />
+		<property name="moment">
+			<bean id="momentApplication4" factory-bean="completeDateFormat"
+				factory-method="parse">
+				<constructor-arg value="31/10/2018 00:00:00" />
+			</bean>
+		</property>
+		<property name="status" value="ACCEPTED" />
+		<property name="workerComments" value="I work very hard" />
+		<property name="customerComments" value="OK" />
+		<property name="creditCard">
+			<bean name="creditCardApplication4" class="domain.CreditCard">
+				<property name="holderName" value="Paco Pepe Pérez" />
+				<property name="brandName" value="VISA" />
+				<property name="number" value="4556042640541332" />
+				<property name="expirationDate">
+					<bean id="expirationDateCreditCard4" factory-bean="completeDateFormat"
+						factory-method="parse">
+						<constructor-arg value="28/10/2020 23:59:59" />
+					</bean>
+				</property>
+				<property name="cvvCode" value="452" />
+			</bean>
+		</property>
+		<property name="handyWorker" ref="handyWorker1" />
 		<property name="fixupTask" ref="fixupTask2" />
 	</bean>
 
@@ -1527,7 +1557,6 @@
 		<property name="applications">
 			<list>
 				<ref bean="application1" />
-				<ref bean="application2" />
 			</list>
 		</property>
 		<property name="workPlan" ref="workPlan1">
@@ -1559,7 +1588,8 @@
 		</property>
 		<property name="applications">
 			<list>
-				<ref bean="application1" />
+				<ref bean="application2" />
+				<ref bean="application4" />
 			</list>
 		</property>
 		<property name="workPlan" ref="workPlan2">
@@ -1588,7 +1618,7 @@
 		</property>
 		<property name="applications">
 			<list>
-
+			<ref bean="application3" />
 			</list>
 		</property>
 		<property name="workPlan" ref="workPlan1">
@@ -2627,6 +2657,7 @@
 		<property name="applications">
 			<list>
 				<ref bean="application1" />
+				<ref bean="application4" />
 			</list>
 		</property>
 		<property name="workPlans">
