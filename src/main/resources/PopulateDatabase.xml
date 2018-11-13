@@ -657,20 +657,24 @@
 		<property name="fixuptask" ref="fixupTask2" />
 	</bean>
 	
+	
+	
+	
 	<bean id="complaint3" class="domain.Complaint">
-		<property name="ticker" value="181103-43ION7" />
+		<property name="ticker" value="181105-43IOE7" />
 		<property name="moment">
-			<bean id="momentComplaint2" factory-bean="completeDateFormat"
+			<bean id="momentComplaint3" factory-bean="completeDateFormat"
 				factory-method="parse">
-				<constructor-arg value="04/11/2018 23:59:59" />
+				<constructor-arg value="04/11/2017 23:59:59" />
 			</bean>
 		</property>
 		<property name="description" value="This fix is a farsa" />
 		<property name="attachments">
 			<list />
 		</property>
-		<property name="fixuptask" ref="fixupTask1" />
-	</bean>
+		<property name="fixuptask" ref="fixupTask2" />
+	</bean> 
+	
 
 	<!-- Curricula -->
 
@@ -1508,8 +1512,9 @@
 
 		<property name="complaints">
 			<list>
-				<ref bean="complaint3" />
 				<ref bean="complaint1" />
+				<ref bean="complaint3" />
+				
 			</list>
 		</property>
 		<property name="customer" ref="customer1">
@@ -1542,6 +1547,7 @@
 		<property name="complaints">
 			<list>
 				<ref bean="complaint2" />
+				
 			</list>
 		</property>
 		<property name="customer" ref="customer2">
