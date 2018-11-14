@@ -46,7 +46,7 @@ public class Complaint extends Ticketable {
 	}
 
 	@Valid
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	public FixupTask getFixuptask() {
 		return this.fixuptask;
 	}
