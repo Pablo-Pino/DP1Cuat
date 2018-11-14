@@ -638,7 +638,7 @@
 			</list>
 		</property>
 		<property name="report" ref="report1" />
-		<property name="fixuptask" ref="fixupTask1" />
+		<property name="fixuptask" ref="fixupTask2" />
 		<property name="referee" ref="referee1" />
 	</bean>
 
@@ -655,6 +655,51 @@
 			<list />
 		</property>
 		<property name="fixuptask" ref="fixupTask2" />
+	</bean>
+	
+	<bean id="complaint3" class="domain.Complaint">
+		<property name="ticker" value="126532-EFEFG2" />
+		<property name="moment">
+			<bean id="momentComplaint3" factory-bean="completeDateFormat"
+				factory-method="parse">
+				<constructor-arg value="03/11/2018 23:59:59" />
+			</bean>
+		</property>
+		<property name="description" value="This fix is a fake 2" />
+		<property name="attachments">
+			<list />
+		</property>
+		<property name="fixuptask" ref="fixupTask3" />
+	</bean>
+	
+	<bean id="complaint4" class="domain.Complaint">
+		<property name="ticker" value="126532-EFERG2" />
+		<property name="moment">
+			<bean id="momentComplaint3" factory-bean="completeDateFormat"
+				factory-method="parse">
+				<constructor-arg value="03/11/2018 23:59:59" />
+			</bean>
+		</property>
+		<property name="description" value="This fix is a fakest" />
+		<property name="attachments">
+			<list />
+		</property>
+		<property name="fixuptask" ref="fixupTask1" />
+	</bean>
+	
+	<bean id="complaint5" class="domain.Complaint">
+		<property name="ticker" value="128632-EFEFG2" />
+		<property name="moment">
+			<bean id="momentComplaint3" factory-bean="completeDateFormat"
+				factory-method="parse">
+				<constructor-arg value="03/11/2018 23:59:59" />
+			</bean>
+		</property>
+		<property name="description" value="This fix is a feik 2" />
+		<property name="attachments">
+			<list />
+		</property>
+		<property name="fixuptask" ref="fixupTask5" />
 	</bean>
 
 	<!-- Curricula -->
@@ -717,7 +762,8 @@
 
 		<property name="fixupTasks">
 			<list>
-
+				<ref bean="fixupTask1" />
+				<ref bean="fixupTask2" />
 			</list>
 		</property>
 		
@@ -776,7 +822,7 @@
 
 		<property name="fixupTasks">
 			<list>
-
+				<ref bean="fixupTask3" />
 			</list>
 		</property>
 		<property name="sendedEndorsements">
@@ -831,7 +877,7 @@
 		</property>
 		<property name="fixupTasks">
 			<list>
-
+				<ref bean="fixupTask4" />
 			</list>
 		</property>
 		
@@ -886,7 +932,7 @@
 		
 		<property name="fixupTasks">
 			<list>
-
+				<ref bean="fixupTask5" />
 			</list>
 		</property>
 		
@@ -1454,14 +1500,37 @@
 			<list>
 				<ref bean="phase1" />
 				<ref bean="phase3" />
-			</list>
-		</property>
+			</list></property>
 	</bean>
 
 	<bean id="workPlan3" class="domain.WorkPlan">
 
 		<property name="fixupTask" ref="fixupTask3" />
 		<property name="handyWorker" ref="handyWorker3" />
+		<property name="phases">
+			<list>
+				<ref bean="phase3" />
+				<ref bean="phase2" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="workPlan4" class="domain.WorkPlan">
+
+		<property name="fixupTask" ref="fixupTask4" />
+		<property name="handyWorker" ref="handyWorker3" />
+		<property name="phases">
+			<list>
+				<ref bean="phase3" />
+				<ref bean="phase2" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="workPlan5" class="domain.WorkPlan">
+
+		<property name="fixupTask" ref="fixupTask5" />
+		<property name="handyWorker" ref="handyWorker4" />
 		<property name="phases">
 			<list>
 				<ref bean="phase3" />
@@ -1493,8 +1562,6 @@
 
 		<property name="complaints">
 			<list>
-				<ref bean="complaint1" />
-				<ref bean="complaint2" />
 			</list>
 		</property>
 		<property name="customer" ref="customer1">
@@ -1527,6 +1594,7 @@
 		<property name="complaints">
 			<list>
 				<ref bean="complaint1" />
+				<ref bean="complaint2" />
 			</list>
 		</property>
 		<property name="customer" ref="customer2">
@@ -1558,6 +1626,64 @@
 			<list>
 			</list>
 		</property>
+		<property name="customer" ref="customer3">
+		</property>
+		<property name="category" ref="categoryCarpentry">
+		</property>
+		<property name="warranty" ref="warranty3">
+		</property>
+		<property name="applications">
+			<list>
+
+			</list>
+		</property>
+		<property name="workPlan" ref="workPlan3">
+		</property>
+
+	</bean>
+	
+	<bean id="fixupTask4" class="domain.FixupTask">
+		<property name="moment" value="June 11, 2017 09:30"></property>
+		<property name="description" value="Tejer cosas"></property>
+		<property name="address" value="C/ Toy Story N2"></property>
+		<property name="maximumPrice" value="50.00"></property>
+		<property name="start" value="June 12, 2017 09:30"></property>
+		<property name="end" value="June 18, 2017 09:30"></property>
+		<property name="ticker" value="181103-RTIBA3" />
+
+		<property name="complaints">
+			<list>
+			</list>
+		</property>
+		<property name="customer" ref="customer4">
+		</property>
+		<property name="category" ref="categoryCarpentry">
+		</property>
+		<property name="warranty" ref="warranty3">
+		</property>
+		<property name="applications">
+			<list>
+
+			</list>
+		</property>
+		<property name="workPlan" ref="workPlan4">
+		</property>
+
+	</bean>
+	
+	<bean id="fixupTask5" class="domain.FixupTask">
+		<property name="moment" value="June 11, 2017 09:30"></property>
+		<property name="description" value="Tarea para queries"></property>
+		<property name="address" value="C/ Toy Story N2"></property>
+		<property name="maximumPrice" value="50.00"></property>
+		<property name="start" value="June 12, 2017 09:30"></property>
+		<property name="end" value="June 18, 2017 09:30"></property>
+		<property name="ticker" value="181103-RTEAS3" />
+
+		<property name="complaints">
+			<list>
+			</list>
+		</property>
 		<property name="customer" ref="customer1">
 		</property>
 		<property name="category" ref="categoryCarpentry">
@@ -1569,7 +1695,7 @@
 
 			</list>
 		</property>
-		<property name="workPlan" ref="workPlan1">
+		<property name="workPlan" ref="workPlan5">
 		</property>
 
 	</bean>

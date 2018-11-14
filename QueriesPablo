@@ -1,14 +1,15 @@
 · The ratio of fix-up tasks with a complaint.
 
-select f/count(f1) from FixupTask f, FixupTask f1 where f.complaint is not null 
+select (count(f)*1.0)/(select count(f1)*1.0 from FixupTask f1) from FixupTask f where f.complaints is empty;
 
 · The top-three customers in terms of complaints.
 
-select c from Customer c order by count(c.fixuptask.complaint) desc
 // No se sabe como coger sólo los 3 primeros usando JPQL. Se puede en Java al usar Pageable
+select c.name, sum(f.complaints.size) from Customer c join c.fixupTasks f group by c.id order by sum(f.complaints.size) desc; 
 
 · The top-three handy workers in terms of complaints.
 
-select h from HandyWorker h order by count(h.workplan.fixuptask.complaint) desc
+select h.name, sum(a.fixupTask.complaints.size) from HandyWorker h join h.applications a group by h.id having a.id like 'ACCEPTED' order by sum(a.fixupTask.complaints.size) desc;
 // No se sabe como coger sólo los 3 primeros usando JPQL Se puede en Java al usar Pageable
+select h.name, sum(w.fixupTask.complaints.size) from HandyWorker h join h.workPlans w group by h.id order by sum(w.fixupTask.complaints.size) desc;
 
