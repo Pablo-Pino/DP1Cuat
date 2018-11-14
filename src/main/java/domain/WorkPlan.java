@@ -39,7 +39,6 @@ public class WorkPlan extends DomainEntity {
 
 	@NotNull
 	@NotEmpty
-	@Valid
 	@OneToMany(mappedBy = "workPlan")
 	public Collection<Phase> getPhases() {
 		return this.phases;

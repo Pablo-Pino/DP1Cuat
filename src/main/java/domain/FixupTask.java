@@ -62,7 +62,6 @@ public class FixupTask extends Ticketable {
 		this.warranty = warranty;
 	}
 
-	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "fixuptask")
 	public Collection<Complaint> getComplaints() {
@@ -140,7 +139,6 @@ public class FixupTask extends Ticketable {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy = "fixupTask")
 	public Collection<Application> getApplications() {
 		return this.applications;

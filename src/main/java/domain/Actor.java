@@ -51,7 +51,6 @@ public abstract class Actor extends DomainEntity {
 
 	//-----------Getters y Setters------
 
-	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "sender")
 	public Collection<Message> getSendedMessages() {
@@ -62,7 +61,6 @@ public abstract class Actor extends DomainEntity {
 		this.sendedMessages = sendedMessages;
 	}
 
-	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "receiver")
 	public Collection<Message> getReceivedMessages() {
@@ -83,7 +81,6 @@ public abstract class Actor extends DomainEntity {
 		this.userAccount = userAccount;
 	}
 
-	@Valid
 	@NotEmpty
 	@NotNull
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
@@ -95,7 +92,6 @@ public abstract class Actor extends DomainEntity {
 		this.folders = folders;
 	}
 
-	@Valid
 	@NotNull
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
 	public Collection<SocialProfile> getSocialProfiles() {

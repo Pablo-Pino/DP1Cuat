@@ -7,7 +7,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
@@ -34,7 +33,6 @@ public abstract class Endorsable extends Actor {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy = "sender")
 	public Collection<Endorsement> getSendedEndorsements() {
 		return this.sendedEndorsements;
@@ -45,7 +43,6 @@ public abstract class Endorsable extends Actor {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy = "receiver")
 	public Collection<Endorsement> getReceivedEndorsements() {
 		return this.receivedEndorsements;

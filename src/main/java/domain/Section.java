@@ -8,7 +8,6 @@ import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -33,7 +32,6 @@ public class Section extends DomainEntity {
 	//-----------Getters y Setters-------
 
 	@NotNull
-	@Valid
 	@ManyToMany
 	public Collection<Tutorial> getTutorials() {
 		return this.tutorials;
@@ -64,7 +62,6 @@ public class Section extends DomainEntity {
 	}
 
 	@NotNull
-	@Valid
 	@ElementCollection
 	public Collection<Url> getPictures() {
 		return this.pictures;

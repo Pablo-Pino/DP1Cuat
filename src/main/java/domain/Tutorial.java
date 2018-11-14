@@ -69,7 +69,6 @@ public class Tutorial extends DomainEntity {
 	}
 
 	@NotNull
-	@Valid
 	@ElementCollection
 	public Collection<Url> getPictures() {
 		return this.pictures;
@@ -91,7 +90,6 @@ public class Tutorial extends DomainEntity {
 	}
 
 	@NotNull
-	@Valid
 	@NotEmpty
 	@ManyToMany
 	public Collection<Section> getSections() {
@@ -103,7 +101,6 @@ public class Tutorial extends DomainEntity {
 	}
 
 	@NotNull
-	@Valid
 	@ManyToMany(cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH
 	})

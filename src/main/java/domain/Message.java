@@ -39,7 +39,6 @@ public class Message extends DomainEntity {
 
 	@NotNull
 	@NotEmpty
-	@Valid
 	@ManyToMany
 	public Collection<Folder> getFolders() {
 		return this.folders;

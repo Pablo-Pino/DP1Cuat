@@ -38,7 +38,6 @@ public class Category extends DomainEntity {
 
 	//--------Getters y Setters-------
 
-	//@Valid //nos sirve para comprobar que sea valida la collection, que cumple sus restricciones
 	@NotNull
 	@OneToMany(mappedBy = "category")
 	public Collection<FixupTask> getFixupTasks() {
@@ -59,7 +58,6 @@ public class Category extends DomainEntity {
 		this.name = name;
 	}
 
-	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "parentCategory")
 	public Collection<Category> getChildsCategories() {
