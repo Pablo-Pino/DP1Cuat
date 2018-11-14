@@ -12,4 +12,3 @@ select c.name, sum(f.complaints.size) from Customer c join c.fixupTasks f group 
 select h.name, sum(a.fixupTask.complaints.size) from HandyWorker h join h.applications a group by h.id having a.id like 'ACCEPTED' order by sum(a.fixupTask.complaints.size) desc;
 // No se sabe como coger sólo los 3 primeros usando JPQL Se puede en Java al usar Pageable
 select h.name, sum(w.fixupTask.complaints.size) from HandyWorker h join h.workPlans w group by h.id order by sum(w.fixupTask.complaints.size) desc;
-
