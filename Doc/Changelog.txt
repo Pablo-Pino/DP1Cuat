@@ -10,14 +10,11 @@
 - Se ha añadido el datatype URL, para poder aplicar las restricciones de tipo URL en colecciones, en las que no se puede aplicar correctamente. (Hecho en MC y UML y Java)
 - Se ha cambiado el tipo String por URL en los atributos: pictures de Tutorial, pictures de Section, attachments de Complaint, attachments de Report (hecho en MC y UML y Java)
 - Añadidas anotaciones en UML en Application para que tan sólo haya una Application por Task y Worker (Hecho en UML y Java)
-+ Se ha puesto la restricción de una Application por Task y Worker en el modelo Java.
 - Añadida la restricción Min(0) en el price de Application.
 - El cvvCode de CreditCard ha pasado de int a Integer con restricción @NotNull, debido a que de la otra forma da error.
 - El valor de Digits de price en Application estaba mal puesto, eran 2 dígitos decimales y cualquier número de enteros.
-+ Se ha puesto los mappedBy en los OneToMany de Curriculum.
 - Añadidas anotaciones @NotNull en los atributos moment, start y end de FixupTask.
 - Añadidas anotaciones @ElementCollection en los atributos spamWords, creditCardMakes, positiveWords y negativeWords de Settings.
-+ Se ha puesto los mappedBy en los OneToMany de Warranty.
 - Añadido atributo curriculum en EndorserRecord, EducationRecord, MiscellaneousRecord, PersonalRecord y ProfesionalRecord, debido a que es así como aparece en el UML.
 
 
