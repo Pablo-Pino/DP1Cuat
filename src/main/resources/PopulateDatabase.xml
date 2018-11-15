@@ -2652,17 +2652,75 @@
 	</bean>
 
 
-	<!-- __________________________Settings_______________________________________________ 
-		<bean id="settings1" class="domain.Settings"> <property name="systemName" 
-		value="Benhill County GArchives Historical Records"></property> <property 
-		name="banner" value="http://www.genrecords.org/mofiles/exms.html"></property> 
-		<property name="welcomeMessage" value="Buenas tardes"></property> <property 
-		name="spamWords" value="palabrotas"></property> <property name="vat" value="21"></property> 
-		<property name="countryCode" value="34"></property> <property name="creditCardMakes" 
-		value="Text"></property> <property name="finderCacheHours" value="14"></property> 
-		<property name="maxCacheResults" value="10"></property> <property name="positiveWords" 
-		value="Bien"></property> <property name="negativeWords" value="Mal"></property> 
-		</bean> -->
+	<!-- __________________________Settings_______________________________________________  -->
+		
+		<bean id="settings1" class="domain.Settings"> 
+			<property name="systemName" value="Acme Handy Worker"></property> 
+			<property name="banner" value="https://tinyurl.com/acme-handy-worker-logo"></property> 
+			<property name="welcomeMessage" value="spring.messages.welcomeHandyWorker"></property> 
+			<property name="spamWords">
+				<list>
+					<value>sex</value>
+					<value>viagra</value>
+					<value>cialis</value>
+					<value>one million</value>
+					<value>you've been selected</value>
+					<value>Nigeria</value>
+					<value>sexo</value>
+					<value>un millón</value>
+					<value>ha sido seleccionado</value>
+				</list>
+			</property> 
+			<property name="vat" value="21"></property> 
+			<property name="countryCode" value="+34"></property> 
+			<property name="creditCardMakes">
+				<list>
+					<value>VISA</value>
+					<value>MASTER</value>
+					<value>DINNERS</value>
+					<value>AMEX</value>
+				</list>
+			</property> 
+			<property name="finderCacheHours" value="1"></property> 
+			<property name="maxCacheResults" value="10"></property> 
+			<property name="positiveWords">
+				<list>
+					<value>good</value>
+					<value>fantastic</value>
+					<value>excellent</value>
+					<value>great</value>
+					<value>amazing</value>
+					<value>terrific</value>
+					<value>beautiful</value>
+					<value>bueno</value>
+					<value>fantástico</value>
+					<value>buena</value>
+					<value>fantástica</value>
+					<value>excelente</value>
+					<value>gran</value>
+					<value>increíble</value>
+					<value>terrorífico</value>
+					<value>hermoso</value>
+					<value>terrorífica</value>
+					<value>hermosa</value>
+				</list>
+			</property> 
+			<property name="negativeWords">
+				<list>
+					<value>not</value>
+					<value>bad</value>
+					<value>horrible</value>
+					<value>average</value>
+					<value>disaster</value>
+					<value>no</value>
+					<value>malo</value>
+					<value>mala</value>
+					<value>horrible</value>
+					<value>mediocre</value>
+					<value>desastre</value>
+				</list>
+			</property> 
+		</bean>
 
 	<!-- _______________________________SocialProfile________________________________________________ -->
 	<bean id="socialProfile1" class="domain.SocialProfile">

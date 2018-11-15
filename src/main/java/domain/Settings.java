@@ -6,7 +6,7 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
-@Embeddable
+@Entity
 @Access(AccessType.PROPERTY)
 public class Settings extends DomainEntity {
 
