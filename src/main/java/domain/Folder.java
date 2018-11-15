@@ -60,7 +60,6 @@ public class Folder extends DomainEntity {
 	}
 
 	@NotNull
-	@Valid
 	@ManyToMany
 	public Collection<Message> getMessages() {
 		return this.messages;
@@ -71,7 +70,6 @@ public class Folder extends DomainEntity {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy = "parentFolder")
 	public Collection<Folder> getChildFolder() {
 		return this.childFolder;

@@ -46,7 +46,6 @@ public class Report extends DomainEntity {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy = "report")
 	public Collection<Note> getNotes() {
 		return this.notes;
@@ -67,7 +66,6 @@ public class Report extends DomainEntity {
 	}
 
 	@NotNull
-	@Valid
 	@ElementCollection
 	public Collection<Url> getAttachments() {
 		return this.attachments;

@@ -35,7 +35,6 @@ public class Sponsorship extends DomainEntity {
 	//---------Getters y Setters------
 
 	@NotNull
-	@Valid
 	@ManyToMany(cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH
 	})

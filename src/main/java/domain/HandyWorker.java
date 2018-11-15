@@ -63,7 +63,6 @@ public class HandyWorker extends Endorsable {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy = "handyWorker")
 	public Collection<Tutorial> getTutorials() {
 		return this.tutorials;
@@ -74,7 +73,6 @@ public class HandyWorker extends Endorsable {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy = "handyWorker")
 	public Collection<Application> getApplications() {
 		return this.applications;
@@ -85,7 +83,6 @@ public class HandyWorker extends Endorsable {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(mappedBy = "handyWorker")
 	public Collection<WorkPlan> getWorkPlans() {
 		return this.workPlans;

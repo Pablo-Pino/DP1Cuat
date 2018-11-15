@@ -76,7 +76,6 @@ public class Complaint extends Ticketable {
 	}
 
 	@NotNull
-	@Valid
 	@ElementCollection
 	public Collection<Url> getAttachments() {
 		return this.attachments;

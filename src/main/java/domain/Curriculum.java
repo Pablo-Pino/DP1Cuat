@@ -52,7 +52,6 @@ public class Curriculum extends Ticketable {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculum")
 	public Collection<EducationRecord> getEducationRecords() {
 		return this.educationRecords;
@@ -63,7 +62,6 @@ public class Curriculum extends Ticketable {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculum")
 	public Collection<ProfessionalRecord> getProfessionalRecords() {
 		return this.professionalRecords;
@@ -74,7 +72,6 @@ public class Curriculum extends Ticketable {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculum")
 	public Collection<EndorserRecord> getEndorserRecords() {
 		return this.endorserRecords;
@@ -85,7 +82,6 @@ public class Curriculum extends Ticketable {
 	}
 
 	@NotNull
-	@Valid
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculum")
 	public Collection<MiscellaneousRecord> getMiscellaneousRecords() {
 		return this.miscellaneousRecords;

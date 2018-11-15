@@ -21,5 +21,17 @@ public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 	@Query("select min(f.maximumPrice),max(f.maximumPrice),avg(f.maximumPrice),sqrt(sum(f.maximumPrice * f.maximumPrice) /count(f.maximumPrice) - (avg(f.maximumPrice) *avg(f.maximumPrice))) from FixupTask f")
 	Double[] maxFixupStaskStats();
 
+	//------------------------Query B1---------------------------------------
+	//The minimum, the maximum, the average, and the standard deviation of the number of complaints per fix-up task
+
+	@Query("select min(t.complaints.size), max(t.complaints.size), avg(t.complaints.size), sqrt(sum(t.complaints.size*t.complaints.size)/count(t.complaints.size)-(avg(t.complaints.size)*avg(t.complaints.size))) from FixupTask t")
+	Double[] complaintsStatsPerFixuptast();
+
+	//------------------------Query B2---------------------------------------
+	//The minimum, the maximum, the average, and the standard deviation of the number of notes per referee report
+
+	@Query("select min(r.notes.size), max(r.notes.size), avg(r.notes.size), sqrt(sum(r.notes.size*r.notes.size)/count(r.notes.size)-(avg(r.notes.size)*avg(r.notes.size))) from Report r")
+	Double[] notesStatsPerRefereeReport();
+
 	//-----------------------------------------------------------------
 }
