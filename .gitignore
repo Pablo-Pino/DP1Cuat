@@ -24,3 +24,5 @@ hs_err_pid*
 *.db:encryptable
 *.db:encryptable
 *.db:encryptable
+*.java
+*.db:encryptable
