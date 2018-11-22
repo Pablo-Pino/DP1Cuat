@@ -1,5 +1,5 @@
 
-package Repositories;
+package repositories;
 
 import java.util.Collection;
 

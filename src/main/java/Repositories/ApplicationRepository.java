@@ -1,5 +1,5 @@
 
-package Repositories;
+package repositories;
 
 import org.springframework.data.jpa.repository.Query;
 
