@@ -1,9 +1,12 @@
 
-package Repositories;
+package repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface ApplicationRepository {
+import domain.Application;
+
+public interface ApplicationRepository extends JpaRepository<Application,Integer>{
 	
 	
 	//---------------------Query C4------------------------------
