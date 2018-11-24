@@ -12,3 +12,8 @@ target/
 
 # Repositories folder
 src/main/java/Repositories/
+
+# Other
+*~*
+
+

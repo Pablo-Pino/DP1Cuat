@@ -30,11 +30,7 @@ public class CurriculumService {
 	// Supporting services----------------------------------------------
 
 	@Autowired
-	private HandyWorkerService			handyWorkerService;
-	@Autowired
 	private TicketableService			ticketableService;
-	@Autowired
-	private PersonalRecordService		personalRecordService;
 	@Autowired
 	private EducationRecordService		eduactionRecordService;
 	@Autowired

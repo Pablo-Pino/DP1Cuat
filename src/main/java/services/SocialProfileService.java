@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.SocialProfileRepository;
 import domain.Actor;
@@ -25,7 +26,9 @@ public class SocialProfileService extends GenericService<SocialProfile, SocialPr
 
 	@Override
 	public Collection<SocialProfile> findAllByActor(final Actor a) {
-		this.actorService.checkObject(a);
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() > 0);
+		Assert.notNull(this.actorService.findOne(a.getId()));
 		return this.repository.findByActor(a.getId());
 	}
 

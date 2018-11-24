@@ -2,6 +2,8 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -23,11 +25,8 @@ public class ActorService {
 	@Autowired
 	private ActorRepository	actorRepository;
 
+
 	//--------------------Services------------------------------
-
-	@Autowired
-	private FolderService	folderService;
-
 
 	// ------------------CRUD methods-----------------------------
 
@@ -58,9 +57,9 @@ public class ActorService {
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getId() != 0);
 		Assert.isTrue(this.actorRepository.exists(actor.getId()));
-
 		this.actorRepository.delete(actor);
 	}
+
 	// -------------------------Other methods-------------------------
 
 	public Actor findOneByUserAccount(final UserAccount userAccount) {
@@ -70,6 +69,18 @@ public class ActorService {
 	public Actor findPrincipal() {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		return this.actorRepository.findOneByUserAccount(userAccount.getId());
+	}
+
+	public Map<String, Double> fixupTasksStats() {
+		final Double[] statistics = this.actorRepository.fixupTasksStats();
+		final Map<String, Double> res = new HashMap<>();
+
+		res.put("MIN", statistics[0]);
+		res.put("MAX", statistics[1]);
+		res.put("AVG", statistics[2]);
+		res.put("STD", statistics[3]);
+
+		return res;
 	}
 
 }

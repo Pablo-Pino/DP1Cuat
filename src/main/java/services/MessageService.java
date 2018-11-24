@@ -114,4 +114,13 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 		this.folderService.checkPermisionActor(folder.getActor(), null);
 
 	}
+
+	//(Elena) Mensaje a todos los actores. Esta incompleto porque aun no se muy bien como hacerlo.
+
+	public void sendMessageActors(final Message m) {
+		final Message message = this.checkObject(m);
+		for (final Actor a : this.actorService.findAll())
+			message.setReceiver(a);
+
+	}
 }

@@ -60,18 +60,24 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 	}
 
 	public List<Folder> findFoldersByActor(final Actor actor) {
-		this.actorService.checkObject(actor);
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getId() > 0);
+		Assert.notNull(this.actorService.findOne(actor.getId()));
 		return this.repository.findFoldersByActor(actor.getId());
 	}
 
 	public Folder findFolderByActorAndName(final Actor actor, final String name) {
-		this.actorService.checkObject(actor);
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getId() > 0);
+		Assert.notNull(this.actorService.findOne(actor.getId()));
 		return this.repository.findFolderByActorAndName(actor.getId(), name);
 	}
 
 	public List<Folder> createSystemFolders(final Actor actor) {
 		final List<Folder> resFolders = new ArrayList<Folder>();
-		this.actorService.checkObject(actor);
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getId() > 0);
+		Assert.notNull(this.actorService.findOne(actor.getId()));
 		final String[] names = new String[] {
 			"inbox", "outbox", "spambox", "trashbox"
 		};

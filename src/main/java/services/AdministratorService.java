@@ -18,9 +18,6 @@ public class AdministratorService {
 
 	// Supporting Services
 
-	@Autowired
-	private UserAccountService		userAccountService;
-
 	// ------------------------------------------------------------
 	@Autowired
 	private AdministratorRepository	administratorRepository;
@@ -36,14 +33,12 @@ public class AdministratorService {
 
 	public Administrator create() {
 		final Administrator f = new Administrator();
-		final UserAccount ua = this.userAccountService.create("ADMIN");
-		f.setUserAccount(ua);
+		f.setUserAccount(new UserAccount());
 		return f;
 	}
 
 	public Administrator save(final Administrator administrator) {
 		Assert.notNull(administrator);
-		administrator.setUserAccount(this.userAccountService.save(administrator.getUserAccount()));
 		return this.administratorRepository.save(administrator);
 	}
 
@@ -52,7 +47,12 @@ public class AdministratorService {
 	}
 
 	public Collection<Administrator> findAll() {
-		return this.administratorRepository.findAll();
+		Collection<Administrator> a;
+
+		a = this.administratorRepository.findAll();
+		Assert.notNull(a);
+
+		return a;
 	}
 
 }

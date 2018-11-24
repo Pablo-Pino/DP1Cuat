@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ComplaintRepository;
-import repositories.RefereeRepository;
 import domain.Complaint;
 import domain.Referee;
 
@@ -21,11 +20,6 @@ public class ComplaintService {
 
 	@Autowired
 	private ComplaintRepository	complaintRepository;
-
-	// Supporting Service
-
-	private RefereeRepository	refereeRepository;
-	private RefereeService		refereeService;
 
 
 	// Simple CRUD methods
