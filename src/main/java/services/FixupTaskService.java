@@ -3,6 +3,8 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,4 +69,34 @@ public class FixupTaskService {
 		
 		this.fixupTaskRepository.delete(ft);
 	}
+	
+	//Other methods
+	
+	public Map<String, Double> appsStats() {
+		final Double[] statistics = this.fixupTaskRepository.appsStats();
+		final Map<String, Double> res = new HashMap<>();
+
+		res.put("MIN", statistics[0]);
+		res.put("MAX", statistics[1]);
+		res.put("AVG", statistics[2]);
+		res.put("STD", statistics[3]);
+		
+
+		return res;
+	}
+	
+	public Map<String, Double> maxFixupStaskStats() {
+		final Double[] statistics = this.fixupTaskRepository.maxFixupStaskStats();
+		final Map<String, Double> res = new HashMap<>();
+
+		res.put("MIN", statistics[0]);
+		res.put("MAX", statistics[1]);
+		res.put("AVG", statistics[2]);
+		res.put("STD", statistics[3]);
+		
+
+		return res;
+	}
+	
+	
 }
