@@ -1,6 +1,8 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.AdministratorRepository;
 import security.UserAccount;
 import domain.Administrator;
+import domain.Note;
 
 @Service
 @Transactional
@@ -52,8 +55,16 @@ public class AdministratorService {
 	
 
 	public Collection<Administrator> findAll() {
-		return this.administratorRepository.findAll();
+		Collection<Administrator> a;
+
+		Assert.notNull(this.administratorRepository);
+		a = this.administratorRepository.findAll();
+		Assert.notNull(a);
+
+		return a;
 	}
+
+
 
 }
 

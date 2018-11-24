@@ -2,7 +2,9 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -72,4 +74,16 @@ public class ActorService extends GenericService<Actor, ActorRepository> impleme
 		throw new IllegalArgumentException("Unallowed method");
 	}
 
+	public Map<String, Double> fixupTasksStats() {
+		final Double[] statistics = this.repository.fixupTasksStats();
+		final Map<String, Double> res = new HashMap<>();
+
+		res.put("MIN", statistics[0]);
+		res.put("MAX", statistics[1]);
+		res.put("AVG", statistics[2]);
+		res.put("STD", statistics[3]);
+		
+
+		return res;
+	}
 }

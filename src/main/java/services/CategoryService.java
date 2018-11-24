@@ -12,7 +12,7 @@ import repositories.CategoryRepository;
 
 import domain.Category;
 import domain.FixupTask;
-import domain.Note;
+
 
 @Service
 @Transactional
