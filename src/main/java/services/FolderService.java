@@ -1,0 +1,87 @@
+
+package services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import repositories.FolderRepository;
+import domain.Actor;
+import domain.Folder;
+import domain.Message;
+
+@Service
+@Transactional
+public class FolderService extends GenericService<Folder, FolderRepository> implements ServiceActorDependantI<Folder> {
+
+	@Autowired
+	private FolderRepository	repository;
+	@Autowired
+	private ActorService		actorService;
+
+
+	@Override
+	public List<Folder> findAllByActor(final Actor a) {
+		Assert.notNull(this.actorService.findOne(a.getId()));
+		return this.repository.findFoldersByActor(a.getId());
+	}
+
+	@Override
+	public Folder create(final Actor a) {
+		final Folder res = new Folder();
+		res.setActor(a);
+		res.setChildFolder(new ArrayList<Folder>());
+		res.setSystem(false);
+		res.setMessages(new ArrayList<Message>());
+		res.setParentFolder(res);
+		return res;
+	}
+
+	@Override
+	public Folder save(final Folder object) {
+		final Folder folder = super.checkObjectSave(object);
+		super.checkPermisionActor(folder.getActor(), null);
+		Assert.isTrue(!folder.getSystem());
+		object.setActor(folder.getActor());
+		return this.repository.save(object);
+	}
+
+	@Override
+	public void delete(final Folder object) {
+		final Folder folder = super.checkObject(object);
+		super.checkPermisionActor(folder.getActor(), null);
+		Assert.isTrue(!folder.getSystem());
+		this.repository.delete(object);
+	}
+
+	public List<Folder> findFoldersByActor(final Actor actor) {
+		this.actorService.checkObject(actor);
+		return this.repository.findFoldersByActor(actor.getId());
+	}
+
+	public Folder findFolderByActorAndName(final Actor actor, final String name) {
+		this.actorService.checkObject(actor);
+		return this.repository.findFolderByActorAndName(actor.getId(), name);
+	}
+
+	public List<Folder> createSystemFolders(final Actor actor) {
+		final List<Folder> resFolders = new ArrayList<Folder>();
+		this.actorService.checkObject(actor);
+		final String[] names = new String[] {
+			"inbox", "outbox", "spambox", "trashbox"
+		};
+		for (final String name : names) {
+			final Folder newFolder = this.create(actor);
+			newFolder.setName(name);
+			newFolder.setSystem(true);
+			newFolder.setParentFolder(newFolder);
+			resFolders.add(this.repository.save(newFolder));
+		}
+		return resFolders;
+	}
+}
