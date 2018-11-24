@@ -27,6 +27,7 @@ public class GenericController<R extends DomainEntity, S extends ServiceI<R>, T 
 		this.controllerToView.addVariablesListModelAndView(res);
 		return res;
 	}
+
 	public ModelAndView create() {
 		ModelAndView res = null;
 		final R object = this.service.create();
@@ -44,10 +45,9 @@ public class GenericController<R extends DomainEntity, S extends ServiceI<R>, T 
 
 	public ModelAndView save(final R object, final BindingResult binding) {
 		ModelAndView res = null;
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			res = this.createEditModelAndView(object);
-			System.out.println(binding.getAllErrors());
-		} else
+		else
 			try {
 				res = new ModelAndView("redirect:list.do");
 				this.service.save(object);

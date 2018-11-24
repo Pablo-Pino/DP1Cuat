@@ -39,9 +39,9 @@ public class Authority implements GrantedAuthority {
 
 	public static final String	ADMIN		= "ADMIN";
 	public static final String	CUSTOMER	= "CUSTOMER";
-	private static final String	SPONSOR		= "SPONSOR";
-	private static final String	REFEREE		= "REFEREE";
-	private static final String	HANDYWORKER	= "HANDYWORKER";
+	public static final String	SPONSOR		= "SPONSOR";
+	public static final String	REFEREE		= "REFEREE";
+	public static final String	HANDYWORKER	= "HANDYWORKER";
 
 	// Attributes -------------------------------------------------------------
 

@@ -17,7 +17,7 @@ public interface FolderRepository extends GenericRepository<Folder> {
 	@Query("select f from Folder f where f.actor.id = ?1 and f.name = ?2")
 	Folder findFolderByActorAndName(Integer actorId, String name);
 
-	@Query("select f from Folder f where f.actor.id = ?1 and f.message.id = ?2")
+	@Query("select distinct f from Folder f join f.messages m where f.actor.id = ?1 and m.id = ?2")
 	Folder findFolderByActorAndMessage();
 
 }
