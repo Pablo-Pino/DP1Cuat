@@ -21,7 +21,9 @@ public class PersonalRecordService {
 
 	// Supporting Service
 	
-	
+	public PersonalRecordService() {
+		super();
+	}
 	// Simple CRUD methods
 	
 	public PersonalRecord create() {
@@ -30,7 +32,14 @@ public class PersonalRecordService {
 	}
 	
 	public Collection<PersonalRecord> findAll() {
-		return this.personalRecordRepository.findAll();
+		
+		Collection<PersonalRecord> pr;
+
+		Assert.notNull(this.personalRecordRepository);
+		pr = this.personalRecordRepository.findAll();
+		Assert.notNull(pr);
+
+		return pr;
 	}
 
 	public PersonalRecord findOne(final int personalRecordId) {
@@ -44,6 +53,7 @@ public class PersonalRecordService {
 
 	public void delete(final PersonalRecord p) {
 		Assert.notNull(p);
+		Assert.isTrue(p.getId()!=0);
 		this.personalRecordRepository.delete(p);
 	}
 }

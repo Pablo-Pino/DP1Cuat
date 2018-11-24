@@ -23,7 +23,9 @@ public class MiscellaneousRecordService {
 	// Supporting Service
 	
 
-
+	public MiscellaneousRecordService() {
+		super();
+	}
 	
 	// Simple CRUD methods
 	public MiscellaneousRecord create() {
@@ -32,10 +34,17 @@ public class MiscellaneousRecordService {
 	}
 	
 	public Collection<MiscellaneousRecord> findAll() {
-		return this.miscellaneousRecordRepository.findAll();
+		Collection<MiscellaneousRecord> mr;
+
+		Assert.notNull(this.miscellaneousRecordRepository);
+		mr = this.miscellaneousRecordRepository.findAll();
+		Assert.notNull(mr);
+
+		return mr;
 	}
 
 	public MiscellaneousRecord findOne(final int miscellaneousRecordId) {
+		Assert.notNull(this);
 		return this.miscellaneousRecordRepository.findOne(miscellaneousRecordId);
 	}
 	
@@ -46,6 +55,7 @@ public class MiscellaneousRecordService {
 
 	public void delete(final MiscellaneousRecord mr) {
 		Assert.notNull(mr);
+		Assert.isTrue(mr.getId() !=0);
 		this.miscellaneousRecordRepository.delete(mr);
 	}
 }

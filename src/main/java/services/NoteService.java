@@ -49,6 +49,7 @@ public class NoteService {
 	}
 
 	public Note findOne(final int noteId) {
+		Assert.notNull(this);
 		return this.noteRepository.findOne(noteId);
 	}
 	
