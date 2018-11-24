@@ -9,3 +9,9 @@ target/
 
 # Project file
 .project
+
+# Repositories folder
+src/main/java/Repositories/
+
+# Other
+*~*

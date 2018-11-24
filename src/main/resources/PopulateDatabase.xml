@@ -297,6 +297,34 @@
 		<property name="handyWorker" ref="handyWorker1" />
 		<property name="fixupTask" ref="fixupTask1" />
 	</bean>
+	
+	<bean id="application6" class="domain.Application">
+		<property name="price" value="3.14" />
+		<property name="moment">
+			<bean id="momentApplication1" factory-bean="completeDateFormat"
+				factory-method="parse">
+				<constructor-arg value="28/10/2017 23:59:59" />
+			</bean>
+		</property>
+		<property name="status" value="REJECTED" />
+		<property name="workerComments" value="I work hard" />
+		<property name="handyWorker" ref="handyWorker1" />
+		<property name="fixupTask" ref="fixupTask2" />
+	</bean>
+	
+	<bean id="application7" class="domain.Application">
+		<property name="price" value="3.14" />
+		<property name="moment">
+			<bean id="momentApplication1" factory-bean="completeDateFormat"
+				factory-method="parse">
+				<constructor-arg value="28/10/2017 23:59:59" />
+			</bean>
+		</property>
+		<property name="status" value="PENDING" />
+		<property name="workerComments" value="I work hard" />
+		<property name="handyWorker" ref="handyWorker1" />
+		<property name="fixupTask" ref="fixupTask3" />
+	</bean>
 
 	<bean id="application2" class="domain.Application">
 		<property name="price" value="12.34" />
@@ -1667,6 +1695,7 @@
 			<list>
 				<ref bean="application2" />
 				<ref bean="application4" />
+				<ref bean="application6" />
 			</list>
 		</property>
 		<property name="workPlan" ref="workPlan2">
@@ -1695,7 +1724,7 @@
 		</property>
 		<property name="applications">
 			<list>
-
+				<ref bean="application7" />
 			</list>
 		</property>
 		<property name="workPlan" ref="workPlan3">
@@ -1724,7 +1753,7 @@
 		</property>
 		<property name="applications">
 			<list>
-
+				<ref bean="application5" />
 			</list>
 		</property>
 		<property name="workPlan" ref="workPlan4">
@@ -2638,12 +2667,7 @@
 			</bean>
 		</property>
 		<property name="numberOrder" value="0"></property>
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial1" />
-
-			</list>
-		</property>
+		<property name="tutorial" ref="tutorial1" />
 	</bean>
 
 	<bean id="section2" class="domain.Section">
@@ -2655,13 +2679,7 @@
 			</bean>
 		</property>
 		<property name="numberOrder" value="3"></property>
-		<property name="tutorials">
-			<list>
-
-				<ref bean="tutorial2" />
-
-			</list>
-		</property>
+		<property name="tutorial" ref="tutorial2" />
 	</bean>
 
 	<bean id="section3" class="domain.Section">
@@ -2673,11 +2691,7 @@
 			</bean>
 		</property>
 		<property name="numberOrder" value="3"></property>
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial3" />
-			</list>
-		</property>
+		<property name="tutorial" ref="tutorial3" />
 	</bean>
 
 
@@ -2851,6 +2865,11 @@
 			<list>
 				<ref bean="application1" />
 				<ref bean="application5" />
+<<<<<<< HEAD
+=======
+				<ref bean="application6" />
+				<ref bean="application7" />
+>>>>>>> master
 			</list>
 		</property>
 		<property name="workPlans">

@@ -1,5 +1,5 @@
 
-package services;
+package sevrices;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,7 +30,11 @@ public class CurriculumService {
 	// Supporting services----------------------------------------------
 
 	@Autowired
+	private HandyWorkerService			handyWorkerService;
+	@Autowired
 	private TicketableService			ticketableService;
+	@Autowired
+	private PersonalRecordServicce		personalRecordService;
 	@Autowired
 	private EducationRecordService		eduactionRecordService;
 	@Autowired

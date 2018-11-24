@@ -12,13 +12,13 @@ public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 
 	@Query("select (count(f)*1.0)/(select count(f1)*1.0 from FixupTask f1) from FixupTask f where f.complaints is not empty")
 	double getRatioFixupTasksWithComplaints();
-	
+
 	//------------------------Query C2----------------------------------------
 	//The average, the minimum, the maximum, and the standard deviation of the number of applications per fix-up task
 
 	@Query("select min(f.applications.size),max(f.applications.size),avg(f.applications.size),sqrt(sum(f.applications.size * f.applications.size) /count(f.applications.size) - (avg(f.applications.size) *avg(f.applications.size))) from FixupTask f")
 	Double[] appsStats();
-	
+
 	//------------------------Query C3---------------------------------------
 	//The average, the minimum, the maximum, and the standard deviation of the maximum price of the fix-up tasks.
 
@@ -26,6 +26,4 @@ public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 	Double[] maxFixupStaskStats();
 
 	//-----------------------------------------------------------------
-	}
-
-
+}
