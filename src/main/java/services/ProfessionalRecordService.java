@@ -31,7 +31,7 @@ public class ProfessionalRecordService extends GenericService<ProfessionalRecord
 	public Collection<ProfessionalRecord> findAll(final Curriculum dependency) {
 		this.serviceUtils.checkId(dependency);
 		Assert.notNull(this.curriculumService.findOne(dependency.getId()));
-		this.repository.findByCurriculumId(dependency.getId());
+		return this.repository.findByCurriculumId(dependency.getId());
 	}
 
 	@Override

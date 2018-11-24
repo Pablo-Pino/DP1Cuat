@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -18,11 +19,12 @@ public class AdministratorService {
 	// Supporting Services
 
 	@Autowired
-	private UserAccountService userAccountService;
+	private UserAccountService		userAccountService;
 
 	// ------------------------------------------------------------
 	@Autowired
-	private AdministratorRepository administratorRepository;
+	private AdministratorRepository	administratorRepository;
+
 
 	// --------------------------Constructor-----------------------
 
@@ -41,19 +43,16 @@ public class AdministratorService {
 
 	public Administrator save(final Administrator administrator) {
 		Assert.notNull(administrator);
-		administrator.setUserAccount(this.userAccountService.save(administrator
-				.getUserAccount()));
+		administrator.setUserAccount(this.userAccountService.save(administrator.getUserAccount()));
 		return this.administratorRepository.save(administrator);
 	}
 
 	public Administrator findOne(final int administratorId) {
 		return this.administratorRepository.findOne(administratorId);
 	}
-	
 
 	public Collection<Administrator> findAll() {
 		return this.administratorRepository.findAll();
 	}
 
 }
-
