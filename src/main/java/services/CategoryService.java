@@ -3,9 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +24,6 @@ public class CategoryService {
 	private CategoryRepository	categoryRepository;
 
 	//Servicios de soporte
-
-	@Autowired
-	private FixupTaskService	fixupTaskService;
 
 
 	//Constructor
@@ -66,13 +60,8 @@ public class CategoryService {
 
 	public void delete(final Category c) {
 		Assert.notNull(c);
-		final Collection<FixupTask> ft = c.getFixupTasks();
-		
-		if(ft.contains(c))
-			ft.remove(c);
-		this.fixupTaskService.save(ft.);
-		this.categoryRepository.delete(c);
-		Assert.isTrue(c.getId()!=0);
+		Assert.isTrue(c.getId() != 0);
+		Assert.isTrue(this.categoryRepository.exists(c.getId()));
 		this.categoryRepository.delete(c);
 	}
 }
