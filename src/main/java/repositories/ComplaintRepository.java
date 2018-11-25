@@ -12,9 +12,9 @@ import domain.Complaint;
 @Repository
 public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 
-	@Query("select c Complaint c where c.referee.id == ?1")
+	@Query("select c from Complaint c where c.referee.id = ?1")
 	Collection<Complaint> SearchComplaintByReferee(Integer refereeId);
 
-	@Query("select c Complaint c where c.referee IS NULL")
+	@Query("select c from Complaint c where c.referee IS NULL")
 	Collection<Complaint> SearchComplaintWithoutReferee();
 }
