@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import repositories.RefereeRepository;
 import security.Authority;
+import security.UserAccount;
 import domain.Complaint;
 import domain.Folder;
 import domain.Message;
@@ -36,6 +37,7 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 		res.setFolders(new ArrayList<Folder>());
 		res.setReceivedMessages(new ArrayList<Message>());
 		res.setSendedMessages(new ArrayList<Message>());
+		res.setUserAccount(new UserAccount()); //Create new account for a new referee
 		return res;
 	}
 
