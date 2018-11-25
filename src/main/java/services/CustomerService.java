@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Collection;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,5 +92,12 @@ public class CustomerService {
 		result = this.customerRepository.findByUserAccountId(userAccount.getId());
 
 		return result;
+	}
+	
+
+	
+	public Collection<Customer> getTop3CustomerWithMoreComplaints() {
+		final Collection<Customer> ratio = this.customerRepository.getTop3CustomerWithMoreComplaints();
+		return ratio;
 	}
 }
