@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
 import domain.Application;
+import domain.Customer;
 import domain.HandyWorker;
 import domain.Tutorial;
 import domain.WorkPlan;
@@ -76,13 +77,19 @@ public class HandyWorkerService {
 	
 	
 	
-		public Map<String, Collection<HandyWorker>> fixupTasksStats() {
+	public Map<String, Collection<HandyWorker>> fixupTasksStats() {
 		final Collection<HandyWorker> collection = this.handyWorkerRepository.getTop3HandyWorkerWithMoreComplaints();
 		final Map<String, Collection<HandyWorker>> res = new HashMap<>();
 
 		res.put("Collection", collection);
 		
 
-		return res;
+	return res;
+	
 	}
+	
+	public Collection<HandyWorker> getTop3HandyWorkerWithMoreComplaints() {
+		final Collection<HandyWorker> ratio = this.handyWorkerRepository.getTop3HandyWorkerWithMoreComplaints();
+	return ratio;
+		}
 }
