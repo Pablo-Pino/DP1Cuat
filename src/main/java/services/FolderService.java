@@ -76,8 +76,9 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 	public List<Folder> createSystemFolders(final Actor actor) {
 		final List<Folder> resFolders = new ArrayList<Folder>();
 		Assert.notNull(actor);
-		Assert.isTrue(actor.getId() > 0);
-		Assert.notNull(this.actorService.findOne(actor.getId()));
+		Assert.isTrue(actor.getId() >= 0);
+		if (actor.getId() > 0)
+			Assert.notNull(this.actorService.findOne(actor.getId()));
 		final String[] names = new String[] {
 			"inbox", "outbox", "spambox", "trashbox"
 		};
