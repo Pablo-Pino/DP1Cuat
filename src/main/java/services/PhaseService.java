@@ -38,6 +38,9 @@ public class PhaseService extends GenericService<Phase, PhaseRepository> impleme
 	public Phase create(final WorkPlan dependency) {
 		final Phase res = new Phase();
 		res.setWorkPlan(dependency);
+		super.checkPermisionActor(res.getWorkPlan().getHandyWorker(), new String[] {
+			Authority.HANDYWORKER
+		});
 		return res;
 	}
 
@@ -53,7 +56,6 @@ public class PhaseService extends GenericService<Phase, PhaseRepository> impleme
 		final Phase res = this.repository.save(object);
 		return res;
 	}
-
 	@Override
 	public void delete(final Phase object) {
 		final Phase phase = super.checkObject(object);
@@ -61,6 +63,10 @@ public class PhaseService extends GenericService<Phase, PhaseRepository> impleme
 			Authority.HANDYWORKER
 		});
 		this.repository.delete(phase);
+	}
+
+	public void flush() {
+		this.repository.flush();
 	}
 
 }

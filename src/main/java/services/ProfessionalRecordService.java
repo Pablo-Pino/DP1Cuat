@@ -62,4 +62,8 @@ public class ProfessionalRecordService extends GenericService<ProfessionalRecord
 		this.repository.delete(professionalRecord);
 	}
 
+	public void flush() {
+		this.repository.flush();
+	}
+
 }
