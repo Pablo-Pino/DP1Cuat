@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
 import domain.Application;
-import domain.Customer;
 import domain.HandyWorker;
 import domain.Tutorial;
 import domain.WorkPlan;
