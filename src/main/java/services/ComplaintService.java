@@ -48,7 +48,7 @@ public class ComplaintService {
 	}
 
 	public Collection<Complaint> findAllComplaintsByReferee(final Referee r) {
-		return this.complaintRepository.SearchComplaintByReferee(r);
+		return this.complaintRepository.SearchComplaintByReferee(r.getId());
 	}
 
 	public Collection<Complaint> findAllComplaintsWithoutReferee() {
