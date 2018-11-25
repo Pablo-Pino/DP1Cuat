@@ -37,7 +37,7 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 		res.setFolders(new ArrayList<Folder>());
 		res.setReceivedMessages(new ArrayList<Message>());
 		res.setSendedMessages(new ArrayList<Message>());
-		res.setUserAccount(new UserAccount()); //Create new account for a new referee
+		res.setUserAccount(new UserAccount()); //Create new account for a new referee //TODO mirar como se ha hecho en customer
 		return res;
 	}
 
