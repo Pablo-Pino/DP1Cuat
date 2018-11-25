@@ -3,6 +3,8 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,5 +70,19 @@ public class HandyWorkerService {
 		Assert.notNull(hw);
 		Assert.isTrue(hw.getId() != 0);
 		this.handyWorkerRepository.delete(hw);
+	}
+	
+	//Other methods
+	
+	
+	
+		public Map<String, Collection<HandyWorker>> fixupTasksStats() {
+		final Collection<HandyWorker> collection = this.handyWorkerRepository.getTop3HandyWorkerWithMoreComplaints();
+		final Map<String, Collection<HandyWorker>> res = new HashMap<>();
+
+		res.put("Collection", collection);
+		
+
+		return res;
 	}
 }
