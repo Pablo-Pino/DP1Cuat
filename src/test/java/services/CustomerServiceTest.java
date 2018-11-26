@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -27,10 +29,29 @@ public class CustomerServiceTest extends AbstractTest {
 
 
 	@Test
-	public void testFindOne() {
+	public void testFindOneCorrecto() {
 		Customer customer;
 
-		customer = this.customerService.findOne(super.getEntityId("customer1"));
+		final int idBusqueda = super.getEntityId("customer1");
+		customer = this.customerService.findOne(idBusqueda);
 		Assert.notNull(customer);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindOneIncorrecto() {
+		Customer customer;
+
+		final int idBusqueda = super.getEntityId("custemer");
+		customer = this.customerService.findOne(idBusqueda);
+		Assert.isNull(customer);
+	}
+
+	@Test
+	public void testFindAll() {
+		Collection<Customer> customers;
+
+		customers = this.customerService.findAll();
+		Assert.notNull(customers);
+		Assert.notEmpty(customers); //porque sabemos que hemos creado algunos con el populate
 	}
 }

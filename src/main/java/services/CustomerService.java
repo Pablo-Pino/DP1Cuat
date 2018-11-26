@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import repositories.CustomerRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Customer;
+import domain.FixupTask;
 import domain.Folder;
 import domain.Message;
 import domain.SocialProfile;
@@ -36,6 +38,9 @@ public class CustomerService {
 
 	@Autowired
 	private UserAccountService	userAccountService;
+
+	@Autowired
+	private ServiceUtils		serviceUtils;
 
 
 	// Constructors -----------------------------------------------------------
@@ -106,8 +111,23 @@ public class CustomerService {
 	}
 
 	public Customer save(final Customer customer) {
-
 		Assert.notNull(customer);
+
+		if (customer.getId() == 0) {
+			customer.setBanned(false);
+			customer.setFixupTasks(new ArrayList<FixupTask>());
+			customer.setFolders(this.folderService.createSystemFolders(customer));
+			customer.setReceivedMessages(new ArrayList<Message>());
+			customer.setSendedMessages(new ArrayList<Message>());
+			customer.setSocialProfiles(new ArrayList<SocialProfile>());
+			customer.setSuspicious(false);
+			this.serviceUtils.checkAuthority("ADMIN");
+			this.serviceUtils.checkActor(customer);
+		} else {
+			this.serviceUtils.checkAuthority("CUSTOMER");
+			this.serviceUtils.checkActor(customer);
+
+		}
 		Customer res;
 		res = this.customerRepository.save(customer);
 		return res;
@@ -138,9 +158,7 @@ public class CustomerService {
 
 		return result;
 	}
-	
 
-	
 	public Collection<Customer> getTop3CustomerWithMoreComplaints() {
 		final Collection<Customer> ratio = this.customerRepository.getTop3CustomerWithMoreComplaints();
 		return ratio;
