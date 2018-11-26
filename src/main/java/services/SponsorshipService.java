@@ -20,8 +20,9 @@ public class SponsorshipService {
 	@Autowired
 	private SponsorshipRepository	sponsorshipRepository;
 
-
 	// Supporting Service
+	private SponsorService			sponsorService;
+
 
 	// Simple CRUD methods
 

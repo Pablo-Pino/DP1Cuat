@@ -29,34 +29,10 @@ public class TicketableServiceTest extends AbstractTest {
 
 
 	@Test
-	public void testFindOne() {
-		Ticketable ticketable;
-
-		ticketable = this.ticketableService.findOne(super.getEntityId("ticketable1"));
-		Assert.notNull(ticketable);
-	}
-
-	@Test
 	public void testFindAll() {
 
 		final Collection<Ticketable> ticketables = this.ticketableService.findAll();
 		Assert.notNull(ticketables);
 	}
 
-	@Test
-	public void testSave() {
-		Ticketable ticketable;
-
-		ticketable = this.ticketableService.findOne(super.getEntityId("ticketable1"));
-		Assert.notNull(ticketable);
-	}
-
-	@Test
-	public void testDelete() {
-		Ticketable ticketable;
-
-		ticketable = this.ticketableService.findOne(super.getEntityId("ticketable1"));
-		this.ticketableService.delete(ticketable);
-		Assert.isNull(this.ticketableService.findOne(ticketable.getId()));
-	}
 }
