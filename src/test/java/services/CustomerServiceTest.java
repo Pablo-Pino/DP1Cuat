@@ -28,6 +28,30 @@ public class CustomerServiceTest extends AbstractTest {
 	private CustomerService	customerService;
 
 
+	//test-------------------------------------------------------------------
+
+	@Test
+	public void createCorrecto() {
+		final Customer customer = this.customerService.create();
+		Assert.notNull(customer);
+	}
+
+	@Test
+	public void testSaveCorrecto() {
+
+		Customer customer, saved;
+		int customerId;
+		customerId = this.getEntityId("customer1");
+		customer = this.customerService.findOne(customerId);
+		Assert.notNull(customer);
+
+		this.authenticate("customer1");
+
+		customer.setSurname("otro");
+		saved = this.customerService.save(customer);
+		Assert.isTrue(saved.getSurname().equals("otro"));
+	}
+
 	@Test
 	public void testFindOneCorrecto() {
 		Customer customer;
@@ -54,4 +78,5 @@ public class CustomerServiceTest extends AbstractTest {
 		Assert.notNull(customers);
 		Assert.notEmpty(customers); //porque sabemos que hemos creado algunos con el populate
 	}
+
 }
