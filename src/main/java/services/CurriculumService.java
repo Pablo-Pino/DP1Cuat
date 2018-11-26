@@ -49,7 +49,7 @@ public class CurriculumService {
 		res = new Curriculum();
 
 		//res.setHandyWorker(new HandyWorker());
-		res.setTicker(this.ticketableService.GENERARTICKETVALIDO);
+		res.setTicker(this.ticketableService.createTicker());
 		res.setPersonalRecord(new PersonalRecord());
 		res.setEducationRecords(new ArrayList<EducationRecord>());
 		res.setProfessionalRecords(new ArrayList<ProfessionalRecord>());
