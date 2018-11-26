@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import utilities.AbstractTest;
 import domain.HandyWorker;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
@@ -81,10 +82,19 @@ public class HandyWorkerServiceTest extends AbstractTest{
 		hw = this.handyworkerService.save(hw);
 		Assert.isTrue(hw.getName()== "Luis");
 	}
+	
+	@Test
+	public void testDelete() {
+		HandyWorker h;
+
+		h = this.handyworkerService.findOne(super.getEntityId("handyWorker1"));
+		this.handyworkerService.delete(h);
+		Assert.isNull(this.handyworkerService.findOne(h.getId()));
+	}
 
 	@Test
 	public void testHandyWorkerFixupStats() {
-		this.authenticate("handyWorker2");
+		//this.authenticate("handyWorker2");
 		final Collection<HandyWorker> result = this.handyworkerService.getTop3HandyWorkerWithMoreComplaints();
 		System.out.println("El top 3 de handyworker con mas complaints:" + result);
 
@@ -92,7 +102,7 @@ public class HandyWorkerServiceTest extends AbstractTest{
 	
 	@Test
 	public void testHandyWorkerfixupTasksTop3() {
-		this.authenticate("handyWorker2");
+		//this.authenticate("handyWorker2");
 		final Map<String, Collection<HandyWorker>> result = this.handyworkerService.fixupTasksTop3();
 		System.out.println("El top 3 de handyworker con mas fixuptask:" + result);
 

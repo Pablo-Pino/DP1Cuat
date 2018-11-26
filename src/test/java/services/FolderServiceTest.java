@@ -1,8 +1,7 @@
 package services;
 
 import java.util.Collection;
-
-
+import java.util.List;
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -31,15 +30,12 @@ public class FolderServiceTest extends AbstractTest{
 	@Autowired
 	private FolderService	folderService;
 	
-	@Autowired
-	private ActorService	actorService;
 
 
 	//------------------------------------------------------------
 
 	@Test
-	public void testCreate() {
-		final Actor a = this.actorService.findOne(13);
+	public void testCreate(Actor a) {
 		final Folder f = this.folderService.create(a);
 		Assert.notNull(f);
 	}
@@ -87,4 +83,38 @@ public class FolderServiceTest extends AbstractTest{
 		f = this.folderService.save(f);
 		Assert.isTrue(f.getName()=="uwu");
 	}
+	
+	@Test
+	public void testDelete() {
+		Folder f;
+
+		f = this.folderService.findOne(super.getEntityId("folder1Customer1"));
+		this.folderService.delete(f);
+		Assert.isNull(this.folderService.findOne(f.getId()));
+	}
+	
+	@Test
+	public void testfindFoldersByActor(Actor a) {
+		this.authenticate("admin1");
+		final List<Folder> result = this.folderService.findFoldersByActor(a);
+		System.out.println("Lista de folders :" + result);
+	}
+	
+	@Test
+	public void testCreateSystemFolders(Actor a) {
+		this.authenticate("admin1");
+		final List<Folder> result = this.folderService.createSystemFolders(a);
+		System.out.println("Creacion de System folders :" + result);
+	}
+	
+	@Test
+	public void testFolderByActorAndName(Actor a, String name) {
+		this.authenticate("admin1");
+		final Folder result = this.folderService.findFolderByActorAndName(a, name);
+		System.out.println("La folder es :" + result);
+	}
+	
+	
+	
+	
 }

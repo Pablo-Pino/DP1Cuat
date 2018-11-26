@@ -82,6 +82,15 @@ public class PersonalRecordServiceTest extends AbstractTest{
 		Assert.isTrue(pr.getFullName()== "uwu");
 
 	}
+	
+	@Test
+	public void testDelete() {
+		PersonalRecord pr;
+
+		pr = this.personalRecordService.findOne(super.getEntityId("personalRecord1"));
+		this.personalRecordService.delete(pr);
+		Assert.isNull(this.personalRecordService.findOne(pr.getId()));
+	}
 
 
 }

@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +15,7 @@ import org.springframework.util.Assert;
 import utilities.AbstractTest;
 
 import domain.FixupTask;
+
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -79,6 +81,39 @@ public class FixupTaskServiceTest extends AbstractTest{
 		Assert.notNull(f);
 		f = this.fixupTaskService.save(f);
 		Assert.isTrue(f.getTicker()== "81103-B01");
+
+	}
+	
+	@Test
+	public void testDelete() {
+		FixupTask f;
+
+		f = this.fixupTaskService.findOne(super.getEntityId("fixupTask1"));
+		this.fixupTaskService.delete(f);
+		Assert.isNull(this.fixupTaskService.findOne(f.getId()));
+	}
+	
+	@Test
+	public void testAppStats() {
+		this.authenticate("admin1");
+		final Map<String, Double> result = this.fixupTaskService.appsStats();
+		System.out.println("Las caracteristicas de las fiuptask son:" + result);
+
+	}
+	
+	@Test
+	public void testRatioFixupTasksWithComplaints() {
+		this.authenticate("admin1");
+		final Map<String, Double> result = this.fixupTaskService.getRatioFixupTasksWithComplaints();
+		System.out.println("El ratio de las fiuptask con mas complaints:" + result);
+
+	}
+	
+	@Test
+	public void testmaxFixupStaskStats() {
+		this.authenticate("admin1");
+		final Map<String, Double> result = this.fixupTaskService.maxFixupStaskStats();
+		System.out.println("Caracteristicas fixup max:" + result);
 
 	}
 

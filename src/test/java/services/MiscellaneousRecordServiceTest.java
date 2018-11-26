@@ -83,4 +83,13 @@ public class MiscellaneousRecordServiceTest extends AbstractTest{
 		mr = this.miscellaneousRecordService.save(mr);
 		Assert.isTrue(mr.getTitle()== "uwu");
 	}
+	
+	@Test
+	public void testDelete() {
+		MiscellaneousRecord mr;
+
+		mr = this.miscellaneousRecordService.findOne(super.getEntityId("miscellaneousRecord1"));
+		this.miscellaneousRecordService.delete(mr);
+		Assert.isNull(this.miscellaneousRecordService.findOne(mr.getId()));
+	}
 }

@@ -16,7 +16,6 @@ import utilities.AbstractTest;
 import domain.Note;
 import domain.Report;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
@@ -99,6 +98,15 @@ public class NoteServiceTest extends AbstractTest{
 		n = this.noteService.save(n);
 		Assert.isTrue(n.getComments().contains("Es un comentario de la nota 2"));
 
+	}
+	
+	@Test
+	public void testDelete() {
+		Note n;
+
+		n = this.noteService.findOne(super.getEntityId("note1"));
+		this.noteService.delete(n);
+		Assert.isNull(this.noteService.findOne(n.getId()));
 	}
 
 
