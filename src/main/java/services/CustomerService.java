@@ -112,6 +112,10 @@ public class CustomerService {
 
 	public Customer save(final Customer customer) {
 		Assert.notNull(customer);
+		this.serviceUtils.checkIdSave(customer);
+		Customer customerBD;
+		Assert.isTrue(customer.getId() > 0);
+		customerBD = this.customerRepository.findOne(customer.getId());
 
 		if (customer.getId() == 0) {
 			customer.setBanned(false);
@@ -124,6 +128,14 @@ public class CustomerService {
 			this.serviceUtils.checkAuthority("ADMIN");
 			this.serviceUtils.checkActor(customer);
 		} else {
+			customer.setBanned(customerBD.getBanned());
+			customer.setFixupTasks(customerBD.getFixupTasks());
+			customer.setFolders(customerBD.getFolders());
+			customer.setReceivedMessages(customerBD.getReceivedMessages());
+			customer.setSendedMessages(customerBD.getSendedMessages());
+			customer.setSocialProfiles(customerBD.getSocialProfiles());
+			customer.setSuspicious(customerBD.getSuspicious());
+			customer.setUserAccount(customerBD.getUserAccount());
 			this.serviceUtils.checkAuthority("CUSTOMER");
 			this.serviceUtils.checkActor(customer);
 
