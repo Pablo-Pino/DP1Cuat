@@ -60,4 +60,20 @@ public class AdministratorServiceTest extends AbstractTest {
 		Assert.notEmpty(admins); //porque sabemos que hemos creado algunos con el populate
 	}
 
+	@Test
+	public void testSaveCorrecto() {
+
+		Administrator administrator, saved;
+		int adminId;
+		adminId = this.getEntityId("administrator1");
+		administrator = this.administratorService.findOne(adminId);
+		Assert.notNull(administrator);
+
+		this.authenticate("administrator1");
+
+		administrator.setSurname("Pablo");
+		saved = this.administratorService.save(administrator);
+		Assert.isTrue(saved.getSurname().equals("Pablo"));
+	}
+
 }

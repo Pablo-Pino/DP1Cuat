@@ -25,6 +25,11 @@ public class ApplicationService {
 
 	// Supporting Service
 
+	// Constructors
+	public ApplicationService() {
+		super();
+	}
+
 	// Simple CRUD methods
 
 	public Application create() {

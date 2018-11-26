@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.AdministratorRepository;
-import security.Authority;
-import security.UserAccount;
 import domain.Administrator;
 import domain.Folder;
 import domain.Message;
@@ -36,6 +34,9 @@ public class AdministratorService {
 	@Autowired
 	private ServiceUtils			serviceUtils;
 
+	@Autowired
+	private UserAccountService		userAccountService;
+
 
 	// --------------------------Constructor-----------------------
 
@@ -46,7 +47,8 @@ public class AdministratorService {
 	// --------------------CRUD methods----------------------------
 
 	public Administrator create() {
-		final Administrator result = new Administrator();
+		Administrator result;
+		result = new Administrator();
 		result.setBanned(false);
 		result.setSuspicious(false);
 		//----- Las listas que tiene que tener se las pongo vacias-------------
@@ -54,36 +56,56 @@ public class AdministratorService {
 		result.setFolders(new ArrayList<Folder>());
 		result.setReceivedMessages(new ArrayList<Message>());
 		result.setSendedMessages(new ArrayList<Message>());
-		result.setUserAccount(new UserAccount());
+		//establezco ya su tipo de userAccount porque no va a cambiar
+		result.setUserAccount(this.userAccountService.create("ADMIN"));
 		return result;
 
 	}
 
-	public Administrator save(final Administrator object) {
-		final Administrator admin = this.checkObjectSave(object);
-		if (object.getId() == 0) {
-			object.setBanned(false);
-			object.setFolders(this.folderService.createSystemFolders(object));
-			object.setReceivedMessages(new ArrayList<Message>());
-			object.setSendedMessages(new ArrayList<Message>());
-			object.setSocialProfiles(new ArrayList<SocialProfile>());
-			object.setSuspicious(false);
-			this.checkPermisionActor(null, new String[] {
-				Authority.ADMIN
-			});
+	public Administrator save(final Administrator administrator) {
+		//comprobamos que el customer que nos pasan no sea nulo
+		Assert.notNull(administrator);
+
+		//comprobamos que su id no sea negativa por motivos de seguridad
+		this.serviceUtils.checkIdSave(administrator);
+
+		//este admin será el que está en la base de datos para usarlo si estamos ante un admin que ya existe
+		Administrator adminDB;
+		Assert.isTrue(administrator.getId() > 0);
+
+		//cogemos el admin de la base de datos
+		adminDB = this.administratorRepository.findOne(administrator.getId());
+
+		//Si el admin que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
+		if (administrator.getId() == 0) {
+			administrator.setBanned(false);
+			administrator.setFolders(this.folderService.createSystemFolders(administrator));
+			administrator.setReceivedMessages(new ArrayList<Message>());
+			administrator.setSendedMessages(new ArrayList<Message>());
+			administrator.setSocialProfiles(new ArrayList<SocialProfile>());
+			administrator.setSuspicious(false);
+
+			//comprobamos que ningún actor resté autenticado (ya que ningun actor puede crear los customers)
+			//this.serviceUtils.checkNoActor();
+
 		} else {
-			object.setBanned(admin.getBanned());
-			object.setFolders(admin.getFolders());
-			object.setReceivedMessages(admin.getReceivedMessages());
-			object.setSendedMessages(admin.getSendedMessages());
-			object.setSocialProfiles(admin.getSocialProfiles());
-			object.setSuspicious(admin.getSuspicious());
-			object.setUserAccount(admin.getUserAccount());
-			this.checkPermisionActor(admin, new String[] {
-				Authority.REFEREE
-			});
+			administrator.setBanned(adminDB.getBanned());
+			administrator.setFolders(adminDB.getFolders());
+			administrator.setReceivedMessages(adminDB.getReceivedMessages());
+			administrator.setSendedMessages(adminDB.getSendedMessages());
+			administrator.setSocialProfiles(adminDB.getSocialProfiles());
+			administrator.setSuspicious(adminDB.getSuspicious());
+			administrator.setUserAccount(adminDB.getUserAccount());
+
+			//Comprobamos que el actor sea un Customer
+			this.serviceUtils.checkAuthority("ADMIN");
+			//esto es para ver si el actor que está logueado es el mismo que se está editando
+			this.serviceUtils.checkActor(administrator);
+
 		}
-		final Administrator res = this.administratorRepository.save(object);
+		Administrator res;
+		//le meto al resultado final el admin que he ido modificando anteriormente
+		res = this.administratorRepository.save(administrator);
 		return res;
 	}
 
