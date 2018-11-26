@@ -76,16 +76,18 @@ public class CategoryService {
 		Assert.notNull(c);
 		Assert.isTrue(c.getId() != 0);
 		Assert.isTrue(this.categoryRepository.exists(c.getId()));
+		if (!c.getName().equals("categoryRoot")) {
+			if (!(c.getChildsCategories().isEmpty())) {
+				for (final Category child : c.getChildsCategories())
+					this.deleteCategories(child);
+				Assert.isTrue(this.tieneHijas(c));
 
-		if (c.getName().equals("categoryRoot"))
+			}
+			if ((!c.getName().equals("categoryRoot")) && (this.tieneHijas(c)))
+				this.categoryRepository.delete(c);
+		} else
 			System.out.println("No se puede borrar la Categoria raiz");
-		if (!(c.getChildsCategories().isEmpty())) {
-			for (final Category child : c.getChildsCategories())
-				this.deleteCategories(child);
-			Assert.isTrue(this.tieneHijas(c));
-
-		}
-		this.categoryRepository.delete(c);
 
 	}
+
 }
