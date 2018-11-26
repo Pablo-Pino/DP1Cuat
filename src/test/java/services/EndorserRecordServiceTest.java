@@ -77,7 +77,17 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		er = this.endorserRecordService.findOne(erId);
 		Assert.notNull(er);
 
-		er.setCurriculum(null);
+		this.endorserRecordService.delete(er);
+		Assert.isNull(er = this.endorserRecordService.findOne(erId));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteTestIncorrecto() {
+		EndorserRecord er;
+		final int erId = this.getEntityId("vaAFallar");
+		er = this.endorserRecordService.findOne(erId);
+		Assert.notNull(er);
+
 		this.endorserRecordService.delete(er);
 		Assert.isNull(er = this.endorserRecordService.findOne(erId));
 	}
