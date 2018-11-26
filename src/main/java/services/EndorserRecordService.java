@@ -36,6 +36,11 @@ public class EndorserRecordService {
 		res = this.endorserRecordRepository.findAll();
 		return res;
 	}
+	public EndorserRecord findOne(final int endorserRecordId) {
+		EndorserRecord res;
+		res = this.endorserRecordRepository.findOne(endorserRecordId);
+		return res;
+	}
 
 	public EndorserRecord save(final EndorserRecord endorserRecord) {
 		Assert.notNull(endorserRecord);
