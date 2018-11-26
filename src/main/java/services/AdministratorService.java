@@ -49,6 +49,7 @@ public class AdministratorService {
 		final Administrator result = new Administrator();
 		result.setBanned(false);
 		result.setSuspicious(false);
+		
 		//----- Las listas que tiene que tener se las pongo vacias-------------
 		result.setSocialProfiles(new ArrayList<SocialProfile>());
 		result.setFolders(new ArrayList<Folder>());
