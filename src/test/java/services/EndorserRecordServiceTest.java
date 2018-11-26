@@ -62,12 +62,30 @@ public class EndorserRecordServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void testFindAll() {
+	public void testFindAllCorrecto() {
 		Collection<EndorserRecord> endorserRecords;
 
 		endorserRecords = this.endorserRecordService.findAll();
 		Assert.notNull(endorserRecords);
 		Assert.notEmpty(endorserRecords); //porque sabemos que hemos creado algunos con el populate
+	}
+
+	@Test
+	public void testFindOneCorrecto() {
+		EndorserRecord res;
+		final int resId = this.getEntityId("endorserRecord1");
+		res = this.endorserRecordService.findOne(resId);
+		Assert.notNull(res);
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindOneIncorrecto() {
+		EndorserRecord res;
+		final int resId = this.getEntityId("fallo");
+		res = this.endorserRecordService.findOne(resId);
+		Assert.notNull(res);
+
 	}
 
 	@Test

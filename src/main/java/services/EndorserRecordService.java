@@ -24,6 +24,12 @@ public class EndorserRecordService {
 
 	//---------------Supporting Services----------------------------------------
 
+	// Constructors -----------------------------------------------------------
+
+	public EndorserRecordService() {
+		super();
+	}
+
 	//------------------Simple CRUD methods----------------------------------
 	public EndorserRecord create() {
 		EndorserRecord res;
