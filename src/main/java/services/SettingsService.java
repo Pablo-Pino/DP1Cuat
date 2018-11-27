@@ -42,4 +42,8 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 		return this.repository.getSettings();
 	}
 
+	public void flush() {
+		this.repository.flush();
+	}
+
 }
