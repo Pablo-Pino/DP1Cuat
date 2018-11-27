@@ -23,8 +23,10 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository	categoryRepository;
 
-
 	//Servicios de soporte
+
+	public FixupTaskService		fixUpTaskService;
+
 
 	//Constructor
 
@@ -55,15 +57,16 @@ public class CategoryService {
 
 	public Category save(final Category category) {
 		Assert.notNull(category);
+		//	final comprueba que no final hago bucles,que mi final hijo no es final un padre  o final un abuelo final etc etc
 		return this.categoryRepository.save(category);
 	}
-
-	public void delete(final Category c) {
-		Assert.notNull(c);
-		Assert.isTrue(c.getId() != 0);
-		Assert.isTrue(this.categoryRepository.exists(c.getId()));
-		this.categoryRepository.delete(c);
-	}
+	//
+	//	public void delete(final Category c) {
+	//		Assert.notNull(c);
+	//		Assert.isTrue(c.getId() != 0);
+	//		Assert.isTrue(this.categoryRepository.exists(c.getId()));
+	//		this.categoryRepository.delete(c);
+	//	}
 
 	public Boolean tieneHijas(final Category c) {
 		final Boolean res = false;
@@ -72,6 +75,9 @@ public class CategoryService {
 		return res;
 
 	}
+
+	//aqui porque ma sale stackoverflow error y que pasa con as fixuptask ,si borro su categoria ,debe ponerles la 
+	//inmediata superior
 	public void deleteCategories(final Category c) {
 		Assert.notNull(c);
 		Assert.isTrue(c.getId() != 0);
@@ -89,5 +95,31 @@ public class CategoryService {
 			System.out.println("No se puede borrar la Categoria raiz");
 
 	}
+
+	public void reasignaCategoryFixUpTask(final Category c) {
+		//si borro esa categoria tengo que asignarles la inmediata superior a los fixuptask
+		final Collection<FixupTask> res = this.fixUpTaskService.findAll();
+		Category padre = new Category();
+		for (final FixupTask f : res)
+			if (f.getCategory().equals(c))
+				padre = c.getParentCategory();
+		//f.setCategory(padre);
+
+	}
+
+	//-----------
+
+	public void categoryAbuelo(final Category c) {
+		if (!(c.getParentCategory().getName() == "CATEGORY") || c.getName().equals("CATEGORY")) {
+			final Category padre = c.getParentCategory();
+			final Category abuelo = padre.getParentCategory();
+
+		}
+
+	}
+
+	//	public void deleteCategory(final Category c){
+	//		if(!(c.getName()==("CATEGORY")))Category padre =c.getParentCategory();
+	//	}
 
 }
