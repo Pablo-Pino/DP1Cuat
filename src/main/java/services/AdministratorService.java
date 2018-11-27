@@ -26,8 +26,6 @@ public class AdministratorService {
 
 	//-------------- Supporting Services-----------------------
 
-	//Actor service no le haria falta?
-
 	@Autowired
 	private FolderService			folderService;
 
@@ -51,14 +49,13 @@ public class AdministratorService {
 		result = new Administrator();
 		result.setBanned(false);
 		result.setSuspicious(false);
-		
-		//----- Las listas que tiene que tener se las pongo vacias-------------
-		result.setSocialProfiles(new ArrayList<SocialProfile>());
 		result.setFolders(new ArrayList<Folder>());
 		result.setReceivedMessages(new ArrayList<Message>());
 		result.setSendedMessages(new ArrayList<Message>());
+		result.setSocialProfiles(new ArrayList<SocialProfile>());
 		//establezco ya su tipo de userAccount porque no va a cambiar
 		result.setUserAccount(this.userAccountService.create("ADMIN"));
+
 		return result;
 
 	}
@@ -98,7 +95,7 @@ public class AdministratorService {
 			administrator.setSuspicious(adminDB.getSuspicious());
 			administrator.setUserAccount(adminDB.getUserAccount());
 
-			//Comprobamos que el actor sea un Customer
+			//Comprobamos que el actor sea un admin
 			this.serviceUtils.checkAuthority("ADMIN");
 			//esto es para ver si el actor que está logueado es el mismo que se está editando
 			this.serviceUtils.checkActor(administrator);
