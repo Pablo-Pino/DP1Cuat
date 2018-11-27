@@ -25,6 +25,7 @@ public class TutorialService {
 
 	// Supporting Service
 	private SectionService		sectionService;
+	private SponsorshipService	sponsorshipService;
 
 
 	// Simple CRUD methods
@@ -53,6 +54,10 @@ public class TutorialService {
 		Assert.notNull(s);
 		for (final Section se : s.getSections())
 			this.sectionService.delete(se);
+		for (final Sponsorship sp : s.getSponsorships()) {
+			sp.getTutorials().remove(s);
+			this.sponsorshipService.save(sp);
+		}
 		this.tutorialRepository.delete(s);
 	}
 }

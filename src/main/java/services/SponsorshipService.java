@@ -26,6 +26,7 @@ public class SponsorshipService {
 
 	// Supporting Service
 	private SponsorService			sponsorService;
+	private TutorialService			tutorialService;
 
 
 	// Simple CRUD methods
@@ -61,8 +62,11 @@ public class SponsorshipService {
 		Sponsor sp;
 		sp = this.sponsorService.findSponsorById(LoginService.getPrincipal().getId());
 		sp.getSponsorships().remove(s);
-		for (final Tutorial t : s.getTutorials())
+		this.sponsorService.save(sp);
+		for (final Tutorial t : s.getTutorials()) {
 			t.getSponsorships().remove(s);
+			this.tutorialService.save(t);
+		}
 		this.sponsorshipRepository.delete(s);
 	}
 }

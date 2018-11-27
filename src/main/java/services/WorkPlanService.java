@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.WorkPlanRepository;
+import domain.FixupTask;
+import domain.HandyWorker;
 import domain.Phase;
 import domain.WorkPlan;
 
@@ -24,6 +26,8 @@ public class WorkPlanService {
 
 	// Supporting Service
 	private PhaseService		phaseService;
+	private HandyWorkerService	handyWorkerService;
+	private FixupTaskService	fixupTaskService;
 
 
 	// Simple CRUD methods
@@ -31,6 +35,7 @@ public class WorkPlanService {
 	public WorkPlan create() {
 		final WorkPlan s = new WorkPlan();
 		s.setPhases(new ArrayList<Phase>());
+		Assert.notNull(s);
 		return s;
 	}
 
@@ -51,6 +56,12 @@ public class WorkPlanService {
 		Assert.notNull(w);
 		for (final Phase p : w.getPhases())
 			this.phaseService.delete(p);
+		final HandyWorker hw = w.getHandyWorker();
+		hw.getWorkPlans().remove(w);
+		this.handyWorkerService.save(hw);
+		final FixupTask ft = w.getFixupTask();
+		ft.setWorkPlan(null);
+		this.fixupTaskService.save(ft);
 		this.workPlanRepository.delete(w);
 	}
 }
