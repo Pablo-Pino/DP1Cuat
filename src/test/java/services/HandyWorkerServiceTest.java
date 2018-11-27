@@ -107,5 +107,13 @@ public class HandyWorkerServiceTest extends AbstractTest{
 		System.out.println("El top 3 de handyworker con mas fixuptask:" + result);
 
 	}
+	
+	@Test
+	public void testlistHandyWorkerApplication() {
+		//this.authenticate("handyWorker2");
+		final Collection<HandyWorker> result = this.handyworkerService.listHandyWorkerApplication();
+		System.out.println("ELista de Handyworker application:" + result);
+
+	}
 
 }
