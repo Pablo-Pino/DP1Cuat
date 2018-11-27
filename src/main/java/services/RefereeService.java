@@ -37,6 +37,7 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 		res.setFolders(new ArrayList<Folder>());
 		res.setReceivedMessages(new ArrayList<Message>());
 		res.setSendedMessages(new ArrayList<Message>());
+		res.setSocialProfiles(new ArrayList<SocialProfile>());
 		res.setUserAccount(new UserAccount()); //Create new account for a new referee
 		return res;
 	}
@@ -90,6 +91,10 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 	@Override
 	public void delete(final Referee object) {
 		throw new IllegalArgumentException("Unallowed method");
+	}
+
+	public void flush() {
+		this.repository.flush();
 	}
 
 }
