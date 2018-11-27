@@ -162,4 +162,11 @@ public class CustomerService {
 		final Collection<Customer> ratio = this.customerRepository.getTop3CustomerWithMoreComplaints();
 		return ratio;
 	}
+	
+	public Collection<Customer> listCustomer10() {
+		final Collection<Customer> list = this.customerRepository.listCustomer10();
+		return list;
+	}
+	
+	
 }

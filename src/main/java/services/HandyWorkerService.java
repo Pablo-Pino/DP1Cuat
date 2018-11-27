@@ -134,4 +134,10 @@ public class HandyWorkerService {
 		final Collection<HandyWorker> ratio = this.handyWorkerRepository.getTop3HandyWorkerWithMoreComplaints();
 	return ratio;
 		}
+	
+	public Collection<HandyWorker> listHandyWorkerApplication() {
+		final Collection<HandyWorker> list = this.handyWorkerRepository.listHandyWorkerApplication();
+	return list;
+		}
+	
 }

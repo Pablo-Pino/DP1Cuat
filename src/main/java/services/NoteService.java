@@ -56,25 +56,21 @@ public class NoteService {
 	}
 	
 	public Note save(final Note n) {
-		
-		Note guardado;
-		Report report;
-		Date moment;
-		long millis;
-		millis = System.currentTimeMillis() -1000;
-		moment = new Date(millis);
-		
-		Assert.notNull(n);
-		n.setMoment(moment);
-		
-		guardado= noteRepository.save(n);
-		
-		report = guardado.getReport();
-		report.getNotes().add(guardado);
-		reportService.save(report);
-		
-		Assert.isTrue(guardado.getMoment().before(moment));
-		return guardado;
+		    Note saved;
+		    Report report;
+		    Date current = new Date();
+		    long millis;
+		    millis = System.currentTimeMillis() - 1000;
+		    current = new Date(millis);
+		    
+		    n.setMoment(current);
+		    
+		    saved = noteRepository.save(n);
+		    
+		    report = saved.getReport();
+		    report.getNotes().add(saved);
+		    reportService.save(report);
+		return saved;
 	}
 
 	public void delete(final Note n) {

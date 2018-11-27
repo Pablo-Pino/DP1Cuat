@@ -101,19 +101,27 @@ public class FixupTaskServiceTest extends AbstractTest{
 
 	}
 	
-	@Test
-	public void testRatioFixupTasksWithComplaints() {
-		this.authenticate("admin1");
-		final Map<String, Double> result = this.fixupTaskService.getRatioFixupTasksWithComplaints();
-		System.out.println("El ratio de las fiuptask con mas complaints:" + result);
-
-	}
+//	@Test
+//	public void testRatioFixupTasksWithComplaints() {
+//		this.authenticate("admin1");
+//		final Map<String, Double> result = this.fixupTaskService.getRatioFixupTasksWithComplaints();
+//		System.out.println("El ratio de las fiuptask con mas complaints:" + result);
+//
+//	}
 	
 	@Test
 	public void testmaxFixupStaskStats() {
 		this.authenticate("admin1");
 		final Map<String, Double> result = this.fixupTaskService.maxFixupStaskStats();
 		System.out.println("Caracteristicas fixup max:" + result);
+
+	}
+	
+	@Test
+	public void testfixupComplaintsStats() {
+		this.authenticate("admin1");
+		final Map<String, Double> result = this.fixupTaskService.fixupComplaintsStats();
+		System.out.println("Caracteristicas fixup complaints:" + result);
 
 	}
 
