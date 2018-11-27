@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -12,26 +13,30 @@ import org.springframework.util.Assert;
 import repositories.ApplicationRepository;
 import domain.Application;
 
-
 @Service
 @Transactional
 public class ApplicationService {
-	
+
 	//Managed Repository
 
 	@Autowired
-	private ApplicationRepository applicationRepository;
+	private ApplicationRepository	applicationRepository;
+
 
 	// Supporting Service
-	
-	
+
+	// Constructors
+	public ApplicationService() {
+		super();
+	}
+
 	// Simple CRUD methods
-	
+
 	public Application create() {
 		final Application a = new Application();
 		return a;
 	}
-	
+
 	public Collection<Application> findAll() {
 		return this.applicationRepository.findAll();
 	}
@@ -39,19 +44,20 @@ public class ApplicationService {
 	public Application findOne(final int applicationId) {
 		return this.applicationRepository.findOne(applicationId);
 	}
-	
+
 	public Application save(final Application a) {
 		Assert.notNull(a);
 		return this.applicationRepository.save(a);
 	}
 
-	public void delete(final Application a) {
-		Assert.notNull(a);
-		this.applicationRepository.delete(a);
-	}
-	
-	//Other Methods
-	
+	//-------- Una application no se debe borrar----------------
+	//	public void delete(final Application a) {
+	//		Assert.notNull(a);
+	//		this.applicationRepository.delete(a);
+	//	}
+
+	//-----------------Other Methods----------------------------------
+
 	public Map<String, Double> applicationPriceStats() {
 		final Double[] statistics = this.applicationRepository.applicationPriceStats();
 		final Map<String, Double> res = new HashMap<>();
@@ -64,8 +70,7 @@ public class ApplicationService {
 		return res;
 	}
 
-	
-	public Map<String, Double> pendingRatio(){
+	public Map<String, Double> pendingRatio() {
 		final Double ratio = this.applicationRepository.pendingRatio();
 		final Map<String, Double> res = new HashMap<>();
 
@@ -73,8 +78,8 @@ public class ApplicationService {
 
 		return res;
 	}
-	
-	public Map<String, Double> acceptedRatio(){
+
+	public Map<String, Double> acceptedRatio() {
 		final Double ratio = this.applicationRepository.acceptedRatio();
 		final Map<String, Double> res = new HashMap<>();
 
@@ -82,8 +87,8 @@ public class ApplicationService {
 
 		return res;
 	}
-	
-	public Map<String, Double> appsRejectedRatio(){
+
+	public Map<String, Double> appsRejectedRatio() {
 		final Double ratio = this.applicationRepository.acceptedRatio();
 		final Map<String, Double> res = new HashMap<>();
 
@@ -91,8 +96,8 @@ public class ApplicationService {
 
 		return res;
 	}
-	
-	public Map<String, Double> lateApplicationsRatio(){
+
+	public Map<String, Double> lateApplicationsRatio() {
 		final Double ratio = this.applicationRepository.lateApplicationsRatio();
 		final Map<String, Double> res = new HashMap<>();
 
@@ -100,4 +105,18 @@ public class ApplicationService {
 
 		return res;
 	}
+
+	public Application changeStatus(final Application a, final String status) {
+		Assert.notNull(a);
+		Assert.notNull(status);
+		if (a.getStatus().equals("PENDING")) {
+			a.setStatus(status);
+			this.save(a);
+		} else
+			System.out.println("No se puede cambiar a ese status");
+
+		this.save(a);
+		return a;
+	}
+
 }

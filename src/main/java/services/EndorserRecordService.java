@@ -24,6 +24,12 @@ public class EndorserRecordService {
 
 	//---------------Supporting Services----------------------------------------
 
+	// Constructors -----------------------------------------------------------
+
+	public EndorserRecordService() {
+		super();
+	}
+
 	//------------------Simple CRUD methods----------------------------------
 	public EndorserRecord create() {
 		EndorserRecord res;
@@ -34,6 +40,11 @@ public class EndorserRecordService {
 	public Collection<EndorserRecord> findAll() {
 		Collection<EndorserRecord> res;
 		res = this.endorserRecordRepository.findAll();
+		return res;
+	}
+	public EndorserRecord findOne(final int endorserRecordId) {
+		EndorserRecord res;
+		res = this.endorserRecordRepository.findOne(endorserRecordId);
 		return res;
 	}
 

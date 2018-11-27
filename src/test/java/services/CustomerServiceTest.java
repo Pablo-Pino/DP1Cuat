@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -26,11 +28,55 @@ public class CustomerServiceTest extends AbstractTest {
 	private CustomerService	customerService;
 
 
-	@Test
-	public void testFindOne() {
-		Customer customer;
+	//test-------------------------------------------------------------------
 
-		customer = this.customerService.findOne(super.getEntityId("customer1"));
+	@Test
+	public void createCorrecto() {
+		final Customer customer = this.customerService.create();
 		Assert.notNull(customer);
 	}
+
+	@Test
+	public void testSaveCorrecto() {
+
+		Customer customer, saved;
+		int customerId;
+		customerId = this.getEntityId("customer1");
+		customer = this.customerService.findOne(customerId);
+		Assert.notNull(customer);
+
+		this.authenticate("customer1");
+
+		customer.setSurname("otro");
+		saved = this.customerService.save(customer);
+		Assert.isTrue(saved.getSurname().equals("otro"));
+	}
+
+	@Test
+	public void testFindOneCorrecto() {
+		Customer customer;
+
+		final int idBusqueda = super.getEntityId("customer1");
+		customer = this.customerService.findOne(idBusqueda);
+		Assert.notNull(customer);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindOneIncorrecto() {
+		Customer customer;
+
+		final int idBusqueda = super.getEntityId("custemer");
+		customer = this.customerService.findOne(idBusqueda);
+		Assert.isNull(customer);
+	}
+
+	@Test
+	public void testFindAll() {
+		Collection<Customer> customers;
+
+		customers = this.customerService.findAll();
+		Assert.notNull(customers);
+		Assert.notEmpty(customers); //porque sabemos que hemos creado algunos con el populate
+	}
+
 }

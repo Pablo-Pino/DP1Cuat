@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.WorkPlanRepository;
+import domain.Phase;
 import domain.WorkPlan;
 
 @Service
@@ -20,13 +22,15 @@ public class WorkPlanService {
 	@Autowired
 	private WorkPlanRepository	workPlanRepository;
 
-
 	// Supporting Service
+	private PhaseService		phaseService;
+
 
 	// Simple CRUD methods
 
 	public WorkPlan create() {
 		final WorkPlan s = new WorkPlan();
+		s.setPhases(new ArrayList<Phase>());
 		return s;
 	}
 
@@ -45,6 +49,8 @@ public class WorkPlanService {
 
 	public void delete(final WorkPlan w) {
 		Assert.notNull(w);
+		for (final Phase p : w.getPhases())
+			this.phaseService.delete(p);
 		this.workPlanRepository.delete(w);
 	}
 }

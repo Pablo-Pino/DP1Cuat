@@ -25,21 +25,22 @@ public class CurriculumService {
 	// Managed repository --------------------------------------
 
 	@Autowired
-	private CurriculumRepository		curriculumRepository;
+	private CurriculumRepository	curriculumRepository;
 
 	// Supporting services----------------------------------------------
 
 	@Autowired
-	private TicketableService			ticketableService;
-	@Autowired
-	private EducationRecordService		eduactionRecordService;
-	@Autowired
-	private ProfessionalRecordService	professionalRecordService;
-	@Autowired
-	private EndorserRecordService		endorserRecordSercvice;
-	@Autowired
-	private MiscellaneousRecordService	miscellaneousRecordService;
+	private TicketableService		ticketableService;
 
+
+	//	@Autowired
+	//	private EducationRecordService		eduactionRecordService;
+	//	@Autowired
+	//	private ProfessionalRecordService	professionalRecordService;
+	//	@Autowired
+	//	private EndorserRecordService		endorserRecordSercvice;
+	//	@Autowired
+	//	private MiscellaneousRecordService	miscellaneousRecordService;
 
 	// Simple CRUD methods -----------------------------------------------------------
 
@@ -49,7 +50,7 @@ public class CurriculumService {
 		res = new Curriculum();
 
 		//res.setHandyWorker(new HandyWorker());
-		res.setTicker(this.ticketableService.GENERARTICKETVALIDO);
+		res.setTicker(this.ticketableService.createTicker());
 		res.setPersonalRecord(new PersonalRecord());
 		res.setEducationRecords(new ArrayList<EducationRecord>());
 		res.setProfessionalRecords(new ArrayList<ProfessionalRecord>());
@@ -88,31 +89,31 @@ public class CurriculumService {
 		//compruebo que no sea nulo
 		Assert.notNull(curriculum);
 
-		final PersonalRecord personalRecord;
-		final Collection<EducationRecord> educationRecords;
-		final Collection<ProfessionalRecord> professionalRecords;
-		final Collection<EndorserRecord> endorserRecords;
-		final Collection<MiscellaneousRecord> miscellaneousRecords;
+		//		final PersonalRecord personalRecord;
+		//		final Collection<EducationRecord> educationRecords;
+		//		final Collection<ProfessionalRecord> professionalRecords;
+		//		final Collection<EndorserRecord> endorserRecords;
+		//		final Collection<MiscellaneousRecord> miscellaneousRecords;
 
 		//guardo sus atributos
-		handyWorker = curriculum.getHandyWorker();
-		personalRecord = curriculum.getPersonalRecord();
-		educationRecords = curriculum.getEducationRecords();
-		professionalRecords = curriculum.getProfessionalRecords();
-		endorserRecords = curriculum.getEndorserRecords();
-		miscellaneousRecords = curriculum.getMiscellaneousRecords();
+		//		handyWorker = curriculum.getHandyWorker();
+		//		personalRecord = curriculum.getPersonalRecord();
+		//		educationRecords = curriculum.getEducationRecords();
+		//		professionalRecords = curriculum.getProfessionalRecords();
+		//		endorserRecords = curriculum.getEndorserRecords();
+		//		miscellaneousRecords = curriculum.getMiscellaneousRecords();
 
 		//dejo vacías las colecciones para que no de error al borrar el curriculum
-		curriculum.setEducationRecords(new ArrayList<EducationRecord>());
-		curriculum.setProfessionalRecords(new ArrayList<ProfessionalRecord>());
-		curriculum.setEndorserRecords(new ArrayList<EndorserRecord>());
-		curriculum.setMiscellaneousRecords(new ArrayList<MiscellaneousRecord>());
+		//		curriculum.setEducationRecords(new ArrayList<EducationRecord>());
+		//		curriculum.setProfessionalRecords(new ArrayList<ProfessionalRecord>());
+		//		curriculum.setEndorserRecords(new ArrayList<EndorserRecord>());
+		//		curriculum.setMiscellaneousRecords(new ArrayList<MiscellaneousRecord>());
 
 		//borro el contenido de las colecciones
-		this.eduactionRecordService.delete(educationRecords);
-		this.professionalRecordService.delete(professionalRecords);
-		this.endorserRecordSercvice.delete(endorserRecords);
-		this.miscellaneousRecordService.delete(miscellaneousRecords);
+		//		this.eduactionRecordService.delete(educationRecords);
+		//		this.professionalRecordService.delete(professionalRecords);
+		//		this.endorserRecordSercvice.delete(endorserRecords);
+		//		this.miscellaneousRecordService.delete(miscellaneousRecords);
 
 		this.curriculumRepository.delete(curriculum);
 

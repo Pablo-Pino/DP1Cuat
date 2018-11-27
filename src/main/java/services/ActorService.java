@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,4 +84,31 @@ public class ActorService {
 		return res;
 	}
 
+	//List of suspicious actors
+	//Flata hacer lo del spam. se hace aqui o en el domain?
+	
+	public Collection<Actor> suspiciousActors(){
+		Collection<Actor> res = new ArrayList<Actor>();
+		for(Actor a: this.findAll())
+			if(a.getSuspicious()){
+				res.add(a);
+			}
+			
+		return res;
+	}
+	
+	//Ban actor
+	public void banActor(final Actor a){
+		Boolean banned;
+		banned = a.getBanned()== true;
+	}
+	//No se muy bien que significa que una cuenta este "activ
+	
+	//unban actor
+	public void unbanActor(final Actor a){
+		Boolean unbanned;
+		unbanned = a.getBanned()== false;
+	}
+	
+	
 }
