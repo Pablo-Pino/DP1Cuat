@@ -59,14 +59,10 @@ public class SponsorshipService {
 	}
 	public void delete(final Sponsorship s) {
 		Assert.notNull(s);
-		Sponsor sp;
-		sp = this.sponsorService.findSponsorById(LoginService.getPrincipal().getId());
+		final Sponsor sp = s.getSponsor();
 		sp.getSponsorships().remove(s);
-		this.sponsorService.save(sp);
-		for (final Tutorial t : s.getTutorials()) {
+		for (final Tutorial t : s.getTutorials())
 			t.getSponsorships().remove(s);
-			this.tutorialService.save(t);
-		}
 		this.sponsorshipRepository.delete(s);
 	}
 }

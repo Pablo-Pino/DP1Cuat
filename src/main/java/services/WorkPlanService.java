@@ -58,10 +58,10 @@ public class WorkPlanService {
 			this.phaseService.delete(p);
 		final HandyWorker hw = w.getHandyWorker();
 		hw.getWorkPlans().remove(w);
-		this.handyWorkerService.save(hw);
+		//this.handyWorkerService.save(hw);
 		final FixupTask ft = w.getFixupTask();
 		ft.setWorkPlan(null);
-		this.fixupTaskService.save(ft);
+		//this.fixupTaskService.save(ft);
 		this.workPlanRepository.delete(w);
 	}
 }
