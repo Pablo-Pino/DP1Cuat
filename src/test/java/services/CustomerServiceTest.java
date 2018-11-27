@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -77,6 +78,16 @@ public class CustomerServiceTest extends AbstractTest {
 		customers = this.customerService.findAll();
 		Assert.notNull(customers);
 		Assert.notEmpty(customers); //porque sabemos que hemos creado algunos con el populate
+	}
+	
+	//Other Methods
+	
+	@Test
+	public void listCustomer10() {
+		this.authenticate("customer1");
+		final Collection<Customer> result = this.customerService.listCustomer10();
+		System.out.println("Lista de customer:" + result);
+
 	}
 
 }

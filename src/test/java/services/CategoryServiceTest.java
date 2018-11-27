@@ -92,11 +92,11 @@ public class CategoryServiceTest extends AbstractTest {
 
 	//---------------------- Pruebas , no olvidar borrar lo que sobre------------------------
 
-	//	@Test(expected = IllegalArgumentException.class)
-	//	public void testDeleteCategoryRoot() {
-	//		Category cat;
-	//		cat = this.categoryService.findOne(this.getEntityId("categoryRoot"));
-	//		this.categoryService.deleteCategories(cat);
-	//	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteCategoryRoot() {
+		Category cat;
+		cat = this.categoryService.findOne(this.getEntityId("categoryRoot"));
+		this.categoryService.deleteCategories(cat);
+	}
 
 }
