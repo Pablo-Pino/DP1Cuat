@@ -98,6 +98,18 @@ public class FixupTaskService {
 		return res;
 	}
 	
+	public Map<String, Double> fixupComplaintsStats() {
+		final Double[] statistics = this.fixupTaskRepository.fixupComplaintsStats();
+		final Map<String, Double> res = new HashMap<>();
+		res.put("MIN", statistics[0]);
+		res.put("MAX", statistics[1]);
+		res.put("AVG", statistics[2]);
+		res.put("STD", statistics[3]);
+
+		return res;
+
+	}
+	
 	
 	
 	

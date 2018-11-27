@@ -116,5 +116,13 @@ public class FixupTaskServiceTest extends AbstractTest{
 		System.out.println("Caracteristicas fixup max:" + result);
 
 	}
+	
+	@Test
+	public void testfixupComplaintsStats() {
+		this.authenticate("admin1");
+		final Map<String, Double> result = this.fixupTaskService.fixupComplaintsStats();
+		System.out.println("Caracteristicas fixup complaints:" + result);
+
+	}
 
 }
