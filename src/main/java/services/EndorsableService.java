@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.EndorsableRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Endorsable;
 
 @Service
@@ -47,5 +49,10 @@ public class EndorsableService {
 		res = this.endorsableRepository.save(endorsable);
 		return res;
 
+	}
+
+	public Endorsable findPrincipal() {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		return this.endorsableRepository.findOneByUserAccount(userAccount.getId());
 	}
 }
