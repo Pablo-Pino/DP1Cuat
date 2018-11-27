@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,18 @@ public class ComplaintService {
 
 	@Autowired
 	private ComplaintRepository	complaintRepository;
+	//Supporting Service
+	public TicketableService	ticketableService;
 
 
 	// Simple CRUD methods
-
+	//un complaint tiene un ticker
 	public Complaint create() {
-		final Complaint c = new Complaint();
-		return c;
+		final Complaint res = new Complaint();
+		res.setTicker(this.ticketableService.createTicker());
+		res.setMoment(new Date(System.currentTimeMillis() - 1000));
+
+		return res;
 	}
 
 	public Collection<Complaint> findAll() {

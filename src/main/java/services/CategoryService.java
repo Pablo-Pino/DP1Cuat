@@ -82,7 +82,7 @@ public class CategoryService {
 		Assert.notNull(c);
 		Assert.isTrue(c.getId() != 0);
 		Assert.isTrue(this.categoryRepository.exists(c.getId()));
-		if (!c.getName().equals("categoryRoot")) {
+		if (!c.getName().equals("ROOT")) {
 			if (!(c.getChildsCategories().isEmpty())) {
 				for (final Category child : c.getChildsCategories())
 					this.deleteCategories(child);
@@ -92,34 +92,51 @@ public class CategoryService {
 			if ((!c.getName().equals("categoryRoot")) && (this.tieneHijas(c)))
 				this.categoryRepository.delete(c);
 		} else
-			System.out.println("No se puede borrar la Categoria raiz");
+			//System.out.println();
+			throw new IllegalArgumentException("No se puede borrar la Categoria raiz");
 
 	}
 
-	public void reasignaCategoryFixUpTask(final Category c) {
-		//si borro esa categoria tengo que asignarles la inmediata superior a los fixuptask
-		final Collection<FixupTask> res = this.fixUpTaskService.findAll();
-		Category padre = new Category();
-		for (final FixupTask f : res)
-			if (f.getCategory().equals(c))
-				padre = c.getParentCategory();
-		//f.setCategory(padre);
-
-	}
+	//	public void reasignaCategoryFixUpTask(final Category c) {
+	//		//si borro esa categoria tengo que asignarles la inmediata superior a los fixuptask
+	//		final Collection<FixupTask> res = this.fixUpTaskService.findAll();
+	//		Category padre = new Category();
+	//		for (final FixupTask f : res)
+	//			if (f.getCategory().equals(c))
+	//				padre = c.getParentCategory();
+	//		//f.setCategory(padre);
+	//
+	//	}
 
 	//-----------
 
-	public void categoryAbuelo(final Category c) {
-		if (!(c.getParentCategory().getName() == "CATEGORY") || c.getName().equals("CATEGORY")) {
-			final Category padre = c.getParentCategory();
-			final Category abuelo = padre.getParentCategory();
+	//	public void categoryAbuelo(final Category c) {
+	//		if (!(c.getParentCategory().getName() == "CATEGORY") || c.getName().equals("CATEGORY")) {
+	//			final Category padre = c.getParentCategory();
+	//			final Category abuelo = padre.getParentCategory();
+	//
+	//		}
+	//
+	//	}
 
-		}
+	public void deleteCategory(final Category c) {
+		final Collection<FixupTask> res = this.fixUpTaskService.findAll();
+		if (!(c.getName() == ("CATEGORY")))
+			for (final FixupTask t : res)
+				if (t.getCategory().equals(c)) {
+					final Category padre = c.getParentCategory();
+					this.changeFixupTaskCategory(t, padre);
+					if (c.getChildsCategories().isEmpty())
+						this.categoryRepository.delete(c);
+					else
+						for (final Category v : c.getChildsCategories())
+							this.deleteCategory(v);
+				}
+	}
+	public void changeFixupTaskCategory(final FixupTask f, final Category cat) {
+		f.setCategory(cat);
+		this.fixUpTaskService.save(f);
 
 	}
-
-	//	public void deleteCategory(final Category c){
-	//		if(!(c.getName()==("CATEGORY")))Category padre =c.getParentCategory();
-	//	}
 
 }
