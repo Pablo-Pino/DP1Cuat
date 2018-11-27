@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.MessageRepository;
 import domain.Actor;
@@ -108,11 +109,20 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	public void moveMessage(final Message m, final Folder f) {
 		final Message message = this.checkObject(m);
 		final Folder folder = this.folderService.checkObject(f);
+		Folder oldFolder = null;
+		for (final Folder forFolder : message.getFolders())
+			if (forFolder.getActor().equals(folder.getActor())) {
+				oldFolder = forFolder;
+				break;
+			}
+		Assert.notNull(oldFolder);
 		this.checkPermisionActors(new Actor[] {
 			message.getSender(), message.getReceiver()
 		}, null);
 		this.folderService.checkPermisionActor(folder.getActor(), null);
-
+		message.getFolders().remove(oldFolder);
+		message.getFolders().add(folder);
+		this.repository.save(message);
 	}
 
 	//(Elena) Mensaje a todos los actores. Esta incompleto porque aun no se muy bien como hacerlo.
