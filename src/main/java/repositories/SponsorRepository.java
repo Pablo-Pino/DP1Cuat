@@ -10,7 +10,7 @@ import domain.Sponsor;
 @Repository
 public interface SponsorRepository extends JpaRepository<Sponsor, Integer> {
 
-	@Query("select Sponsor s where s.id == ?1")
+	@Query("select s from Sponsor s where s.id = ?1")
 	Sponsor findSponsorbyId(int id);
 
 }
