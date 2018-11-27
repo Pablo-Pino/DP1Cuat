@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.SponsorRepository;
+import domain.Folder;
 import domain.Message;
 import domain.SocialProfile;
 import domain.Sponsor;
@@ -32,7 +33,15 @@ public class SponsorService {
 	// Simple CRUD methods
 
 	public Sponsor create() {
-		final Sponsor e = new Sponsor();
+		Sponsor e;
+		e = new Sponsor();
+		e.setSuspicious(false);
+		e.setBanned(false);
+		e.setSocialProfiles(new ArrayList<SocialProfile>());
+		e.setSendedMessages(new ArrayList<Message>());
+		e.setReceivedMessages(new ArrayList<Message>());
+		e.setFolders(new ArrayList<Folder>());
+		e.setSponsorships(new ArrayList<Sponsorship>());
 		return e;
 	}
 
@@ -46,12 +55,16 @@ public class SponsorService {
 
 	public Sponsor save(final Sponsor e) {
 		Assert.notNull(e);
-		e.setSocialProfiles(new ArrayList<SocialProfile>());
-		e.setSendedMessages(new ArrayList<Message>());
-		e.setReceivedMessages(new ArrayList<Message>());
-		this.folderService.createSystemFolders(e);
-		e.setSponsorships(new ArrayList<Sponsorship>());
-		e.setUserAccount(this.uAService.create("SPONSOR"));
+		if (e.getId() == 0) {
+			e.setSocialProfiles(new ArrayList<SocialProfile>());
+			e.setSendedMessages(new ArrayList<Message>());
+			e.setReceivedMessages(new ArrayList<Message>());
+			e.setFolders(this.folderService.createSystemFolders(e));
+			e.setSuspicious(false);
+			e.setSponsorships(new ArrayList<Sponsorship>());
+			e.setUserAccount(this.uAService.create("SPONSOR"));
+
+		}
 		return this.sponsorRepository.save(e);
 	}
 
@@ -60,4 +73,9 @@ public class SponsorService {
 		s.setBanned(true);
 		this.sponsorRepository.delete(s);
 	}
+
+	public Sponsor findSponsorById(final int id) {
+		return this.sponsorRepository.findSponsorbyId(id);
+	}
+
 }
