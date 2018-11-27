@@ -157,6 +157,7 @@ public class CustomerService {
 		return result;
 	}
 
+	//TODO tiene que devolver solo 3
 	public Collection<Customer> getTop3CustomerWithMoreComplaints() {
 		final Collection<Customer> ratio = this.customerRepository.getTop3CustomerWithMoreComplaints();
 		return ratio;
