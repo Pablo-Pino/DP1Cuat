@@ -81,4 +81,8 @@ public class SectionService extends GenericService<Section, SectionRepository> i
 		this.repository.delete(section);
 	}
 
+	public void flush() {
+		this.repository.flush();
+	}
+
 }
