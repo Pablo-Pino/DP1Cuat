@@ -29,32 +29,34 @@ public class PersonalRecordService {
 	// Simple CRUD methods
 
 	public PersonalRecord create() {
-		final PersonalRecord ft = new PersonalRecord();
-		return ft;
+		PersonalRecord pr;
+		pr = new PersonalRecord();
+		return pr;
 	}
 
 	public Collection<PersonalRecord> findAll() {
-
 		Collection<PersonalRecord> pr;
-
 		pr = this.personalRecordRepository.findAll();
-		Assert.notNull(pr);
-
 		return pr;
 	}
 
 	public PersonalRecord findOne(final int personalRecordId) {
-		return this.personalRecordRepository.findOne(personalRecordId);
+		PersonalRecord res;
+		res = this.personalRecordRepository.findOne(personalRecordId);
+		return res;
+		
 	}
 
 	public PersonalRecord save(final PersonalRecord p) {
 		Assert.notNull(p);
-		return this.personalRecordRepository.save(p);
+		PersonalRecord res;
+		res= this.personalRecordRepository.save(p);
+		return res;
 	}
 
 	public void delete(final PersonalRecord p) {
 		Assert.notNull(p);
-		Assert.isTrue(p.getId() != 0);
+		//Assert.isTrue(p.getId() != 0);
 		this.personalRecordRepository.delete(p);
 	}
 }
