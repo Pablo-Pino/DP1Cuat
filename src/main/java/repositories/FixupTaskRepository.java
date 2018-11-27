@@ -10,8 +10,8 @@ import domain.FixupTask;
 @Repository
 public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 
-	@Query("select (count(f)*1.0)/(select count(f1)*1.0 from FixupTask f1) from FixupTask f where f.complaints is not empty")
-	double getRatioFixupTasksWithComplaints();
+//	@Query("select (count(f)*1.0)/(select count(f1)*1.0 from FixupTask f1) from FixupTask f where f.complaints is not empty")
+//	double getRatioFixupTasksWithComplaints();
 
 	//------------------------Query C2----------------------------------------
 	//The average, the minimum, the maximum, and the standard deviation of the number of applications per fix-up task
