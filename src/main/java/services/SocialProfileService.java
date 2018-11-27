@@ -58,4 +58,8 @@ public class SocialProfileService extends GenericService<SocialProfile, SocialPr
 		this.repository.delete(socialProfile);
 	}
 
+	public void flush() {
+		this.repository.flush();
+	}
+
 }
