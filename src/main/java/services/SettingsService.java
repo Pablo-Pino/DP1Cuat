@@ -16,6 +16,8 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 
 	@Autowired
 	private SettingsRepository	repository;
+	@Autowired
+	private ServiceUtils serviceUtils;
 
 
 	@Override
@@ -26,9 +28,7 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 	@Override
 	public Settings save(final Settings object) {
 		super.checkObject(object);
-		super.checkPermisionActor(null, new String[] {
-			Authority.ADMIN
-		});
+		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		final Settings res = this.repository.save(object);
 		return res;
 	}
