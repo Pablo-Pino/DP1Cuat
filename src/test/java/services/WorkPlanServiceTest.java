@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Application;
 import domain.WorkPlan;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -25,7 +26,10 @@ public class WorkPlanServiceTest extends AbstractTest {
 	//Service under test ------------------------------------------
 
 	@Autowired
-	private WorkPlanService	workPlanService;
+	private WorkPlanService		workPlanService;
+
+	@Autowired
+	private ApplicationService	applicationService;
 
 
 	@Test
@@ -80,5 +84,20 @@ public class WorkPlanServiceTest extends AbstractTest {
 		workPlan = this.workPlanService.findOne(super.getEntityId("workPlan1"));
 		this.workPlanService.delete(workPlan);
 		Assert.isNull(this.workPlanService.findOne(workPlan.getId()));
+	}
+
+	@Test
+	public void checkStatusApplicationAccepted() {
+		WorkPlan w;
+		w = this.workPlanService.findOne(super.getEntityId("workPlan1"));
+		Assert.isTrue(this.workPlanService.checkStatusApplicationAccepted(w));
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void checkStatusApplicationAcceptedIncorrecto() {
+		WorkPlan w;
+		w = this.workPlanService.findOne(super.getEntityId("workPlan1"));
+		final Application a = this.applicationService.findOne(this.getEntityId("application1"));
+		w.getHandyWorker().getApplications().remove(a);
+		Assert.isTrue(this.workPlanService.checkStatusApplicationAccepted(w));
 	}
 }

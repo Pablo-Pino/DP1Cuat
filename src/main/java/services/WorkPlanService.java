@@ -67,6 +67,7 @@ public class WorkPlanService {
 		this.workPlanRepository.delete(w);
 	}
 
+	//TODO implementar este método en los servicios que corresponda --> create? save?
 	public Boolean checkStatusApplicationAccepted(final WorkPlan w) {
 		Boolean res = false;
 		final int fixupTaskId = w.getFixupTask().getId();

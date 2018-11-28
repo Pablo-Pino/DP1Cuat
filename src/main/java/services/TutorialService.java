@@ -25,8 +25,6 @@ public class TutorialService {
 
 	// Supporting Service
 	@Autowired
-	private SectionService		sectionService;
-	@Autowired
 	private SponsorshipService	sponsorshipService;
 
 
