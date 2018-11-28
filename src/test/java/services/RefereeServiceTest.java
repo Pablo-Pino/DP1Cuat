@@ -1,12 +1,14 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -96,7 +98,7 @@ public class RefereeServiceTest extends AbstractTest {
 				referee = this.refereeService.create();
 			else {
 				referee = this.refereeService.findOne(refereeId);
-				oldReferee = referee;
+				oldReferee = this.refereeService.findOne(refereeId);
 			}
 			if (userAccount == null) {
 				userAccount = new UserAccount();
@@ -135,7 +137,8 @@ public class RefereeServiceTest extends AbstractTest {
 				Assert.isTrue(savedReferee.getReceivedMessages().isEmpty());
 				Assert.isTrue(savedReferee.getSendedMessages().isEmpty());
 				Assert.isTrue(savedReferee.getSocialProfiles().isEmpty());
-				final List<String> systemFolderNames = Arrays.asList((new String[] {
+				final List<String> systemFolderNames = new ArrayList<String>();
+				systemFolderNames.addAll(Arrays.asList(new String[] {
 					"inbox", "outbox", "spambox", "trashbox"
 				}));
 				for (final Folder f : savedReferee.getFolders()) {
@@ -162,7 +165,6 @@ public class RefereeServiceTest extends AbstractTest {
 		}
 		this.checkExceptions(expected, caught);
 	}
-
 	public void deleteReferee(final String username, final Integer refereeId, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
@@ -176,6 +178,74 @@ public class RefereeServiceTest extends AbstractTest {
 			caught = oops.getClass();
 		}
 		this.checkExceptions(expected, caught);
+	}
+
+	@Test
+	public void testFindOneReferee() {
+		this.findOneReferee(super.getEntityId("referee1"), null);
+	}
+
+	@Test
+	public void testFindOneRefereeNullId() {
+		this.findOneReferee(null, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testFindAllByIdsReferee() {
+		this.findAllReferee(Arrays.asList(new Integer[] {
+			super.getEntityId("referee1")
+		}), null);
+	}
+
+	@Test
+	public void testFindAllByIdsRefereeNullIds() {
+		this.findAllReferee(null, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testFindAllReferee() {
+		this.findAllReferee(null);
+	}
+
+	@Test
+	public void testSaveReferee() {
+		final Authority authority = new Authority();
+		authority.setAuthority("REFEREE");
+		this.saveReferee("admin1", "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, null, "Dandee", "Cadiii", Arrays.asList(authority), null, new ArrayList<Complaint>(), new ArrayList<Folder>(),
+			new ArrayList<Message>(), new ArrayList<Message>(), new ArrayList<SocialProfile>(), null);
+	}
+
+	@Test
+	public void testSaveRefereeUnauthenticated() {
+		final Authority authority = new Authority();
+		authority.setAuthority("REFEREE");
+		this.saveReferee(null, "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, null, "Dandee", "Cadiii", Arrays.asList(authority), null, new ArrayList<Complaint>(), new ArrayList<Folder>(),
+			new ArrayList<Message>(), new ArrayList<Message>(), new ArrayList<SocialProfile>(), IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testUpdateReferee() {
+		final Authority authority = new Authority();
+		authority.setAuthority("REFEREE");
+		final Integer refereeId = super.getEntityId("referee1");
+		final Referee referee = this.refereeService.findOne(refereeId);
+		this.saveReferee("referee1", "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, refereeId, null, null, null, referee.getUserAccount(), referee.getComplaints(),
+			referee.getFolders(), referee.getReceivedMessages(), referee.getSendedMessages(), referee.getSocialProfiles(), null);
+	}
+
+	@Test
+	public void testUpdateRefereeUnauthenticated() {
+		final Authority authority = new Authority();
+		authority.setAuthority("REFEREE");
+		final Integer refereeId = super.getEntityId("referee1");
+		final Referee referee = this.refereeService.findOne(refereeId);
+		this.saveReferee(null, "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, refereeId, null, null, null, referee.getUserAccount(), referee.getComplaints(), referee.getFolders(),
+			referee.getReceivedMessages(), referee.getSendedMessages(), referee.getSocialProfiles(), IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testDeleteReferee() {
+		this.deleteReferee("referee1", super.getEntityId("referee1"), IllegalArgumentException.class);
 	}
 
 }
