@@ -46,9 +46,8 @@ public class ProfessionalRecordService extends GenericService<ProfessionalRecord
 		final ProfessionalRecord professionalRecord = super.checkObjectSave(object);
 		if (object.getId() > 0)
 			object.setCurriculum(professionalRecord.getCurriculum());
-		super.checkPermisionActor(object.getCurriculum().getHandyWorker(), new String[] {
-			Authority.HANDYWORKER
-		});
+		this.serviceUtils.checkActor(professionalRecord.getCurriculum().getHandyWorker());
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
 		final ProfessionalRecord res = this.repository.save(object);
 		return res;
 	}
@@ -56,9 +55,8 @@ public class ProfessionalRecordService extends GenericService<ProfessionalRecord
 	@Override
 	public void delete(final ProfessionalRecord object) {
 		final ProfessionalRecord professionalRecord = super.checkObjectSave(object);
-		super.checkPermisionActor(professionalRecord.getCurriculum().getHandyWorker(), new String[] {
-			Authority.HANDYWORKER
-		});
+		this.serviceUtils.checkActor(professionalRecord.getCurriculum().getHandyWorker());
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
 		this.repository.delete(professionalRecord);
 	}
 
