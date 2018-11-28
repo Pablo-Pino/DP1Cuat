@@ -62,7 +62,6 @@ public class WorkPlanServiceTest extends AbstractTest {
 	@Test
 	public void testDelete() {
 		WorkPlan workPlan;
-
 		workPlan = this.workPlanService.findOne(super.getEntityId("workPlan1"));
 		this.workPlanService.delete(workPlan);
 		Assert.isNull(this.workPlanService.findOne(workPlan.getId()));

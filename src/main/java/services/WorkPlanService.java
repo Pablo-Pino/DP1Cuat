@@ -54,8 +54,11 @@ public class WorkPlanService {
 
 	public void delete(final WorkPlan w) {
 		Assert.notNull(w);
-		for (final Phase p : w.getPhases())
+		final Collection<Phase> phases = w.getPhases();
+		for (final Phase p : phases) {
+			Assert.notNull(p);
 			this.phaseService.delete(p);
+		}
 		final HandyWorker hw = w.getHandyWorker();
 		hw.getWorkPlans().remove(w);
 		//this.handyWorkerService.save(hw);
