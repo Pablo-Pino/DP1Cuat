@@ -14,7 +14,9 @@ import org.springframework.util.Assert;
 import repositories.HandyWorkerRepository;
 import security.UserAccount;
 import domain.Application;
+import domain.Customer;
 import domain.Endorsement;
+import domain.FixupTask;
 import domain.Folder;
 import domain.HandyWorker;
 import domain.Message;
@@ -31,8 +33,13 @@ public class HandyWorkerService {
 	@Autowired
 	private HandyWorkerRepository	handyWorkerRepository;
 
-
 	// Supporting Service
+
+	@Autowired
+	private FixupTaskService		fixupTaskService;
+
+
+	//constructor
 
 	public HandyWorkerService() {
 		super();
@@ -45,7 +52,7 @@ public class HandyWorkerService {
 		hw.setApplications(new ArrayList<Application>());
 		hw.setWorkPlans(new ArrayList<WorkPlan>());
 		hw.setTutorials(new ArrayList<Tutorial>());
-		
+
 		//De Endorsable
 		hw.setReceivedEndorsements(new ArrayList<Endorsement>());
 		hw.setSendedEndorsements(new ArrayList<Endorsement>());
@@ -55,7 +62,7 @@ public class HandyWorkerService {
 		hw.setReceivedMessages(new ArrayList<Message>());
 		hw.setSendedMessages(new ArrayList<Message>());
 		hw.setUserAccount(new UserAccount());
-		
+
 		return hw;
 	}
 
@@ -78,34 +85,35 @@ public class HandyWorkerService {
 	}
 
 	public HandyWorker save(final HandyWorker hw) {
-//	final HandyWorker nuevo = this.checkObjectSave(hw);
-//		if (hw.getId() == 0) {
-//			hw.setApplications(new ArrayList<Application>());
-//			hw.setWorkPlans(new ArrayList<WorkPlan>());
-//			hw.setTutorials(new ArrayList<Tutorial>());
-//			hw.setReceivedEndorsements(new ArrayList<Endorsement>());
-//			hw.setSendedEndorsements(new ArrayList<Endorsement>());
-//			hw.setSocialProfiles(new ArrayList<SocialProfile>());
-//			hw.setFolders(new ArrayList<Folder>());
-//			hw.setReceivedMessages(new ArrayList<Message>());
-//			hw.setSendedMessages(new ArrayList<Message>());
-//			hw.setUserAccount(new UserAccount());
-		
-//			
-//		} else {
-//			hw.setApplications(nuevo.getApplications());
-//			hw.setWorkPlans(nuevo.getWorkPlans());
-//			hw.setTutorials(nuevo.getTutorials());
-//			hw.setReceivedEndorsements(nuevo.getReceivedEndorsements());
-//			hw.setSendedEndorsements(nuevo.getSendedEndorsements());
-//			hw.setSocialProfiles(nuevo.getSocialProfiles());
-//			hw.setFolders(nuevo.getFolders());
-//			hw.setReceivedMessages(nuevo.getReceivedMessages());
-//			hw.setSendedMessages(nuevo.getSendedMessages());
-//			hw.setUserAccount(new UserAccount());
-			
-//		}
-		Assert.notNull(hw);;
+		//	final HandyWorker nuevo = this.checkObjectSave(hw);
+		//		if (hw.getId() == 0) {
+		//			hw.setApplications(new ArrayList<Application>());
+		//			hw.setWorkPlans(new ArrayList<WorkPlan>());
+		//			hw.setTutorials(new ArrayList<Tutorial>());
+		//			hw.setReceivedEndorsements(new ArrayList<Endorsement>());
+		//			hw.setSendedEndorsements(new ArrayList<Endorsement>());
+		//			hw.setSocialProfiles(new ArrayList<SocialProfile>());
+		//			hw.setFolders(new ArrayList<Folder>());
+		//			hw.setReceivedMessages(new ArrayList<Message>());
+		//			hw.setSendedMessages(new ArrayList<Message>());
+		//			hw.setUserAccount(new UserAccount());
+
+		//			
+		//		} else {
+		//			hw.setApplications(nuevo.getApplications());
+		//			hw.setWorkPlans(nuevo.getWorkPlans());
+		//			hw.setTutorials(nuevo.getTutorials());
+		//			hw.setReceivedEndorsements(nuevo.getReceivedEndorsements());
+		//			hw.setSendedEndorsements(nuevo.getSendedEndorsements());
+		//			hw.setSocialProfiles(nuevo.getSocialProfiles());
+		//			hw.setFolders(nuevo.getFolders());
+		//			hw.setReceivedMessages(nuevo.getReceivedMessages());
+		//			hw.setSendedMessages(nuevo.getSendedMessages());
+		//			hw.setUserAccount(new UserAccount());
+
+		//		}
+		Assert.notNull(hw);
+		;
 		return this.handyWorkerRepository.save(hw);
 	}
 
@@ -114,30 +122,40 @@ public class HandyWorkerService {
 		Assert.isTrue(hw.getId() != 0);
 		this.handyWorkerRepository.delete(hw);
 	}
-	
+
 	//Other methods
-	
-	
-	
+
 	public Map<String, Collection<HandyWorker>> fixupTasksTop3() {
 		final Collection<HandyWorker> collection = this.handyWorkerRepository.getTop3HandyWorkerWithMoreComplaints();
 		final Map<String, Collection<HandyWorker>> res = new HashMap<>();
 
 		res.put("Collection", collection);
-		
 
-	return res;
-	
+		return res;
+
 	}
-	
+
 	public Collection<HandyWorker> getTop3HandyWorkerWithMoreComplaints() {
 		final Collection<HandyWorker> ratio = this.handyWorkerRepository.getTop3HandyWorkerWithMoreComplaints();
-	return ratio;
-		}
-	
+		return ratio;
+	}
+
 	public Collection<HandyWorker> listHandyWorkerApplication() {
 		final Collection<HandyWorker> list = this.handyWorkerRepository.listHandyWorkerApplication();
-	return list;
-		}
-	
+		return list;
+	}
+
+	//un handy worker lista todos los fixupTasks
+	public Collection<FixupTask> getAllFixupTasks() {
+		Collection<FixupTask> res;
+		res = this.fixupTaskService.findAll();
+		return res;
+	}
+
+	public Collection<FixupTask> getFixupTaskFromCustomer(final Customer customer) {
+		Collection<FixupTask> res;
+		res = customer.getFixupTasks();
+		return res;
+	}
+
 }

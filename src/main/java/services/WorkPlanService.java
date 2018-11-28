@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.WorkPlanRepository;
+import domain.Application;
 import domain.FixupTask;
 import domain.HandyWorker;
 import domain.Phase;
@@ -25,8 +26,6 @@ public class WorkPlanService {
 	private WorkPlanRepository	workPlanRepository;
 
 	// Supporting Service
-	@Autowired
-	private PhaseService		phaseService;
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
 	@Autowired
@@ -64,5 +63,18 @@ public class WorkPlanService {
 		ft.setWorkPlan(null);
 		this.fixupTaskService.save(ft);
 		this.workPlanRepository.delete(w);
+	}
+
+	public Boolean checkStatusApplicationAccepted(final WorkPlan w) {
+		Boolean res = false;
+		final int fixupTaskId = w.getFixupTask().getId();
+		final Collection<Application> applications = w.getHandyWorker().getApplications();
+		for (final Application a : applications)
+			if (a.getFixupTask().getId() == fixupTaskId) {
+				if (a.getStatus().equals("ACCEPTED"))
+					res = true;
+				break;
+			}
+		return res;
 	}
 }
