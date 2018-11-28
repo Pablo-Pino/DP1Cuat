@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.EndorsementRepository;
+import security.Authority;
+import domain.Endorsable;
 import domain.Endorsement;
 
 @Service
@@ -42,14 +44,15 @@ public class EndorsementService {
 		Endorsement res;
 		res = new Endorsement();
 		res.setMoment(new Date(System.currentTimeMillis() - 1000));
-		res.setSender(this.endorsableService.findPrincipal());
+		final Endorsable sender = this.endorsableService.findPrincipal();
+		Assert.notNull(sender);
+		res.setSender(sender);
 		return res;
 	}
 	public Endorsement findOne(final int endorsementId) {
 		this.serviceUtils.checkId(endorsementId);
 		Endorsement res;
 		res = this.endorsementRepository.findOne(endorsementId);
-		Assert.notNull(res);
 		return res;
 	}
 
@@ -69,18 +72,23 @@ public class EndorsementService {
 		Endorsement endorsementBD;
 		endorsementBD = this.endorsementRepository.findOne(endorsement.getId());
 
-		if (endorsement.getId() == 0)
-			this.serviceUtils.checkAnyAuthority("CUSTOMER", "HANDYWORKER");
-		else {
+		if (endorsement.getId() == 0) {
+			final Boolean res = (this.serviceUtils.checkAuthorityBoolean(Authority.CUSTOMER) || this.serviceUtils.checkAuthorityBoolean(Authority.HANDYWORKER));
+			Assert.isTrue(res);
+		} else {
 			endorsement.setComments(endorsementBD.getComments());
 			endorsement.setMoment(endorsementBD.getMoment());
 			endorsement.setSender(endorsementBD.getSender());
-			this.serviceUtils.checkAnyAuthority("CUSTOMER", "HANDYWORKER");
-
+			final Boolean res = (this.serviceUtils.checkAuthorityBoolean(Authority.CUSTOMER) || this.serviceUtils.checkAuthorityBoolean(Authority.HANDYWORKER));
+			Assert.isTrue(res);
 		}
 		Endorsement res;
 		res = this.endorsementRepository.save(endorsement);
 		return res;
+	}
+	public void delete(final Endorsement endorsement) {
+		Assert.notNull(endorsement);
+		this.endorsementRepository.delete(endorsement);
 	}
 
 }

@@ -53,10 +53,27 @@ public class EndorsementServiceTest extends AbstractTest {
 		Assert.notEmpty(endorsements);
 	}
 
-	//	//@Test
-	//	public void saveCorrecto(){
-	//		final Endorsement endorsement, saved;
-	//		final int endorsementId;
-	//		endorn
-	//	}
+	@Test
+	public void saveCorrecto() {
+		final Endorsement endorsement, saved;
+		final int endorsementId;
+		this.authenticate("customer1");
+		endorsementId = this.getEntityId("endorsement1");
+		endorsement = this.endorsementService.findOne(endorsementId);
+		Assert.notNull(endorsement);
+
+		endorsement.setComments("Un dia vi a mi profe en la Alameda");
+		saved = this.endorsementService.save(endorsement);
+		Assert.isTrue(saved.getComments().equals("Un dia vi a mi profe en la Alameda"));
+	}
+	@Test
+	public void deleteCorrecto() {
+		Endorsement endorsement;
+		final int endorsementId = this.getEntityId("endorsement1");
+		endorsement = this.endorsementService.findOne(endorsementId);
+		Assert.notNull(endorsement);
+		this.endorsementService.delete(endorsement);
+		Assert.isNull(this.endorsementService.findOne(endorsementId));
+	}
+
 }
