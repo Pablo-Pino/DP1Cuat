@@ -23,6 +23,8 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 	private FolderRepository	repository;
 	@Autowired
 	private ActorService		actorService;
+	@Autowired 
+	private ServiceUtils serviceUtils;
 
 
 	@Override
@@ -45,7 +47,7 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 	@Override
 	public Folder save(final Folder object) {
 		final Folder folder = super.checkObjectSave(object);
-		super.checkPermisionActor(folder.getActor(), null);
+		this.serviceUtils.checkActor(folder.getActor());
 		Assert.isTrue(!folder.getSystem());
 		object.setActor(folder.getActor());
 		return this.repository.save(object);
@@ -54,7 +56,7 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 	@Override
 	public void delete(final Folder object) {
 		final Folder folder = super.checkObject(object);
-		super.checkPermisionActor(folder.getActor(), null);
+		this.serviceUtils.checkActor(folder.getActor());
 		Assert.isTrue(!folder.getSystem());
 		this.repository.delete(object);
 	}
@@ -87,7 +89,7 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 			newFolder.setName(name);
 			newFolder.setSystem(true);
 			newFolder.setParentFolder(newFolder);
-			resFolders.add(this.repository.save(newFolder));
+			resFolders.add(newFolder);
 		}
 		return resFolders;
 	}
