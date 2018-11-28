@@ -49,7 +49,6 @@ public class PersonalRecordServiceTest extends AbstractTest{
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindOneIncorrecto() {
 		PersonalRecord pr;
-
 		final int idBusqueda = super.getEntityId("personareco");
 		pr = this.personalRecordService.findOne(idBusqueda);
 		Assert.isNull(pr);
@@ -65,31 +64,50 @@ public class PersonalRecordServiceTest extends AbstractTest{
 	}
 
 	@Test
-	public void testSavePersonalRecordCorrecto() {
-		PersonalRecord pr;
-		pr = this.personalRecordService.findOne(this.getEntityId("personalRecord1"));
+	public void saveTestCorrecto() {
+		PersonalRecord pr, saved;
+		final int erId = this.getEntityId("personalRecord1");
+		pr = this.personalRecordService.findOne(erId);
 		Assert.notNull(pr);
-		pr = this.personalRecordService.save(pr);
-		Assert.isTrue(pr.getFullName()== "Antonio Grinch Papp");
+
+		pr.setFullName("Nombre cambiado para test");
+		saved = this.personalRecordService.save(pr);
+		Assert.isTrue(saved.getFullName().equals("Nombre cambiado para test"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testSaveHandyworkerIncorrecto() {
+	public void saveTestIncorrecto() {
 		PersonalRecord pr;
-		pr = this.personalRecordService.findOne(this.getEntityId("personalRecord1"));
+		PersonalRecord saved;
+		final int erId = this.getEntityId("personalRecord1");
+		pr = this.personalRecordService.findOne(erId);
 		Assert.notNull(pr);
-		pr = this.personalRecordService.save(pr);
-		Assert.isTrue(pr.getFullName()== "uwu");
 
+		pr.setCurriculum(null);
+		saved = this.personalRecordService.save(pr);
+		Assert.isNull(saved);
 	}
 	
 	@Test
-	public void testDelete() {
+	public void deleteTestCorrecto() {
 		PersonalRecord pr;
+		final int erId = this.getEntityId("personalRecord2");
+		pr = this.personalRecordService.findOne(erId);
+		Assert.notNull(pr);
 
-		pr = this.personalRecordService.findOne(super.getEntityId("personalRecord1"));
 		this.personalRecordService.delete(pr);
-		Assert.isNull(this.personalRecordService.findOne(pr.getId()));
+		Assert.isNull(pr = this.personalRecordService.findOne(erId));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteTestIncorrecto() {
+		PersonalRecord pr;
+		final int erId = this.getEntityId("Error intencionado");
+		pr = this.personalRecordService.findOne(erId);
+		Assert.notNull(pr);
+
+		this.personalRecordService.delete(pr);
+		Assert.isNull(pr = this.personalRecordService.findOne(erId));
 	}
 
 

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.WorkPlanRepository;
+import domain.Application;
 import domain.FixupTask;
 import domain.HandyWorker;
 import domain.Phase;
@@ -25,8 +26,9 @@ public class WorkPlanService {
 	private WorkPlanRepository	workPlanRepository;
 
 	// Supporting Service
-	private PhaseService		phaseService;
+	@Autowired
 	private HandyWorkerService	handyWorkerService;
+	@Autowired
 	private FixupTaskService	fixupTaskService;
 
 
@@ -49,13 +51,13 @@ public class WorkPlanService {
 
 	public WorkPlan save(final WorkPlan w) {
 		Assert.notNull(w);
+		if (w.getId() == 0)
+			w.setPhases(new ArrayList<Phase>());
 		return this.workPlanRepository.save(w);
 	}
 
 	public void delete(final WorkPlan w) {
 		Assert.notNull(w);
-		for (final Phase p : w.getPhases())
-			this.phaseService.delete(p);
 		final HandyWorker hw = w.getHandyWorker();
 		hw.getWorkPlans().remove(w);
 		this.handyWorkerService.save(hw);
@@ -63,5 +65,18 @@ public class WorkPlanService {
 		ft.setWorkPlan(null);
 		this.fixupTaskService.save(ft);
 		this.workPlanRepository.delete(w);
+	}
+
+	public Boolean checkStatusApplicationAccepted(final WorkPlan w) {
+		Boolean res = false;
+		final int fixupTaskId = w.getFixupTask().getId();
+		final Collection<Application> applications = w.getHandyWorker().getApplications();
+		for (final Application a : applications)
+			if (a.getFixupTask().getId() == fixupTaskId) {
+				if (a.getStatus().equals("ACCEPTED"))
+					res = true;
+				break;
+			}
+		return res;
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import security.LoginService;
 import utilities.AbstractTest;
 import domain.Note;
 import domain.Report;
@@ -29,12 +30,13 @@ public class NoteServiceTest extends AbstractTest{
 	@Autowired
 	private NoteService	noteService;
 	
+	//Supporting Services
 	@Autowired
 	private ReportService reportService;
-
+	@Autowired
+	private RefereeService refereeService;
 
 	//------------------------------------------------------------
-
 	@Test
 	public void testCreate() {
 		final Note n = this.noteService.create();
@@ -52,7 +54,6 @@ public class NoteServiceTest extends AbstractTest{
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindOneIncorrecto() {
 		Note n;
-
 		final int idBusqueda = super.getEntityId("notah");
 		n = this.noteService.findOne(idBusqueda);
 		Assert.isNull(n);
@@ -68,45 +69,57 @@ public class NoteServiceTest extends AbstractTest{
 	}
 
 	@Test
-	public void testSaveNoteCorrecto() {
-		Note n;
+	public void saveTestCorrecto() {
+		Note note, saved;
 		Report report;
-		Note guardado;
-		Collection<Note> notes;
-		n = noteService.create();
-		report = reportService.findOne(89322);
+		note = noteService.create();
+		super.authenticate("referee1");
+		authenticate("referee1");
+		int reportId =this.getEntityId("report1");
+		report = this.reportService.findOne(reportId);
 		
-		n.setReport(report);
+		note.setReport(report);
+		report.getComplaint().setReferee(refereeService.findOne(LoginService.getPrincipal().getId()));
+		saved = this.noteService.save(note);
+		Assert.isTrue(saved.getReport().equals(report));
 		
-		guardado = noteService.save(n);
 		
-		notes = noteService.findAll();
-		Assert.isTrue(notes.contains(guardado));
 		
-//		n = this.noteService.findOne(this.getEntityId("note1"));
-//		Assert.notNull(n);
-//		n = this.noteService.save(n);
-//		Assert.isTrue(n.getComments().contains("Es un comentario de la nota 1"));
-
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testSaveHandyworkerIncorrecto() {
+	public void saveTestIncorrecto() {
 		Note n;
-		n = this.noteService.findOne(this.getEntityId("handyWorker1"));
+		Note saved;
+		final int nId = this.getEntityId("note1");
+		n = this.noteService.findOne(nId);
 		Assert.notNull(n);
-		n = this.noteService.save(n);
-		Assert.isTrue(n.getComments().contains("Es un comentario de la nota 2"));
 
+		n.setMoment(null);
+		saved = this.noteService.save(n);
+		Assert.isNull(saved);
 	}
 	
 	@Test
-	public void testDelete() {
+	public void deleteTestCorrecto() {
 		Note n;
+		final int nId = this.getEntityId("note2");
+		n = this.noteService.findOne(nId);
+		Assert.notNull(n);
 
-		n = this.noteService.findOne(super.getEntityId("note1"));
 		this.noteService.delete(n);
-		Assert.isNull(this.noteService.findOne(n.getId()));
+		Assert.isNull(n = this.noteService.findOne(nId));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteTestIncorrecto() {
+		Note n;
+		final int nId = this.getEntityId("Error intencionado");
+		n = this.noteService.findOne(nId);
+		Assert.notNull(n);
+
+		this.noteService.delete(n);
+		Assert.isNull(n = this.noteService.findOne(nId));
 	}
 
 

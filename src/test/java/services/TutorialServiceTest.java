@@ -44,6 +44,14 @@ public class TutorialServiceTest extends AbstractTest {
 		Assert.notNull(tutorial);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindOneError() {
+		Tutorial tutorial;
+
+		tutorial = this.tutorialService.findOne(super.getEntityId("ttutorial1"));
+		Assert.notNull(tutorial);
+	}
+
 	@Test
 	public void testFindAll() {
 
@@ -56,6 +64,14 @@ public class TutorialServiceTest extends AbstractTest {
 		Tutorial tutorial;
 
 		tutorial = this.tutorialService.findOne(super.getEntityId("tutorial1"));
+		Assert.notNull(tutorial);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveError() {
+		Tutorial tutorial;
+
+		tutorial = this.tutorialService.findOne(super.getEntityId("ttutorial1"));
 		Assert.notNull(tutorial);
 	}
 

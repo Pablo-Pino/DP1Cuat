@@ -43,7 +43,13 @@ public class WarrantyServiceTest extends AbstractTest {
 		warranty = this.warrantyService.findOne(super.getEntityId("warranty1"));
 		Assert.notNull(warranty);
 	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindOneError() {
+		Warranty warranty;
 
+		warranty = this.warrantyService.findOne(super.getEntityId("o1"));
+		Assert.notNull(warranty);
+	}
 	@Test
 	public void testFindAll() {
 
@@ -59,11 +65,29 @@ public class WarrantyServiceTest extends AbstractTest {
 		Assert.notNull(warranty);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveError() {
+		Warranty warranty;
+
+		warranty = this.warrantyService.findOne(super.getEntityId("manolo"));
+		Assert.notNull(warranty);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteWithTasks() {
+		Warranty warranty;
+
+		warranty = this.warrantyService.findOne(super.getEntityId("warranty1"));
+		this.warrantyService.delete(warranty);
+		Assert.isNull(this.warrantyService.findOne(warranty.getId()));
+	}
+
 	@Test
 	public void testDelete() {
 		Warranty warranty;
 
 		warranty = this.warrantyService.findOne(super.getEntityId("warranty1"));
+		warranty.getFixupTasks().clear();
 		this.warrantyService.delete(warranty);
 		Assert.isNull(this.warrantyService.findOne(warranty.getId()));
 	}

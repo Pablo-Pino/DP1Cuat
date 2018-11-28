@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -15,6 +14,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Customer;
+import domain.FixupTask;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -79,14 +79,35 @@ public class CustomerServiceTest extends AbstractTest {
 		Assert.notNull(customers);
 		Assert.notEmpty(customers); //porque sabemos que hemos creado algunos con el populate
 	}
-	
-	//Other Methods
-	
+
+	//---------------------Other Methods-----------------------------------
+
 	@Test
 	public void listCustomer10() {
 		this.authenticate("customer1");
 		final Collection<Customer> result = this.customerService.listCustomer10();
 		System.out.println("Lista de customer:" + result);
+
+	}
+
+	@Test
+	public void getAllFixupTasks() {
+		Collection<FixupTask> res;
+		res = this.customerService.getAllFixupTasks();
+		Assert.notNull(res);
+		Assert.notEmpty(res);
+
+	}
+
+	@Test
+	public void getFixupTasksByCustomer() {
+		Collection<FixupTask> res;
+		int customerId;
+		customerId = this.getEntityId("customer1");
+		final Customer c = this.customerService.findOne(customerId);
+		res = c.getFixupTasks();
+		Assert.notNull(res);
+		Assert.notEmpty(res);
 
 	}
 

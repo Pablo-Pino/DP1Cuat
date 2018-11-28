@@ -1,0 +1,119 @@
+package services;
+
+import java.util.Collection;
+import javax.transaction.Transactional;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
+
+import utilities.AbstractTest;
+import domain.Folder;
+import domain.Message;
+
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {
+	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
+})
+@Transactional
+
+public class MessageServiceTest extends AbstractTest{
+	
+	//Service under test ----------------------------------------
+
+	@Autowired
+	private MessageService	messageService;
+	
+	//Supporting Service
+	
+	@Autowired
+	private FolderService	folderService;
+
+
+	//------------------------------------------------------------
+
+	@Test
+	public void testCreate() {
+		int folderId =this.getEntityId("folder1");
+		final Folder f = this.folderService.findOne(folderId);
+		final Message m = this.messageService.create(f);
+		Assert.notNull(m);
+	}
+
+	@Test
+	public void testFindOneCorrecto() {
+		Message m;
+		final int idBusqueda = super.getEntityId("message1");
+		m = this.messageService.findOne(idBusqueda);
+		Assert.notNull(m);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindOneIncorrecto() {
+		Message m;
+		final int idBusqueda = super.getEntityId("mesageh");
+		m = this.messageService.findOne(idBusqueda);
+		Assert.isNull(m);
+	}
+
+	@Test
+	public void testFindAll() {
+		Collection<Message> messages;
+
+		messages = this.messageService.findAll();
+		Assert.notNull(messages);
+		Assert.notEmpty(messages);
+	}
+
+	@Test
+	public void saveTestCorrecto() {
+		Message m, saved;
+		final int mId = this.getEntityId("message1");
+		m = this.messageService.findOne(mId);
+		Assert.notNull(m);
+
+		m.setSubject("uwu");
+		saved = this.messageService.save(m);
+		Assert.isTrue(saved.getSubject().equals("uwu"));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void saveTestIncorrecto() {
+		Message m;
+		Message saved;
+		final int mrId = this.getEntityId("message1");
+		m = this.messageService.findOne(mrId);
+		Assert.notNull(m);
+
+		m.setBody(null);
+		saved = this.messageService.save(m);
+		Assert.isNull(saved);
+	}
+	
+	@Test
+	public void deleteTestCorrecto() {
+		Message m;
+		final int mId = this.getEntityId("message1");
+		m = this.messageService.findOne(mId);
+		Assert.notNull(m);
+
+		this.messageService.delete(m);
+		Assert.isNull(m = this.messageService.findOne(mId));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteTestIncorrecto() {
+		Message m;
+		final int mId = this.getEntityId("Error intencionado");
+		m = this.messageService.findOne(mId);
+		Assert.notNull(m);
+
+		this.messageService.delete(m);
+		Assert.isNull(m = this.messageService.findOne(mId));
+	}
+
+}

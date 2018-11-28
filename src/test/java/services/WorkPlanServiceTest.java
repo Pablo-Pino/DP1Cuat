@@ -44,6 +44,14 @@ public class WorkPlanServiceTest extends AbstractTest {
 		Assert.notNull(workPlan);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindOneError() {
+		WorkPlan workPlan;
+
+		workPlan = this.workPlanService.findOne(super.getEntityId("wworkPlan1"));
+		Assert.notNull(workPlan);
+	}
+
 	@Test
 	public void testFindAll() {
 
@@ -59,10 +67,16 @@ public class WorkPlanServiceTest extends AbstractTest {
 		Assert.notNull(workPlan);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveError() {
+		WorkPlan workPlan;
+
+		workPlan = this.workPlanService.findOne(super.getEntityId("wworkPlan1"));
+		Assert.notNull(workPlan);
+	}
 	@Test
 	public void testDelete() {
 		WorkPlan workPlan;
-
 		workPlan = this.workPlanService.findOne(super.getEntityId("workPlan1"));
 		this.workPlanService.delete(workPlan);
 		Assert.isNull(this.workPlanService.findOne(workPlan.getId()));

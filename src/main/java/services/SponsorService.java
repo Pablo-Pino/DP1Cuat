@@ -26,7 +26,9 @@ public class SponsorService {
 	private SponsorRepository	sponsorRepository;
 
 	// Supporting Service
+	@Autowired
 	private FolderService		folderService;
+	@Autowired
 	private UserAccountService	uAService;
 
 
@@ -71,7 +73,6 @@ public class SponsorService {
 	public void delete(final Sponsor s) {
 		Assert.notNull(s);
 		s.setBanned(true);
-		this.sponsorRepository.delete(s);
 	}
 
 	public Sponsor findSponsorById(final int id) {

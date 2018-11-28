@@ -39,6 +39,9 @@ public class CustomerService {
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
+	@Autowired
+	private FixupTaskService	fixupTaskService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -157,15 +160,27 @@ public class CustomerService {
 		return result;
 	}
 
+	//TODO tiene que devolver solo 3
 	public Collection<Customer> getTop3CustomerWithMoreComplaints() {
 		final Collection<Customer> ratio = this.customerRepository.getTop3CustomerWithMoreComplaints();
 		return ratio;
 	}
-	
+
 	public Collection<Customer> listCustomer10() {
 		final Collection<Customer> list = this.customerRepository.listCustomer10();
 		return list;
 	}
-	
-	
+
+	//Un customer puede listar sus fixuptask
+	public Collection<FixupTask> getAllFixupTasks() {
+		Collection<FixupTask> res;
+		res = this.fixupTaskService.findAll();
+		return res;
+	}
+
+	public Collection<FixupTask> getFixupTaskByCustomer(final Customer c) {
+		final Collection<FixupTask> res = c.getFixupTasks();
+		return res;
+	}
+
 }

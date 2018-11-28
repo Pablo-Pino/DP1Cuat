@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.EndorsableRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Endorsable;
 
 @Service
@@ -28,16 +30,23 @@ public class EndorsableService {
 
 	// Simple CRUD methods ----------------------------------------------------
 	public Endorsable findOne(final int endorsableId) {
+		final Collection<Endorsable> endorsables = this.findAll();
 		Assert.isTrue(endorsableId != 0);
-		Endorsable res;
-		res = this.endorsableRepository.findOne(endorsableId);
+		Endorsable res = null;
+		for (final Endorsable e : endorsables)
+			if (e.getId() == endorsableId) {
+				res = e;
+				break;
+			}
 		Assert.notNull(res);
 		return res;
 	}
 
 	public Collection<Endorsable> findAll() {
-		Collection<Endorsable> res;
+		final Collection<Endorsable> res;
+
 		res = this.endorsableRepository.findAll();
+
 		Assert.notNull(res);
 		return res;
 	}
@@ -47,5 +56,10 @@ public class EndorsableService {
 		res = this.endorsableRepository.save(endorsable);
 		return res;
 
+	}
+
+	public Endorsable findPrincipal() {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		return this.endorsableRepository.findOneByUserAccount(userAccount.getId());
 	}
 }

@@ -25,8 +25,12 @@ public class SponsorshipService {
 	private SponsorshipRepository	sponsorshipRepository;
 
 	// Supporting Service
+	@Autowired
 	private SponsorService			sponsorService;
+	@Autowired
 	private TutorialService			tutorialService;
+	@Autowired
+	private ServiceUtils			serviceUtils;
 
 
 	// Simple CRUD methods
@@ -59,10 +63,9 @@ public class SponsorshipService {
 	}
 	public void delete(final Sponsorship s) {
 		Assert.notNull(s);
-		Sponsor sp;
-		sp = this.sponsorService.findSponsorById(LoginService.getPrincipal().getId());
+		this.serviceUtils.checkAuthority("SPONSOR");
+		final Sponsor sp = s.getSponsor();
 		sp.getSponsorships().remove(s);
-		this.sponsorService.save(sp);
 		for (final Tutorial t : s.getTutorials()) {
 			t.getSponsorships().remove(s);
 			this.tutorialService.save(t);

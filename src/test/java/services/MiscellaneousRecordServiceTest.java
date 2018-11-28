@@ -12,12 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import domain.MiscellaneousRecord;
-
 import utilities.AbstractTest;
-
-
-
+import domain.MiscellaneousRecord;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
@@ -51,8 +47,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest{
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindOneIncorrecto() {
 		MiscellaneousRecord mr;
-
-		final int idBusqueda = super.getEntityId("miselaneu");
+		final int idBusqueda = super.getEntityId("miselaniu");
 		mr = this.miscellaneousRecordService.findOne(idBusqueda);
 		Assert.isNull(mr);
 	}
@@ -67,29 +62,52 @@ public class MiscellaneousRecordServiceTest extends AbstractTest{
 	}
 
 	@Test
-	public void testSaveMiscellaneousRecordCorrecto() {
-		MiscellaneousRecord mr;
-		mr = this.miscellaneousRecordService.findOne(this.getEntityId("miscellaneousRecord1"));
+	public void saveTestCorrecto() {
+		MiscellaneousRecord mr, saved;
+		final int mrId = this.getEntityId("miscellaneousRecord1");
+		mr = this.miscellaneousRecordService.findOne(mrId);
 		Assert.notNull(mr);
-		mr = this.miscellaneousRecordService.save(mr);
-		Assert.isTrue(mr.getTitle()== "Benhill County GaArchives Historical Records");
+
+		mr.setComments("prueba fallo");
+		saved = this.miscellaneousRecordService.save(mr);
+		Assert.isTrue(saved.getComments().contains("prueba fallo"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testSaveMiscellaneousRecordIncorrecto() {
-		MiscellaneousRecord mr;
-		mr = this.miscellaneousRecordService.findOne(this.getEntityId("miscellaneousRecord1"));
-		Assert.notNull(mr);
-		mr = this.miscellaneousRecordService.save(mr);
-		Assert.isTrue(mr.getTitle()== "uwu");
+	public void saveTestIncorrecto() {
+		MiscellaneousRecord pr;
+		MiscellaneousRecord saved;
+		final int mrId = this.getEntityId("miscellaneousRecord1");
+		pr = this.miscellaneousRecordService.findOne(mrId);
+		Assert.notNull(pr);
+
+		pr.setCurriculum(null);
+		saved = this.miscellaneousRecordService.save(pr);
+		Assert.isNull(saved);
 	}
 	
 	@Test
-	public void testDelete() {
+	public void deleteTestCorrecto() {
 		MiscellaneousRecord mr;
+		final int mrId = this.getEntityId("miscellaneousRecord2");
+		mr = this.miscellaneousRecordService.findOne(mrId);
+		Assert.notNull(mr);
 
-		mr = this.miscellaneousRecordService.findOne(super.getEntityId("miscellaneousRecord1"));
 		this.miscellaneousRecordService.delete(mr);
-		Assert.isNull(this.miscellaneousRecordService.findOne(mr.getId()));
+		Assert.isNull(mr = this.miscellaneousRecordService.findOne(mrId));
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteTestIncorrecto() {
+		MiscellaneousRecord mr;
+		final int mrId = this.getEntityId("Error intencionado");
+		mr = this.miscellaneousRecordService.findOne(mrId);
+		Assert.notNull(mr);
+
+		this.miscellaneousRecordService.delete(mr);
+		Assert.isNull(mr = this.miscellaneousRecordService.findOne(mrId));
+	}
+
+
+
 }
