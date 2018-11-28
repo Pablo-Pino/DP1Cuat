@@ -30,5 +30,16 @@ public class Url {
 	public void setUrl(final String url) {
 		this.url = url;
 	}
+	
+	// Equals
+	
+	public boolean equals(Object o) {
+		boolean res = false;
+		if(o instanceof Url) {
+			Url u = (Url) o;
+			res = u.getUrl().equals(this.getUrl());
+		}
+		return res;
+	}
 
 }
