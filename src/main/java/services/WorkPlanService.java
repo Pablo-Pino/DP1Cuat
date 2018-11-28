@@ -51,6 +51,8 @@ public class WorkPlanService {
 
 	public WorkPlan save(final WorkPlan w) {
 		Assert.notNull(w);
+		if (w.getId() == 0)
+			w.setPhases(new ArrayList<Phase>());
 		return this.workPlanRepository.save(w);
 	}
 

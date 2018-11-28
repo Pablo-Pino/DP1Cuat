@@ -24,6 +24,7 @@ public class NoteService {
 	private NoteRepository noteRepository;
 
 	// Supporting Service
+	@Autowired
 	private ReportService reportService;
 	
 	//Contrusctor

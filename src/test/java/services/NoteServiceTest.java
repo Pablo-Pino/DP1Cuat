@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import security.LoginService;
 import utilities.AbstractTest;
 import domain.Note;
 import domain.Report;
@@ -32,7 +33,8 @@ public class NoteServiceTest extends AbstractTest{
 	//Supporting Services
 	@Autowired
 	private ReportService reportService;
-
+	@Autowired
+	private RefereeService refereeService;
 
 	//------------------------------------------------------------
 	@Test
@@ -71,15 +73,17 @@ public class NoteServiceTest extends AbstractTest{
 		Note note, saved;
 		Report report;
 		note = noteService.create();
-		
+		super.authenticate("referee1");
+		authenticate("referee1");
 		int reportId =this.getEntityId("report1");
 		report = this.reportService.findOne(reportId);
 		
 		note.setReport(report);
+		report.getComplaint().setReferee(refereeService.findOne(LoginService.getPrincipal().getId()));
 		saved = this.noteService.save(note);
 		Assert.isTrue(saved.getReport().equals(report));
 		
-		//super.authenticate(null);
+		
 		
 	}
 

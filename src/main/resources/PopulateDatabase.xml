@@ -227,7 +227,7 @@
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 32" />
 		<property name="banned" value="false" />
-		<property name="suspicious" value="false" />
+		<property name="suspicious" value="true" />
 		<property name="sendedMessages">
 			<list>
 
