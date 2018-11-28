@@ -81,13 +81,13 @@ public class FixupTaskService {
 		customer = f.getCustomer();
 		
 		category.getFixupTasks().add(f);
-		categoryService.save(category);
+		//categoryService.save(category);
 		
 		warranty.getFixupTasks().add(f);
 		//warrantyService.save(warranty);
 		
 		customer.getFixupTasks().add(f);
-		customerService.save(customer);
+		//customerService.save(customer);
 		
 		this.fixupTaskRepository.save(f);
 		
