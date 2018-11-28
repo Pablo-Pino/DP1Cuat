@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -12,7 +13,9 @@ import org.springframework.util.Assert;
 import repositories.EndorsableRepository;
 import security.LoginService;
 import security.UserAccount;
+import domain.Customer;
 import domain.Endorsable;
+import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -23,23 +26,39 @@ public class EndorsableService {
 	@Autowired
 	private EndorsableRepository	endorsableRepository;
 
-
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
+	@Autowired
+	private CustomerService			customerService;
+
 
 	// Constructors -----------------------------------------------------------
 
 	// Simple CRUD methods ----------------------------------------------------
 	public Endorsable findOne(final int endorsableId) {
+		final Collection<Endorsable> endorsables = this.findAll();
 		Assert.isTrue(endorsableId != 0);
-		Endorsable res;
-		res = this.endorsableRepository.findOne(endorsableId);
+		Endorsable res = null;
+		for (final Endorsable e : endorsables)
+			if (e.getId() == endorsableId) {
+				res = e;
+				break;
+			}
 		Assert.notNull(res);
 		return res;
 	}
 
 	public Collection<Endorsable> findAll() {
-		Collection<Endorsable> res;
-		res = this.endorsableRepository.findAll();
+		final Collection<Endorsable> res = new ArrayList<Endorsable>();
+		final Collection<HandyWorker> handyworkers;
+		final Collection<Customer> customers;
+
+		handyworkers = this.handyWorkerService.findAll();
+		customers = this.customerService.findAll();
+		res.addAll(handyworkers);
+		res.addAll(customers);
+
 		Assert.notNull(res);
 		return res;
 	}
