@@ -54,9 +54,8 @@ public class SectionService extends GenericService<Section, SectionRepository> i
 			object.setNumberOrder(section.getNumberOrder());
 			object.setTutorial(section.getTutorial());
 		}
-		super.checkPermisionActor(object.getTutorial().getHandyWorker(), new String[] {
-			Authority.HANDYWORKER
-		});
+		this.serviceUtils.checkActor(section.getTutorial().getHandyWorker());
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
 		final Section res = this.repository.save(object);
 		return res;
 	}
@@ -75,9 +74,8 @@ public class SectionService extends GenericService<Section, SectionRepository> i
 	@Override
 	public void delete(final Section object) {
 		final Section section = this.checkObject(object);
-		super.checkPermisionActor(object.getTutorial().getHandyWorker(), new String[] {
-			Authority.HANDYWORKER
-		});
+		this.serviceUtils.checkActor(section.getTutorial().getHandyWorker());
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
 		this.repository.delete(section);
 	}
 
