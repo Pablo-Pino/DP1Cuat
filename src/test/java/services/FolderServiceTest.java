@@ -30,12 +30,18 @@ public class FolderServiceTest extends AbstractTest{
 	@Autowired
 	private FolderService	folderService;
 	
+	//supporting services
+	
+	@Autowired
+	private ActorService	actorService;
 
 
 	//------------------------------------------------------------
 
 	@Test
-	public void testCreate(Actor a) {
+	public void testCreate() {
+		int actorId =this.getEntityId("admin1");
+		final Actor a = this.actorService.findOne(actorId);
 		final Folder f = this.folderService.create(a);
 		Assert.notNull(f);
 	}
@@ -94,22 +100,34 @@ public class FolderServiceTest extends AbstractTest{
 	}
 	
 	@Test
-	public void testfindFoldersByActor(Actor a) {
-		this.authenticate("admin1");
+	public void testfindFoldersByActor() {
+		int actorId =this.getEntityId("admin1");
+		final Actor a = this.actorService.findOne(actorId);
+		//this.authenticate("admin1");
+		
 		final List<Folder> result = this.folderService.findFoldersByActor(a);
 		System.out.println("Lista de folders :" + result);
 	}
 	
 	@Test
-	public void testCreateSystemFolders(Actor a) {
-		this.authenticate("admin1");
+	public void testCreateSystemFolders() {
+		
+		int actorId =this.getEntityId("admin1");
+		final Actor a = this.actorService.findOne(actorId);
+		//this.authenticate("admin1");
+		
 		final List<Folder> result = this.folderService.createSystemFolders(a);
 		System.out.println("Creacion de System folders :" + result);
 	}
 	
 	@Test
-	public void testFolderByActorAndName(Actor a, String name) {
-		this.authenticate("admin1");
+	public void testFolderByActorAndName() {
+		
+		//this.authenticate("admin1");
+		int actorId =this.getEntityId("customer1");
+		final Actor a = this.actorService.findOne(actorId);
+		final String name = a.getName();
+		
 		final Folder result = this.folderService.findFolderByActorAndName(a, name);
 		System.out.println("La folder es :" + result);
 	}

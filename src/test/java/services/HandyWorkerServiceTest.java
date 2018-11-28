@@ -1,8 +1,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.Map;
-
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -40,80 +38,74 @@ public class HandyWorkerServiceTest extends AbstractTest{
 
 	@Test
 	public void testFindOneCorrecto() {
-		HandyWorker hw;
+		HandyWorker mr;
 		final int idBusqueda = super.getEntityId("handyWorker1");
-		hw = this.handyworkerService.findOne(idBusqueda);
-		Assert.notNull(hw);
+		mr = this.handyworkerService.findOne(idBusqueda);
+		Assert.notNull(mr);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindOneIncorrecto() {
 		HandyWorker hw;
-
-		final int idBusqueda = super.getEntityId("jandiwoke");
+		final int idBusqueda = super.getEntityId("handiwoke");
 		hw = this.handyworkerService.findOne(idBusqueda);
 		Assert.isNull(hw);
 	}
 
 	@Test
 	public void testFindAll() {
-		Collection<HandyWorker> handyworkers;
+		Collection<HandyWorker> handyWorkers;
 
-		handyworkers = this.handyworkerService.findAll();
-		Assert.notNull(handyworkers);
-		Assert.notEmpty(handyworkers);
+		handyWorkers = this.handyworkerService.findAll();
+		Assert.notNull(handyWorkers);
+		Assert.notEmpty(handyWorkers);
 	}
 
 	@Test
-	public void testSaveHandyworkerCorrecto() {
-		HandyWorker hw;
-		hw = this.handyworkerService.findOne(this.getEntityId("handyWorker1"));
+	public void saveTestCorrecto() {
+		HandyWorker hw, saved;
+		final int mrId = this.getEntityId("handyWorker1");
+		hw = this.handyworkerService.findOne(mrId);
 		Assert.notNull(hw);
-		hw = this.handyworkerService.save(hw);
-		Assert.isTrue(hw.getName()== "Antonio");
 
+		hw.setName("Antonio");
+		saved = this.handyworkerService.save(hw);
+		Assert.isTrue(saved.getName().equals("Antonio"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testSaveHandyworkerIncorrecto() {
+	public void saveTestIncorrecto() {
 		HandyWorker hw;
-		hw = this.handyworkerService.findOne(this.getEntityId("handyWorker1"));
+		HandyWorker saved;
+		final int mrId = this.getEntityId("handyWorker1");
+		hw = this.handyworkerService.findOne(mrId);
 		Assert.notNull(hw);
-		hw = this.handyworkerService.save(hw);
-		Assert.isTrue(hw.getName()== "Luis");
+
+		hw.setMake(null);
+		saved = this.handyworkerService.save(hw);
+		Assert.isNull(saved);
 	}
 	
 	@Test
-	public void testDelete() {
-		HandyWorker h;
+	public void deleteTestCorrecto() {
+		HandyWorker hw;
+		final int hwId = this.getEntityId("handyworker1");
+		hw = this.handyworkerService.findOne(hwId);
+		Assert.notNull(hw);
 
-		h = this.handyworkerService.findOne(super.getEntityId("handyWorker1"));
-		this.handyworkerService.delete(h);
-		Assert.isNull(this.handyworkerService.findOne(h.getId()));
+		this.handyworkerService.delete(hw);
+		Assert.isNull(hw = this.handyworkerService.findOne(hwId));
 	}
 
-	@Test
-	public void testHandyWorkerFixupStats() {
-		//this.authenticate("handyWorker2");
-		final Collection<HandyWorker> result = this.handyworkerService.getTop3HandyWorkerWithMoreComplaints();
-		System.out.println("El top 3 de handyworker con mas complaints:" + result);
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteTestIncorrecto() {
+		HandyWorker hw;
+		final int hwId = this.getEntityId("Error intencionado");
+		hw = this.handyworkerService.findOne(hwId);
+		Assert.notNull(hw);
 
-	}
-	
-	@Test
-	public void testHandyWorkerfixupTasksTop3() {
-		//this.authenticate("handyWorker2");
-		final Map<String, Collection<HandyWorker>> result = this.handyworkerService.fixupTasksTop3();
-		System.out.println("El top 3 de handyworker con mas fixuptask:" + result);
-
-	}
-	
-	@Test
-	public void testlistHandyWorkerApplication() {
-		//this.authenticate("handyWorker2");
-		final Collection<HandyWorker> result = this.handyworkerService.listHandyWorkerApplication();
-		System.out.println("ELista de Handyworker application:" + result);
-
+		this.handyworkerService.delete(hw);
+		Assert.isNull(hw = this.handyworkerService.findOne(hwId));
 	}
 
 }
