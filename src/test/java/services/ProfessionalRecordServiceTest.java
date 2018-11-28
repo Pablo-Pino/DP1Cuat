@@ -1,11 +1,13 @@
 
 package services;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -63,12 +65,13 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void findByCurriculumProfessionalRecord(final Integer curriculumId, final Class<?> expected) {
+	public void findByCurriculumProfessionalRecord(final Curriculum curriculum, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
-			final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
 			final Collection<ProfessionalRecord> professionalRecords = this.professionalRecordService.findAll(curriculum);
-			Assert.isTrue(curriculum.getProfessionalRecords().equals(professionalRecords));
+			Assert.isTrue(curriculum.getProfessionalRecords().size() == professionalRecords.size());
+			for (final ProfessionalRecord p : professionalRecords)
+				Assert.isTrue(curriculum.getProfessionalRecords().contains(p));
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
@@ -143,6 +146,82 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 			caught = oops.getClass();
 		}
 		this.checkExceptions(expected, caught);
+	}
+
+	@Test
+	public void testFindOneProfessionalRecord() {
+		this.findOneProfessionalRecord(super.getEntityId("professionalRecord1"), null);
+	}
+
+	@Test
+	public void testFindOneProfessionalRecordNullId() {
+		this.findOneProfessionalRecord(null, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testFindAllByIdsProfessionalRecord() {
+		this.findAllProfessionalRecord(Arrays.asList(new Integer[] {
+			super.getEntityId("professionalRecord1")
+		}), null);
+	}
+
+	@Test
+	public void testFindAllByIdsProfessionalRecordNullIds() {
+		this.findAllProfessionalRecord(null, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testFindAllProfessionalRecord() {
+		this.findAllProfessionalRecord(null);
+	}
+
+	@Test
+	public void testFindAllByCurriculumProfessionalRecord() {
+		final Curriculum curriculum = this.curriculumService.findOne(super.getEntityId("curriculum1"));
+		this.findByCurriculumProfessionalRecord(curriculum, null);
+	}
+
+	// En este caso se genera un NullPointerException debido a que al buscar el Curriculum, se llama al
+	// metodo getId() de Curriculum, y al ser este nulo se provoca un NullPointerException
+	@Test
+	public void testFindAllByCurriculumProfessionalRecordNullCurriculum() {
+		this.findByCurriculumProfessionalRecord(null, NullPointerException.class);
+	}
+
+	@Test
+	public void testSaveProfessionalRecord() {
+		final Integer curriculumId = super.getEntityId("curriculum1");
+		this.saveProfessionalRecord("handywoker1", "http://coso", "muy bueno", "la del anillo", "hobbit", new Date(System.currentTimeMillis() - 1000), new Date(System.currentTimeMillis() + 1000), null, curriculumId, null);
+	}
+
+	@Test
+	public void testSaveProfessionalRecordUnauthenticated() {
+		final Integer curriculumId = super.getEntityId("curriculum1");
+		this.saveProfessionalRecord(null, "http://coso", "muy bueno", "la del anillo", "hobbit", new Date(System.currentTimeMillis() - 1000), new Date(System.currentTimeMillis() + 1000), null, curriculumId, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testUpdateProfessionalRecord() {
+		final Integer curriculumId = super.getEntityId("curriculum1");
+		this.saveProfessionalRecord("handywoker1", "http://coso", "muy bueno", "la del anillo", "hobbit", new Date(System.currentTimeMillis() - 1000), new Date(System.currentTimeMillis() + 1000), super.getEntityId("professionalRecord1"), curriculumId,
+			null);
+	}
+
+	@Test
+	public void testUpdateProfessionalRecordUnauthenticated() {
+		final Integer curriculumId = super.getEntityId("curriculum1");
+		this.saveProfessionalRecord(null, "http://coso", "muy bueno", "la del anillo", "hobbit", new Date(System.currentTimeMillis() - 1000), new Date(System.currentTimeMillis() + 1000), super.getEntityId("professionalRecord1"), curriculumId,
+			IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testDeleteProfessionalRecord() {
+		this.deleteProfessionalRecord("handywoker1", super.getEntityId("professionalRecord1"), null);
+	}
+
+	@Test
+	public void testDeleteProfessionalRecordUnauthenticated() {
+		this.deleteProfessionalRecord(null, super.getEntityId("professionalRecord1"), IllegalArgumentException.class);
 	}
 
 }
