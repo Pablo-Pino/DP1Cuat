@@ -84,16 +84,23 @@ public class ActorService {
 	}
 
 	//Ban actor
-	public void banActor(final Actor a) {
-		Boolean banned;
-		banned = a.getBanned() == true;
+	public Boolean banActor(final Actor a) {
+		Boolean banned = false;
+		Assert.notNull(a);
+		Assert.isTrue(a.getSuspicious());
+		a.setBanned(true);
+		//this.save(a);
+		return banned;
+		//TODO ver como guardar el actor cuando ha sido baneado
 	}
-	//No se muy bien que significa que una cuenta este "activ
-
 	//unban actor
-	public void unbanActor(final Actor a) {
-		Boolean unbanned;
-		unbanned = a.getBanned() == false;
+	public Boolean unbanActor(final Actor a) {
+		Boolean banned = true;
+		Assert.notNull(a);
+		Assert.isTrue(a.getBanned());
+		a.setBanned(false);
+		//this.save(a);
+		return banned;
 	}
 
 }
