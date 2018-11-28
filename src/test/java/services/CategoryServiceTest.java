@@ -87,7 +87,14 @@ public class CategoryServiceTest extends AbstractTest {
 	public void testDelete() {
 		Category cat;
 		cat = this.categoryService.findOne(this.getEntityId("categoryWindowRepair"));
-		this.categoryService.deleteCategories(cat);
+		this.categoryService.delete(cat);
+	}
+
+	@Test
+	public void testDeleteConHijos() {
+		Category cat;
+		cat = this.categoryService.findOne(this.getEntityId("categoryCarpentry"));
+		this.categoryService.delete(cat);
 	}
 
 	//---------------------- Pruebas , no olvidar borrar lo que sobre------------------------
@@ -96,7 +103,7 @@ public class CategoryServiceTest extends AbstractTest {
 	public void testDeleteCategoryRoot() {
 		Category cat;
 		cat = this.categoryService.findOne(this.getEntityId("categoryRoot"));
-		this.categoryService.deleteCategories(cat);
+		this.categoryService.delete(cat);
 	}
 
 }
