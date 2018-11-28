@@ -82,15 +82,23 @@ public class CategoryService {
 		Assert.notNull(c);
 		Assert.isTrue(c.getId() != 0);
 		Assert.isTrue(this.categoryRepository.exists(c.getId()));
-		if (!c.getName().equals("ROOT")) {
+		//me da nullpointerexception aqui
+		final Collection<FixupTask> res = this.fixUpTaskService.findAll();
+		if (!c.getName().equals("CATEGORY") && !(c.getChildsCategories().isEmpty()))
 			if (!(c.getChildsCategories().isEmpty())) {
 				for (final Category child : c.getChildsCategories())
 					this.deleteCategories(child);
 				Assert.isTrue(this.tieneHijas(c));
 
 			}
-			if ((!c.getName().equals("categoryRoot")) && (this.tieneHijas(c)))
-				this.categoryRepository.delete(c);
+		if ((!c.getName().equals("CATEGORY")) && (this.tieneHijas(c) == true)) {
+
+			for (final FixupTask f : res)
+				if (f.getCategory().equals(c)) {
+					final Category padre = c.getParentCategory();
+					this.changeFixupTaskCategory(f, padre);
+				}
+			this.categoryRepository.delete(c);
 		} else
 			//System.out.println();
 			throw new IllegalArgumentException("No se puede borrar la Categoria raiz");
