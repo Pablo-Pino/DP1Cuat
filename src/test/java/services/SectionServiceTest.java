@@ -1,11 +1,12 @@
 
 package services;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -64,12 +65,13 @@ public class SectionServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void findByTutorialSection(final Integer tutorialId, final Class<?> expected) {
+	public void findByTutorialSection(final Tutorial tutorial, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
-			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
 			final Collection<Section> sections = this.sectionService.findAll(tutorial);
-			Assert.isTrue(tutorial.getSections().equals(sections));
+			Assert.isTrue(tutorial.getSections().size() == sections.size());
+			for (final Section s : sections)
+				Assert.isTrue(tutorial.getSections().contains(s));
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
@@ -91,7 +93,7 @@ public class SectionServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	public void saveSection(final String username, final int numberOrder, final Collection<Url> pictures, final String text, final String title, final String description, final Date start, final Date end, final Integer sectionId, final Integer tutorialId,
+	public void saveSection(final String username, final int numberOrder, final Collection<Url> pictures, final String text, final String title, final Integer sectionId, final Integer tutorialId,
 		final Class<?> expected) {
 		Class<?> caught = null;
 		try {
@@ -114,7 +116,9 @@ public class SectionServiceTest extends AbstractTest {
 			section.setTutorial(tutorial);
 			final Section savedSection = this.sectionService.save(section);
 			this.sectionService.flush();
-			Assert.isTrue(savedSection.getPictures().equals(pictures));
+			Assert.isTrue(savedSection.getPictures().size() == pictures.size());
+			for (final Url u : pictures)
+				Assert.isTrue(savedSection.getPictures().contains(u));
 			Assert.isTrue(savedSection.getText().equals(text));
 			Assert.isTrue(savedSection.getTitle().equals(title));
 			if (sectionId == null) {
@@ -146,4 +150,84 @@ public class SectionServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
+	@Test
+	public void testFindOneSection() {
+		this.findOneSection(super.getEntityId("section1"), null);
+	}
+
+	@Test
+	public void testFindOneSectionNullId() {
+		this.findOneSection(null, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testFindAllByIdsSection() {
+		this.findAllSection(Arrays.asList(new Integer[] {
+			super.getEntityId("section1"), super.getEntityId("section2")
+		}), null);
+	}
+
+	@Test
+	public void testFindAllByIdsSectionNullIds() {
+		this.findAllSection(null, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testFindAllSection() {
+		this.findAllSection(null);
+	}
+
+	@Test
+	public void testFindAllByTutorialSection() {
+		final Tutorial tutorial = this.tutorialService.findOne(super.getEntityId("tutorial1"));
+		this.findByTutorialSection(tutorial, null);
+	}
+
+	// En este caso se genera un NullPointerException debido a que al buscar el Tutorial, se llama al
+	// metodo getId() de Tutorial, y al ser este nulo se provoca un NullPointerException
+	@Test
+	public void testFindAllByTutorialSectionNullTutorial() {
+		this.findByTutorialSection(null, NullPointerException.class);
+	}
+
+	@Test
+	public void testSaveSection() {
+		final Integer tutorialId = super.getEntityId("tutorial1");
+		Url picture = new Url();
+		picture.setUrl("http://photo");
+		Collection<Url> pictures = Arrays.asList(picture);
+		this.saveSection("handywoker1", 1, pictures, "Da text", "Da title", null, tutorialId, null);
+	}
+
+	@Test
+	public void testSaveSectionUnauthenticated() {
+		final Integer tutorialId = super.getEntityId("tutorial1");
+		Collection<Url> pictures = sectionService.findOne(super.getEntityId("section1")).getPictures();
+		this.saveSection(null, 2, pictures, "Da text", "Da title", null, tutorialId, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testUpdateSection() {
+		final Integer tutorialId = super.getEntityId("tutorial1");
+		Collection<Url> pictures = sectionService.findOne(super.getEntityId("section1")).getPictures();
+		this.saveSection("handywoker1", 1, pictures, "Da text", "Da title", super.getEntityId("section1"), tutorialId, null);
+	}
+
+	@Test
+	public void testUpdateSectionUnauthenticated() {
+		final Integer tutorialId = super.getEntityId("tutorial1");
+		Collection<Url> pictures = sectionService.findOne(super.getEntityId("section1")).getPictures();
+		this.saveSection(null, 1, pictures, "Da text", "Da title", super.getEntityId("section1"), tutorialId, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testDeleteSection() {
+		this.deleteSection("handywoker1", super.getEntityId("section1"), null);
+	}
+
+	@Test
+	public void testDeleteSectionUnauthenticated() {
+		this.deleteSection(null, super.getEntityId("section2"), IllegalArgumentException.class);
+	}
+	
 }
