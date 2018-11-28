@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.FixupTaskRepository;
+import domain.Application;
+import domain.Category;
+import domain.Customer;
 import domain.FixupTask;
+import domain.Warranty;
 
 
 @Service
@@ -25,6 +30,15 @@ public class FixupTaskService {
 
 
 	// Supporting Service
+	
+	@Autowired
+	private CategoryService	categoryService;
+	
+	@Autowired
+	private WarrantyService warrantyService;
+	
+	@Autowired
+	private CustomerService	customerService;
 
 	public FixupTaskService() {
 		super();
@@ -35,6 +49,7 @@ public class FixupTaskService {
 	public FixupTask create() {
 		FixupTask ft;
 		ft = new FixupTask();
+		ft.setApplications(new ArrayList<Application>());
 		return ft;
 	}
 
@@ -52,10 +67,31 @@ public class FixupTaskService {
 	}
 
 	public FixupTask save(final FixupTask f) {
+		
 		Assert.notNull(f);
-		FixupTask res;
-		res= this.fixupTaskRepository.save(f);
-		return res;
+		
+		FixupTask saved = this.create();
+		Category category;
+		Warranty warranty;
+		Customer customer;
+		
+		category = saved.getCategory();
+		warranty = saved.getWarranty();
+		customer = saved.getCustomer();
+		
+		category.getFixupTasks().add(saved);
+		categoryService.save(category);
+		
+		warranty.getFixupTasks().add(saved);
+		warrantyService.save(warranty);
+		
+		customer.getFixupTasks().add(saved);
+		customerService.save(customer);
+		
+		saved = this.fixupTaskRepository.save(f);
+		
+		
+		return saved;
 	}
 
 	public void delete(final FixupTask f) {
