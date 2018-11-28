@@ -62,4 +62,26 @@ public class ComplaintServiceTest extends AbstractTest {
 		Assert.notEmpty(complaints); //porque sabemos que hemos creado algunos con el populate
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveComplaintIncorrecto() {
+		Complaint complaint, saved;
+		complaint = this.complaintService.findOne(this.getEntityId("complaint1"));
+		Assert.notNull(complaint);
+		complaint.setDescription("Esto es una descripcion normal");
+		saved = this.complaintService.save(complaint);
+		Assert.isTrue(saved.getDescription().equals("Esto es una descripcion normal"));
+
+	}
+
+	@Test
+	public void testSaveComplaintCorrecto() {
+		Complaint complaint, saved;
+		complaint = this.complaintService.create();
+		Assert.notNull(complaint);
+		complaint.setDescription("Esto es una descripcion normal");
+		saved = this.complaintService.save(complaint);
+		Assert.isTrue(saved.getDescription().equals("Esto es una descripcion normal"));
+
+	}
+
 }
