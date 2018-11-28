@@ -19,15 +19,17 @@ import domain.SocialProfile;
 
 @Service
 @Transactional
-public class RefereeService extends GenericService<Referee, RefereeRepository> implements ServiceI<Referee> {
+public class RefereeService extends GenericService<Referee, RefereeRepository> implements ServiceI<Referee> 
+{
 
 	@Autowired
 	private RefereeRepository	repository;
 
 	@Autowired
 	private FolderService		folderService;
-
-
+	@Autowired
+	private ServiceUtils		serviceUtils;
+	
 	@Override
 	public Referee create() {
 		final Referee res = new Referee();
@@ -44,7 +46,11 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 
 	@Override
 	public Referee save(final Referee object) {
-		final Referee referee = super.checkObjectSave(object);
+		this.serviceUtils.checkIdSave(object);
+		Referee ref = object;
+		if(object.getId() > 0) {
+			ref = repository.findOne(object.getId());
+		}
 		if (object.getId() == 0) {
 			object.setBanned(false);
 			object.setComplaints(new ArrayList<Complaint>());
@@ -53,33 +59,31 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 			object.setSendedMessages(new ArrayList<Message>());
 			object.setSocialProfiles(new ArrayList<SocialProfile>());
 			object.setSuspicious(false);
-			super.checkPermisionActor(null, new String[] {
-				Authority.ADMIN
-			});
+			this.serviceUtils.checkAuthority(Authority.ADMIN);
 		} else {
-			object.setBanned(referee.getBanned());
-			object.setComplaints(referee.getComplaints());
-			object.setFolders(referee.getFolders());
-			object.setReceivedMessages(referee.getReceivedMessages());
-			object.setSendedMessages(referee.getSendedMessages());
-			object.setSocialProfiles(referee.getSocialProfiles());
-			object.setSuspicious(referee.getSuspicious());
-			object.setUserAccount(referee.getUserAccount());
-			super.checkPermisionActor(referee, new String[] {
-				Authority.REFEREE
-			});
+			object.setBanned(ref.getBanned());
+			object.setComplaints(ref.getComplaints());
+			object.setFolders(ref.getFolders());
+			object.setReceivedMessages(ref.getReceivedMessages());
+			object.setSendedMessages(ref.getSendedMessages());
+			object.setSocialProfiles(ref.getSocialProfiles());
+			object.setSuspicious(ref.getSuspicious());
+			object.setUserAccount(ref.getUserAccount());
+			this.serviceUtils.checkActor(ref);
+			this.serviceUtils.checkAuthority(Authority.REFEREE);
 		}
 		final Referee res = this.repository.save(object);
 		return res;
 	}
-
 	public void changeBanned(final Referee referee) {
-		final Referee ref = super.checkObject(referee);
+		this.serviceUtils.checkId(referee);
+		Referee ref = referee;
+		if(referee.getId() > 0) {
+			ref = repository.findOne(referee.getId());
+		}
 		if (this.isSuspicious(ref))
 			ref.setBanned(true);
-		super.checkPermisionActor(null, new String[] {
-			Authority.ADMIN
-		});
+		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		this.repository.save(ref);
 	}
 
