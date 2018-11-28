@@ -16,6 +16,8 @@ import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Administrator;
+
 
 @Service
 @Transactional
@@ -25,9 +27,32 @@ public class ActorService {
 
 	@Autowired
 	private ActorRepository	actorRepository;
+	
 
 
 	//--------------------Services------------------------------
+	
+	@Autowired
+	private MessageService messageService;
+	
+	@Autowired
+	private ServiceUtils utilService;
+	
+	@Autowired
+	private AdministratorService adminService;
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
+	private SponsorService sponsorService;
+	
+	@Autowired
+	private HandyWorkerService handyworkerService;
+	
+	@Autowired
+	private RefereeService refereeService;
+
 
 	// ------------------CRUD methods-----------------------------
 
@@ -75,7 +100,7 @@ public class ActorService {
 	//Flata hacer lo del spam. se hace aqui o en el domain?
 
 	public Collection<Actor> suspiciousActors() {
-		final Collection<Actor> res = new ArrayList<Actor>();
+		Collection<Actor> res = new ArrayList<Actor>();
 		for (final Actor a : this.findAll())
 			if (a.getSuspicious())
 				res.add(a);
@@ -84,23 +109,45 @@ public class ActorService {
 	}
 
 	//Ban actor
-	public Boolean banActor(final Actor a) {
-		Boolean banned = false;
-		Assert.notNull(a);
-		Assert.isTrue(a.getSuspicious());
-		a.setBanned(true);
-		//this.save(a);
-		return banned;
-		//TODO ver como guardar el actor cuando ha sido baneado
-	}
-	//unban actor
-	public Boolean unbanActor(final Actor a) {
-		Boolean banned = true;
-		Assert.notNull(a);
-		Assert.isTrue(a.getBanned());
-		a.setBanned(false);
-		//this.save(a);
-		return banned;
-	}
+		public Boolean banActor(final Actor a) {
+			Boolean banned = false;
+			Assert.notNull(a);
+			Boolean esAdmin = utilService.checkAuthorityBoolean("ADMIN");
+			Boolean esCustomer = utilService.checkAuthorityBoolean("CUSTOMER");
+			Boolean esSponsor = utilService.checkAuthorityBoolean("SPONSOR");
+			Boolean esHandyWorker = utilService.checkAuthorityBoolean("HANDYWORKER");
+			Boolean esReferee = utilService.checkAuthorityBoolean("REFEREE");
+			//if (checkBan(a)){
+			a.setBanned(true);
+			if(esAdmin){
+				this.adminService.save(null);
+			}
+			if(esCustomer){
+				this.customerService.save(null);
+			}
+			if(esSponsor){
+				this.sponsorService.save(null);
+			}
+			if(esHandyWorker){
+				this.handyWorkerService.save(null);
+			}
+			if(esAdmin){
+				this.refereeService.save(null);
+			}
+			
+			return banned;
+			//TODO ver como guardar el actor cuando ha sido baneado
+		}
+		
+		//unban actor
+		public Boolean unbanActor(final Actor a) {
+			Boolean banned = true;
+			Assert.notNull(a);
+			Assert.isTrue(a.getBanned());
+			a.setBanned(false);
+			//this.save(a);
+			return banned;
+		}
+		
 
 }
