@@ -16,7 +16,12 @@ import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Administrator;
+import domain.Customer;
+import domain.HandyWorker;
 import domain.Message;
+import domain.Referee;
+import domain.Sponsor;
 
 @Service
 @Transactional
@@ -117,19 +122,20 @@ public class ActorService {
 		//if (checkBan(a)){
 		a.setBanned(true);
 		if (esAdmin)
-			this.adminService.save(null);
+			this.adminService.save((Administrator) a);
 		if (esCustomer)
-			this.customerService.save(null);
+			this.customerService.save((Customer) a);
 		if (esSponsor)
-			this.sponsorService.save(null);
+			this.sponsorService.save((Sponsor) a);
 		if (esHandyWorker)
-			this.handyWorkerService.save(null);
-		if (esAdmin)
-			this.refereeService.save(null);
+			this.handyWorkerService.save((HandyWorker) a);
+		if (esReferee)
+			this.refereeService.save((Referee) a);
 
 		return banned;
 		//TODO ver como guardar el actor cuando ha sido baneado
 	}
+	
 
 	//unban actor
 	public Boolean unbanActor(final Actor a) {

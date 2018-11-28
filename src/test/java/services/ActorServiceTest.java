@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import domain.Actor;
-import domain.Administrator;
 
 import utilities.AbstractTest;
 
@@ -56,7 +55,7 @@ public class ActorServiceTest extends AbstractTest {
 	@Test
 	public void testBanUnban() {
 		//this.authenticate("super");
-		int actorId = this.getEntityId("administrator2");
+		int actorId = this.getEntityId("administrator1");
 		Actor actor;
 		actor = this.actorService.findOne(actorId);
 		this.actorService.banActor(actor);
