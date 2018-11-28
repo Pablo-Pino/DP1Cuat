@@ -1,10 +1,12 @@
 
 package services;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -128,4 +130,54 @@ public class SettingsServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
+	@Test
+	public void testFindOneSettings() {
+		this.findOneSettings(super.getEntityId("settings1"), null);
+	}
+
+	@Test
+	public void testFindOneSettingsNullId() {
+		this.findOneSettings(null, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testFindAllByIdsSettings() {
+		this.findAllSettings(Arrays.asList(new Integer[] {
+			super.getEntityId("settings1")
+		}), null);
+	}
+
+	@Test
+	public void testFindAllByIdsSettingsNullIds() {
+		this.findAllSettings(null, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testFindAllSettings() {
+		this.findAllSettings(null);
+	}
+
+	@Test
+	public void testSaveSettings() {
+		Settings settings = settingsService.findOne(this.getEntityId("settings1"));
+		this.saveSettings("admin1", "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", null, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testUpdateSettings() {
+		Settings settings = settingsService.findOne(this.getEntityId("settings1"));
+		this.saveSettings("admin1", "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", this.getEntityId("settings1"), null);
+	}
+
+	@Test
+	public void testUpdateSettingsUnauthenticated() {
+		Settings settings = settingsService.findOne(this.getEntityId("settings1"));
+		this.saveSettings(null, "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", this.getEntityId("settings1"), IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testDeleteSettings() {
+		this.deleteSettings("admin1", super.getEntityId("settings1"), IllegalArgumentException.class);
+	}
+	
 }
