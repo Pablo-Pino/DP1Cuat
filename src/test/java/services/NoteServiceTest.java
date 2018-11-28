@@ -68,16 +68,19 @@ public class NoteServiceTest extends AbstractTest{
 
 	@Test
 	public void saveTestCorrecto() {
-		Note n, saved;
-		final int nId = this.getEntityId("note1");
-		n = this.noteService.findOne(nId);
-		Assert.notNull(n);
+		Note note, saved;
+		Report report;
+		note = noteService.create();
+		
 		int reportId =this.getEntityId("report1");
-		final Report report = this.reportService.findOne(reportId);
-
-		n.setReport(report);
-		saved = this.noteService.save(n);
+		report = this.reportService.findOne(reportId);
+		
+		note.setReport(report);
+		saved = this.noteService.save(note);
 		Assert.isTrue(saved.getReport().equals(report));
+		
+		//super.authenticate(null);
+		
 	}
 
 	@Test(expected = IllegalArgumentException.class)

@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 import repositories.NoteRepository;
 
 import domain.Note;
-import domain.PersonalRecord;
 import domain.Report;
 
 @Service

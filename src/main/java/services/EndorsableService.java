@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -13,9 +12,7 @@ import org.springframework.util.Assert;
 import repositories.EndorsableRepository;
 import security.LoginService;
 import security.UserAccount;
-import domain.Customer;
 import domain.Endorsable;
-import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -26,12 +23,8 @@ public class EndorsableService {
 	@Autowired
 	private EndorsableRepository	endorsableRepository;
 
-	// Supporting services ----------------------------------------------------
-	@Autowired
-	private HandyWorkerService		handyWorkerService;
-	@Autowired
-	private CustomerService			customerService;
 
+	// Supporting services ----------------------------------------------------
 
 	// Constructors -----------------------------------------------------------
 
@@ -50,14 +43,9 @@ public class EndorsableService {
 	}
 
 	public Collection<Endorsable> findAll() {
-		final Collection<Endorsable> res = new ArrayList<Endorsable>();
-		final Collection<HandyWorker> handyworkers;
-		final Collection<Customer> customers;
+		final Collection<Endorsable> res;
 
-		handyworkers = this.handyWorkerService.findAll();
-		customers = this.customerService.findAll();
-		res.addAll(handyworkers);
-		res.addAll(customers);
+		res = this.endorsableRepository.findAll();
 
 		Assert.notNull(res);
 		return res;
