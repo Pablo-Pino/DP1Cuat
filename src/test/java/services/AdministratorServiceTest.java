@@ -69,11 +69,13 @@ public class AdministratorServiceTest extends AbstractTest {
 		administrator = this.administratorService.findOne(adminId);
 		Assert.notNull(administrator);
 
-		this.authenticate("administrator1");
+		this.authenticate("admin1");
 
 		administrator.setSurname("Pablo");
 		saved = this.administratorService.save(administrator);
 		Assert.isTrue(saved.getSurname().equals("Pablo"));
+
+		this.unauthenticate();
 	}
 
 }

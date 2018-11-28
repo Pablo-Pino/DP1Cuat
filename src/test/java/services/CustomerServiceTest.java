@@ -79,4 +79,14 @@ public class CustomerServiceTest extends AbstractTest {
 		Assert.notEmpty(customers); //porque sabemos que hemos creado algunos con el populate
 	}
 
+	//Other Methods
+
+	@Test
+	public void listCustomer10() {
+		this.authenticate("customer1");
+		final Collection<Customer> result = this.customerService.listCustomer10();
+		System.out.println("Lista de customer:" + result);
+
+	}
+
 }

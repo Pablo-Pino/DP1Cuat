@@ -26,6 +26,9 @@ public class EndorsementService {
 	@Autowired
 	private ServiceUtils			serviceUtils;
 
+	@Autowired
+	private EndorsableService		endorsableService;
+
 
 	// Constructors -----------------------------------------------------------
 	public EndorsementService() {
@@ -39,13 +42,13 @@ public class EndorsementService {
 		Endorsement res;
 		res = new Endorsement();
 		res.setMoment(new Date(System.currentTimeMillis() - 1000));
-		//	res.setSender(this.)
+		res.setSender(this.endorsableService.findPrincipal());
 		return res;
 	}
-	public Endorsement findOne(final int endorsableId) {
-		this.serviceUtils.checkId(endorsableId);
+	public Endorsement findOne(final int endorsementId) {
+		this.serviceUtils.checkId(endorsementId);
 		Endorsement res;
-		res = this.endorsementRepository.findOne(endorsableId);
+		res = this.endorsementRepository.findOne(endorsementId);
 		Assert.notNull(res);
 		return res;
 	}
@@ -55,6 +58,28 @@ public class EndorsementService {
 		res = this.endorsementRepository.findAll();
 		Assert.notNull(res);
 		Assert.notEmpty(res);
+		return res;
+	}
+
+	public Endorsement save(final Endorsement endorsement) {
+		Assert.notNull(endorsement);
+
+		this.serviceUtils.checkIdSave(endorsement);
+
+		Endorsement endorsementBD;
+		endorsementBD = this.endorsementRepository.findOne(endorsement.getId());
+
+		if (endorsement.getId() == 0)
+			this.serviceUtils.checkAnyAuthority("CUSTOMER", "HANDYWORKER");
+		else {
+			endorsement.setComments(endorsementBD.getComments());
+			endorsement.setMoment(endorsementBD.getMoment());
+			endorsement.setSender(endorsementBD.getSender());
+			this.serviceUtils.checkAnyAuthority("CUSTOMER", "HANDYWORKER");
+
+		}
+		Endorsement res;
+		res = this.endorsementRepository.save(endorsement);
 		return res;
 	}
 

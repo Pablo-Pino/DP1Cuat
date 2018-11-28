@@ -7,34 +7,41 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.WarrantyRepository;
-import security.Authority;
 import domain.FixupTask;
 import domain.Warranty;
 
 @Service
 @Transactional
-public class WarrantyService extends GenericService<Warranty, WarrantyRepository> implements ServiceI<Warranty> {
+public class WarrantyService {
 
-	@Override
+	//Managed Repository
+
+	@Autowired
+	private WarrantyRepository	warrantyRepository;
+
+	// Supporting Service
+	private PhaseService		phaseService;
+	private HandyWorkerService	handyWorkerService;
+	private FixupTaskService	fixupTaskService;
+
+
 	public Warranty findOne(final Integer id) {
-		return super.findOne(id);
+		return this.warrantyRepository.findOne(id);
 	}
 
-	@Override
 	public List<Warranty> findAll(final Collection<Integer> ids) {
-		return super.findAll(ids);
+		return this.warrantyRepository.findAll(ids);
 	}
 
-	@Override
 	public List<Warranty> findAll() {
-		return super.findAll();
+		return this.warrantyRepository.findAll();
 	}
 
-	@Override
 	public Warranty create() {
 		final Warranty res = new Warranty();
 		res.setDraft(true);
@@ -42,26 +49,18 @@ public class WarrantyService extends GenericService<Warranty, WarrantyRepository
 		return res;
 	}
 
-	@Override
 	public Warranty save(final Warranty object) {
-		final Warranty warranty = super.checkObjectSave(object);
-		super.checkPermisionActor(null, new String[] {
-			Authority.ADMIN
-		});
+		final Warranty warranty = object;
 		Assert.isTrue(warranty.getDraft());
 		if (object.getDraft() == true)
 			Assert.isTrue(object.getFixupTasks().isEmpty());
-		return this.save(object);
+		return this.warrantyRepository.save(object);
 	}
 
-	@Override
 	public void delete(final Warranty object) {
-		final Warranty warranty = super.checkObject(object);
-		super.checkPermisionActor(null, new String[] {
-			Authority.ADMIN
-		});
+		final Warranty warranty = object;
 		Assert.isTrue(warranty.getDraft());
-		this.delete(object);
+		this.warrantyRepository.delete(object);
 	}
 
 }

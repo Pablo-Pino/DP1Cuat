@@ -430,7 +430,7 @@
 	<!-- Categories -->
 
 	<bean id="categoryRoot" class="domain.Category">
-		<property name="name" value="ROOT" />
+		<property name="name" value="CATEGORY" />
 		<property name="fixupTasks">
 			<list>
 			</list>
@@ -1538,6 +1538,15 @@
 	<bean id="phase1" class="domain.Phase">
 
 		<property name="title" value="phase1" />
+		<property name="description" value="Coger el telefono antes de hacer nada" />
+		<property name="start" value="February 17, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="workPlan" ref="workPlan1"></property>
+	</bean>
+	
+	<bean id="phase4" class="domain.Phase">
+
+		<property name="title" value="phase4" />
 		<property name="description" value="Coger el telefono antes de hacer nada" />
 		<property name="start" value="February 17, 2017 09:30"></property>
 		<property name="end" value="February 18, 2017 09:30"></property>

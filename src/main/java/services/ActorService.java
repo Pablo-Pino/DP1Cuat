@@ -48,19 +48,6 @@ public class ActorService {
 		return result;
 	}
 
-	public Actor save(final Actor actor) {
-		Assert.notNull(actor);
-		final Actor result = this.actorRepository.save(actor);
-		return result;
-	}
-
-	public void delete(final Actor actor) {
-		Assert.notNull(actor);
-		Assert.isTrue(actor.getId() != 0);
-		Assert.isTrue(this.actorRepository.exists(actor.getId()));
-		this.actorRepository.delete(actor);
-	}
-
 	// -------------------------Other methods-------------------------
 
 	public Actor findOneByUserAccount(final UserAccount userAccount) {
@@ -86,29 +73,34 @@ public class ActorService {
 
 	//List of suspicious actors
 	//Flata hacer lo del spam. se hace aqui o en el domain?
-	
-	public Collection<Actor> suspiciousActors(){
-		Collection<Actor> res = new ArrayList<Actor>();
-		for(Actor a: this.findAll())
-			if(a.getSuspicious()){
+
+	public Collection<Actor> suspiciousActors() {
+		final Collection<Actor> res = new ArrayList<Actor>();
+		for (final Actor a : this.findAll())
+			if (a.getSuspicious())
 				res.add(a);
-			}
-			
+
 		return res;
 	}
-	
+
 	//Ban actor
-	public void banActor(final Actor a){
-		Boolean banned;
-		banned = a.getBanned()== true;
+	public Boolean banActor(final Actor a) {
+		Boolean banned = false;
+		Assert.notNull(a);
+		Assert.isTrue(a.getSuspicious());
+		a.setBanned(true);
+		//this.save(a);
+		return banned;
+		//TODO ver como guardar el actor cuando ha sido baneado
 	}
-	//No se muy bien que significa que una cuenta este "activ
-	
 	//unban actor
-	public void unbanActor(final Actor a){
-		Boolean unbanned;
-		unbanned = a.getBanned()== false;
+	public Boolean unbanActor(final Actor a) {
+		Boolean banned = true;
+		Assert.notNull(a);
+		Assert.isTrue(a.getBanned());
+		a.setBanned(false);
+		//this.save(a);
+		return banned;
 	}
-	
-	
+
 }

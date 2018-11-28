@@ -75,7 +75,7 @@ public class CategoryServiceTest extends AbstractTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveCategoryIncorrecto() {
 		Category cat;
-		cat = this.categoryService.findOne(this.getEntityId("categoryWindowRepair"));
+		cat = this.categoryService.findOne(this.getEntityId("categorySprinklerRepair"));
 		Assert.notNull(cat);
 		cat.setName("Tuercas y tornillos");
 		cat = this.categoryService.save(cat);

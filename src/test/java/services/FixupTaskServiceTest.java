@@ -16,8 +16,6 @@ import utilities.AbstractTest;
 
 import domain.FixupTask;
 
-
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
@@ -34,25 +32,24 @@ public class FixupTaskServiceTest extends AbstractTest{
 
 	@Test
 	public void testCreate() {
-		final FixupTask f = this.fixupTaskService.create();
-		Assert.notNull(f);
+		final FixupTask ft = this.fixupTaskService.create();
+		Assert.notNull(ft);
 	}
 
 	@Test
 	public void testFindOneCorrecto() {
-		FixupTask f;
+		FixupTask ft;
 		final int idBusqueda = super.getEntityId("fixupTask1");
-		f = this.fixupTaskService.findOne(idBusqueda);
-		Assert.notNull(f);
+		ft = this.fixupTaskService.findOne(idBusqueda);
+		Assert.notNull(ft);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testFindOneIncorrecto() {
-		FixupTask f;
-
-		final int idBusqueda = super.getEntityId("fixap");
-		f = this.fixupTaskService.findOne(idBusqueda);
-		Assert.isNull(f);
+		FixupTask ft;
+		final int idBusqueda = super.getEntityId("fixu");
+		ft = this.fixupTaskService.findOne(idBusqueda);
+		Assert.isNull(ft);
 	}
 
 	@Test
@@ -65,33 +62,53 @@ public class FixupTaskServiceTest extends AbstractTest{
 	}
 
 	@Test
-	public void testSaveFixupTaskCorrecto() {
-		FixupTask f;
-		f = this.fixupTaskService.findOne(this.getEntityId("fixupTask1"));
-		Assert.notNull(f);
-		f = this.fixupTaskService.save(f);
-		Assert.isTrue(f.getTicker()== "81103-RTIB01");
+	public void saveTestCorrecto() {
+		FixupTask ft, saved;
+		final int ftId = this.getEntityId("fixupTask1");
+		ft = this.fixupTaskService.findOne(ftId);
+		Assert.notNull(ft);
 
+		ft.setAddress("seviia");
+		saved = this.fixupTaskService.save(ft);
+		Assert.isTrue(saved.getAddress().equals("seviia"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testSaveFixupTaskIncorrecto() {
-		FixupTask f;
-		f = this.fixupTaskService.findOne(this.getEntityId("fixupTask1"));
-		Assert.notNull(f);
-		f = this.fixupTaskService.save(f);
-		Assert.isTrue(f.getTicker()== "81103-B01");
+	public void saveTestIncorrecto() {
+		FixupTask ft;
+		FixupTask saved;
+		final int ftId = this.getEntityId("fixupTask1");
+		ft = this.fixupTaskService.findOne(ftId);
+		Assert.notNull(ft);
 
+		ft.setMoment(null);
+		saved = this.fixupTaskService.save(ft);
+		Assert.isNull(saved);
 	}
 	
 	@Test
-	public void testDelete() {
-		FixupTask f;
+	public void deleteTestCorrecto() {
+		FixupTask ft;
+		final int ftId = this.getEntityId("fixupTaskRecord2");
+		ft = this.fixupTaskService.findOne(ftId);
+		Assert.notNull(ft);
 
-		f = this.fixupTaskService.findOne(super.getEntityId("fixupTask1"));
-		this.fixupTaskService.delete(f);
-		Assert.isNull(this.fixupTaskService.findOne(f.getId()));
+		this.fixupTaskService.delete(ft);
+		Assert.isNull(ft = this.fixupTaskService.findOne(ftId));
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteTestIncorrecto() {
+		FixupTask ft;
+		final int ftId = this.getEntityId("Error intencionado");
+		ft = this.fixupTaskService.findOne(ftId);
+		Assert.notNull(ft);
+
+		this.fixupTaskService.delete(ft);
+		Assert.isNull(ft = this.fixupTaskService.findOne(ftId));
+	}
+	
+	//Other methods
 	
 	@Test
 	public void testAppStats() {
@@ -101,19 +118,27 @@ public class FixupTaskServiceTest extends AbstractTest{
 
 	}
 	
-	@Test
-	public void testRatioFixupTasksWithComplaints() {
-		this.authenticate("admin1");
-		final Map<String, Double> result = this.fixupTaskService.getRatioFixupTasksWithComplaints();
-		System.out.println("El ratio de las fiuptask con mas complaints:" + result);
-
-	}
+//	@Test
+//	public void testRatioFixupTasksWithComplaints() {
+//		this.authenticate("admin1");
+//		final Map<String, Double> result = this.fixupTaskService.getRatioFixupTasksWithComplaints();
+//		System.out.println("El ratio de las fiuptask con mas complaints:" + result);
+//
+//	}
 	
 	@Test
 	public void testmaxFixupStaskStats() {
 		this.authenticate("admin1");
 		final Map<String, Double> result = this.fixupTaskService.maxFixupStaskStats();
 		System.out.println("Caracteristicas fixup max:" + result);
+
+	}
+	
+	@Test
+	public void testfixupComplaintsStats() {
+		this.authenticate("admin1");
+		final Map<String, Double> result = this.fixupTaskService.fixupComplaintsStats();
+		System.out.println("Caracteristicas fixup complaints:" + result);
 
 	}
 
