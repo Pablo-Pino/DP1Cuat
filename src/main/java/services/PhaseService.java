@@ -56,6 +56,7 @@ public class PhaseService extends GenericService<Phase, PhaseRepository> impleme
 		final Phase res = this.repository.save(object);
 		return res;
 	}
+
 	@Override
 	public void delete(final Phase object) {
 		final Phase phase = super.checkObject(object);

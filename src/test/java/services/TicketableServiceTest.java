@@ -35,4 +35,10 @@ public class TicketableServiceTest extends AbstractTest {
 		Assert.notNull(ticketables);
 	}
 
+	@Test
+	public void testCreateTicker() {
+
+		final String res = this.ticketableService.createTicker();
+		Assert.notNull(res);
+	}
 }

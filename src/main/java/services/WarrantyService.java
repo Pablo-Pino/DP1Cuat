@@ -25,8 +25,11 @@ public class WarrantyService {
 	private WarrantyRepository	warrantyRepository;
 
 	// Supporting Service
+	@Autowired
 	private PhaseService		phaseService;
+	@Autowired
 	private HandyWorkerService	handyWorkerService;
+	@Autowired
 	private FixupTaskService	fixupTaskService;
 
 
@@ -60,7 +63,10 @@ public class WarrantyService {
 	public void delete(final Warranty object) {
 		final Warranty warranty = object;
 		Assert.isTrue(warranty.getDraft());
-		this.warrantyRepository.delete(object);
+		if (warranty.getFixupTasks().isEmpty())
+			this.warrantyRepository.delete(object);
+		else
+			throw new IllegalArgumentException("No puedes borrar una garantía que tenga tareas");
 	}
 
 }

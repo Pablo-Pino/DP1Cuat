@@ -44,6 +44,14 @@ public class SponsorshipServiceTest extends AbstractTest {
 		Assert.notNull(sponsorship);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testFindOneError() {
+		Sponsorship sponsorship;
+
+		sponsorship = this.sponsorshipService.findOne(super.getEntityId("ssponsorship1"));
+		Assert.notNull(sponsorship);
+	}
+
 	@Test
 	public void testFindAll() {
 
@@ -59,10 +67,18 @@ public class SponsorshipServiceTest extends AbstractTest {
 		Assert.notNull(sponsorship);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveError() {
+		Sponsorship sponsorship;
+
+		sponsorship = this.sponsorshipService.findOne(super.getEntityId("ssponsorship1"));
+		Assert.notNull(sponsorship);
+	}
+
 	@Test
 	public void testDelete() {
 		Sponsorship sponsorship;
-
+		this.authenticate("sponsor1");
 		sponsorship = this.sponsorshipService.findOne(super.getEntityId("sponsorship1"));
 		this.sponsorshipService.delete(sponsorship);
 		Assert.isNull(this.sponsorshipService.findOne(sponsorship.getId()));

@@ -25,8 +25,11 @@ public class WorkPlanService {
 	private WorkPlanRepository	workPlanRepository;
 
 	// Supporting Service
+	@Autowired
 	private PhaseService		phaseService;
+	@Autowired
 	private HandyWorkerService	handyWorkerService;
+	@Autowired
 	private FixupTaskService	fixupTaskService;
 
 
@@ -54,17 +57,12 @@ public class WorkPlanService {
 
 	public void delete(final WorkPlan w) {
 		Assert.notNull(w);
-		final Collection<Phase> phases = w.getPhases();
-		for (final Phase p : phases) {
-			Assert.notNull(p);
-			this.phaseService.delete(p);
-		}
 		final HandyWorker hw = w.getHandyWorker();
 		hw.getWorkPlans().remove(w);
-		//this.handyWorkerService.save(hw);
+		this.handyWorkerService.save(hw);
 		final FixupTask ft = w.getFixupTask();
 		ft.setWorkPlan(null);
-		//this.fixupTaskService.save(ft);
+		this.fixupTaskService.save(ft);
 		this.workPlanRepository.delete(w);
 	}
 }

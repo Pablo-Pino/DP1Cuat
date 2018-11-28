@@ -24,7 +24,9 @@ public class TutorialService {
 	private TutorialRepository	tutorialRepository;
 
 	// Supporting Service
+	@Autowired
 	private SectionService		sectionService;
+	@Autowired
 	private SponsorshipService	sponsorshipService;
 
 
@@ -52,8 +54,6 @@ public class TutorialService {
 
 	public void delete(final Tutorial s) {
 		Assert.notNull(s);
-		for (final Section se : s.getSections())
-			this.sectionService.delete(se);
 		for (final Sponsorship sp : s.getSponsorships()) {
 			sp.getTutorials().remove(s);
 			this.sponsorshipService.save(sp);
