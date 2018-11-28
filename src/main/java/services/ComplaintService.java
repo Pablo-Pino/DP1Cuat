@@ -23,7 +23,7 @@ public class ComplaintService {
 	private ComplaintRepository	complaintRepository;
 	//Supporting Service
 	@Autowired
-	public TicketableService	ticketableService;
+	private TicketableService	ticketableService;
 
 	@Autowired
 	private ServiceUtils		serviceUtils;
