@@ -16,9 +16,7 @@ import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
-import domain.Administrator;
 import domain.Message;
-
 
 @Service
 @Transactional
@@ -27,32 +25,30 @@ public class ActorService {
 	//--------------------Repositories--------------------------
 
 	@Autowired
-	private ActorRepository	actorRepository;
-	
-
+	private ActorRepository			actorRepository;
 
 	//--------------------Services------------------------------
-	
+
 	@Autowired
-	private MessageService messageService;
-	
+	private MessageService			messageService;
+
 	@Autowired
-	private ServiceUtils utilService;
-	
+	private ServiceUtils			utilService;
+
 	@Autowired
-	private AdministratorService adminService;
-	
+	private AdministratorService	adminService;
+
 	@Autowired
-	private CustomerService customerService;
-	
+	private CustomerService			customerService;
+
 	@Autowired
-	private SponsorService sponsorService;
-	
+	private SponsorService			sponsorService;
+
 	@Autowired
-	private HandyWorkerService handyworkerService;
-	
+	private HandyWorkerService		handyWorkerService;
+
 	@Autowired
-	private RefereeService refereeService;
+	private RefereeService			refereeService;
 
 
 	// ------------------CRUD methods-----------------------------
@@ -101,66 +97,56 @@ public class ActorService {
 	//Flata hacer lo del spam. se hace aqui o en el domain?
 
 	public Collection<Actor> suspiciousActors() {
-		Collection<Actor> res = new ArrayList<Actor>();
+		final Collection<Actor> res = new ArrayList<Actor>();
 		for (final Actor a : this.findAll())
-			if (checkSpam(a)){
+			if (this.checkSpam(a))
 				res.add(a);
-			}
 
 		return res;
 	}
 
 	//Ban actor
-		public Boolean banActor(final Actor a) {
-			Boolean banned = false;
-			Assert.notNull(a);
-			Boolean esAdmin = utilService.checkAuthorityBoolean("ADMIN");
-			Boolean esCustomer = utilService.checkAuthorityBoolean("CUSTOMER");
-			Boolean esSponsor = utilService.checkAuthorityBoolean("SPONSOR");
-			Boolean esHandyWorker = utilService.checkAuthorityBoolean("HANDYWORKER");
-			Boolean esReferee = utilService.checkAuthorityBoolean("REFEREE");
-			//if (checkBan(a)){
-			a.setBanned(true);
-			if(esAdmin){
-				this.adminService.save(null);
-			}
-			if(esCustomer){
-				this.customerService.save(null);
-			}
-			if(esSponsor){
-				this.sponsorService.save(null);
-			}
-			if(esHandyWorker){
-				this.handyWorkerService.save(null);
-			}
-			if(esAdmin){
-				this.refereeService.save(null);
-			}
-			
-			return banned;
-			//TODO ver como guardar el actor cuando ha sido baneado
-		}
-		
-		//unban actor
-		public Boolean unbanActor(final Actor a) {
-			Boolean banned = true;
-			Assert.notNull(a);
-			Assert.isTrue(a.getBanned());
-			a.setBanned(false);
-			//this.save(a);
-			return banned;
-		}
-		
-		public Boolean checkSpam(Actor a){
-			Boolean res= false;
-			for(Message m : a.getSendedMessages()){
-				if(messageService.containsSpam(m)){
-					res= true;
-				}
-					
-				}
-			return res;
-		}
-		
+	public Boolean banActor(final Actor a) {
+		final Boolean banned = false;
+		Assert.notNull(a);
+		final Boolean esAdmin = this.utilService.checkAuthorityBoolean("ADMIN");
+		final Boolean esCustomer = this.utilService.checkAuthorityBoolean("CUSTOMER");
+		final Boolean esSponsor = this.utilService.checkAuthorityBoolean("SPONSOR");
+		final Boolean esHandyWorker = this.utilService.checkAuthorityBoolean("HANDYWORKER");
+		final Boolean esReferee = this.utilService.checkAuthorityBoolean("REFEREE");
+		//if (checkBan(a)){
+		a.setBanned(true);
+		if (esAdmin)
+			this.adminService.save(null);
+		if (esCustomer)
+			this.customerService.save(null);
+		if (esSponsor)
+			this.sponsorService.save(null);
+		if (esHandyWorker)
+			this.handyWorkerService.save(null);
+		if (esAdmin)
+			this.refereeService.save(null);
+
+		return banned;
+		//TODO ver como guardar el actor cuando ha sido baneado
+	}
+
+	//unban actor
+	public Boolean unbanActor(final Actor a) {
+		final Boolean banned = true;
+		Assert.notNull(a);
+		Assert.isTrue(a.getBanned());
+		a.setBanned(false);
+		//this.save(a);
+		return banned;
+	}
+
+	public Boolean checkSpam(final Actor a) {
+		Boolean res = false;
+		for (final Message m : a.getSendedMessages())
+			if (this.messageService.containsSpam(m))
+				res = true;
+		return res;
+	}
 
 }
