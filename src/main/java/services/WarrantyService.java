@@ -54,6 +54,8 @@ public class WarrantyService {
 
 	public Warranty save(final Warranty object) {
 		final Warranty warranty = object;
+		if (warranty.getId() == 0)
+			warranty.setFixupTasks(new ArrayList<FixupTask>());
 		Assert.isTrue(warranty.getDraft());
 		if (object.getDraft() == true)
 			Assert.isTrue(object.getFixupTasks().isEmpty());

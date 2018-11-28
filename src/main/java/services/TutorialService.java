@@ -34,6 +34,8 @@ public class TutorialService {
 
 	public Tutorial create() {
 		final Tutorial s = new Tutorial();
+		s.setSponsorships(new ArrayList<Sponsorship>());
+		s.setSections(new ArrayList<Section>());
 		return s;
 	}
 
@@ -47,8 +49,10 @@ public class TutorialService {
 
 	public Tutorial save(final Tutorial s) {
 		Assert.notNull(s);
-		s.setSponsorships(new ArrayList<Sponsorship>());
-		s.setSections(new ArrayList<Section>());
+		if (s.getId() == 0) {
+			s.setSponsorships(new ArrayList<Sponsorship>());
+			s.setSections(new ArrayList<Section>());
+		}
 		return this.tutorialRepository.save(s);
 	}
 
