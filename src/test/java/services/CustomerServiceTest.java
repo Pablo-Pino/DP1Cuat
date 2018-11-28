@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -79,9 +78,9 @@ public class CustomerServiceTest extends AbstractTest {
 		Assert.notNull(customers);
 		Assert.notEmpty(customers); //porque sabemos que hemos creado algunos con el populate
 	}
-	
+
 	//Other Methods
-	
+
 	@Test
 	public void listCustomer10() {
 		this.authenticate("customer1");
