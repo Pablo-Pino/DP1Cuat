@@ -65,9 +65,8 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 			object.setMoment(report.getMoment());
 			object.setNotes(report.getNotes());
 		}
-		super.checkPermisionActor(object.getComplaint().getReferee(), new String[] {
-			Authority.REFEREE
-		});
+		this.serviceUtils.checkActor(report.getComplaint().getReferee());
+		this.serviceUtils.checkAuthority(Authority.REFEREE);
 		final Report res = this.repository.save(object);
 		return res;
 	}
@@ -76,10 +75,15 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 	public void delete(final Report object) {
 		final Report report = super.checkObject(object);
 		Assert.isTrue(report.getDraft());
-		super.checkPermisionActor(report.getComplaint().getReferee(), new String[] {
-			Authority.REFEREE
-		});
+		this.serviceUtils.checkActor(report.getComplaint().getReferee());
+		this.serviceUtils.checkAuthority(Authority.REFEREE);
+		report.getComplaint().setReport(null);
+		this.complaintService.save(report.getComplaint());
 		this.repository.delete(report);
+	}
+	
+	public void flush() {
+		this.repository.flush();
 	}
 	
 	public Map<String, Double> refeeReportStats() {
