@@ -17,6 +17,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
+import domain.Message;
 
 
 @Service
@@ -102,8 +103,9 @@ public class ActorService {
 	public Collection<Actor> suspiciousActors() {
 		Collection<Actor> res = new ArrayList<Actor>();
 		for (final Actor a : this.findAll())
-			if (a.getSuspicious())
+			if (checkSpam(a)){
 				res.add(a);
+			}
 
 		return res;
 	}
@@ -147,6 +149,17 @@ public class ActorService {
 			a.setBanned(false);
 			//this.save(a);
 			return banned;
+		}
+		
+		public Boolean checkSpam(Actor a){
+			Boolean res= false;
+			for(Message m : a.getSendedMessages()){
+				if(messageService.containsSpam(m)){
+					res= true;
+				}
+					
+				}
+			return res;
 		}
 		
 

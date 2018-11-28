@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -38,14 +39,17 @@ public class ActorServiceTest extends AbstractTest {
 		System.out.println("Las variables de FixupTask para este usuario son: " + result);
 
 	}
+	
 	@Test
 	public void testgetSuspicious() {
-		//this.authenticate("administrator1");
-
-		Collection<Actor> suspicious;
-		suspicious = this.actorService.suspiciousActors();
-		Assert.notEmpty(suspicious);
+		this.authenticate("administrator1");
+		int actorId = this.getEntityId("administrator1");
+		Actor actor;
+		actor = this.actorService.findOne(actorId);
+		Collection<Actor> suspicious = new ArrayList<Actor>(this.actorService.suspiciousActors());
+		Assert.isTrue(suspicious.contains(actor));
 		System.out.println("Lista de actores sospechosos: " + suspicious);
+		//administrator1 es sospechoso porque lo he cambiado yo queriendo
 	
 	}
 	
