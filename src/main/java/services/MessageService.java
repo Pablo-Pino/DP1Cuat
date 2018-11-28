@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.MessageRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
 import domain.Folder;
 import domain.Message;
@@ -28,6 +30,8 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	private FolderService		folderService;
 	@Autowired
 	private SettingsService		settingsService;
+	@Autowired
+	private ServiceUtils serviceUtils;
 
 
 	@Override
@@ -48,9 +52,10 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	@Override
 	public Message save(final Message object) {
 		final Message message = super.checkObjectSave(object);
-		super.checkPermisionActors(new Actor[] {
-			message.getReceiver(), message.getSender()
-		}, null);
+		UserAccount uaReceiver = message.getReceiver().getUserAccount();
+		UserAccount uaSender = message.getSender().getUserAccount();
+		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || 
+				LoginService.getPrincipal().equals(uaSender));
 		if (message.getId() == 0) {
 			object.setMoment(new Date(System.currentTimeMillis() - 1000));
 			if (this.containsSpam(object)) {
@@ -73,9 +78,10 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	@Override
 	public void delete(final Message object) {
 		final Message message = super.checkObject(object);
-		super.checkPermisionActors(new Actor[] {
-			message.getReceiver(), message.getSender()
-		}, null);
+		UserAccount uaReceiver = message.getReceiver().getUserAccount();
+		UserAccount uaSender = message.getSender().getUserAccount();
+		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || 
+				LoginService.getPrincipal().equals(uaSender));
 		final Actor principal = this.actorService.findPrincipal();
 		final Folder trashboxPrincipal = this.folderService.findFolderByActorAndName(principal, "trashbox");
 		if (message.getFolders().contains(trashboxPrincipal))
@@ -116,10 +122,11 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 				break;
 			}
 		Assert.notNull(oldFolder);
-		this.checkPermisionActors(new Actor[] {
-			message.getSender(), message.getReceiver()
-		}, null);
-		this.folderService.checkPermisionActor(folder.getActor(), null);
+		UserAccount uaReceiver = message.getReceiver().getUserAccount();
+		UserAccount uaSender = message.getSender().getUserAccount();
+		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || 
+				LoginService.getPrincipal().equals(uaSender));
+		this.serviceUtils.checkActor(folder.getActor());
 		message.getFolders().remove(oldFolder);
 		message.getFolders().add(folder);
 		this.repository.save(message);
