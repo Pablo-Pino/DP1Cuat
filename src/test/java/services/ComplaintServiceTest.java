@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Complaint;
+import domain.Referee;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -26,6 +27,9 @@ public class ComplaintServiceTest extends AbstractTest {
 
 	@Autowired
 	private ComplaintService	complaintService;
+
+	@Autowired
+	private RefereeService		refereeService;
 
 
 	//-------------Test----------------------------------
@@ -84,4 +88,20 @@ public class ComplaintServiceTest extends AbstractTest {
 
 	}
 
+	@Test
+	public void testFindAllComplaintsByReferee() {
+		Collection<Complaint> complaints;
+		final Referee r = this.refereeService.findOne(this.getEntityId("referee1"));
+		complaints = this.complaintService.findAllComplaintsByReferee(r);
+		Assert.notNull(complaints);
+		Assert.notEmpty(complaints); //porque sabemos que hemos creado algunos con el populate
+	}
+
+	@Test
+	public void testFindAllComplaintsWithoutReferee() {
+		Collection<Complaint> complaints;
+		complaints = this.complaintService.findAllComplaintsWithoutReferee();
+		Assert.notNull(complaints);
+		Assert.notEmpty(complaints); //porque sabemos que hemos creado algunos con el populate
+	}
 }
