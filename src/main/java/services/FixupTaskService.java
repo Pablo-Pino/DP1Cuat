@@ -40,6 +40,8 @@ public class FixupTaskService {
 	@Autowired
 	private CustomerService	customerService;
 
+	//
+	
 	public FixupTaskService() {
 		super();
 	}
@@ -70,28 +72,27 @@ public class FixupTaskService {
 		
 		Assert.notNull(f);
 		
-		FixupTask saved = this.create();
 		Category category;
 		Warranty warranty;
 		Customer customer;
 		
-		category = saved.getCategory();
-		warranty = saved.getWarranty();
-		customer = saved.getCustomer();
+		category = f.getCategory();
+		warranty = f.getWarranty();
+		customer = f.getCustomer();
 		
-		category.getFixupTasks().add(saved);
+		category.getFixupTasks().add(f);
 		categoryService.save(category);
 		
-		warranty.getFixupTasks().add(saved);
-		warrantyService.save(warranty);
+		warranty.getFixupTasks().add(f);
+		//warrantyService.save(warranty);
 		
-		customer.getFixupTasks().add(saved);
+		customer.getFixupTasks().add(f);
 		customerService.save(customer);
 		
-		saved = this.fixupTaskRepository.save(f);
+		this.fixupTaskRepository.save(f);
 		
 		
-		return saved;
+		return f;
 	}
 
 	public void delete(final FixupTask f) {
