@@ -78,21 +78,25 @@ public class CategoryService {
 		for (final FixupTask f : res)
 			if (f.getCategory().equals(cat)) {
 				final Category padre = cat.getParentCategory();
+				padre.getFixupTasks().add(f);
 				f.setCategory(padre);
+				this.save(padre);
 				this.fixUpTaskService.save(f);
+
 			}
 
 	}
 
 	public void delete(final Category cat) {
 		Assert.notNull(cat);
-		Assert.isTrue(this.categoryRepository.exists(cat.getId()));
+		//	Assert.isTrue(this.categoryRepository.exists(cat.getId()));
 		if (cat.getName().equals("CATEGORY"))
 			throw new IllegalArgumentException("NO SE PUEDE BORRAR LA CATEGORIA RAIZ");
 		if (!(cat.getName().equals("CATEGORY"))) {
-			if (this.tieneHijas(cat) == false)
+			if (this.tieneHijas(cat) == false) {
 				this.changeFixupTaskCategory(cat);
-			this.categoryRepository.delete(cat);
+				this.categoryRepository.delete(cat);
+			}
 
 			if (this.tieneHijas(cat) == true)
 				for (final Category hija : cat.getChildsCategories())
