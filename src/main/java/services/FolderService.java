@@ -47,7 +47,7 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 	@Override
 	public Folder save(final Folder object) {
 		final Folder folder = super.checkObjectSave(object);
-		this.serviceUtils.checkActor(folder.getActor());
+		//this.serviceUtils.checkActor(folder.getActor());
 		Assert.isTrue(!folder.getSystem());
 		object.setActor(folder.getActor());
 		return this.repository.save(object);

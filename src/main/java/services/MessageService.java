@@ -31,7 +31,7 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	@Autowired
 	private SettingsService		settingsService;
 	@Autowired
-	private ServiceUtils serviceUtils;
+	private ServiceUtils		serviceUtils;
 
 
 	@Override
@@ -52,13 +52,12 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	@Override
 	public Message save(final Message object) {
 		final Message message = super.checkObjectSave(object);
-		UserAccount uaReceiver = message.getReceiver().getUserAccount();
-		UserAccount uaSender = message.getSender().getUserAccount();
-		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || 
-				LoginService.getPrincipal().equals(uaSender));
-		
+		final UserAccount uaReceiver = message.getReceiver().getUserAccount();
+		final UserAccount uaSender = message.getSender().getUserAccount();
+		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || LoginService.getPrincipal().equals(uaSender));
+
 		//Comentando esto el save de massage funciona. REVISAR.
-		
+
 		if (message.getId() == 0) {
 			object.setMoment(new Date(System.currentTimeMillis() - 1000));
 			if (this.containsSpam(object)) {
@@ -70,7 +69,8 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 			}
 			final Folder outSender = this.folderService.findFolderByActorAndName(object.getSender(), "outbox");
 			message.getFolders().add(outSender);
-			folderService.save(outSender);
+			if (outSender.getSystem() == false)
+				this.folderService.save(outSender);
 		} else if (message.getId() > 0) {
 			object.setMoment(message.getMoment());
 			object.setReceiver(message.getReceiver());
@@ -82,12 +82,11 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	@Override
 	public void delete(final Message object) {
 		final Message message = super.checkObject(object);
-		UserAccount uaReceiver = message.getReceiver().getUserAccount();
-		UserAccount uaSender = message.getSender().getUserAccount();
-		
-		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || 
-				LoginService.getPrincipal().equals(uaSender));
-		
+		final UserAccount uaReceiver = message.getReceiver().getUserAccount();
+		final UserAccount uaSender = message.getSender().getUserAccount();
+
+		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || LoginService.getPrincipal().equals(uaSender));
+
 		final Actor principal = this.actorService.findPrincipal();
 		final Folder trashboxPrincipal = this.folderService.findFolderByActorAndName(principal, "trashbox");
 		if (message.getFolders().contains(trashboxPrincipal))
@@ -128,10 +127,9 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 				break;
 			}
 		Assert.notNull(oldFolder);
-		UserAccount uaReceiver = message.getReceiver().getUserAccount();
-		UserAccount uaSender = message.getSender().getUserAccount();
-		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || 
-				LoginService.getPrincipal().equals(uaSender));
+		final UserAccount uaReceiver = message.getReceiver().getUserAccount();
+		final UserAccount uaSender = message.getSender().getUserAccount();
+		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || LoginService.getPrincipal().equals(uaSender));
 		this.serviceUtils.checkActor(folder.getActor());
 		message.getFolders().remove(oldFolder);
 		message.getFolders().add(folder);
