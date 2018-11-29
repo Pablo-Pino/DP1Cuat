@@ -69,7 +69,7 @@ public class ComplaintServiceTest extends AbstractTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveComplaintIncorrecto() {
 		Complaint complaint, saved;
-		complaint = this.complaintService.findOne(this.getEntityId("complaint1"));
+		complaint = this.complaintService.findOne(this.getEntityId("coaint1"));
 		Assert.notNull(complaint);
 		complaint.setDescription("Esto es una descripcion normal");
 		saved = this.complaintService.save(complaint);
