@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.RefereeRepository;
 import security.Authority;
@@ -19,8 +20,7 @@ import domain.SocialProfile;
 
 @Service
 @Transactional
-public class RefereeService extends GenericService<Referee, RefereeRepository> implements ServiceI<Referee> 
-{
+public class RefereeService extends GenericService<Referee, RefereeRepository> implements ServiceI<Referee> {
 
 	@Autowired
 	private RefereeRepository	repository;
@@ -29,7 +29,8 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 	private FolderService		folderService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
-	
+
+
 	@Override
 	public Referee create() {
 		final Referee res = new Referee();
@@ -48,9 +49,8 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 	public Referee save(final Referee object) {
 		this.serviceUtils.checkIdSave(object);
 		Referee ref = object;
-		if(object.getId() > 0) {
-			ref = repository.findOne(object.getId());
-		}
+		if (object.getId() > 0)
+			ref = this.repository.findOne(object.getId());
 		if (object.getId() == 0) {
 			object.setBanned(false);
 			object.setComplaints(new ArrayList<Complaint>());
@@ -78,9 +78,8 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 	public void changeBanned(final Referee referee) {
 		this.serviceUtils.checkId(referee);
 		Referee ref = referee;
-		if(referee.getId() > 0) {
-			ref = repository.findOne(referee.getId());
-		}
+		if (referee.getId() > 0)
+			ref = this.repository.findOne(referee.getId());
 		if (this.isSuspicious(ref))
 			ref.setBanned(true);
 		this.serviceUtils.checkAuthority(Authority.ADMIN);
@@ -95,6 +94,22 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 	@Override
 	public void delete(final Referee object) {
 		throw new IllegalArgumentException("Unallowed method");
+	}
+
+	public void banActor(final Referee r) {
+		Assert.notNull(r);
+		this.serviceUtils.checkAuthority("ADMIN");
+		r.setBanned(true);
+		this.save(r);
+
+	}
+
+	public void unbanActor(final Referee r) {
+		Assert.notNull(r);
+		this.serviceUtils.checkAuthority("ADMIN");
+		r.setBanned(false);
+		this.save(r);
+
 	}
 
 	public void flush() {

@@ -158,4 +158,18 @@ public class HandyWorkerService {
 		return res;
 	}
 
+	public void banActor(final HandyWorker hw) {
+		Assert.notNull(r);
+		this.serviceUtils.checkAuthority("ADMIN");
+		hw.setBanned(true);
+		this.save(hw);
+	}
+
+	public void unbanActor(final HandyWorker hw) {
+		Assert.notNull(hw);
+		this.serviceUtils.checkAuthority("ADMIN");
+		hw.setBanned(false);
+		this.save(hw);
+	}
+
 }

@@ -30,6 +30,8 @@ public class SponsorService {
 	private FolderService		folderService;
 	@Autowired
 	private UserAccountService	uAService;
+	@Autowired
+	private ServiceUtils		serviceUtils;
 
 
 	// Simple CRUD methods
@@ -73,6 +75,20 @@ public class SponsorService {
 	public void delete(final Sponsor s) {
 		Assert.notNull(s);
 		s.setBanned(true);
+	}
+
+	public void banActor(final Sponsor s) {
+		Assert.notNull(s);
+		this.serviceUtils.checkAuthority("ADMIN");
+		s.setBanned(true);
+		this.save(s);
+	}
+
+	public void unbanActor(final Sponsor s) {
+		Assert.notNull(s);
+		this.serviceUtils.checkAuthority("ADMIN");
+		s.setBanned(false);
+		this.save(s);
 	}
 
 	public Sponsor findSponsorById(final int id) {
