@@ -49,7 +49,7 @@ public class ActorService {
 	private SponsorService sponsorService;
 	
 	@Autowired
-	private HandyWorkerService handyworkerService;
+	private HandyWorkerService handyWorkerService;
 	
 	@Autowired
 	private RefereeService refereeService;
