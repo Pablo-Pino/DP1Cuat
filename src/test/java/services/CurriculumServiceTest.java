@@ -74,10 +74,31 @@ public class CurriculumServiceTest extends AbstractTest {
 		Assert.isTrue(saved.getEducationRecords().equals(curriculum.getEducationRecords()));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void saveIncorrecto() {
+		Curriculum curriculum, saved;
+		final int curriculumId = this.getEntityId("curriculum1");
+		curriculum = this.curriculumService.findOne(curriculumId);
+		Assert.notNull(curriculum);
+		curriculum.setHandyWorker(null);
+		saved = this.curriculumService.save(curriculum);
+		Assert.notNull(saved);
+	}
+
 	@Test
 	public void deleteCorrecto() {
 		Curriculum curriculum;
 		final int curriculumId = this.getEntityId("curriculum1");
+		curriculum = this.curriculumService.findOne(curriculumId);
+		Assert.notNull(curriculum);
+		this.curriculumService.delete(curriculum);
+		Assert.isNull(this.curriculumService.findOne(curriculumId));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteIncorrecto() {
+		Curriculum curriculum;
+		final int curriculumId = this.getEntityId("cursslum1");
 		curriculum = this.curriculumService.findOne(curriculumId);
 		Assert.notNull(curriculum);
 		this.curriculumService.delete(curriculum);
