@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
@@ -135,7 +136,6 @@ public class ActorService {
 		return banned;
 		//TODO ver como guardar el actor cuando ha sido baneado
 	}
-	
 
 	//unban actor
 	public Boolean unbanActor(final Actor a) {
@@ -152,6 +152,74 @@ public class ActorService {
 		for (final Message m : a.getSendedMessages())
 			if (this.messageService.containsSpam(m))
 				res = true;
+		return res;
+	}
+
+	public Boolean banActorJuan(final Actor a) {
+		Boolean res = false;
+		if (a.getSuspicious() && !(a.getBanned()))
+			for (final Authority au : a.getUserAccount().getAuthorities()) {
+				if (au.getAuthority().equals(Authority.ADMIN)) {
+					a.setBanned(true);
+
+					final Collection<Administrator> admins = this.adminService.findAll();
+					for (final Administrator admin : admins)
+						if (admin.getUserAccount().equals(a.getUserAccount())) {
+							admin.setBanned(true);
+							this.adminService.save(admin);
+							res = true;
+							break;
+						}
+					break;
+				} else if (au.getAuthority().equals(Authority.CUSTOMER)) {
+					a.setBanned(true);
+					final Collection<Customer> customers = this.customerService.findAll();
+					for (final Customer customer : customers)
+						if (customer.getUserAccount().equals(a.getUserAccount())) {
+							customer.setBanned(true);
+							this.customerService.save(customer);
+							res = true;
+							break;
+						}
+					break;
+				} else if (au.getAuthority().equals(Authority.HANDYWORKER)) {
+					a.setBanned(true);
+					final Collection<HandyWorker> handyWorkers = this.handyWorkerService.findAll();
+					for (final HandyWorker handyWorker : handyWorkers)
+						if (handyWorker.getUserAccount().equals(a.getUserAccount())) {
+							handyWorker.setBanned(true);
+							this.handyWorkerService.save(handyWorker);
+							res = true;
+							break;
+						}
+					break;
+				} else if (au.getAuthority().equals(Authority.REFEREE)) {
+					a.setBanned(true);
+					final Collection<Referee> referees = this.refereeService.findAll();
+					for (final Referee referee : referees)
+						if (referee.getUserAccount().equals(a.getUserAccount())) {
+							referee.setBanned(true);
+							this.refereeService.save(referee);
+							res = true;
+							break;
+						}
+					break;
+				} else if (au.getAuthority().equals(Authority.SPONSOR)) {
+					a.setBanned(true);
+					final Collection<Sponsor> sponsors = this.sponsorService.findAll();
+					for (final Sponsor sponsor : sponsors)
+						if (sponsor.getUserAccount().equals(a.getUserAccount())) {
+							sponsor.setBanned(true);
+							this.sponsorService.save(sponsor);
+							res = true;
+							break;
+						}
+
+				}
+				break;
+			}
+		//System.out.println(au.getAuthority().equals(Authority.ADMIN));
+
 		return res;
 	}
 
