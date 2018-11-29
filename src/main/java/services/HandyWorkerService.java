@@ -38,6 +38,9 @@ public class HandyWorkerService {
 	@Autowired
 	private FixupTaskService		fixupTaskService;
 
+	@Autowired
+	private ServiceUtils			serviceUtils;
+
 
 	//constructor
 
@@ -159,7 +162,7 @@ public class HandyWorkerService {
 	}
 
 	public void banActor(final HandyWorker hw) {
-		Assert.notNull(r);
+		Assert.notNull(hw);
 		this.serviceUtils.checkAuthority("ADMIN");
 		hw.setBanned(true);
 		this.save(hw);

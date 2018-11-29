@@ -165,8 +165,7 @@ public class ActorService {
 					final Collection<Administrator> admins = this.adminService.findAll();
 					for (final Administrator admin : admins)
 						if (admin.getUserAccount().equals(a.getUserAccount())) {
-							admin.setBanned(true);
-							this.adminService.save(admin);
+							this.adminService.banActor(admin);
 							res = true;
 							break;
 						}
@@ -176,8 +175,7 @@ public class ActorService {
 					final Collection<Customer> customers = this.customerService.findAll();
 					for (final Customer customer : customers)
 						if (customer.getUserAccount().equals(a.getUserAccount())) {
-							customer.setBanned(true);
-							this.customerService.save(customer);
+							this.customerService.banActor(customer);
 							res = true;
 							break;
 						}
@@ -187,8 +185,7 @@ public class ActorService {
 					final Collection<HandyWorker> handyWorkers = this.handyWorkerService.findAll();
 					for (final HandyWorker handyWorker : handyWorkers)
 						if (handyWorker.getUserAccount().equals(a.getUserAccount())) {
-							handyWorker.setBanned(true);
-							this.handyWorkerService.save(handyWorker);
+							this.handyWorkerService.banActor(handyWorker);
 							res = true;
 							break;
 						}
@@ -198,8 +195,7 @@ public class ActorService {
 					final Collection<Referee> referees = this.refereeService.findAll();
 					for (final Referee referee : referees)
 						if (referee.getUserAccount().equals(a.getUserAccount())) {
-							referee.setBanned(true);
-							this.refereeService.save(referee);
+							this.refereeService.banActor(referee);
 							res = true;
 							break;
 						}
@@ -209,8 +205,7 @@ public class ActorService {
 					final Collection<Sponsor> sponsors = this.sponsorService.findAll();
 					for (final Sponsor sponsor : sponsors)
 						if (sponsor.getUserAccount().equals(a.getUserAccount())) {
-							sponsor.setBanned(true);
-							this.sponsorService.save(sponsor);
+							this.sponsorService.banActor(sponsor);
 							res = true;
 							break;
 						}

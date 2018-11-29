@@ -69,10 +69,18 @@ public class ActorServiceTest extends AbstractTest {
 
 	}
 
-	//TODO hay que hacer que los admin puedan hacer save en todos los actores para poder banearlos
 	@Test
 	public void banActorJuanCorrecto() {
 		this.authenticate("admin1");
+		final int actId = this.getEntityId("administrator1");
+		final Administrator a = this.administratorService.findOne(actId);
+		Assert.notNull(a);
+		Assert.isTrue(this.actorService.banActorJuan(a));
+	}
+
+	@Test
+	public void banActorJuanOtro() {
+		this.authenticate("admin2");
 		final int actId = this.getEntityId("administrator1");
 		final Administrator a = this.administratorService.findOne(actId);
 		Assert.notNull(a);
