@@ -169,4 +169,20 @@ public class CustomerService {
 		return res;
 	}
 
+	public void banActor(final Customer a) {
+		Assert.notNull(a);
+		this.serviceUtils.checkAuthority("ADMIN");
+		a.setBanned(true);
+		this.save(a);
+
+	}
+
+	public void unBanActor(final Customer a) {
+		Assert.notNull(a);
+		this.serviceUtils.checkAuthority("ADMIN");
+		a.setBanned(false);
+		this.save(a);
+
+	}
+
 }
