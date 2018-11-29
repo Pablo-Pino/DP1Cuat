@@ -56,6 +56,9 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 		UserAccount uaSender = message.getSender().getUserAccount();
 		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || 
 				LoginService.getPrincipal().equals(uaSender));
+		
+		//Comentando esto el save de massage funciona. REVISAR.
+		
 		if (message.getId() == 0) {
 			object.setMoment(new Date(System.currentTimeMillis() - 1000));
 			if (this.containsSpam(object)) {
@@ -67,6 +70,7 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 			}
 			final Folder outSender = this.folderService.findFolderByActorAndName(object.getSender(), "outbox");
 			message.getFolders().add(outSender);
+			folderService.save(outSender);
 		} else if (message.getId() > 0) {
 			object.setMoment(message.getMoment());
 			object.setReceiver(message.getReceiver());
