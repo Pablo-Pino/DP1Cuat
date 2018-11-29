@@ -158,38 +158,51 @@ public class ApplicationService {
 
 	public void NotificationMessage(final HandyWorker hw, final Customer c) {
 		Folder res = null;
+		System.out.println(hw);
+		System.out.println(hw.getFolders());
 		for (final Folder f : hw.getFolders()) {
-			if (f.getName().equals("inbox"))
+			System.out.println(f.getName());
+			if (f.getName().equals("inBox"))
 				res = f;
-			final Message m1 = this.messageService.create(f);
-			m1.setReceiver(hw);
-
-			m1.setSender(c);
-
-			this.messageService.save(m1);
-			res.getMessages().add(m1);
-			hw.getReceivedMessages().add(m1);
-			c.getSendedMessages().add(m1);
-			this.folderService.save(res);
 		}
-		for (final Folder f : c.getFolders()) {
-			if (f.getName().equals("inbox"))
+		System.out.println(res);
+		final Message m1 = this.messageService.create(res);
+		m1.setReceiver(hw);
+
+		m1.setSender(c);
+		m1.setBody("Este es un mensaje de notificación");
+		m1.setSubject("Cambio en Application");
+		m1.setPriority("HIGH");
+
+		System.out.println("Guardando 1er message");
+		this.messageService.save(m1);
+		//res.getMessages().add(m1);
+		//hw.getReceivedMessages().add(m1);
+		//c.getSendedMessages().add(m1);
+		//this.folderService.save(res);
+		for (final Folder f : c.getFolders())
+			if (f.getName().equals("inBox"))
 				res = f;
-			final Message m2 = this.messageService.create(f);
+		final Message m2 = this.messageService.create(res);
 
-			m2.setReceiver(c);
+		m2.setReceiver(c);
 
-			m2.setSender(hw);
+		m2.setSender(hw);
+		m2.setBody("Este es un mensaje de notificación");
+		m2.setSubject("Cambio en Application");
+		m2.setPriority("HIGH");
+		System.out.println("Guardando 2o message");
+		this.messageService.save(m2);
+		//res.getMessages().add(m2);
+		//c.getReceivedMessages().add(m2);
+		//hw.getSendedMessages().add(m2);
+		//	this.handyWorkerService.save(hw);
+		//	this.customerService.save(c);
+		//this.folderService.save(res);
+	}
 
-			this.messageService.save(m2);
-			res.getMessages().add(m2);
-			c.getReceivedMessages().add(m2);
-			hw.getSendedMessages().add(m2);
-			this.handyWorkerService.save(hw);
-			this.customerService.save(c);
-			this.folderService.save(res);
-		}
-
+	public void flush() {
+		this.applicationRepository.flush();
 	}
 
 }

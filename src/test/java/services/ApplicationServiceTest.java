@@ -15,6 +15,8 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Application;
+import domain.Folder;
+import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -67,15 +69,23 @@ public class ApplicationServiceTest extends AbstractTest {
 	public void testSaveApplicationCorrecto() {
 		Application app;
 		app = this.applicationService.findOne(this.getEntityId("application1"));
+		this.authenticate(app.getHandyWorker().getUserAccount().getUsername());
 		Assert.notNull(app);
 		app.setPrice(14.55);
 		app.setWorkerComments("WABBADALABALUPLUP");
 		app = this.applicationService.save(app);
+		this.applicationService.flush();
+		// Quitar esto de mostrar en consola antes de entregar
+		for (final Folder f : app.getHandyWorker().getFolders())
+			for (final Message m : f.getMessages())
+				System.out.println(m.getBody());
+		for (final Folder f : app.getFixupTask().getCustomer().getFolders())
+			for (final Message m : f.getMessages())
+				System.out.println(m.getBody());
 		Assert.isTrue(app.getPrice() == (14.55));
 		Assert.isTrue(app.getWorkerComments().equals("WABBADALABALUPLUP"));
-
+		this.unauthenticate();
 	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void testSaveApplicationIncorrecto() {
 		Application app;
@@ -131,6 +141,7 @@ public class ApplicationServiceTest extends AbstractTest {
 		Application app;
 		final String status = "ACCEPTED";
 		app = this.applicationService.findOne(this.getEntityId("application7"));
+		this.authenticate(app.getHandyWorker().getUserAccount().getUsername());
 		this.applicationService.changeStatus(app, status);
 		app = this.applicationService.save(app);
 		Assert.isTrue(app.getStatus().equals("ACCEPTED"));
