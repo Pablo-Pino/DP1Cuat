@@ -19,9 +19,11 @@ import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Customer;
+import domain.Folder;
 import domain.HandyWorker;
 import domain.Message;
 import domain.Referee;
+import domain.SocialProfile;
 import domain.Sponsor;
 
 @Service
@@ -35,6 +37,9 @@ public class ActorService {
 
 	//--------------------Services------------------------------
 
+	@Autowired
+	private SettingsService settingsService;
+	
 	@Autowired
 	private MessageService			messageService;
 
@@ -55,6 +60,9 @@ public class ActorService {
 	
 	@Autowired
 	private RefereeService			refereeService;
+	
+	@Autowired
+	private ServiceUtils serviceUtils;
 
 
 	// ------------------CRUD methods-----------------------------
@@ -222,5 +230,68 @@ public class ActorService {
 
 		return res;
 	}
-
+	
+	public boolean containsSpam(String s) {
+		boolean res = false;
+		for(String spamWord : this.settingsService.getSettings().getSpamWords()) {
+			if(s.contains(spamWord)) {
+				res = true;
+				break;
+			}
+		}
+		return res;
+	}
+	
+	public boolean isSuspicious(Actor a) {
+		boolean res = false;
+		Assert.notNull(a);
+		this.serviceUtils.checkId(a.getId());
+		Actor actor = this.actorRepository.findOne(a.getId());
+		Assert.notNull(actor);
+		res = this.containsSpam(actor.getAddress()) ||
+				this.containsSpam(actor.getEmail()) ||
+				this.containsSpam(actor.getMiddleName()) ||
+				this.containsSpam(actor.getName()) ||
+				this.containsSpam(actor.getPhone()) ||
+				this.containsSpam(actor.getPhoto()) ||
+				this.containsSpam(actor.getSurname());
+		if(!res) {
+			for (Folder f : actor.getFolders()) {
+				res = this.containsSpam(f.getName());
+				if (res) 
+					break;
+			}
+		} 
+		if(!res) {
+			for (Message m : actor.getSendedMessages()) {
+				res = this.containsSpam(m.getBody()) ||
+						this.containsSpam(m.getPriority()) ||
+						this.containsSpam(m.getSubject());
+				if(!res) {
+					for(String tag : m.getTags()) {
+						res = this.containsSpam(tag);
+						if(res) 
+							break;
+					}
+				} else 
+					break;
+			}
+		}
+		if(!res) {
+			for(SocialProfile sp : actor.getSocialProfiles()) {
+				res = this.containsSpam(sp.getNetworkName()) ||
+						this.containsSpam(sp.getNick()) ||
+						this.containsSpam(sp.getProfile());
+				if(res) 
+					break;
+			}
+		}
+		if(!res) {
+			res = this.containsSpam(actor.getUserAccount().getUsername());
+		}
+		return res;
+	}
+		
 }
+
+
