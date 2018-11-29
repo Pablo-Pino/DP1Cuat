@@ -127,7 +127,7 @@ public class AdministratorService {
 		Assert.notNull(a);
 		this.serviceUtils.checkAuthority("ADMIN");
 		a.setBanned(true);
-		this.save(a);
+		this.administratorRepository.save(a);
 
 	}
 
@@ -135,7 +135,7 @@ public class AdministratorService {
 		Assert.notNull(a);
 		this.serviceUtils.checkAuthority("ADMIN");
 		a.setBanned(false);
-		this.save(a);
+		this.administratorRepository.save(a);
 
 	}
 	//	//Ban actor

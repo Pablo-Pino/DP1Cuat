@@ -43,7 +43,7 @@ public class ActorServiceTest extends AbstractTest {
 
 	@Test
 	public void testgetSuspicious() {
-		this.authenticate("administrator1");
+		this.authenticate("admin2");
 		final int actorId = this.getEntityId("administrator1");
 		Actor actor;
 		actor = this.actorService.findOne(actorId);
@@ -54,37 +54,52 @@ public class ActorServiceTest extends AbstractTest {
 
 	}
 
-	@Test
-	public void testBanUnban() {
-		//this.authenticate("super");
-		final int actorId = this.getEntityId("administrator1");
-		Actor actor;
-		actor = this.actorService.findOne(actorId);
-		this.actorService.banActor(actor);
-		Assert.notNull(actor);
-		//Assert.isTrue(actor.getBanned());
-		this.actorService.unbanActor(actor);
-		Assert.notNull(actor);
-		Assert.isTrue(!(actor.getBanned()));
+	//	@Test
+	//	public void testBanUnban() {
+	//		//this.authenticate("super");
+	//		final int actorId = this.getEntityId("administrator1");
+	//		Actor actor;
+	//		actor = this.actorService.findOne(actorId);
+	//		this.actorService.banActor(actor);
+	//		Assert.notNull(actor);
+	//		//Assert.isTrue(actor.getBanned());
+	//		this.actorService.unbanActor(actor);
+	//		Assert.notNull(actor);
+	//		Assert.isTrue(!(actor.getBanned()));
+	//
+	//	}
 
-	}
-
 	@Test
-	public void banActorJuanCorrecto() {
+	public void banActorCorrecto() {
 		this.authenticate("admin1");
 		final int actId = this.getEntityId("administrator1");
 		final Administrator a = this.administratorService.findOne(actId);
 		Assert.notNull(a);
-		Assert.isTrue(this.actorService.banActorJuan(a));
+		Assert.isTrue(this.actorService.banActor(a));
 	}
 
 	@Test
-	public void banActorJuanOtro() {
+	public void banActorOtro() {
 		this.authenticate("admin2");
 		final int actId = this.getEntityId("administrator1");
 		final Administrator a = this.administratorService.findOne(actId);
 		Assert.notNull(a);
-		Assert.isTrue(this.actorService.banActorJuan(a));
+		Assert.isTrue(this.actorService.banActor(a));
+	}
+
+	@Test
+	public void unBanActor() {
+		this.authenticate("admin2");
+		final int actId = this.getEntityId("administrator1");
+		final Administrator a = this.administratorService.findOne(actId);
+		Assert.notNull(a);
+		Assert.isTrue(this.actorService.banActor(a));
+
+		Assert.isTrue((a.getBanned()));
+		Assert.isTrue(this.actorService.unBanActor(a));
+
+		Assert.isTrue(!(a.getBanned()));
+
 	}
 
 }
