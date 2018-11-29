@@ -128,6 +128,7 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 
 	}
 	public void generateAllScore() {
+		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		final Collection<Endorsable> res = this.endorsableService.findAll();
 		for (final Endorsable e : res) {
 			final Double d = this.generateScore(e);
@@ -138,6 +139,7 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 	}
 
 	public Double generateScore(final Endorsable a) {
+		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		Double res = 0.0;
 		Double cont = 0.0;
 		final Collection<Endorsement> endorsements = new ArrayList<Endorsement>();

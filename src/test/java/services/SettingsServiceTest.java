@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Endorsable;
+import domain.Endorsement;
 import domain.Settings;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,7 +28,11 @@ public class SettingsServiceTest extends AbstractTest {
 	// Services
 
 	@Autowired
-	private SettingsService	settingsService;
+	private SettingsService		settingsService;
+	@Autowired
+	private EndorsableService	endorsableService;
+	@Autowired
+	private EndorsementService	endorsementService;
 
 
 	// Tests
@@ -260,5 +266,37 @@ public class SettingsServiceTest extends AbstractTest {
 		Assert.isTrue(this.settingsService.getSettings().getNegativeWords().contains("malisimo"));
 
 	}
+	@Test
+	public void testGenerateAllScores() {
+		this.authenticate("admin1");
 
+		final Endorsable e = this.endorsableService.findOne(this.getEntityId("customer1"));
+		final Endorsable e2 = this.endorsableService.findOne(this.getEntityId("customer2"));
+		System.out.println("\n Score de customer1 inicial (aleatorio)--> " + e.getScore());
+		System.out.println(" Score de customer2 inicial (aleatorio)--> " + e2.getScore());
+		this.settingsService.generateAllScore();
+		System.out.println("\n Score de customer1 posterior (tiene que ser positivo)--> " + e.getScore());
+		System.out.println(" Score de customer2 posterior (tiene que ser negativo)--> " + e2.getScore());
+
+	}
+
+	@Test
+	public void testGenerateAllScores2() {
+		this.authenticate("admin1");
+		this.settingsService.generateAllScore();
+		final Endorsable e = this.endorsableService.findOne(this.getEntityId("customer1"));
+		System.out.println("\n Score de customer1 inicial (antes de editar el comment)--> " + e.getScore());
+
+		final Endorsement end = this.endorsementService.findOne(this.getEntityId("endorsement1"));
+		String comment = end.getComments();
+		comment = comment + "not not not not bad malo mala";
+		end.setComments(comment);
+
+		this.authenticate("customer1");
+		this.endorsementService.save(end);
+
+		this.authenticate("admin1");
+		this.settingsService.generateAllScore();
+		System.out.println(" Score de customer1 posterior (añadiendo badWords)--> " + e.getScore());
+	}
 }
