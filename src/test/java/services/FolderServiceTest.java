@@ -74,10 +74,11 @@ public class FolderServiceTest extends AbstractTest {
 	public void testSaveFolderCorrecto() {
 		Folder f;
 		this.authenticate("customer1");
-		f = this.folderService.findOne(this.getEntityId("folder1Customer1"));
+		f = this.folderService.findOne(this.getEntityId("folder5Customer1"));
 		Assert.notNull(f);
+		System.out.println(f.getName());
 		f = this.folderService.save(f);
-		Assert.isTrue(f.getName() == "inBox");
+		Assert.isTrue(f.getName().equals("testbox"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -112,7 +113,7 @@ public class FolderServiceTest extends AbstractTest {
 	@Test
 	public void testCreateSystemFolders() {
 
-		final int actorId = this.getEntityId("admin1");
+		final int actorId = this.getEntityId("administrator1");
 		final Actor a = this.actorService.findOne(actorId);
 		//this.authenticate("admin1");
 
