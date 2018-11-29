@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 import repositories.RefereeRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.Actor;
 import domain.Complaint;
 import domain.Folder;
 import domain.Message;

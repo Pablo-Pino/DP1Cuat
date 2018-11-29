@@ -156,6 +156,18 @@ public class ReportServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
+	public void refeeReportStats(String username, Class<?> expected) {
+		Class<?> caught = null;
+		try {
+			this.authenticate(username);
+			this.reportService.refeeReportStats();
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+		this.checkExceptions(expected, caught);
+	}
+	
 	@Test
 	public void testFindOneReport() {
 		this.findOneReport(super.getEntityId("report1"), null);
@@ -236,5 +248,17 @@ public class ReportServiceTest extends AbstractTest {
 	public void testDeleteReportUnauthenticated() {
 		this.deleteReport(null, super.getEntityId("report1"), IllegalArgumentException.class);
 	}
+	
+	@Test
+	public void testRefeeReportStats() {
+		this.refeeReportStats("admin1", null);
+	}
+	
+	@Test
+	public void testRefeeReportStatsUnauthenticated() {
+		this.refeeReportStats(null, IllegalArgumentException.class);
+	}
+	
+	
 
 }

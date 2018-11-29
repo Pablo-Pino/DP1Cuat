@@ -24,14 +24,19 @@ import domain.Url;
 @Transactional
 public class ReportService extends GenericService<Report, ReportRepository> implements ServiceObjectDependantI<Report, Complaint> {
 
+	// Repository
+	
 	@Autowired
 	private ReportRepository	repository;
 
+	// Services
+	
 	@Autowired
 	private ComplaintService	complaintService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
+	// CRUD methods
 
 	@Override
 	public Collection<Report> findAll(final Complaint dependency) {
@@ -82,11 +87,14 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 		this.repository.delete(report);
 	}
 	
+	// Other methods
+	
 	public void flush() {
 		this.repository.flush();
 	}
 	
 	public Map<String, Double> refeeReportStats() {
+		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		final Double[] statistics = this.repository.refeeReportStats();
 		final Map<String, Double> res = new HashMap<>();
 		res.put("MIN", statistics[0]);

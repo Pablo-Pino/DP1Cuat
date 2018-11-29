@@ -18,15 +18,20 @@ import domain.WorkPlan;
 @Transactional
 public class PhaseService extends GenericService<Phase, PhaseRepository> implements ServiceObjectDependantI<Phase, WorkPlan> {
 
+	// Repository
+	
 	@Autowired
 	private PhaseRepository	repository;
 
+	// Services
+	
 	@Autowired
 	private WorkPlanService	workPlanService;
 	@Autowired
 	private ServiceUtils	serviceUtils;
 
-
+	// CRUD methods
+	
 	@Override
 	public Collection<Phase> findAll(final WorkPlan dependency) {
 		this.serviceUtils.checkId(dependency);
@@ -63,6 +68,8 @@ public class PhaseService extends GenericService<Phase, PhaseRepository> impleme
 		this.repository.delete(phase);
 	}
 
+	// Other methods
+	
 	public void flush() {
 		this.repository.flush();
 	}

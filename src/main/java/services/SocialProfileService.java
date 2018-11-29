@@ -17,15 +17,20 @@ import domain.SocialProfile;
 @Transactional
 public class SocialProfileService extends GenericService<SocialProfile, SocialProfileRepository> implements ServiceActorDependantI<SocialProfile> {
 
+	// Repository
+	
 	@Autowired
 	private SocialProfileRepository	repository;
 
+	// Services
+	
 	@Autowired
 	private ActorService			actorService;
 	@Autowired
 	private ServiceUtils serviceUtils;
 
-
+	// CRUD methods
+	
 	@Override
 	public Collection<SocialProfile> findAllByActor(final Actor a) {
 		Assert.notNull(a);
@@ -60,6 +65,8 @@ public class SocialProfileService extends GenericService<SocialProfile, SocialPr
 		this.repository.delete(socialProfile);
 	}
 
+	// Other methods
+	
 	public void flush() {
 		this.repository.flush();
 	}
