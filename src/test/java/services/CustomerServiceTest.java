@@ -53,6 +53,23 @@ public class CustomerServiceTest extends AbstractTest {
 		Assert.isTrue(saved.getSurname().equals("otro"));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testSaveIncorrecto() {
+
+		Customer customer, saved;
+		int customerId;
+		customerId = this.getEntityId("customer1");
+		customer = this.customerService.findOne(customerId);
+		Assert.notNull(customer);
+
+		this.authenticate("customer1");
+
+		customer.setEmail(null);
+		Assert.notNull(customer.getEmail());
+		saved = this.customerService.save(customer);
+		Assert.isTrue(saved.getSurname().equals("otro"));
+	}
+
 	@Test
 	public void testFindOneCorrecto() {
 		Customer customer;
@@ -86,7 +103,8 @@ public class CustomerServiceTest extends AbstractTest {
 	public void listCustomer10() {
 		this.authenticate("customer1");
 		final Collection<Customer> result = this.customerService.listCustomer10();
-		System.out.println("Lista de customer:" + result);
+		Assert.notNull(result);
+		Assert.notEmpty(result);
 
 	}
 
@@ -109,6 +127,15 @@ public class CustomerServiceTest extends AbstractTest {
 		Assert.notNull(res);
 		Assert.notEmpty(res);
 
+	}
+
+	@Test
+	public void testgetTop3CustomerWithMoreComplaints() {
+		Collection<Customer> res;
+		res = this.customerService.getTop3CustomerWithMoreComplaints();
+		Assert.isTrue(res.size() == 3);
+
+		Assert.notNull(res);
 	}
 
 }

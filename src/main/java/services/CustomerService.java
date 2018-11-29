@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.CustomerRepository;
-import security.LoginService;
-import security.UserAccount;
 import domain.Customer;
 import domain.FixupTask;
 import domain.Folder;
@@ -138,49 +136,53 @@ public class CustomerService {
 
 	// Other business methods -------------------------------------------------
 
-	public Customer findByPrincipal() {
-		Customer result;
-		UserAccount userAccount;
-
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-		result = this.findByUserAccount(userAccount);
-		Assert.notNull(result);
-
-		return result;
-	}
-
-	public Customer findByUserAccount(final UserAccount userAccount) {
-		Assert.notNull(userAccount);
-
-		Customer result;
-
-		result = this.customerRepository.findByUserAccountId(userAccount.getId());
-
-		return result;
-	}
-
-	//TODO tiene que devolver solo 3
 	public Collection<Customer> getTop3CustomerWithMoreComplaints() {
-		final Collection<Customer> ratio = this.customerRepository.getTop3CustomerWithMoreComplaints();
+		final Collection<Customer> ratio = new ArrayList<>();
+
+		final Collection<Customer> customersCompl = this.customerRepository.getTop3CustomerWithMoreComplaints();
+		int i = 0;
+		for (final Customer c : customersCompl)
+			if (i < 3) {
+				ratio.add(c);
+				i++;
+
+			}
 		return ratio;
 	}
 
+	//The listing of customers who have published at least 10% more fix-up tasks than the average, ordered by number of applications
 	public Collection<Customer> listCustomer10() {
 		final Collection<Customer> list = this.customerRepository.listCustomer10();
 		return list;
 	}
 
-	//Un customer puede listar sus fixuptask
+	//Un customer puede listar todas las fixuptask
 	public Collection<FixupTask> getAllFixupTasks() {
 		Collection<FixupTask> res;
 		res = this.fixupTaskService.findAll();
 		return res;
 	}
 
+	//Un customer puede listar sus fixuptask
 	public Collection<FixupTask> getFixupTaskByCustomer(final Customer c) {
 		final Collection<FixupTask> res = c.getFixupTasks();
 		return res;
+	}
+
+	public void banActor(final Customer a) {
+		Assert.notNull(a);
+		this.serviceUtils.checkAuthority("ADMIN");
+		a.setBanned(true);
+		this.save(a);
+
+	}
+
+	public void unBanActor(final Customer a) {
+		Assert.notNull(a);
+		this.serviceUtils.checkAuthority("ADMIN");
+		a.setBanned(false);
+		this.save(a);
+
 	}
 
 }

@@ -162,7 +162,7 @@ public class ActorService {
 				res = true;
 		return res;
 	}
-
+	//--------------------método alternativo
 	public Boolean banActorJuan(final Actor a) {
 		Boolean res = false;
 		if (a.getSuspicious() && !(a.getBanned()))

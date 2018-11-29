@@ -80,6 +80,9 @@ public class CurriculumService {
 		Assert.notNull(curriculum);
 		Curriculum res;
 
+		Assert.notNull(curriculum.getHandyWorker());
+		Assert.notNull(curriculum.getPersonalRecord());
+
 		res = this.curriculumRepository.save(curriculum);
 
 		return res;

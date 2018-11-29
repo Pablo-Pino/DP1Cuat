@@ -38,8 +38,8 @@ public class MessageServiceTest extends AbstractTest{
 
 	@Test
 	public void testCreate() {
-		int folderId =this.getEntityId("folder1");
-		final Folder f = this.folderService.findOne(folderId);
+		final Folder f =this.folderService.findOne(this.getEntityId("folder1Customer1"));
+		this.authenticate("customer1");
 		final Message m = this.messageService.create(f);
 		Assert.notNull(m);
 	}
@@ -72,6 +72,7 @@ public class MessageServiceTest extends AbstractTest{
 	@Test
 	public void saveTestCorrecto() {
 		Message m, saved;
+		this.authenticate("customer1");
 		final int mId = this.getEntityId("message1");
 		m = this.messageService.findOne(mId);
 		Assert.notNull(m);
@@ -97,6 +98,7 @@ public class MessageServiceTest extends AbstractTest{
 	@Test
 	public void deleteTestCorrecto() {
 		Message m;
+		this.authenticate("customer1");
 		final int mId = this.getEntityId("message1");
 		m = this.messageService.findOne(mId);
 		Assert.notNull(m);
