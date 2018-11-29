@@ -89,7 +89,7 @@ public class FixupTaskServiceTest extends AbstractTest{
 	@Test
 	public void deleteTestCorrecto() {
 		FixupTask ft;
-		final int ftId = this.getEntityId("fixupTaskRecord2");
+		final int ftId = this.getEntityId("fixupTask1");
 		ft = this.fixupTaskService.findOne(ftId);
 		Assert.notNull(ft);
 

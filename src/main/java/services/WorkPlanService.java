@@ -51,6 +51,7 @@ public class WorkPlanService {
 
 	public WorkPlan save(final WorkPlan w) {
 		Assert.notNull(w);
+		Assert.isTrue(this.checkStatusApplicationAccepted(w));
 		if (w.getId() == 0)
 			w.setPhases(new ArrayList<Phase>());
 		return this.workPlanRepository.save(w);
@@ -67,6 +68,7 @@ public class WorkPlanService {
 		this.workPlanRepository.delete(w);
 	}
 
+	//TODO implementar este método en los servicios que corresponda --> create? save?
 	public Boolean checkStatusApplicationAccepted(final WorkPlan w) {
 		Boolean res = false;
 		final int fixupTaskId = w.getFixupTask().getId();

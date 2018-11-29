@@ -14,10 +14,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import utilities.AbstractTest;
 import domain.Actor;
 import domain.Administrator;
-
-import utilities.AbstractTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -29,7 +28,9 @@ public class ActorServiceTest extends AbstractTest {
 	//Service under test ------------------------------------------
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
+	@Autowired
+	private AdministratorService	administratorService;
 
 
 	@Test
@@ -39,24 +40,24 @@ public class ActorServiceTest extends AbstractTest {
 		System.out.println("Las variables de FixupTask para este usuario son: " + result);
 
 	}
-	
+
 	@Test
 	public void testgetSuspicious() {
 		this.authenticate("administrator1");
-		int actorId = this.getEntityId("administrator1");
+		final int actorId = this.getEntityId("administrator1");
 		Actor actor;
 		actor = this.actorService.findOne(actorId);
-		Collection<Actor> suspicious = new ArrayList<Actor>(this.actorService.suspiciousActors());
+		final Collection<Actor> suspicious = new ArrayList<Actor>(this.actorService.suspiciousActors());
 		Assert.isTrue(suspicious.contains(actor));
 		System.out.println("Lista de actores sospechosos: " + suspicious);
 		//administrator1 es sospechoso porque lo he cambiado yo queriendo
-	
+
 	}
-	
+
 	@Test
 	public void testBanUnban() {
 		//this.authenticate("super");
-		int actorId = this.getEntityId("administrator2");
+		final int actorId = this.getEntityId("administrator1");
 		Actor actor;
 		actor = this.actorService.findOne(actorId);
 		this.actorService.banActor(actor);
@@ -68,5 +69,14 @@ public class ActorServiceTest extends AbstractTest {
 
 	}
 
+	//TODO hay que hacer que los admin puedan hacer save en todos los actores para poder banearlos
+	@Test
+	public void banActorJuanCorrecto() {
+		this.authenticate("admin1");
+		final int actId = this.getEntityId("administrator1");
+		final Administrator a = this.administratorService.findOne(actId);
+		Assert.notNull(a);
+		Assert.isTrue(this.actorService.banActorJuan(a));
+	}
 
 }

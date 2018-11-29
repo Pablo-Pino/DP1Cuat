@@ -13,12 +13,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
+import domain.Customer;
+import domain.HandyWorker;
 import domain.Message;
-
+import domain.Referee;
+import domain.Sponsor;
 
 @Service
 @Transactional
@@ -27,32 +31,30 @@ public class ActorService {
 	//--------------------Repositories--------------------------
 
 	@Autowired
-	private ActorRepository	actorRepository;
-	
-
+	private ActorRepository			actorRepository;
 
 	//--------------------Services------------------------------
-	
+
 	@Autowired
-	private MessageService messageService;
-	
+	private MessageService			messageService;
+
 	@Autowired
-	private ServiceUtils utilService;
-	
+	private ServiceUtils			utilService;
+
 	@Autowired
-	private AdministratorService adminService;
-	
+	private AdministratorService	adminService;
+
 	@Autowired
-	private CustomerService customerService;
-	
+	private CustomerService			customerService;
+
 	@Autowired
-	private SponsorService sponsorService;
-	
+	private SponsorService			sponsorService;
+
 	@Autowired
 	private HandyWorkerService handyWorkerService;
 	
 	@Autowired
-	private RefereeService refereeService;
+	private RefereeService			refereeService;
 
 
 	// ------------------CRUD methods-----------------------------
@@ -101,66 +103,124 @@ public class ActorService {
 	//Flata hacer lo del spam. se hace aqui o en el domain?
 
 	public Collection<Actor> suspiciousActors() {
-		Collection<Actor> res = new ArrayList<Actor>();
+		final Collection<Actor> res = new ArrayList<Actor>();
 		for (final Actor a : this.findAll())
-			if (checkSpam(a)){
+			if (this.checkSpam(a))
 				res.add(a);
-			}
 
 		return res;
 	}
 
 	//Ban actor
-		public Boolean banActor(final Actor a) {
-			Boolean banned = false;
-			Assert.notNull(a);
-			Boolean esAdmin = utilService.checkAuthorityBoolean("ADMIN");
-			Boolean esCustomer = utilService.checkAuthorityBoolean("CUSTOMER");
-			Boolean esSponsor = utilService.checkAuthorityBoolean("SPONSOR");
-			Boolean esHandyWorker = utilService.checkAuthorityBoolean("HANDYWORKER");
-			Boolean esReferee = utilService.checkAuthorityBoolean("REFEREE");
-			//if (checkBan(a)){
-			a.setBanned(true);
-			if(esAdmin){
-				this.adminService.save(null);
-			}
-			if(esCustomer){
-				this.customerService.save(null);
-			}
-			if(esSponsor){
-				this.sponsorService.save(null);
-			}
-			if(esHandyWorker){
-				this.handyWorkerService.save(null);
-			}
-			if(esAdmin){
-				this.refereeService.save(null);
-			}
-			
-			return banned;
-			//TODO ver como guardar el actor cuando ha sido baneado
-		}
-		
-		//unban actor
-		public Boolean unbanActor(final Actor a) {
-			Boolean banned = true;
-			Assert.notNull(a);
-			Assert.isTrue(a.getBanned());
-			a.setBanned(false);
-			//this.save(a);
-			return banned;
-		}
-		
-		public Boolean checkSpam(Actor a){
-			Boolean res= false;
-			for(Message m : a.getSendedMessages()){
-				if(messageService.containsSpam(m)){
-					res= true;
+	public Boolean banActor(final Actor a) {
+		final Boolean banned = false;
+		Assert.notNull(a);
+		final Boolean esAdmin = this.utilService.checkAuthorityBoolean("ADMIN");
+		final Boolean esCustomer = this.utilService.checkAuthorityBoolean("CUSTOMER");
+		final Boolean esSponsor = this.utilService.checkAuthorityBoolean("SPONSOR");
+		final Boolean esHandyWorker = this.utilService.checkAuthorityBoolean("HANDYWORKER");
+		final Boolean esReferee = this.utilService.checkAuthorityBoolean("REFEREE");
+		//if (checkBan(a)){
+		a.setBanned(true);
+		if (esAdmin)
+			this.adminService.save((Administrator) a);
+		if (esCustomer)
+			this.customerService.save((Customer) a);
+		if (esSponsor)
+			this.sponsorService.save((Sponsor) a);
+		if (esHandyWorker)
+			this.handyWorkerService.save((HandyWorker) a);
+		if (esReferee)
+			this.refereeService.save((Referee) a);
+
+		return banned;
+		//TODO ver como guardar el actor cuando ha sido baneado
+	}
+
+	//unban actor
+	public Boolean unbanActor(final Actor a) {
+		final Boolean banned = true;
+		Assert.notNull(a);
+		Assert.isTrue(a.getBanned());
+		a.setBanned(false);
+		//this.save(a);
+		return banned;
+	}
+
+	public Boolean checkSpam(final Actor a) {
+		Boolean res = false;
+		for (final Message m : a.getSendedMessages())
+			if (this.messageService.containsSpam(m))
+				res = true;
+		return res;
+	}
+
+	public Boolean banActorJuan(final Actor a) {
+		Boolean res = false;
+		if (a.getSuspicious() && !(a.getBanned()))
+			for (final Authority au : a.getUserAccount().getAuthorities()) {
+				if (au.getAuthority().equals(Authority.ADMIN)) {
+					a.setBanned(true);
+
+					final Collection<Administrator> admins = this.adminService.findAll();
+					for (final Administrator admin : admins)
+						if (admin.getUserAccount().equals(a.getUserAccount())) {
+							admin.setBanned(true);
+							this.adminService.save(admin);
+							res = true;
+							break;
+						}
+					break;
+				} else if (au.getAuthority().equals(Authority.CUSTOMER)) {
+					a.setBanned(true);
+					final Collection<Customer> customers = this.customerService.findAll();
+					for (final Customer customer : customers)
+						if (customer.getUserAccount().equals(a.getUserAccount())) {
+							customer.setBanned(true);
+							this.customerService.save(customer);
+							res = true;
+							break;
+						}
+					break;
+				} else if (au.getAuthority().equals(Authority.HANDYWORKER)) {
+					a.setBanned(true);
+					final Collection<HandyWorker> handyWorkers = this.handyWorkerService.findAll();
+					for (final HandyWorker handyWorker : handyWorkers)
+						if (handyWorker.getUserAccount().equals(a.getUserAccount())) {
+							handyWorker.setBanned(true);
+							this.handyWorkerService.save(handyWorker);
+							res = true;
+							break;
+						}
+					break;
+				} else if (au.getAuthority().equals(Authority.REFEREE)) {
+					a.setBanned(true);
+					final Collection<Referee> referees = this.refereeService.findAll();
+					for (final Referee referee : referees)
+						if (referee.getUserAccount().equals(a.getUserAccount())) {
+							referee.setBanned(true);
+							this.refereeService.save(referee);
+							res = true;
+							break;
+						}
+					break;
+				} else if (au.getAuthority().equals(Authority.SPONSOR)) {
+					a.setBanned(true);
+					final Collection<Sponsor> sponsors = this.sponsorService.findAll();
+					for (final Sponsor sponsor : sponsors)
+						if (sponsor.getUserAccount().equals(a.getUserAccount())) {
+							sponsor.setBanned(true);
+							this.sponsorService.save(sponsor);
+							res = true;
+							break;
+						}
+
 				}
-					
-				}
-			return res;
-		}
-		
+				break;
+			}
+		//System.out.println(au.getAuthority().equals(Authority.ADMIN));
+
+		return res;
+	}
 
 }
