@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Actor;
 import domain.Folder;
 import domain.Message;
 
@@ -32,6 +33,9 @@ public class MessageServiceTest extends AbstractTest{
 	
 	@Autowired
 	private FolderService	folderService;
+	
+	@Autowired
+	private ActorService actorService;
 
 
 	//------------------------------------------------------------
@@ -98,13 +102,19 @@ public class MessageServiceTest extends AbstractTest{
 	@Test
 	public void deleteTestCorrecto() {
 		Message m;
-		this.authenticate("customer1");
+		Actor a;
+
+		this.authenticate("handywoker1");
+		a = actorService.findPrincipal();
 		final int mId = this.getEntityId("message1");
 		m = this.messageService.findOne(mId);
 		Assert.notNull(m);
 
 		this.messageService.delete(m);
-		Assert.isNull(m = this.messageService.findOne(mId));
+		System.out.println(m);
+		//Assert.isNull(this.messageService.findOne(mId));
+		//Comprobar si esta en la papelera
+		Assert.isTrue(!(this.folderService.findFolderByActorAndName(a, "trashbox").getMessages().contains(m)));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
