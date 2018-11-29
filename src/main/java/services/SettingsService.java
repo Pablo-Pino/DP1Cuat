@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import repositories.SettingsRepository;
 import security.Authority;
+import domain.Endorsable;
+import domain.Endorsement;
 import domain.Settings;
 
 @Service
@@ -26,6 +28,9 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 
 	@Autowired
 	private ServiceUtils		serviceUtils;
+
+	@Autowired
+	private EndorsableService	endorsableService;
 
 
 	// CRUD methods
@@ -120,6 +125,39 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 		this.deleteNegativeWords(oldWord);
 		this.addNegativeWords(newWord);
 		return this.getSettings().getNegativeWords();
+
+	}
+	public void generateAllScore() {
+		final Collection<Endorsable> res = this.endorsableService.findAll();
+		for (final Endorsable e : res) {
+			final Double d = this.generateScore(e);
+			e.setScore(d);
+			this.endorsableService.save(e);
+		}
+
 	}
 
+	public Double generateScore(final Endorsable a) {
+		Double res = 0.0;
+		Double cont = 0.0;
+		final Collection<Endorsement> endorsements = new ArrayList<Endorsement>();
+		final Collection<String> buenas = this.getSettings().getPositiveWords();
+		final Collection<String> malas = this.getSettings().getNegativeWords();
+		endorsements.addAll(a.getReceivedEndorsements());
+		endorsements.addAll(a.getSendedEndorsements());
+		for (final Endorsement e : endorsements) {
+			final String[] palabras = e.getComments().split(" ");
+			for (final String word : palabras) {
+
+				if (buenas.contains(word))
+					res++;
+				if (malas.contains(word))
+					res--;
+				cont++;
+			}
+
+		}
+
+		return res / cont;
+	}
 }
