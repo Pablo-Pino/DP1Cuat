@@ -147,7 +147,6 @@ public class AdministratorService {
 	//		//}
 	//		this.save(a);
 	//		return banned;
-	//		//TODO ver como guardar el actor cuando ha sido baneado
 	//	}
 	//	
 	//	//unban actor

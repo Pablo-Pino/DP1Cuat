@@ -159,25 +159,106 @@ public class SettingsServiceTest extends AbstractTest {
 
 	@Test
 	public void testSaveSettings() {
-		Settings settings = settingsService.findOne(this.getEntityId("settings1"));
+		final Settings settings = this.settingsService.findOne(this.getEntityId("settings1"));
 		this.saveSettings("admin1", "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", null, IllegalArgumentException.class);
 	}
 
 	@Test
 	public void testUpdateSettings() {
-		Settings settings = settingsService.findOne(this.getEntityId("settings1"));
+		final Settings settings = this.settingsService.findOne(this.getEntityId("settings1"));
 		this.saveSettings("admin1", "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", this.getEntityId("settings1"), null);
 	}
 
 	@Test
 	public void testUpdateSettingsUnauthenticated() {
-		Settings settings = settingsService.findOne(this.getEntityId("settings1"));
-		this.saveSettings(null, "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", this.getEntityId("settings1"), IllegalArgumentException.class);
+		final Settings settings = this.settingsService.findOne(this.getEntityId("settings1"));
+		this.saveSettings(null, "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", this.getEntityId("settings1"),
+			IllegalArgumentException.class);
 	}
 
 	@Test
 	public void testDeleteSettings() {
 		this.deleteSettings("admin1", super.getEntityId("settings1"), IllegalArgumentException.class);
 	}
-	
+
+	@Test
+	public void testAddPositiveWord() {
+		this.authenticate("admin2");
+		final String s = "Stupendous!";
+		this.settingsService.addPositiveWords(s);
+		Assert.isTrue(this.settingsService.getSettings().getPositiveWords().contains("Stupendous!"));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAddPositiveWordIncorreto() {
+		this.authenticate("admin2");
+		final String s = "bueno";
+		this.settingsService.addPositiveWords(s);
+	}
+
+	@Test
+	public void testDeletePositiveWord() {
+		this.authenticate("admin1");
+		final String s = "bueno";
+		this.settingsService.deletePositiveWords(s);
+		Assert.isTrue(!(this.settingsService.getSettings().getPositiveWords().contains("bueno")));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeletePositiveWordIncorreto() {
+		this.authenticate("admin2");
+		final String s = "iusbhdcoi9";
+		this.settingsService.deletePositiveWords(s);
+	}
+	//---------------------------------------------------------------------------------------------------------------
+	@Test
+	public void testAddNegativeWord() {
+		this.authenticate("admin2");
+		final String s = "shit";
+		this.settingsService.addNegativeWords(s);
+		Assert.isTrue(this.settingsService.getSettings().getNegativeWords().contains("shit"));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAddNegativeWordIncorreto() {
+		this.authenticate("admin2");
+		final String s = "not";
+		this.settingsService.addNegativeWords(s);
+	}
+
+	@Test
+	public void testDeleteNegativeWord() {
+		this.authenticate("admin1");
+		final String s = "not";
+		this.settingsService.deleteNegativeWords(s);
+		Assert.isTrue(!(this.settingsService.getSettings().getNegativeWords().contains("not")));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteNegativeWordIncorreto() {
+		this.authenticate("admin2");
+		final String s = "iusbhdcoi9";
+		this.settingsService.deleteNegativeWords(s);
+	}
+
+	@Test
+	public void testUpdatePositiveWord() {
+		final String oldWord = "bueno";
+		final String newWord = "buenisimo";
+		this.settingsService.updatePositiveWord(oldWord, newWord);
+		Assert.isTrue(!(this.settingsService.getSettings().getNegativeWords().contains("bueno")));
+		Assert.isTrue(this.settingsService.getSettings().getPositiveWords().contains("buenisimo"));
+
+	}
+
+	@Test
+	public void testUpdateNegativeWord() {
+		final String oldWord = "malo";
+		final String newWord = "malisimo";
+		this.settingsService.updateNegativeWord(oldWord, newWord);
+		Assert.isTrue(!(this.settingsService.getSettings().getNegativeWords().contains("malo")));
+		Assert.isTrue(this.settingsService.getSettings().getNegativeWords().contains("malisimo"));
+
+	}
+
 }

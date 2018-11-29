@@ -140,7 +140,6 @@ public class ActorService {
 	//			this.refereeService.save((Referee) a);
 	//
 	//		return banned;
-	//		//TODO ver como guardar el actor cuando ha sido baneado
 	//	}
 	//
 	//	//unban actor
