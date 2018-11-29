@@ -30,17 +30,7 @@ public class ApplicationService {
 	// Supporting Service
 
 	@Autowired
-	private HandyWorkerService		handyWorkerService;
-
-	@Autowired
-	private ServiceUtils			serviceUtils;
-
-	@Autowired
 	private MessageService			messageService;
-	@Autowired
-	private FolderService			folderService;
-	@Autowired
-	private CustomerService			customerService;
 
 
 	// Constructors

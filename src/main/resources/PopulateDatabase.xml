@@ -1176,7 +1176,7 @@
 	<!-- ___________________Endorsement__________________________________ -->
 	<bean id="endorsement1" class="domain.Endorsement">
 		<property name="moment" value="February 12, 2017 12:00"></property>
-		<property name="comments" value="Estoy muy contenta"></property>
+		<property name="comments" value="Estoy muy contenta y todo parece muy bueno excelente fantastico y hermonso ,"></property>
 		<property name="sender" ref="customer1"></property>
 		<property name="receiver" ref="handyWorker1"></property>
 
@@ -1184,7 +1184,7 @@
 
 	<bean id="endorsement2" class="domain.Endorsement">
 		<property name="moment" value="February 12, 2016 12:00"></property>
-		<property name="comments" value="NO estoy muy contenta"></property>
+		<property name="comments" value="NO estoy muy contenta not not not  this is bad bad malo malisimo"></property>
 		<property name="sender" ref="handyWorker2"></property>
 		<property name="receiver" ref="customer2"></property>
 

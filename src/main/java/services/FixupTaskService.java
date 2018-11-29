@@ -18,7 +18,6 @@ import domain.Customer;
 import domain.FixupTask;
 import domain.Warranty;
 
-
 @Service
 @Transactional
 public class FixupTaskService {
@@ -30,23 +29,13 @@ public class FixupTaskService {
 
 
 	// Supporting Service
-	
-	@Autowired
-	private CategoryService	categoryService;
-	
-	@Autowired
-	private WarrantyService warrantyService;
-	
-	@Autowired
-	private CustomerService	customerService;
 
 	//
-	
+
 	public FixupTaskService() {
 		super();
 	}
 	// Simple CRUD methods
-
 
 	public FixupTask create() {
 		FixupTask ft;
@@ -65,33 +54,32 @@ public class FixupTaskService {
 		FixupTask res;
 		res = this.fixupTaskRepository.findOne(fixupTaskId);
 		return res;
-		
+
 	}
 
 	public FixupTask save(final FixupTask f) {
-		
+
 		Assert.notNull(f);
-		
+
 		Category category;
 		Warranty warranty;
 		Customer customer;
-		
+
 		category = f.getCategory();
 		warranty = f.getWarranty();
 		customer = f.getCustomer();
-		
+
 		category.getFixupTasks().add(f);
 		//categoryService.save(category);
-		
+
 		warranty.getFixupTasks().add(f);
 		//warrantyService.save(warranty);
-		
+
 		customer.getFixupTasks().add(f);
 		//customerService.save(customer);
-		
+
 		this.fixupTaskRepository.save(f);
-		
-		
+
 		return f;
 	}
 
@@ -126,7 +114,7 @@ public class FixupTaskService {
 
 		return res;
 	}
-	
+
 	public Map<String, Double> getRatioFixupTasksWithComplaints() {
 		final Double ratio = this.fixupTaskRepository.ratiofixupComplaint();
 		final Map<String, Double> res = new HashMap<>();
@@ -135,7 +123,7 @@ public class FixupTaskService {
 
 		return res;
 	}
-	
+
 	public Map<String, Double> fixupComplaintsStats() {
 		final Double[] statistics = this.fixupTaskRepository.fixupComplaintsStats();
 		final Map<String, Double> res = new HashMap<>();
@@ -147,9 +135,5 @@ public class FixupTaskService {
 		return res;
 
 	}
-	
-	
-	
-	
 
 }

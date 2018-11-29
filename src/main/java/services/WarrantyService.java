@@ -24,14 +24,8 @@ public class WarrantyService {
 	@Autowired
 	private WarrantyRepository	warrantyRepository;
 
-	// Supporting Service
-	@Autowired
-	private PhaseService		phaseService;
-	@Autowired
-	private HandyWorkerService	handyWorkerService;
-	@Autowired
-	private FixupTaskService	fixupTaskService;
 
+	// Supporting Service
 
 	public Warranty findOne(final Integer id) {
 		return this.warrantyRepository.findOne(id);

@@ -41,12 +41,6 @@ public class ActorService {
 	private SettingsService			settingsService;
 
 	@Autowired
-	private MessageService			messageService;
-
-	@Autowired
-	private ServiceUtils			utilService;
-
-	@Autowired
 	private AdministratorService	adminService;
 
 	@Autowired

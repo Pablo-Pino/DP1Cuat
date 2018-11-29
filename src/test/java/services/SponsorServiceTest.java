@@ -79,7 +79,7 @@ public class SponsorServiceTest extends AbstractTest {
 	public void testDelete() {
 		Sponsor sponsor;
 		sponsor = this.sponsorService.findOne(super.getEntityId("sponsor1"));
-		final int id = sponsor.getId();
+		//final int id = sponsor.getId();
 		this.sponsorService.delete(sponsor);
 		Assert.isTrue(sponsor.getBanned());
 	}
