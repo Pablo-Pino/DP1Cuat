@@ -81,14 +81,14 @@ public class SponsorService {
 		Assert.notNull(s);
 		this.serviceUtils.checkAuthority("ADMIN");
 		s.setBanned(true);
-		this.save(s);
+		this.sponsorRepository.save(s);
 	}
 
 	public void unbanActor(final Sponsor s) {
 		Assert.notNull(s);
 		this.serviceUtils.checkAuthority("ADMIN");
 		s.setBanned(false);
-		this.save(s);
+		this.sponsorRepository.save(s);
 	}
 
 	public Sponsor findSponsorById(final int id) {

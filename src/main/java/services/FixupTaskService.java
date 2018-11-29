@@ -127,14 +127,14 @@ public class FixupTaskService {
 		return res;
 	}
 	
-//	public Map<String, Double> getRatioFixupTasksWithComplaints() {
-//		final Double ratio = this.fixupTaskRepository.getRatioFixupTasksWithComplaints();
-//		final Map<String, Double> res = new HashMap<>();
-//
-//		res.put("Ratio", ratio);
-//
-//		return res;
-//	}
+	public Map<String, Double> getRatioFixupTasksWithComplaints() {
+		final Double ratio = this.fixupTaskRepository.ratiofixupComplaint();
+		final Map<String, Double> res = new HashMap<>();
+
+		res.put("Ratio", ratio);
+
+		return res;
+	}
 	
 	public Map<String, Double> fixupComplaintsStats() {
 		final Double[] statistics = this.fixupTaskRepository.fixupComplaintsStats();

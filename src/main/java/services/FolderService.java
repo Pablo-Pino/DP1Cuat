@@ -23,8 +23,8 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 	private FolderRepository	repository;
 	@Autowired
 	private ActorService		actorService;
-	@Autowired 
-	private ServiceUtils serviceUtils;
+	@Autowired
+	private ServiceUtils		serviceUtils;
 
 
 	@Override

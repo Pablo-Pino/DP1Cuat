@@ -29,4 +29,8 @@ public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 	
 	@Query("select min(t.complaints.size), max(t.complaints.size),avg(t.complaints.size),sqrt(sum(t.complaints.size*t.complaints.size)/count(t.complaints.size)-(avg(t.complaints.size)*avg(t.complaints.size))) from FixupTask t")
 	Double[] fixupComplaintsStats();
+	
+	//-----------------------------Query B3------------------------
+	@Query("select (count(f)*1.0)/(select count(f1)*1.0 from FixupTask f1) from FixupTask f where f.complaints is not empty)")
+	Double ratiofixupComplaint();
 }

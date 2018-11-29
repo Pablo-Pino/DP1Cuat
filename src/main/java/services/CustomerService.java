@@ -173,7 +173,7 @@ public class CustomerService {
 		Assert.notNull(a);
 		this.serviceUtils.checkAuthority("ADMIN");
 		a.setBanned(true);
-		this.save(a);
+		this.customerRepository.save(a);
 
 	}
 
@@ -181,7 +181,7 @@ public class CustomerService {
 		Assert.notNull(a);
 		this.serviceUtils.checkAuthority("ADMIN");
 		a.setBanned(false);
-		this.save(a);
+		this.customerRepository.save(a);
 
 	}
 

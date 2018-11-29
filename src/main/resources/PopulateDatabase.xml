@@ -844,6 +844,7 @@
 				<ref bean="folder2Customer1" />
 				<ref bean="folder3Customer1" />
 				<ref bean="folder4Customer1" />
+				<ref bean="folder5Customer1" />
 			</list>
 		</property>
 
@@ -1912,6 +1913,18 @@
 		<property name="actor" ref="customer1" />
 	</bean>
 
+<bean id="folder5Customer1" class="domain.Folder">
+		<property name="name" value="testbox" />
+		<property name="system" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+		<property name="childFolder">
+			<list></list>
+		</property>
+		<property name="parentFolder" ref="folder5Customer1" />
+		<property name="actor" ref="customer1" />
+	</bean>
 	<!--folders del customer2 -->
 
 	<bean id="folder1Customer2" class="domain.Folder">

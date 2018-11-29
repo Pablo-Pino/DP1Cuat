@@ -140,7 +140,7 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 		Assert.notNull(r);
 		this.serviceUtils.checkAuthority("ADMIN");
 		r.setBanned(true);
-		this.save(r);
+		this.repository.save(r);
 
 	}
 
@@ -148,7 +148,7 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 		Assert.notNull(r);
 		this.serviceUtils.checkAuthority("ADMIN");
 		r.setBanned(false);
-		this.save(r);
+		this.repository.save(r);
 
 	}
 
