@@ -98,13 +98,14 @@ public class MessageServiceTest extends AbstractTest{
 	@Test
 	public void deleteTestCorrecto() {
 		Message m;
-		this.authenticate("customer1");
+		this.authenticate("handywoker1");
 		final int mId = this.getEntityId("message1");
 		m = this.messageService.findOne(mId);
 		Assert.notNull(m);
 
 		this.messageService.delete(m);
-		Assert.isNull(m = this.messageService.findOne(mId));
+		System.out.println(m);
+		Assert.isNull(this.messageService.findOne(mId));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

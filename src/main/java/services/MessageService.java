@@ -84,8 +84,10 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 		final Message message = super.checkObject(object);
 		UserAccount uaReceiver = message.getReceiver().getUserAccount();
 		UserAccount uaSender = message.getSender().getUserAccount();
+		
 		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || 
 				LoginService.getPrincipal().equals(uaSender));
+		
 		final Actor principal = this.actorService.findPrincipal();
 		final Folder trashboxPrincipal = this.folderService.findFolderByActorAndName(principal, "trashbox");
 		if (message.getFolders().contains(trashboxPrincipal))
