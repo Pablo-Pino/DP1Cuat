@@ -22,8 +22,11 @@ public class ApplicationService {
 	@Autowired
 	private ApplicationRepository	applicationRepository;
 
-
 	// Supporting Service
+
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
+
 
 	// Constructors
 	public ApplicationService() {
