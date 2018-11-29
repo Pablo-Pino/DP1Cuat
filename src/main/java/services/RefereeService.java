@@ -15,22 +15,31 @@ import security.UserAccount;
 import domain.Complaint;
 import domain.Folder;
 import domain.Message;
+import domain.Note;
 import domain.Referee;
 import domain.SocialProfile;
+import domain.Url;
 
 @Service
 @Transactional
 public class RefereeService extends GenericService<Referee, RefereeRepository> implements ServiceI<Referee> {
 
+	// Repository
+	
 	@Autowired
 	private RefereeRepository	repository;
 
+	// Services
+	
+	@Autowired
+	private ActorService actorService;
 	@Autowired
 	private FolderService		folderService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
-
+	// CRUD methods
+	
 	@Override
 	public Referee create() {
 		final Referee res = new Referee();
@@ -75,6 +84,13 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 		final Referee res = this.repository.save(object);
 		return res;
 	}
+	
+	@Override
+	public void delete(final Referee object) {
+		throw new IllegalArgumentException("Unallowed method");
+	}
+	
+	// Other methods
 	public void changeBanned(final Referee referee) {
 		this.serviceUtils.checkId(referee);
 		Referee ref = referee;
@@ -86,14 +102,38 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 		this.repository.save(ref);
 	}
 
-	public Boolean isSuspicious(final Referee referee) {
-		// TODO implementar esto
-		return null;
-	}
-
-	@Override
-	public void delete(final Referee object) {
-		throw new IllegalArgumentException("Unallowed method");
+	public boolean isSuspicious(final Referee r) {
+		boolean res = false;
+		Assert.notNull(r);
+		this.serviceUtils.checkId(r.getId());
+		Referee referee = this.repository.findOne(r.getId());
+		Assert.notNull(referee);
+		res = this.actorService.isSuspicious(referee);
+		if(!res) {
+			for (Complaint c : referee.getComplaints()) {
+				res = this.actorService.containsSpam(c.getDescription()) ||
+						this.actorService.containsSpam(c.getReport().getDescription());
+				if(!res) {
+					for (Note n : c.getReport().getNotes()) {
+						for (String comment : n.getComments()) {
+							res = this.actorService.containsSpam(comment);
+							if(res)
+								break;
+						}
+						if(res) 
+							break;
+					}
+				} if(!res) {
+					for (Url u : c.getAttachments()) {
+						res = this.actorService.containsSpam(u.getUrl());
+						if(res)
+							break;
+					}
+				} if(res)
+					break;
+			}
+		}
+		return res;
 	}
 
 	public void banActor(final Referee r) {

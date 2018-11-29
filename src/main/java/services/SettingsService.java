@@ -14,11 +14,17 @@ import domain.Settings;
 @Transactional
 public class SettingsService extends GenericService<Settings, SettingsRepository> implements ServiceI<Settings> {
 
+	// Repository
+	
 	@Autowired
 	private SettingsRepository	repository;
+	
+	// Services
+	
 	@Autowired
 	private ServiceUtils serviceUtils;
 
+	// CRUD methods
 
 	@Override
 	public Settings create() {
@@ -38,6 +44,8 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 		throw new IllegalArgumentException("Unallowed method");
 	}
 
+	// Other methods
+	
 	public Settings getSettings() {
 		return this.repository.getSettings();
 	}

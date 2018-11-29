@@ -18,14 +18,19 @@ import domain.ProfessionalRecord;
 @Transactional
 public class ProfessionalRecordService extends GenericService<ProfessionalRecord, ProfessionalRecordRepository> implements ServiceObjectDependantI<ProfessionalRecord, Curriculum> {
 
+	// Repository
+	
 	@Autowired
 	private ProfessionalRecordRepository	repository;
 
+	// Services
+	
 	@Autowired
 	private CurriculumService				curriculumService;
 	@Autowired
 	private ServiceUtils					serviceUtils;
 
+	// CRUD methods
 
 	@Override
 	public Collection<ProfessionalRecord> findAll(final Curriculum dependency) {
@@ -60,6 +65,8 @@ public class ProfessionalRecordService extends GenericService<ProfessionalRecord
 		this.repository.delete(professionalRecord);
 	}
 
+	// Other methods
+	
 	public void flush() {
 		this.repository.flush();
 	}

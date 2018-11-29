@@ -20,14 +20,19 @@ import domain.Url;
 @Transactional
 public class SectionService extends GenericService<Section, SectionRepository> implements ServiceObjectDependantI<Section, Tutorial> {
 
+	// Repository
+	
 	@Autowired
 	private SectionRepository	repository;
 
+	// Services
+	
 	@Autowired
 	private ServiceUtils		serviceUtils;
 	@Autowired
 	private TutorialService		tutorialService;
 
+	// CRUD methods
 
 	@Override
 	public Collection<Section> findAll(final Tutorial dependency) {
@@ -60,6 +65,16 @@ public class SectionService extends GenericService<Section, SectionRepository> i
 		return res;
 	}
 
+	@Override
+	public void delete(final Section object) {
+		final Section section = this.checkObject(object);
+		this.serviceUtils.checkActor(section.getTutorial().getHandyWorker());
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
+		this.repository.delete(section);
+	}
+
+	// Other methods
+	
 	public void move(final Section section1, final Section section2) {
 		final Section s1 = super.checkObject(section1);
 		final Section s2 = super.checkObject(section2);
@@ -69,14 +84,6 @@ public class SectionService extends GenericService<Section, SectionRepository> i
 		s2.setNumberOrder(pos1);
 		this.save(s1);
 		this.save(s2);
-	}
-
-	@Override
-	public void delete(final Section object) {
-		final Section section = this.checkObject(object);
-		this.serviceUtils.checkActor(section.getTutorial().getHandyWorker());
-		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
-		this.repository.delete(section);
 	}
 
 	public void flush() {
