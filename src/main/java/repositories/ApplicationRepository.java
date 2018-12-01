@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,6 +12,9 @@ import domain.Application;
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, Integer> {
 
+	@Query("select a from Application a where a.handyWorker.id = ?1")
+	Collection<Application> findApplicationsByHandyWorker(int handyWorkerId);
+	
 	//---------------------Query C4------------------------------
 	//The average, the minimum, the maximum, and the standard deviation of the
 	//price offered in the applications
