@@ -31,6 +31,8 @@ public class ApplicationService {
 
 	@Autowired
 	private MessageService			messageService;
+	@Autowired
+	private HandyWorkerService handyWorkerService;
 
 
 	// Constructors
@@ -195,4 +197,11 @@ public class ApplicationService {
 		this.applicationRepository.flush();
 	}
 
+	public Collection<Application> findApplicationsByHandyWorker(HandyWorker h) {
+		Assert.notNull(h);
+		Assert.isTrue(h.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
+		return this.applicationRepository.findApplicationsByHandyWorker(h.getId());
+	}
+	
 }
