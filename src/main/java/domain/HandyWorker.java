@@ -26,7 +26,6 @@ public class HandyWorker extends Endorsable {
 	private Curriculum				curriculum;
 	private Finder					finder;
 	private Collection<Tutorial>	tutorials;
-	private Collection<Application>	applications;
 	private Collection<WorkPlan>	workPlans;
 
 
@@ -70,16 +69,6 @@ public class HandyWorker extends Endorsable {
 
 	public void setTutorials(final Collection<Tutorial> tutorials) {
 		this.tutorials = tutorials;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "handyWorker")
-	public Collection<Application> getApplications() {
-		return this.applications;
-	}
-
-	public void setApplications(final Collection<Application> applications) {
-		this.applications = applications;
 	}
 
 	@NotNull
