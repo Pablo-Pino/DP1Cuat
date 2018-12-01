@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -144,4 +145,17 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 			message.setReceiver(a);
 
 	}
+	
+	public Collection<Message> findSendedMessages(Actor a) {
+		Assert.notNull(a);
+		Assert.notNull(this.actorService.findOne(a.getId()));
+		return this.repository.findSendedMessages(a.getId());
+	}
+	
+	public Collection<Message> findReceivedMessages(Actor a) {
+		Assert.notNull(a);
+		Assert.notNull(this.actorService.findOne(a.getId()));
+		return this.repository.findReceivedMessages(a.getId());
+	}
+	
 }
