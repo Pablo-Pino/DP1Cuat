@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.TutorialRepository;
+import domain.HandyWorker;
 import domain.Section;
 import domain.Sponsorship;
 import domain.Tutorial;
@@ -61,5 +62,12 @@ public class TutorialService {
 			this.sponsorshipService.save(sp);
 		}
 		this.tutorialRepository.delete(s);
+	}
+	
+	public Collection<Tutorial> findTutorialsByHandyWorker(HandyWorker h) {
+		Assert.notNull(h);
+		Assert.isTrue(h.getId() > 0);
+		Assert.notNull(this.tutorialRepository.findTutorialsByHandyWorker(h.getId()));
+		return this.tutorialRepository.findTutorialsByHandyWorker(h.getId());
 	}
 }
