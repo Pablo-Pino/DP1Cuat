@@ -42,7 +42,6 @@ public abstract class Actor extends DomainEntity {
 
 	//--------------Relaciones-----------
 
-	private Collection<Folder>			folders;
 	private Collection<SocialProfile>	socialProfiles;
 	private UserAccount					userAccount;
 
@@ -57,17 +56,6 @@ public abstract class Actor extends DomainEntity {
 
 	public void setUserAccount(final UserAccount userAccount) {
 		this.userAccount = userAccount;
-	}
-
-	@NotEmpty
-	@NotNull
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
-	public Collection<Folder> getFolders() {
-		return this.folders;
-	}
-
-	public void setFolders(final Collection<Folder> folders) {
-		this.folders = folders;
 	}
 
 	@NotNull
