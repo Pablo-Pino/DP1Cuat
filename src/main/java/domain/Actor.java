@@ -42,34 +42,12 @@ public abstract class Actor extends DomainEntity {
 
 	//--------------Relaciones-----------
 
-	private Collection<Message>			sendedMessages;
-	private Collection<Message>			receivedMessages;
 	private Collection<Folder>			folders;
 	private Collection<SocialProfile>	socialProfiles;
 	private UserAccount					userAccount;
 
 
 	//-----------Getters y Setters------
-
-	@NotNull
-	@OneToMany(mappedBy = "sender")
-	public Collection<Message> getSendedMessages() {
-		return this.sendedMessages;
-	}
-
-	public void setSendedMessages(final Collection<Message> sendedMessages) {
-		this.sendedMessages = sendedMessages;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "receiver")
-	public Collection<Message> getReceivedMessages() {
-		return this.receivedMessages;
-	}
-
-	public void setReceivedMessages(final Collection<Message> receivedMessages) {
-		this.receivedMessages = receivedMessages;
-	}
 
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
