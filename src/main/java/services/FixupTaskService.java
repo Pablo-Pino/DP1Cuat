@@ -30,6 +30,9 @@ public class FixupTaskService {
 
 	// Supporting Service
 
+	@Autowired
+	private CategoryService categoryService;
+	
 	//
 
 	public FixupTaskService() {
@@ -136,4 +139,11 @@ public class FixupTaskService {
 
 	}
 
+	public Collection<FixupTask> findByCategory(Category category) {
+		Assert.notNull(category);
+		Assert.isTrue(category.getId() > 0);
+		Assert.notNull(this.categoryService.findOne(category.getId()));
+		return this.fixupTaskRepository.findByCategoryId(category.getId());
+	}
+	
 }
