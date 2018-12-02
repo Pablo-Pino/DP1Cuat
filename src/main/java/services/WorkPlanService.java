@@ -80,4 +80,12 @@ public class WorkPlanService {
 			}
 		return res;
 	}
+	
+	public Collection<WorkPlan> findWorkPlanByHandyWorker(HandyWorker h) {
+		Assert.notNull(h);
+		Assert.isTrue(h.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
+		return this.workPlanRepository.findWorkPlanByHandyWorker(h.getId());
+	}
+
 }
