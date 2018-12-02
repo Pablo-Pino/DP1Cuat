@@ -28,22 +28,11 @@ public class Complaint extends Ticketable {
 
 	//----------Relaciones---------
 
-	private Report			report;
 	private FixupTask		fixuptask;
 	private Referee			referee;
 
 
 	//----------Getters y Setters--------------------
-
-	@Valid
-	@OneToOne(optional = true)
-	public Report getReport() {
-		return this.report;
-	}
-
-	public void setReport(final Report report) {
-		this.report = report;
-	}
 
 	@Valid
 	@ManyToOne(optional = false)
