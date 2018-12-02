@@ -31,7 +31,6 @@ public class Category extends DomainEntity {
 	//------------Relaciones-------------
 
 	private Collection<FixupTask>	fixupTasks;
-	private Collection<Category>	childsCategories;
 	private Category				parentCategory;
 
 
@@ -55,16 +54,6 @@ public class Category extends DomainEntity {
 
 	public void setName(final String name) {
 		this.name = name;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "parentCategory")
-	public Collection<Category> getChildsCategories() {
-		return this.childsCategories;
-	}
-
-	public void setChildsCategories(final Collection<Category> childsCategories) {
-		this.childsCategories = childsCategories;
 	}
 
 	@Valid
