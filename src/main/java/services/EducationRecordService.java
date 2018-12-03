@@ -24,6 +24,12 @@ public class EducationRecordService {
 
 	//---------------Supporting Services----------------------------------------
 
+	// Constructors -----------------------------------------------------------
+
+	public EducationRecordService() {
+		super();
+	}
+
 	//------------------Simple CRUD methods----------------------------------
 	public EducationRecord create() {
 		EducationRecord res;
@@ -36,6 +42,11 @@ public class EducationRecordService {
 		res = this.educationRecordRepository.findAll();
 		return res;
 	}
+	public EducationRecord findOne(final int educationRecordId) {
+		EducationRecord result;
+		result = this.educationRecordRepository.findOne(educationRecordId);
+		return result;
+	}
 
 	public EducationRecord save(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
@@ -47,6 +58,14 @@ public class EducationRecordService {
 	public void delete(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
 		this.educationRecordRepository.delete(educationRecord);
+	}
+
+	public void delete(final Collection<EducationRecord> educationsRecords) {
+
+		for (final EducationRecord i : educationsRecords) {
+			Assert.notNull(i);
+			this.educationRecordRepository.delete(i);
+		}
 	}
 
 }

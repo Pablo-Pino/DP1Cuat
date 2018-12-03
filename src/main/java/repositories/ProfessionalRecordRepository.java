@@ -11,7 +11,7 @@ import domain.ProfessionalRecord;
 @Repository
 public interface ProfessionalRecordRepository extends GenericRepository<ProfessionalRecord> {
 
-	@Query("select p from ProfessionalRecord p where p.curriculum.id")
+	@Query("select p from ProfessionalRecord p where p.curriculum.id = ?1")
 	Collection<ProfessionalRecord> findByCurriculumId(Integer curriculumId);
 
 }

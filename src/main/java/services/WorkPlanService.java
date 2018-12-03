@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.WorkPlanRepository;
+import domain.Application;
+import domain.FixupTask;
+import domain.HandyWorker;
+import domain.Phase;
 import domain.WorkPlan;
 
 @Service
@@ -20,13 +25,19 @@ public class WorkPlanService {
 	@Autowired
 	private WorkPlanRepository	workPlanRepository;
 
-
 	// Supporting Service
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+	@Autowired
+	private FixupTaskService	fixupTaskService;
+
 
 	// Simple CRUD methods
 
 	public WorkPlan create() {
 		final WorkPlan s = new WorkPlan();
+		s.setPhases(new ArrayList<Phase>());
+		Assert.notNull(s);
 		return s;
 	}
 
@@ -40,11 +51,48 @@ public class WorkPlanService {
 
 	public WorkPlan save(final WorkPlan w) {
 		Assert.notNull(w);
+		Assert.isTrue(this.checkStatusApplicationAccepted(w));
+		if (w.getId() == 0)
+			w.setPhases(new ArrayList<Phase>());
 		return this.workPlanRepository.save(w);
 	}
 
 	public void delete(final WorkPlan w) {
 		Assert.notNull(w);
+		final HandyWorker hw = w.getHandyWorker();
+		hw.getWorkPlans().remove(w);
+		this.handyWorkerService.save(hw);
+		final FixupTask ft = w.getFixupTask();
+		ft.setWorkPlan(null);
+		this.fixupTaskService.save(ft);
 		this.workPlanRepository.delete(w);
 	}
+
+	public Boolean checkStatusApplicationAccepted(final WorkPlan w) {
+		Boolean res = false;
+		final int fixupTaskId = w.getFixupTask().getId();
+		final Collection<Application> applications = w.getHandyWorker().getApplications();
+		for (final Application a : applications)
+			if (a.getFixupTask().getId() == fixupTaskId) {
+				if (a.getStatus().equals("ACCEPTED"))
+					res = true;
+				break;
+			}
+		return res;
+	}
+	
+	public Collection<WorkPlan> findWorkPlanByHandyWorker(HandyWorker h) {
+		Assert.notNull(h);
+		Assert.isTrue(h.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
+		return this.workPlanRepository.findWorkPlanByHandyWorker(h.getId());
+	}
+	
+	public Collection<WorkPlan> findWorkPlanByFixupTask(FixupTask f) {
+		Assert.notNull(f);
+		Assert.isTrue(f.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(f.getId()));
+		return this.workPlanRepository.findWorkPlanByHandyWorker(f.getId());
+	}
+
 }

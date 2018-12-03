@@ -4,6 +4,8 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -22,14 +24,19 @@ import domain.Url;
 @Transactional
 public class ReportService extends GenericService<Report, ReportRepository> implements ServiceObjectDependantI<Report, Complaint> {
 
+	// Repository
+	
 	@Autowired
 	private ReportRepository	repository;
 
+	// Services
+	
 	@Autowired
 	private ComplaintService	complaintService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
+	// CRUD methods
 
 	@Override
 	public Collection<Report> findAll(final Complaint dependency) {
@@ -63,9 +70,8 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 			object.setMoment(report.getMoment());
 			object.setNotes(report.getNotes());
 		}
-		super.checkPermisionActor(object.getComplaint().getReferee(), new String[] {
-			Authority.REFEREE
-		});
+		this.serviceUtils.checkActor(report.getComplaint().getReferee());
+		this.serviceUtils.checkAuthority(Authority.REFEREE);
 		final Report res = this.repository.save(object);
 		return res;
 	}
@@ -74,10 +80,30 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 	public void delete(final Report object) {
 		final Report report = super.checkObject(object);
 		Assert.isTrue(report.getDraft());
-		super.checkPermisionActor(report.getComplaint().getReferee(), new String[] {
-			Authority.REFEREE
-		});
+		this.serviceUtils.checkActor(report.getComplaint().getReferee());
+		this.serviceUtils.checkAuthority(Authority.REFEREE);
+		report.getComplaint().setReport(null);
+		this.complaintService.save(report.getComplaint());
 		this.repository.delete(report);
+	}
+	
+	// Other methods
+	
+	public void flush() {
+		this.repository.flush();
+	}
+	
+	public Map<String, Double> refeeReportStats() {
+		this.serviceUtils.checkAuthority(Authority.ADMIN);
+		final Double[] statistics = this.repository.refeeReportStats();
+		final Map<String, Double> res = new HashMap<>();
+		res.put("MIN", statistics[0]);
+		res.put("MAX", statistics[1]);
+		res.put("AVG", statistics[2]);
+		res.put("STD", statistics[3]);
+
+		return res;
+
 	}
 
 }

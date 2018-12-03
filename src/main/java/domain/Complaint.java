@@ -9,7 +9,6 @@ import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -28,22 +27,11 @@ public class Complaint extends Ticketable {
 
 	//----------Relaciones---------
 
-	private Report			report;
 	private FixupTask		fixuptask;
 	private Referee			referee;
 
 
 	//----------Getters y Setters--------------------
-
-	@Valid
-	@OneToOne(optional = true)
-	public Report getReport() {
-		return this.report;
-	}
-
-	public void setReport(final Report report) {
-		this.report = report;
-	}
 
 	@Valid
 	@ManyToOne(optional = false)

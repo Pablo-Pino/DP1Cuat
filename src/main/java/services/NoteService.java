@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.NoteRepository;
 
 import domain.Note;
+import domain.Report;
 
 @Service
 @Transactional
@@ -23,6 +24,8 @@ public class NoteService {
 	private NoteRepository noteRepository;
 
 	// Supporting Service
+	@Autowired
+	private ReportService reportService;
 	
 	//Contrusctor
 	
@@ -54,12 +57,24 @@ public class NoteService {
 	}
 	
 	public Note save(final Note n) {
-		Assert.notNull(n);
-		Date moment;
-		moment = new Date();
-		Assert.isTrue(n.getMoment().after(moment));
-		return this.noteRepository.save(n);
-	}
+
+			Assert.notNull(n);
+			Note saved;
+			Report report;
+			
+			long millis;
+			millis = System.currentTimeMillis() - 1000;
+			Date fecha = new Date(millis);
+			n.setMoment(fecha);
+			
+			
+			saved= this.noteRepository.save(n);
+			report = saved.getReport();
+			report.getNotes().add(saved);
+			reportService.save(report);
+			return saved;
+		}
+	
 
 	public void delete(final Note n) {
 		Assert.notNull(n);

@@ -227,7 +227,7 @@
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 32" />
 		<property name="banned" value="false" />
-		<property name="suspicious" value="false" />
+		<property name="suspicious" value="true" />
 		<property name="sendedMessages">
 			<list>
 
@@ -430,7 +430,7 @@
 	<!-- Categories -->
 
 	<bean id="categoryRoot" class="domain.Category">
-		<property name="name" value="ROOT" />
+		<property name="name" value="CATEGORY" />
 		<property name="fixupTasks">
 			<list>
 			</list>
@@ -844,6 +844,7 @@
 				<ref bean="folder2Customer1" />
 				<ref bean="folder3Customer1" />
 				<ref bean="folder4Customer1" />
+				<ref bean="folder5Customer1" />
 			</list>
 		</property>
 
@@ -1175,7 +1176,7 @@
 	<!-- ___________________Endorsement__________________________________ -->
 	<bean id="endorsement1" class="domain.Endorsement">
 		<property name="moment" value="February 12, 2017 12:00"></property>
-		<property name="comments" value="Estoy muy contenta"></property>
+		<property name="comments" value="Estoy muy contenta y todo parece muy bueno excelente fantastico y hermonso ,"></property>
 		<property name="sender" ref="customer1"></property>
 		<property name="receiver" ref="handyWorker1"></property>
 
@@ -1183,7 +1184,7 @@
 
 	<bean id="endorsement2" class="domain.Endorsement">
 		<property name="moment" value="February 12, 2016 12:00"></property>
-		<property name="comments" value="NO estoy muy contenta"></property>
+		<property name="comments" value="NO estoy muy contenta not not not  this is bad bad malo malisimo"></property>
 		<property name="sender" ref="handyWorker2"></property>
 		<property name="receiver" ref="customer2"></property>
 
@@ -1538,6 +1539,15 @@
 	<bean id="phase1" class="domain.Phase">
 
 		<property name="title" value="phase1" />
+		<property name="description" value="Coger el telefono antes de hacer nada" />
+		<property name="start" value="February 17, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="workPlan" ref="workPlan1"></property>
+	</bean>
+	
+	<bean id="phase4" class="domain.Phase">
+
+		<property name="title" value="phase4" />
 		<property name="description" value="Coger el telefono antes de hacer nada" />
 		<property name="start" value="February 17, 2017 09:30"></property>
 		<property name="end" value="February 18, 2017 09:30"></property>
@@ -1903,6 +1913,18 @@
 		<property name="actor" ref="customer1" />
 	</bean>
 
+<bean id="folder5Customer1" class="domain.Folder">
+		<property name="name" value="testbox" />
+		<property name="system" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+		<property name="childFolder">
+			<list></list>
+		</property>
+		<property name="parentFolder" ref="folder5Customer1" />
+		<property name="actor" ref="customer1" />
+	</bean>
 	<!--folders del customer2 -->
 
 	<bean id="folder1Customer2" class="domain.Folder">

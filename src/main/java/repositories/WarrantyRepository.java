@@ -8,5 +8,5 @@ import domain.Warranty;
 
 @Repository
 public interface WarrantyRepository extends GenericRepository<Warranty> {
-
+	
 }

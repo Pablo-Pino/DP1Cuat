@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -9,8 +10,11 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.MessageRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
 import domain.Folder;
 import domain.Message;
@@ -27,6 +31,8 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	private FolderService		folderService;
 	@Autowired
 	private SettingsService		settingsService;
+	@Autowired
+	private ServiceUtils		serviceUtils;
 
 
 	@Override
@@ -47,9 +53,12 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	@Override
 	public Message save(final Message object) {
 		final Message message = super.checkObjectSave(object);
-		super.checkPermisionActors(new Actor[] {
-			message.getReceiver(), message.getSender()
-		}, null);
+		final UserAccount uaReceiver = message.getReceiver().getUserAccount();
+		final UserAccount uaSender = message.getSender().getUserAccount();
+		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || LoginService.getPrincipal().equals(uaSender));
+
+		//Comentando esto el save de massage funciona. REVISAR.
+
 		if (message.getId() == 0) {
 			object.setMoment(new Date(System.currentTimeMillis() - 1000));
 			if (this.containsSpam(object)) {
@@ -61,6 +70,8 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 			}
 			final Folder outSender = this.folderService.findFolderByActorAndName(object.getSender(), "outbox");
 			message.getFolders().add(outSender);
+			if (outSender.getSystem() == false)
+				this.folderService.save(outSender);
 		} else if (message.getId() > 0) {
 			object.setMoment(message.getMoment());
 			object.setReceiver(message.getReceiver());
@@ -72,9 +83,11 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	@Override
 	public void delete(final Message object) {
 		final Message message = super.checkObject(object);
-		super.checkPermisionActors(new Actor[] {
-			message.getReceiver(), message.getSender()
-		}, null);
+		final UserAccount uaReceiver = message.getReceiver().getUserAccount();
+		final UserAccount uaSender = message.getSender().getUserAccount();
+
+		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || LoginService.getPrincipal().equals(uaSender));
+
 		final Actor principal = this.actorService.findPrincipal();
 		final Folder trashboxPrincipal = this.folderService.findFolderByActorAndName(principal, "trashbox");
 		if (message.getFolders().contains(trashboxPrincipal))
@@ -108,11 +121,20 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 	public void moveMessage(final Message m, final Folder f) {
 		final Message message = this.checkObject(m);
 		final Folder folder = this.folderService.checkObject(f);
-		this.checkPermisionActors(new Actor[] {
-			message.getSender(), message.getReceiver()
-		}, null);
-		this.folderService.checkPermisionActor(folder.getActor(), null);
-
+		Folder oldFolder = null;
+		for (final Folder forFolder : message.getFolders())
+			if (forFolder.getActor().equals(folder.getActor())) {
+				oldFolder = forFolder;
+				break;
+			}
+		Assert.notNull(oldFolder);
+		final UserAccount uaReceiver = message.getReceiver().getUserAccount();
+		final UserAccount uaSender = message.getSender().getUserAccount();
+		Assert.isTrue(LoginService.getPrincipal().equals(uaReceiver) || LoginService.getPrincipal().equals(uaSender));
+		this.serviceUtils.checkActor(folder.getActor());
+		message.getFolders().remove(oldFolder);
+		message.getFolders().add(folder);
+		this.repository.save(message);
 	}
 
 	//(Elena) Mensaje a todos los actores. Esta incompleto porque aun no se muy bien como hacerlo.
@@ -123,5 +145,19 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 			message.setReceiver(a);
 
 	}
-
+	
+	public Collection<Message> findSendedMessages(Actor a) {
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() > 0);
+		Assert.notNull(this.actorService.findOne(a.getId()));
+		return this.repository.findSendedMessages(a.getId());
+	}
+	
+	public Collection<Message> findReceivedMessages(Actor a) {
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() > 0);
+		Assert.notNull(this.actorService.findOne(a.getId()));
+		return this.repository.findReceivedMessages(a.getId());
+	}
+	
 }

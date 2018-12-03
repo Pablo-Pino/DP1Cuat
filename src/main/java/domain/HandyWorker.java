@@ -1,12 +1,9 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -25,10 +22,6 @@ public class HandyWorker extends Endorsable {
 
 	private Curriculum				curriculum;
 	private Finder					finder;
-	private Collection<Tutorial>	tutorials;
-	private Collection<Application>	applications;
-	private Collection<WorkPlan>	workPlans;
-
 
 	//-------------Getters y Setters----
 
@@ -60,36 +53,6 @@ public class HandyWorker extends Endorsable {
 
 	public void setFinder(final Finder finder) {
 		this.finder = finder;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "handyWorker")
-	public Collection<Tutorial> getTutorials() {
-		return this.tutorials;
-	}
-
-	public void setTutorials(final Collection<Tutorial> tutorials) {
-		this.tutorials = tutorials;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "handyWorker")
-	public Collection<Application> getApplications() {
-		return this.applications;
-	}
-
-	public void setApplications(final Collection<Application> applications) {
-		this.applications = applications;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "handyWorker")
-	public Collection<WorkPlan> getWorkPlans() {
-		return this.workPlans;
-	}
-
-	public void setWorkPlans(final Collection<WorkPlan> workPlans) {
-		this.workPlans = workPlans;
 	}
 
 }

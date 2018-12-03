@@ -36,7 +36,22 @@ public class ServiceUtils {
 		}
 	}
 
-	public void checkAnyAuthority(final String... auths) {
+	public Boolean checkAuthorityBoolean(final String auth) {
+		Boolean res = true;
+		if (auth != null) {
+			res = false;
+			Assert.notNull(LoginService.getPrincipal());
+			Assert.notNull(auth);
+			for (final Authority a : LoginService.getPrincipal().getAuthorities())
+				if (a.getAuthority().equals(auth)) {
+					res = true;
+					break;
+				}
+		}
+		return res;
+	}
+
+	public void checkAnyAuthority(final String[] auths) {
 		if (auths != null) {
 			Boolean res = false;
 			Assert.notNull(auths);

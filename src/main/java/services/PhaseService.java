@@ -18,15 +18,20 @@ import domain.WorkPlan;
 @Transactional
 public class PhaseService extends GenericService<Phase, PhaseRepository> implements ServiceObjectDependantI<Phase, WorkPlan> {
 
+	// Repository
+	
 	@Autowired
 	private PhaseRepository	repository;
 
+	// Services
+	
 	@Autowired
 	private WorkPlanService	workPlanService;
 	@Autowired
 	private ServiceUtils	serviceUtils;
 
-
+	// CRUD methods
+	
 	@Override
 	public Collection<Phase> findAll(final WorkPlan dependency) {
 		this.serviceUtils.checkId(dependency);
@@ -38,6 +43,8 @@ public class PhaseService extends GenericService<Phase, PhaseRepository> impleme
 	public Phase create(final WorkPlan dependency) {
 		final Phase res = new Phase();
 		res.setWorkPlan(dependency);
+		this.serviceUtils.checkActor(res.getWorkPlan().getHandyWorker());
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
 		return res;
 	}
 
@@ -47,9 +54,8 @@ public class PhaseService extends GenericService<Phase, PhaseRepository> impleme
 		Assert.isTrue(object.getEnd().before(object.getWorkPlan().getFixupTask().getEnd()));
 		if (object.getId() > 0)
 			object.setWorkPlan(phase.getWorkPlan());
-		super.checkPermisionActor(object.getWorkPlan().getHandyWorker(), new String[] {
-			Authority.HANDYWORKER
-		});
+		this.serviceUtils.checkActor(phase.getWorkPlan().getHandyWorker());
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
 		final Phase res = this.repository.save(object);
 		return res;
 	}
@@ -57,10 +63,15 @@ public class PhaseService extends GenericService<Phase, PhaseRepository> impleme
 	@Override
 	public void delete(final Phase object) {
 		final Phase phase = super.checkObject(object);
-		super.checkPermisionActor(phase.getWorkPlan().getHandyWorker(), new String[] {
-			Authority.HANDYWORKER
-		});
+		this.serviceUtils.checkActor(phase.getWorkPlan().getHandyWorker());
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
 		this.repository.delete(phase);
+	}
+
+	// Other methods
+	
+	public void flush() {
+		this.repository.flush();
 	}
 
 }

@@ -17,13 +17,20 @@ import domain.SocialProfile;
 @Transactional
 public class SocialProfileService extends GenericService<SocialProfile, SocialProfileRepository> implements ServiceActorDependantI<SocialProfile> {
 
+	// Repository
+	
 	@Autowired
 	private SocialProfileRepository	repository;
 
+	// Services
+	
 	@Autowired
 	private ActorService			actorService;
+	@Autowired
+	private ServiceUtils serviceUtils;
 
-
+	// CRUD methods
+	
 	@Override
 	public Collection<SocialProfile> findAllByActor(final Actor a) {
 		Assert.notNull(a);
@@ -46,7 +53,7 @@ public class SocialProfileService extends GenericService<SocialProfile, SocialPr
 			object.setActor(this.actorService.findPrincipal());
 		else
 			object.setActor(socialProfile.getActor());
-		super.checkPermisionActor(object.getActor(), null);
+		this.serviceUtils.checkActor(socialProfile.getActor());
 		final SocialProfile res = this.repository.save(object);
 		return res;
 	}
@@ -54,8 +61,14 @@ public class SocialProfileService extends GenericService<SocialProfile, SocialPr
 	@Override
 	public void delete(final SocialProfile object) {
 		final SocialProfile socialProfile = super.checkObject(object);
-		super.checkPermisionActor(socialProfile.getActor(), null);
+		this.serviceUtils.checkActor(socialProfile.getActor());
 		this.repository.delete(socialProfile);
+	}
+
+	// Other methods
+	
+	public void flush() {
+		this.repository.flush();
 	}
 
 }
