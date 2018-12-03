@@ -105,5 +105,12 @@ public class CategoryService {
 		}
 
 	}
-
+	
+	public Collection<Category> findByParent(Category parent) {
+		Assert.notNull(parent);
+		Assert.isTrue(parent.getId() > 0);
+		Assert.notNull(this.categoryRepository.findOne(parent.getId()));
+		return this.categoryRepository.findByParentId(parent.getId());
+	}
+	
 }

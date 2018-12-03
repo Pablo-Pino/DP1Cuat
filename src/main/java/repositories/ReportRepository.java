@@ -10,7 +10,7 @@ import domain.Report;
 
 @Repository
 public interface ReportRepository extends GenericRepository<Report> {
-
+	
 	@Query("select r from Report r where r.complaint.id = ?1")
 	Collection<Report> findByComplaint(Integer complaintId);
 	
