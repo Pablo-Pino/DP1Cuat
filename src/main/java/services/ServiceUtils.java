@@ -51,7 +51,7 @@ public class ServiceUtils {
 		return res;
 	}
 
-	public void checkAnyAuthority(final String... auths) {
+	public void checkAnyAuthority(final String[] auths) {
 		if (auths != null) {
 			Boolean res = false;
 			Assert.notNull(auths);

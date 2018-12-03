@@ -49,12 +49,12 @@ public class GenericService<R extends DomainEntity, T extends GenericRepository<
 		return res;
 	}
 
-	public void checkPermisionActor(final Actor actor, final String... auths) {
+	public void checkPermisionActor(final Actor actor, final String[] auths) {
 		this.serviceUtils.checkActor(actor);
 		this.serviceUtils.checkAnyAuthority(auths);
 	}
 
-	public void checkPermisionActors(final Actor[] actors, final String... auths) {
+	public void checkPermisionActors(final Actor[] actors, final String[] auths) {
 		this.serviceUtils.checkAnyActor(actors);
 		this.serviceUtils.checkAnyAuthority(auths);
 	}
