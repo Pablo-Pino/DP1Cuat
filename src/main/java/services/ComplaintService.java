@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.ComplaintRepository;
 import domain.Complaint;
+import domain.FixupTask;
 import domain.Referee;
 
 @Service
@@ -24,7 +25,8 @@ public class ComplaintService {
 	//Supporting Service
 	@Autowired
 	private TicketableService	ticketableService;
-
+	@Autowired
+	private FixupTaskService fixupTaskService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
@@ -68,5 +70,12 @@ public class ComplaintService {
 
 	public Collection<Complaint> findAllComplaintsWithoutReferee() {
 		return this.complaintRepository.SearchComplaintWithoutReferee();
+	}
+	
+	public Collection<Complaint> findByFixupTask(FixupTask fixupTask) {
+		Assert.notNull(fixupTask);
+		Assert.isTrue(fixupTask.getId() > 0);
+		Assert.notNull(this.fixupTaskService.findOne(fixupTask.getId()));
+		return this.complaintRepository.findByFixupTaskId(fixupTask.getId());
 	}
 }

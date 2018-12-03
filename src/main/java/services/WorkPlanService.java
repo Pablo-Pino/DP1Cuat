@@ -87,5 +87,12 @@ public class WorkPlanService {
 		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
 		return this.workPlanRepository.findWorkPlanByHandyWorker(h.getId());
 	}
+	
+	public Collection<WorkPlan> findWorkPlanByFixupTask(FixupTask f) {
+		Assert.notNull(f);
+		Assert.isTrue(f.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(f.getId()));
+		return this.workPlanRepository.findWorkPlanByHandyWorker(f.getId());
+	}
 
 }

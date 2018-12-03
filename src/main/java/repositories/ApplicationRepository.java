@@ -15,6 +15,9 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 	@Query("select a from Application a where a.handyWorker.id = ?1")
 	Collection<Application> findApplicationsByHandyWorker(int handyWorkerId);
 	
+	@Query("select a from Application a where a.fixupTask.id = ?1")
+	Collection<Application> findApplicationsByFixupTask(int fixupTaskId);
+	
 	//---------------------Query C4------------------------------
 	//The average, the minimum, the maximum, and the standard deviation of the
 	//price offered in the applications

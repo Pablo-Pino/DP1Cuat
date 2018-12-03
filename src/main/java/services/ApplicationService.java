@@ -33,6 +33,8 @@ public class ApplicationService {
 	private MessageService			messageService;
 	@Autowired
 	private HandyWorkerService handyWorkerService;
+	@Autowired
+	private FixupTaskService fixupTaskService;
 
 
 	// Constructors
@@ -202,6 +204,13 @@ public class ApplicationService {
 		Assert.isTrue(h.getId() > 0);
 		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
 		return this.applicationRepository.findApplicationsByHandyWorker(h.getId());
+	}
+	
+	public Collection<Application> findApplicationsByFixupTask(FixupTask f) {
+		Assert.notNull(f);
+		Assert.isTrue(f.getId() > 0);
+		Assert.notNull(this.fixupTaskService.findOne(f.getId()));
+		return this.applicationRepository.findApplicationsByHandyWorker(f.getId());
 	}
 	
 }

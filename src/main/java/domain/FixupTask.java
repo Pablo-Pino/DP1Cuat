@@ -1,15 +1,12 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -33,12 +30,9 @@ public class FixupTask extends Ticketable {
 
 	//------------Relaciones----------
 
-	private Collection<Complaint>	complaints;
 	private Customer				customer;
 	private Category				category;
 	private Warranty				warranty;
-	private Collection<Application>	applications;
-	private WorkPlan				workPlan;
 
 
 	//------------Getters y Setters-------
@@ -60,16 +54,6 @@ public class FixupTask extends Ticketable {
 
 	public void setWarranty(final Warranty warranty) {
 		this.warranty = warranty;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "fixuptask")
-	public Collection<Complaint> getComplaints() {
-		return this.complaints;
-	}
-
-	public void setComplaints(final Collection<Complaint> complaints) {
-		this.complaints = complaints;
 	}
 
 	@Valid
@@ -136,26 +120,6 @@ public class FixupTask extends Ticketable {
 
 	public void setEnd(final Date end) {
 		this.end = end;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "fixupTask")
-	public Collection<Application> getApplications() {
-		return this.applications;
-	}
-
-	public void setApplications(final Collection<Application> applications) {
-		this.applications = applications;
-	}
-
-	@Valid
-	@OneToOne(optional = true)
-	public WorkPlan getWorkPlan() {
-		return this.workPlan;
-	}
-
-	public void setWorkPlan(final WorkPlan workPlan) {
-		this.workPlan = workPlan;
 	}
 
 }
