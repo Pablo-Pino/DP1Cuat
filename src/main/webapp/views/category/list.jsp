@@ -19,7 +19,7 @@
 <p><spring:message code="category.list" /></p>
 
 
-<display:table name="category" id="idCategory"requestURI="category/administrator/list.do" pagesize="6" class="displaytag">
+<display:table name="category" id="idCategory"requestURI="category/administrator/list.do" pagesize="5" class="displaytag">
 	
 	<!--  Primero compruebo que es un admin -->
 	<security:authorize access="hasRole('ADMIN')">
