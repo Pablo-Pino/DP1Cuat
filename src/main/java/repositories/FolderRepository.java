@@ -1,6 +1,7 @@
 
 package repositories;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -19,5 +20,8 @@ public interface FolderRepository extends GenericRepository<Folder> {
 
 	@Query("select distinct f from Folder f join f.messages m where f.actor.id = ?1 and m.id = ?2")
 	Folder findFolderByActorAndMessage();
+	
+	@Query("select f from Folder f where f.parent.id = ?1")
+	Collection<Folder> findByParentId(int parentId);
 
 }

@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -93,4 +94,12 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 		}
 		return resFolders;
 	}
+	
+	public Collection<Folder> findByParent(Folder parent) {
+		Assert.notNull(parent);
+		Assert.isTrue(parent.getId() > 0);
+		Assert.notNull(this.repository.findOne(parent.getId()));
+		return this.repository.findByParentId(parent.getId());
+	}
+	
 }

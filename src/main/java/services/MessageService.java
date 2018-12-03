@@ -160,4 +160,11 @@ public class MessageService extends GenericService<Message, MessageRepository> i
 		return this.repository.findReceivedMessages(a.getId());
 	}
 	
+	public Collection<Message> findByFolder(Folder f) {
+		Assert.notNull(f);
+		Assert.isTrue(f.getId() > 0);
+		Assert.notNull(this.actorService.findOne(f.getId()));
+		return this.repository.findReceivedMessages(f.getId());
+	}
+	
 }
