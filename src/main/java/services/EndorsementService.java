@@ -90,5 +90,19 @@ public class EndorsementService {
 		Assert.notNull(endorsement);
 		this.endorsementRepository.delete(endorsement);
 	}
+	
+	public Collection<Endorsement> findBySender(Endorsable sender) {
+		Assert.notNull(sender);
+		Assert.isTrue(sender.getId() > 0);
+		Assert.notNull(this.endorsableService.findOne(sender.getId()));
+		return this.endorsementRepository.getBySenderId(sender.getId());
+	}
+	
+	public Collection<Endorsement> findByReceiver(Endorsable receiver) {
+		Assert.notNull(receiver);
+		Assert.isTrue(receiver.getId() > 0);
+		Assert.notNull(this.endorsableService.findOne(receiver.getId()));
+		return this.endorsementRepository.getByReceiverId(receiver.getId());
+	}
 
 }
