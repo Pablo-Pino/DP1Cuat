@@ -81,5 +81,12 @@ public class NoteService {
 		Assert.isTrue(n.getId()!=0);
 		noteRepository.delete(n);
 	}
+	
+	public Collection<Note> findByReport(Report report) {
+		Assert.notNull(report);
+		Assert.isTrue(report.getId() > 0);
+		Assert.notNull(this.reportService.findOne(report.getId()));
+		return this.noteRepository.findByReportId(report.getId());
+	}
 
 }
