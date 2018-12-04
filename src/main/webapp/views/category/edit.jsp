@@ -56,11 +56,15 @@
 		</form:form>
 		
 		
-<!--  Los botones de crear y cancelar -->
+
+	</div>
+	<!--  Los botones de crear y cancelar -->
 
 		<input type="submit" name="save" value="<spring:message code="category.save"></spring:message>" />
 			
 		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('category/administrator/list.do')" />
-	</div>
+		
+		<a href="category/administrator/delete.do"><spring:message code="category.delete"></spring:message></a>
+
 </security:authorize>
 
