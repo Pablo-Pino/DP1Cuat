@@ -72,4 +72,12 @@ public class SponsorshipService {
 		}
 		this.sponsorshipRepository.delete(s);
 	}
+	
+	public Collection<Sponsorship> findBySponsor(Sponsor sponsor) {
+		Assert.notNull(sponsor);
+		Assert.isTrue(sponsor.getId() > 0);
+		Assert.notNull(this.sponsorshipRepository.findBySponsor(sponsor.getId()));
+		return this.sponsorshipRepository.findBySponsor(sponsor.getId());
+	}
+	
 }
