@@ -17,7 +17,7 @@ public interface MessageRepository extends GenericRepository<Message> {
 	@Query("select m from Message m where m.receiver.id = ?1")
 	Collection<Message> findReceivedMessages(int actorId);
 	
-	@Query("select m from Message m where m.folder.id = ?1")
+	@Query("select distinct m from Message m join Folder m.folders f where f.id = ?1")
 	Collection<Message> findByFolderId(int folderId);
 	
 }
