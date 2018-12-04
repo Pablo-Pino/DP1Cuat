@@ -62,7 +62,7 @@
 		
 		<%-- TODO duda de como poner este link --%>
 		<display:column>
-			<a href="customer/fixupTask/list.do?customerId=${customer.id}"> 
+			<a href="c/fixupTask/list.do?customerId=${customer.id}"> 
 			<spring:message code="customer.fisxupTask.list"></spring:message></a>
 		</display:column>
 		
