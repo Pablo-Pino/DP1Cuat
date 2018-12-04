@@ -14,6 +14,7 @@ import repositories.CurriculumRepository;
 import domain.Curriculum;
 import domain.EducationRecord;
 import domain.EndorserRecord;
+import domain.HandyWorker;
 import domain.MiscellaneousRecord;
 import domain.PersonalRecord;
 import domain.ProfessionalRecord;
@@ -31,6 +32,8 @@ public class CurriculumService {
 
 	@Autowired
 	private TicketableService		ticketableService;
+	@Autowired
+	private HandyWorkerService handyWorkerService;
 
 
 	//	@Autowired
@@ -121,4 +124,12 @@ public class CurriculumService {
 		this.curriculumRepository.delete(curriculum);
 
 	}
+
+	public Curriculum findByHandyWorker(HandyWorker h) {
+		Assert.notNull(h);
+		Assert.isTrue(h.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
+		return this.curriculumRepository.findByHandyWorkerId(h.getId());
+	}
+
 }
