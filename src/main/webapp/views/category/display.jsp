@@ -71,8 +71,8 @@
 
 <security:authorize access="hasRole('ADMIN')">
 
-	<spring:message code="category.edit" var="editHead"></spring:message>
-	<input type="button" name="edit" value="${editHead}"
+	<spring:message code="category.edit" var="edit"></spring:message>
+	<input type="button" name="edit" value="${edit}"
 		onclick="javascript:relativeRedir('category/administrator/edit.do?categoryId=${category.id}')" />
 </security:authorize>
 
