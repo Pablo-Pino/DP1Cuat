@@ -191,10 +191,102 @@
 		</display:table>
 	</fieldset>
 
+<!-- ------------------------------ Nivel B------------------------------------------------------- -->
+
+
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.fixuptaskComplainStats"></spring:message>
+		</legend>
+		<display:table name="fixuptaskComplainStats" id="fixuptaskComplainStats" pagesize="5" requestURI="${requestURI}" class="displaytag">	
+			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
+			<spring:message code="dashboard.fixuptaskComplainStats.min" var="dash19" />
+				<display:column title="${dash19}" >
+						<jstl:out value="${minfixuptaskComplainStats}" />
+				</display:column>
+			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
+			<spring:message code="dashboard.fixuptaskComplainStats.max" var="dash20" />
+				<display:column title= "${dash20}" >
+						<jstl:out value="${maxfixuptaskComplainStats}" />
+				</display:column>
+			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
+			<spring:message code="dashboard.fixuptaskComplainStats.avg" var="dash21" />
+				<display:column title= "${dash21}" >
+						<jstl:out value="${avgfixuptaskComplainStats}" />
+				</display:column>
+				
+			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
+			<spring:message code="dashboard.fixuptaskComplainStats.stdev" var="dash22" />
+				<display:column title= "${dash22}" >
+						<jstl:out value="${stdevfixuptaskComplainStats}" />
+				</display:column>
+		</display:table>
+	
+	</fieldset>
+	
+	
+	
+	
+	
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.notePerRefereeStats"></spring:message>
+		</legend>
+		<display:table name="notePerRefereeStats" id="notePerRefereeStats" pagesize="5" requestURI="${requestURI}" class="displaytag">	
+			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
+			<spring:message code="dashboard.notePerRefereeStats.min" var="dash23" />
+				<display:column title="${dash23}" >
+						<jstl:out value="${minNotePerRefereeStats}" />
+				</display:column>
+			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
+			<spring:message code="dashboard.notePerRefereeStats.max" var="dash24" />
+				<display:column title= "${dash24}" >
+						<jstl:out value="${maxNotePerRefereeStats}" />
+				</display:column>
+			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
+			<spring:message code="dashboard.notePerRefereeStats.avg" var="dash25" />
+				<display:column title= "${dash25}" >
+						<jstl:out value="${avgNotePerRefereeStats}" />
+				</display:column>
+				
+			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
+			<spring:message code="dashboard.notePerRefereeStats.stdev" var="dash26" />
+				<display:column title= "${dash26}" >
+						<jstl:out value="${stdevNotePerRefereeStats}" />
+				</display:column>
+		</display:table>
+	
+	</fieldset>
+	
+	<!-- ------------------------------------------------------------------ -->
+	
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.ratioTaskComplaint"> </spring:message>
+		</legend>
+		
+		<display:table name="fixRatioTaskComplaint" id="fixRatioTaskComplaint" pagesize="5" requestURI="${requestURI}" class="displaytag">
+			<spring:message code="dashboard.fixRatioTaskComplaint" var="dash27" />
+			<display:column title="${dash27}"> <jstl:out value="${fixRatioTaskComplaint}" /> </display:column>
+		</display:table>
+	</fieldset>
 
 
 
-
-
+	<fieldset>
+			<display:table name="topCustomersComplaint" id="topCustomersComplaint" pagesize="5" requestURI="${requestURI}" class="displaytag">
+				<spring:message code="dashboard.topCustomersComplaint" var="dash28" />
+				<display:column title="${dash28}"> <jstl:out value="${topCustomersComplaint.name}"/> 
+				</display:column>	
+			</display:table>
+	</fieldset>
+	
+	<fieldset>
+			<display:table name="topHandyWorkerComplaint" id="topHandyWorkerComplaint" pagesize="5" requestURI="${requestURI}" class="displaytag">
+				<spring:message code="dashboard.topHandyWorkerComplaint" var="dash29" />
+				<display:column title="${dash29}"> <jstl:out value="${topHandyWorkerComplaint.name}"/> 
+				</display:column>	
+			</display:table>
+	</fieldset>
 
 </security:authorize>
