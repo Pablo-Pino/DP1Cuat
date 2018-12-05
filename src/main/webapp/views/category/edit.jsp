@@ -19,15 +19,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="category.edit" />
+	<spring:message code="application.edit" />
 </p>
 
-<!--  Primero pongo la autoridad ya que solo un admin maneja las categorias -->
-<security:authorize access="hasRole('ADMIN')">
+<!--  Primero pongo la autoridad ya que solo un * maneja las categorias -->
+<security:authorize access="hasRole('CUSTOMER' || 'HANDYWORKER')">
 
 	<div>
-		<form:form action="category/administrator/edit.do" method="post" id="formCreate"
-			name="formCreate" modelAttribute="category" onsubmit="fechas()">
+	<form:form action="application/edit.do" method="post" id="formCreate"name="formCreate" modelAttribute="application">
 
 	<!-- No me acuerdo exactamente para que hacia falta  -->
 			<form:hidden path="id" />

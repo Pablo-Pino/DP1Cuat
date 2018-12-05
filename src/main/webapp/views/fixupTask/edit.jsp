@@ -24,12 +24,8 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 
-	<form:label path="ticker">
-		<spring:message code="fixupTask.ticker" />:
-	</form:label>
-	<form:input path="ticker" />
-	<form:errors cssClass="error" path="ticker" />
-	<br />
+	<form:label path="ticker"> <spring:message code="fixupTask.ticker" />:</form:label>
+	<form:input path="ticker" /><form:errors cssClass="error" path="ticker" /><br />
 
 	<form:label path="moment">
 		<spring:message code="fixupTask.moment" />:
