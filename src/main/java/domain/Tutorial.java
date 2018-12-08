@@ -6,18 +6,14 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -33,9 +29,6 @@ public class Tutorial extends DomainEntity {
 	//-------------Relaciones--------------
 
 	private HandyWorker				handyWorker;
-	private Collection<Section>		sections;
-	private Collection<Sponsorship>	sponsorships;
-
 
 	//-------------Getters y Setters--------
 
@@ -88,29 +81,6 @@ public class Tutorial extends DomainEntity {
 
 	public void setHandyWorker(final HandyWorker handyWorker) {
 		this.handyWorker = handyWorker;
-	}
-
-	@NotNull
-	@NotEmpty
-	@OneToMany(mappedBy = "tutorial")
-	public Collection<Section> getSections() {
-		return this.sections;
-	}
-
-	public void setSections(final Collection<Section> sections) {
-		this.sections = sections;
-	}
-
-	@NotNull
-	@ManyToMany(cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH
-	})
-	public Collection<Sponsorship> getSponsorships() {
-		return this.sponsorships;
-	}
-
-	public void setSponsorships(final Collection<Sponsorship> sponsorships) {
-		this.sponsorships = sponsorships;
 	}
 
 }

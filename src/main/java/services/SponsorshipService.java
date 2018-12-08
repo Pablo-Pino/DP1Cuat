@@ -80,4 +80,11 @@ public class SponsorshipService {
 		return this.sponsorshipRepository.findBySponsor(sponsor.getId());
 	}
 	
+	public Collection<Sponsorship> findByTutorial(Tutorial tutorial) {
+		Assert.notNull(tutorial);
+		Assert.isTrue(tutorial.getId() > 0);
+		Assert.notNull(this.sponsorshipRepository.findByTutorial(tutorial.getId()));
+		return this.sponsorshipRepository.findByTutorial(tutorial.getId());
+	}
+	
 }
