@@ -12,11 +12,14 @@ import domain.FixupTask;
 @Repository
 public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 
-	@Query("select f from FixupTask f where f.category.id")
+	@Query("select f from FixupTask f where f.category.id = ?1")
 	Collection<FixupTask> findByCategoryId(int categoryId);
 	
-	@Query("select f from FixupTask f where f.customer.id")
+	@Query("select f from FixupTask f where f.customer.id = ?1")
 	Collection<FixupTask> findByCustomerId(int customerId);
+	
+	@Query("select f from FixupTask f where f.warranty.id = ?1")
+	Collection<FixupTask> findByWarrantyId(int warrantyId);
 	
 //	@Query("select (count(f)*1.0)/(select count(f1)*1.0 from FixupTask f1) from FixupTask f where f.complaints is not empty")
 //	double getRatioFixupTasksWithComplaints();

@@ -34,6 +34,8 @@ public class FixupTaskService {
 	private CategoryService categoryService;
 	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	private WarrantyService warrantyService;
 	
 	//
 
@@ -152,6 +154,13 @@ public class FixupTaskService {
 		Assert.isTrue(customer.getId() > 0);
 		Assert.notNull(this.customerService.findOne(customer.getId()));
 		return this.fixupTaskRepository.findByCustomerId(customer.getId());
+	}
+	
+	public Collection<FixupTask> findByWarranty(Warranty warranty) {
+		Assert.notNull(warranty);
+		Assert.isTrue(warranty.getId() > 0);
+		Assert.notNull(this.warrantyService.findOne(warranty.getId()));
+		return this.fixupTaskRepository.findByWarrantyId(warranty.getId());
 	}
 	
 }
