@@ -19,7 +19,7 @@
 <p><spring:message code="category.list" /></p>
 
 
-<display:table name="category" id="idCategory"requestURI="category/administrator/list.do" pagesize="5" class="displaytag">
+<display:table name="category" id="Category"requestURI="category/administrator/list.do" pagesize="5" class="displaytag">
 	
 	<!--  Primero compruebo que es un admin -->
 	<security:authorize access="hasRole('ADMIN')">
@@ -40,23 +40,20 @@
 		
 	<spring:message code="category.childsCategories" var="catId" />
 	<display:column title="${catId}">
-		<jstl:forEach items="${idCategory.childsCategories}" var="childsCategories">
-				<a href="category/admin/display.do?categoryId= ${childsCategories.id}"> <jstl:out
-						value="${child.name}">
-					</jstl:out>
-				</a>
+		<jstl:forEach items="${Category.childsCategories}" var="childsCategories">
+			<a href="category/admin/display.do?categoryId= ${childsCategories.id}"> <jstl:out value="${child.name}"></jstl:out></a>
 		</jstl:forEach>
 	</display:column>
 		
 
 	</security:authorize>
-	
-	
 </display:table>
+
 
 <!--  Boton de creacion -->
 <!--  seria edit.do? si no creo category -->
 <security:authorize access="hasRole('ADMIN')">
-	<a href="category/administrator/create.do"><spring:message
-			code="category.create"></spring:message></a>
+            <a href="category/administrator/create.do"><spring:message code="category.create"></spring:message></a>
 </security:authorize>
+
+

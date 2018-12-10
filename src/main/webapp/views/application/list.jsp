@@ -25,14 +25,8 @@
 
 	<display:table name="applications" id="application" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
-<security:authorize access="hasRole('CUSTOMER')">
 
-	<display:column>
-		<a href="application/edit.do?applicationId=${application.id}"><spring:message code="applicarion.edit"></spring:message></a>
-	</display:column>
-</security:authorize>
-
-<security:authorize access="hasRole('HANDYWORKER')">
+<security:authorize access="hasRole('HANDYWORKER' || 'CUSTOMER')">
 
 	<display:column>
 		<a href="application/edit.do?applicationId=${application.id}"><spring:message code="applicarion.edit"></spring:message></a>

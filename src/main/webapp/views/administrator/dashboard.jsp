@@ -28,24 +28,20 @@
 		<display:table name="minMaxFixupTaskStats" id="minMaxFixupTaskStats" pagesize="5" requestURI="${requestURI}" class="displaytag">	
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.FixStatsMax.min" var="dash1" />
-				<display:column title="${dash1}" >
-						<jstl:out value="${minMaxFixupTaskStats}" />
+				<display:column title="${dash1}" ><jstl:out value="${minMaxFixupTaskStats}" />
 				</display:column>
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.FixStatsMax.max" var="dash2" />
-				<display:column title= "${dash2}" >
-						<jstl:out value="${maxMaxFixupTaskStats}" />
+				<display:column title= "${dash2}" ><jstl:out value="${maxMaxFixupTaskStats}" />
 				</display:column>
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.FixStatsMax.avg" var="dash3" />
-				<display:column title= "${dash3}" >
-						<jstl:out value="${avgFixupTaskStats}" />
+				<display:column title= "${dash3}" ><jstl:out value="${avgFixupTaskStats}" />
 				</display:column>
 				
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.FixStatsMax.stdev" var="dash4" />
-				<display:column title= "${dash4}" >
-						<jstl:out value="${stdevMaxFixupTaskStats}" />
+				<display:column title= "${dash4}" ><jstl:out value="${stdevMaxFixupTaskStats}" />
 				</display:column>
 		</display:table>
 	
@@ -60,24 +56,20 @@
 		<display:table name="minAppsFixupTaskStats" id="minAppsFixupTaskStats" pagesize="5" requestURI="${requestURI}" class="displaytag">	
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.AppsFixStats.min" var="dash5" />
-				<display:column title="${dash5}" >
-						<jstl:out value="${minAppsFixupTaskStats}" />
+				<display:column title="${dash5}" ><jstl:out value="${minAppsFixupTaskStats}" />
 				</display:column>
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.AppsFixStats.max" var="dash6" />
-				<display:column title= "${dash6}" >
-						<jstl:out value="${maxAppsFixupTaskStats}" />
+				<display:column title= "${dash6}" ><jstl:out value="${maxAppsFixupTaskStats}" />
 				</display:column>
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.AppsFixStats.avg" var="dash7" />
-				<display:column title= "${dash7}" >
-						<jstl:out value="${avgAppsFixupTaskStats}" />
+				<display:column title= "${dash7}" ><jstl:out value="${avgAppsFixupTaskStats}" />
 				</display:column>
 				
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.AppsFixStats.stdev" var="dash8" />
-				<display:column title= "${dash8}" >
-						<jstl:out value="${stdevAppsFixupTaskStats}" />
+				<display:column title= "${dash8}" ><jstl:out value="${stdevAppsFixupTaskStats}" />
 				</display:column>
 		</display:table>
 	
@@ -91,24 +83,20 @@
 		<display:table name="minFixupTaskPriceStats" id="minFixupTaskPriceStats" pagesize="5" requestURI="${requestURI}" class="displaytag">	
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.fixuptaskPriceStats.min" var="dash9" />
-				<display:column title="${dash9}" >
-						<jstl:out value="${minFixupTaskPriceStats}" />
+				<display:column title="${dash9}" ><jstl:out value="${minFixupTaskPriceStats}" />
 				</display:column>
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.fixuptaskPriceStats.max" var="dash10" />
-				<display:column title= "${dash10}" >
-						<jstl:out value="${maxFixupTaskPriceStats}" />
+				<display:column title= "${dash10}" ><jstl:out value="${maxFixupTaskPriceStats}" />
 				</display:column>
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.fixuptaskPriceStats.avg" var="dash11" />
-				<display:column title= "${dash11}" >
-						<jstl:out value="${avgFixupTaskPriceStats}" />
+				<display:column title= "${dash11}" ><jstl:out value="${avgFixupTaskPriceStats}" />
 				</display:column>
 				
 			<!--  Cada comentario muestra una nueva columna dentro del fieldset -->
 			<spring:message code="dashboard.fixuptaskPriceStats.stdev" var="dash12" />
-				<display:column title= "${dash12}" >
-						<jstl:out value="${stdevMaxFixupTaskPriceStats}" />
+				<display:column title= "${dash12}" ><jstl:out value="${stdevMaxFixupTaskPriceStats}" />
 				</display:column>
 		</display:table>
 	

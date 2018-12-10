@@ -19,22 +19,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="application.edit" />
+	<spring:message code="category.edit" />
 </p>
 
 <!--  Primero pongo la autoridad ya que solo un * maneja las categorias -->
-<security:authorize access="hasRole('CUSTOMER' || 'HANDYWORKER')">
+<security:authorize access="hasRole('ADMIN')">
 
 	<div>
-	<form:form action="application/edit.do" method="post" id="formCreate"name="formCreate" modelAttribute="application">
+	<form:form action="category/edit.do" method="post" id="formCreate"name="formCreate" modelAttribute="category">
 
 	<!-- No me acuerdo exactamente para que hacia falta  -->
 			<form:hidden path="id" />
 			<form:hidden path="version" />
-			
-			<form:hidden path="name" />
-			<form:hidden path="parentCategory" />
-			<form:hidden path="childsCategories" />
+
 
 <!-- El atributo nombre -->
 			<form:label path="name"><spring:message code="category.name"></spring:message></form:label>
@@ -42,9 +39,7 @@
 			<form:errors cssClass="error" path="name" />
 			<br>
 <!--  Categoria padre (desplegable) -->
-		<form:label path="parentCategory">
-		<spring:message code="category.parentCategory"></spring:message>
-		</form:label>
+		<form:label path="parentCategory"> <spring:message code="category.parentCategory"></spring:message></form:label>
 		
 		<form:select id="parentCategory" path="parentCategory">
 		<form:option value="${CATEGORY}" label="CATEGORY"></form:option>
@@ -59,7 +54,7 @@
 	</div>
 	<!--  Los botones de crear y cancelar -->
 
-		<input type="submit" name="save" value="<spring:message code="category.save"></spring:message>" />
+		<input type="button" name="save" value="<spring:message code="category.save"></spring:message>" />
 			
 		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('category/administrator/list.do')" />
 		

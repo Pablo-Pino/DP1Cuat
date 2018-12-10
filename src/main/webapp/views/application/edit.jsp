@@ -66,6 +66,9 @@
 			
 			<form:label path="handyWorker"> <spring:message code="application.handyWorker" /></form:label>
 			<form:input path="handyWorker" /><form:errors cssClass="error" path="handyWorker" /><br />
+			
+			<form:label path="fixupTask"> <spring:message code="application.fixupTask" /></form:label>
+			<form:input path="fixupTask" /><form:errors cssClass="error" path="fixupTask" /><br />
 		
 
 	</div>
