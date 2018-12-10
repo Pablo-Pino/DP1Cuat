@@ -28,16 +28,15 @@
 		
 		<spring:message code="complaint.moment" var="complaintName"></spring:message>
 		<display:column property="name" title="${complaintName}" sortable="true" />
-		
-		<spring:message code="complaint.description" var="complaintDescription"></spring:message>
-		<display:column property="description" title="${complaintDescription}" sortable="true" />
-		
 				
 		<spring:message code="complaint.report" var="complaintReport"></spring:message>
 		<display:column property="report" title="${complaintReport}" sortable="true" />
 		
 		<spring:message code="complaint.fixUpTask" var="complaintFixupTask"></spring:message>
 		<display:column property="fixupTask" title="${complaintFixupTask}" sortable="true" />
+		
+		<spring:message code="complaint.customer" var="complaintCustomer"></spring:message>
+		<display:column property="customer" title="${complaintCustomer}" sortable="true" />
 		
 		<spring:message code="complaint.referee" var="complaintReferee"></spring:message>
 		<display:column property="referee" title="${complaintReferee}" sortable="true" />

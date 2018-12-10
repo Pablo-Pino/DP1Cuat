@@ -19,11 +19,9 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="curriculum.display" />
+	<spring:message code="actor.list" />
 </p>
 
-<spring:message code="curriculum.ticker" />
-<jstl:out value="${curriculum.ticker}" />
 
 <security:authorize access="hasRole('ADMIN')">
 
