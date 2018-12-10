@@ -22,9 +22,17 @@
 	<spring:message code="customer.list" />
 </p>
 
+<%-- TODO (Juan) tengo que mirar como poner la sección de pasar de pagina y demas --%>
+
+
 <security:authorize access="hasRole('ADMIN')">
 	<display:table name="customers" id="customer" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
+		<display:column>
+			<a href="customer/display.do?customerId=${customer.id}">
+			<spring:message code="customer.display"></spring:message></a>
+		</display:column>
+		
 		<display:column>
 			<a href="customer/edit.do?customerId=${customer.id}">
 			<spring:message code="customer.edit"></spring:message></a>
@@ -60,14 +68,16 @@
 		<spring:message code="customer.banned" var="customerBanned"></spring:message>
 		<display:column property="banned" title="${customerBanned}" sortable="true" />
 		
-		<%-- TODO duda de como poner este link --%>
+		<%--<%-- TODO duda de como poner este link
 		<display:column>
 			<a href="c/fixupTask/list.do?customerId=${customer.id}"> 
 			<spring:message code="customer.fisxupTask.list"></spring:message></a>
-		</display:column>
+		</display:column> --%>
 		
 		
 		
 		
 	</display:table>
+	
+	
 </security:authorize>
