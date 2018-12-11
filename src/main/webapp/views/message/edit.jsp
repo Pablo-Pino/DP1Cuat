@@ -49,12 +49,23 @@
 			<form:textarea path="priority" id="priority" name="priority" />
 			<form:errors cssClass="error" path="priority"></form:errors>
 			
+				<form:label path="folder">
+				<spring:message code="message.folder"></spring:message>
+			</form:label>
+			<form:textarea path="folder" id="folder" name="folder" />
+			<form:errors cssClass="error" path="folder"></form:errors>
+			
 				<form:label path="tags">
 				<spring:message code="message.tags"></spring:message>
 			</form:label>
 			<form:textarea path="tags" id="tags" name="tags" />
 			<form:errors cssClass="error" path="tags"></form:errors>
 			
+				<form:label path="receiver">
+				<spring:message code="message.receiver"></spring:message>
+			</form:label>
+			<form:textarea path="receiver" id="receiver" name="receiver" />
+			<form:errors cssClass="error" path="receiver"></form:errors>
 		
 
 			<input type="submit" name="save"

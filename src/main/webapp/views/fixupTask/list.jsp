@@ -55,6 +55,12 @@
 	<spring:message code="fixupTask.maximunPrice" var="maximunPrice" />
 	<display:column property="maximunPrice" title="${maximunPrice}" sortable="false" />
 	
+	<spring:message code="fixupTask.category" var="category" />
+	<display:column property="category" title="${category}" sortable="false" />
+	
+	<spring:message code="fixupTask.warranty" var="warranty" />
+	<display:column property="warranty" title="${warranty}" sortable="false" />
+	
 	<spring:message code="fixupTask.start" var="start" />
 	<display:column property="start" title="${start}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
 	

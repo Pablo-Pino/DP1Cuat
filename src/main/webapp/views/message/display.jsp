@@ -39,3 +39,9 @@
 	<jstl:out value="${message.tags}"></jstl:out>
 </jstl:if>
 
+<jstl:if test="${message.folder != null }">
+
+	<spring:message code="message.folder"></spring:message>
+	<jstl:out value="${message.folder}"></jstl:out>
+</jstl:if>
+
