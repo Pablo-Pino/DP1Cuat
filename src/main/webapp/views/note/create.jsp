@@ -18,31 +18,45 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="note.edit" />
-</p>
-
 <security:authorize access="hasRole('REFEREE')">
 	<div>
-		<form:form action="note/referee/edit.do" method="post" id="formCreate"
-			name="formCreate" modelAttribute="note">
+
+		<form:form action="note/create.do" method="POST"
+			id="formCreate" name="formCreate" modelAttribute="note">
+
+			<!-- Atributos hidden-->
 
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="moment" />
+			
 
-			<form:label path="comments">
-				<spring:message code="note.comments"></spring:message>
-			</form:label>
-			<form:textarea path="comments" id="comments" name="comments" />
-			<form:errors cssClass="error" path="comments"></form:errors>
+			<fieldset>
+				<!-------------------Form ------------------------------------>
 
-			<input type="submit" name="save"
-				value="<spring:message code="note.save"></spring:message>" />
-			<spring:message code="note.cancel" var="cancel"></spring:message>
-			<input type="button" name="cancel" value="${cancel}"
-				onclick="javascript:relativeRedir('note/list.do')" />
+				<div>
+					<form:label path="comments">
+						<spring:message code="note.comments"></spring:message>
+					</form:label>
+					<form:input path="comments" id="comments" name="comments" />
+					<form:errors cssClass="error" path="comments" />
+					<br />
+				</div>
+
+			</fieldset>
+
+
+
 		</form:form>
 
 	</div>
+	
+	<!--  Botones -->
+	
+		<input type="submit" name="save" value="<spring:message code="note.save"></spring:message>" />	
+		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('note/display.do')" />	
+
+
+
+
 </security:authorize>

@@ -19,30 +19,34 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="note.edit" />
+	<spring:message code="folder.edit" />
 </p>
 
-<security:authorize access="hasRole('REFEREE')">
+
 	<div>
-		<form:form action="note/referee/edit.do" method="post" id="formCreate"
-			name="formCreate" modelAttribute="note">
+		<form:form action="folder/referee/edit.do" method="post" id="formCreate"
+			name="formCreate" modelAttribute="folder">
 
 			<form:hidden path="id" />
 			<form:hidden path="version" />
-			<form:hidden path="moment" />
 
-			<form:label path="comments">
-				<spring:message code="note.comments"></spring:message>
+			<form:label path="name">
+				<spring:message code="folder.name"></spring:message>
 			</form:label>
-			<form:textarea path="comments" id="comments" name="comments" />
-			<form:errors cssClass="error" path="comments"></form:errors>
+			<form:textarea path="name" id="name" name="name" />
+			<form:errors cssClass="error" path="name"></form:errors>
+			
+			<form:label path="system">
+				<spring:message code="folder.system"></spring:message>
+			</form:label>
+			<form:textarea path="system" id="system" name="system" />
+			<form:errors cssClass="error" path="system"></form:errors>
 
 			<input type="submit" name="save"
-				value="<spring:message code="note.save"></spring:message>" />
-			<spring:message code="note.cancel" var="cancel"></spring:message>
+				value="<spring:message code="folder.save"></spring:message>" />
+			<spring:message code="folder.cancel" var="cancel"></spring:message>
 			<input type="button" name="cancel" value="${cancel}"
-				onclick="javascript:relativeRedir('note/list.do')" />
+				onclick="javascript:relativeRedir('folder/display.do')" />
 		</form:form>
 
 	</div>
-</security:authorize>

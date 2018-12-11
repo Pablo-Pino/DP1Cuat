@@ -16,19 +16,20 @@
        
 <tiles-definitions>
 
-	<definition name="note/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit Note" />
-		<put-attribute name="body" value="/views/note/edit.jsp" />
+	<definition name="folder/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit folder" />
+		<put-attribute name="body" value="/views/folder/edit.jsp" />
 	</definition>
 	
-	<definition name="note/create" extends="master.page">	
-		<put-attribute name="title" value="Create Notes" />
-		<put-attribute name="body" value="/views/note/create.jsp" />
+	<definition name="folder/create" extends="master.page">	
+		<put-attribute name="title" value="Create folder" />
+		<put-attribute name="body" value="/views/folder/create.jsp" />
 	</definition>
 	
-	<definition name="note/display" extends="master.page">	
-		<put-attribute name="title" value="Display note" />
-		<put-attribute name="body" value="/views/note/display.jsp" />
+	
+	<definition name="folder/display" extends="master.page">	
+		<put-attribute name="title" value="Display folder" />
+		<put-attribute name="body" value="/views/folder/display.jsp" />
 	</definition>
 	
 </tiles-definitions>

@@ -11,18 +11,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="note.display" />
+	<spring:message code="folder.display" />
 </p>
 
-<spring:message code="note.date" var="date"></spring:message>
 
-<spring:message code="note.moment"></spring:message>
-<fmt:formatDate value="${note.moment}" pattern="${date}"
-	var="moment" />
-<jstl:out value="${moment}"></jstl:out>
-<jstl:if test="${note.comments != null }">
+<jstl:if test="${folder.name != null }">
 
-	<spring:message code="note.comments"></spring:message>
-	<jstl:out value="${note.comments}"></jstl:out>
+	<spring:message code="folder.name"></spring:message>
+	<jstl:out value="${folder.name}"></jstl:out>
+</jstl:if>
+
+<jstl:if test="${folder.system != null }">
+
+	<spring:message code="folder.system"></spring:message>
+	<jstl:out value="${folder.system}"></jstl:out>
 </jstl:if>
 

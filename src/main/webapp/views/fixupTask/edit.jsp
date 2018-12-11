@@ -19,6 +19,10 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<p>
+	<spring:message code="fixupTask.edit" />
+</p>
+
 <form:form action="fixupTask/customer/edit.do" modelAttribute="fixupTask">
 
 	<form:hidden path="id" />

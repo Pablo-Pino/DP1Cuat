@@ -18,6 +18,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<p>
+	<spring:message code="fixupTask.create" />
+</p>
+
 <security:authorize access="hasRole('CUSTOMER')">
 	<div>
 		<form:form action="fixupTask/customer/edit.do" method="POST"
