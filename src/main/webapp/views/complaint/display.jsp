@@ -42,13 +42,13 @@
 	</jstl:out>
 	<br />
 	
-	<spring:message code="complaint.report"></spring:message>
-	<jstl:out value="${complaint.report}">
-	</jstl:out>
+	<div>
+		<a href="report/display.do?reportId=${report.id}"><spring:message code="complaint.report"></spring:message></a>
+	</div>
 	<br />
 	
 	<div>
-		<a href="fixupTask/display.do?fixupTaskId=${fixupTask.name}"><spring:message code="fixupTask.display"></spring:message></a>
+		<a href="fixupTask/display.do?fixupTaskId=${fixupTask.name}"><spring:message code="complaint.fixupTask"></spring:message></a>
 	</div>
 	<br />
 	

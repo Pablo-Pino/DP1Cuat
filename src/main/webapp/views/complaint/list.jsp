@@ -27,28 +27,31 @@
 	
 		
 		<display:column>
-		<a href="complaint/edit.do?complaintId=${complaint.id}"><spring:message
+		<a href="complaint/display.do?complaintId=${complaint.id}"><spring:message
 		   code="complaint.display"></spring:message></a>
 		</display:column>
-	
-		<spring:message code="complaint.moment" var="complaintName"></spring:message>
-		<display:column property="name" title="${complaintName}" sortable="true" />
+
 				
 		<display:column>
 		<a href="report/display.do?reportId=${comlpaint.report.id}"><spring:message
 		   code="complaint.report"></spring:message></a>
 		</display:column>
 		
-		<display:column>
-		<a href="complaint/edit.do?complaintId=${complaint.id}"><spring:message
-		   code="complaint.display"></spring:message></a>
-		</display:column>
-		
+			
+		<spring:message code="complaint.moment" var="complaintName"></spring:message>
+		<display:column property="name" title="${complaintName}" sortable="true" />
+
+
 		<spring:message code="complaint.customer" var="complaintCustomer"></spring:message>
 		<display:column property="customer" title="${complaintCustomer}" sortable="true" />
 		
 		<spring:message code="complaint.referee" var="complaintReferee"></spring:message>
 		<display:column property="referee" title="${complaintReferee}" sortable="true" />
+		
+		<display:column>
+		<a href="fixupTask/display.do?fixupTaskId=${comlpaint.fixupTask.name}"><spring:message
+		   code="complaint.fixupTask"></spring:message></a>
+		</display:column>
 		
 		<security:authorize access="hasRole('REFEREE')">
 		<jstl:if test="${complaint.referee.id != 0}"></jstl:if>
