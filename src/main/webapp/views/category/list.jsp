@@ -27,7 +27,7 @@
 	
 	<!--  La columna que va a la vista edit de las categorias -->
 	<display:column>
-		<a href="category/administrator/edit.do?categoryId=${idCategory.id}"><spring:message
+		<a href="category/administrator/display.do?categoryId=${idCategory.id}"><spring:message
 		   code="category.edit"></spring:message></a>
 	</display:column>
 	
@@ -41,7 +41,7 @@
 	<spring:message code="category.childsCategories" var="catId" />
 	<display:column title="${catId}">
 		<jstl:forEach items="${Category.childsCategories}" var="childsCategories">
-			<a href="category/admin/display.do?categoryId= ${childsCategories.id}"> <jstl:out value="${child.name}"></jstl:out></a>
+			<a href="category/admin/display.do?categoryId= ${childsCategories.id}"> <jstl:out value="${child.Categoriesname}"></jstl:out></a>
 		</jstl:forEach>
 	</display:column>
 		

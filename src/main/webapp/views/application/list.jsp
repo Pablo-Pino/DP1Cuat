@@ -42,13 +42,13 @@
 		<display:column property="moment" title="${applicationMoment}" sortable="true" />
 		
 		<spring:message code="application.status" var="applicationStatus"></spring:message>
-		<display:column property="status" title="${applicationStatus}" sortable="true" />
-		
-		<spring:message code="application.customer" var="applicationCustomer"></spring:message>
-		<display:column property="customer" title="${applicationCustomer.name}" sortable="true" />
+		<display:column property="status" title="${applicationStatus}" sortable="true" />		
 		
 		<spring:message code="application.handyworker" var="applicationHandyworker"></spring:message>
 		<display:column property="customer" title="${applicationHandyworker.name}" sortable="true" />
+		
+		<spring:message code="application.fixupTask" var="applicationFixupTask"></spring:message>
+		<display:column property="fixupTask" title="${applicationFixupTask}" sortable="true" />
 		
 	
 		

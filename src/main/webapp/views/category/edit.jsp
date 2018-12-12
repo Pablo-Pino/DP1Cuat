@@ -58,7 +58,8 @@
 			
 		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('category/administrator/list.do')" />
 		
-		<a href="category/administrator/delete.do"><spring:message code="category.delete"></spring:message></a>
+		<input type="button" name="delete" value="<spring:message code="category.delete"></spring:message>" />
+		
 
 </security:authorize>
 

@@ -54,7 +54,11 @@
 		<security:intercept-url pattern="/fixupTask/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/note/**"
 			access="hasRole('REFEREE')" />
-		<security:intercept-url pattern="/miscellaneousRecord/display.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/miscellaneousRecord/**" access="hasRole('HANDYWORKER')" /> 
+		<security:intercept-url pattern="/personalRecord/**" access="hasRole('HANDYWORKER')" /> 
+		<security:intercept-url pattern="/message/**" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/folder/**" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/handyWorker/**" access="isAuthenticated()" />
 			
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

@@ -24,11 +24,13 @@
 
 
 <security:authorize access="hasRole('ADMIN')">
-	<spring:message code="category.name"></spring:message> <jstl:out value="${category.name}"></jstl:out>
+	<spring:message code="category.name"></spring:message> 
+	<jstl:out value="${category.name}"></jstl:out>
 	<br />
 
 
-	<spring:message code="category.parentCategory"></spring:message><jstl:out value="${category.parentCategory.name}"></jstl:out>
+	<spring:message code="category.parentCategory"></spring:message>
+	<a href="category/administrator/display.do?categoryId=${category.parentCategory.id}"><jstl:out value="${category.parentCategory.name}"></jstl:out></a>
 	<br />
 
 

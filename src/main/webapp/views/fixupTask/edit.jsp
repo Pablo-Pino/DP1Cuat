@@ -1,7 +1,7 @@
 <%--
  * edit.jsp
  *
- * Copyright (C) 2017 Universidad de Sevilla
+ * Copyright (C) 2018 Universidad de Sevilla
  * 
  * The use of this project is hereby constrained to the conditions of the 
  * TDG Licence, a copy of which you may download from 
@@ -18,6 +18,10 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+
+<p>
+	<spring:message code="fixupTask.edit" />
+</p>
 
 <form:form action="fixupTask/customer/edit.do" modelAttribute="fixupTask">
 

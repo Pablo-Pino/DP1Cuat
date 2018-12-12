@@ -10,6 +10,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<p>
+	<spring:message code="note.display" />
+</p>
+
 <spring:message code="note.date" var="date"></spring:message>
 
 <spring:message code="note.moment"></spring:message>

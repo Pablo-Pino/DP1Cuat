@@ -18,6 +18,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<p>
+	<spring:message code="note.edit" />
+</p>
+
 <security:authorize access="hasRole('REFEREE')">
 	<div>
 		<form:form action="note/referee/edit.do" method="post" id="formCreate"
@@ -37,7 +41,7 @@
 				value="<spring:message code="note.save"></spring:message>" />
 			<spring:message code="note.cancel" var="cancel"></spring:message>
 			<input type="button" name="cancel" value="${cancel}"
-				onclick="javascript:relativeRedir('note/list.do')" />
+				onclick="javascript:relativeRedir('note/referee/list.do')" />
 		</form:form>
 
 	</div>

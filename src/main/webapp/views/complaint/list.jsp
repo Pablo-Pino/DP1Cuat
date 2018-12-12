@@ -19,27 +19,44 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="application.list" />
+	<spring:message code="complaint.list" />
 </p>
 
-<security:authorize access="hasRole('CUSTOMER' || 'REFEREE')">
+<security:authorize access="hasAnyRole('CUSTOMER' , 'REFEREE')">
 	<display:table name="complaints" id="complaint" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
 		
+		<display:column>
+		<a href="complaint/display.do?complaintId=${complaint.id}"><spring:message
+		   code="complaint.display"></spring:message></a>
+		</display:column>
+
+				
+		<display:column>
+		<a href="report/display.do?reportId=${comlpaint.report.id}"><spring:message
+		   code="complaint.report"></spring:message></a>
+		</display:column>
+		
+			
 		<spring:message code="complaint.moment" var="complaintName"></spring:message>
 		<display:column property="name" title="${complaintName}" sortable="true" />
-				
-		<spring:message code="complaint.report" var="complaintReport"></spring:message>
-		<display:column property="report" title="${complaintReport}" sortable="true" />
-		
-		<spring:message code="complaint.fixUpTask" var="complaintFixupTask"></spring:message>
-		<display:column property="fixupTask" title="${complaintFixupTask}" sortable="true" />
-		
+
+
 		<spring:message code="complaint.customer" var="complaintCustomer"></spring:message>
 		<display:column property="customer" title="${complaintCustomer}" sortable="true" />
 		
 		<spring:message code="complaint.referee" var="complaintReferee"></spring:message>
 		<display:column property="referee" title="${complaintReferee}" sortable="true" />
+		
+		<display:column>
+		<a href="fixupTask/display.do?fixupTaskId=${comlpaint.fixupTask.name}"><spring:message
+		   code="complaint.fixupTask"></spring:message></a>
+		</display:column>
+		
+		<security:authorize access="hasRole('REFEREE')">
+		<jstl:if test="${complaint.referee.id != 0}"></jstl:if>
+			<a href="complaint/edit.do"><spring:message code="complaint.assign"></spring:message></a>
+		</security:authorize>
 	
 		
 	</display:table>

@@ -28,8 +28,15 @@
 		<value>/views/profile/tiles.xml</value>
 		
 		<value>/views/miscellaneousRecord/tiles.xml</value>
+		<value>/views/personalRecord/tiles.xml</value>
+		<value>/views/message/tiles.xml</value>
+		<value>/views/folder/tiles.xml</value>
+		<value>/views/handyWorker/tiles.xml</value>
 		<value>/views/fixupTask/tiles.xml</value>
 		<value>/views/note/tiles.xml</value>
+		<value>/views/referee/tiles.xml</value>
+		<value>/views/section/tiles.xml</value>
+		<value>/views/socialprofile/tiles.xml</value>
 		
 	</util:list>
 

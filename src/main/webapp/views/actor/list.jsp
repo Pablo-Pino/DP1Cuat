@@ -41,10 +41,19 @@
 		
 		<spring:message code="actor.phone" var="actorPhone"></spring:message>
 		<display:column property="phone" title="${actorPhone}" sortable="true" />
+
 		
-		<display:column>
-			<a href="actor/administrator/edit.do?actorId=${actor.id}"> 
-			<spring:message code="customer.fisxupTask.list"></spring:message></a>
+		<display:column> 
+		<jstl:if test="${actor.suspicious eq true}">
+			<jstl:if test="${actor.banned eq true}"></jstl:if>
+					<a href="administrator/ban.do?actorId=${actor.id}"><spring:message
+					code="actor.ban"></spring:message></a>
+			<jstl:if test="${actor.banned eq false}"></jstl:if>
+					<a href="administrator/ban.do?actorId=${actor.id}"><spring:message
+					code="actor.unBan"></spring:message></a>
+		
+		</jstl:if>
+		
 		</display:column>
 	
 	

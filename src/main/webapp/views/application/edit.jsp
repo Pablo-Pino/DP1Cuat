@@ -23,7 +23,7 @@
 </p>
 
 <!--  Primero pongo la autoridad ya que solo un admin maneja las categorias -->
-<security:authorize access="hasRole('CUSTOMER' || 'HANDYWORKER')">
+<security:authorize access="hasAnyRole('CUSTOMER' , 'HANDYWORKER')">
 
 	<div>
 		<form:form action="application/edit.do" method="post" id="formCreate"
@@ -33,6 +33,7 @@
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="customer" />
+			<form:hidden path="creditCard"/>
 
 <!-- los atributos -->
 			<form:label path="price"> <spring:message code="application.price" /></form:label>
@@ -60,10 +61,7 @@
 			
 			<form:label path="customerMoments"> <spring:message code="application.customerMoments" /></form:label>
 			<form:input path="customerMoments" /><form:errors cssClass="error" path="customerMoments" /><br />
-			
-			<form:label path="creditCard"> <spring:message code="application.creditCard" /></form:label>
-			<form:input path="creditCard" /><form:errors cssClass="error" path="creditCard" /><br />
-			
+		
 			<form:label path="handyWorker"> <spring:message code="application.handyWorker" /></form:label>
 			<form:input path="handyWorker" /><form:errors cssClass="error" path="handyWorker" /><br />
 			
