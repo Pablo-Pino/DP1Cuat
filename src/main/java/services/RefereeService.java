@@ -1,8 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +11,8 @@ import repositories.RefereeRepository;
 import security.Authority;
 import security.UserAccount;
 import domain.Complaint;
-import domain.Folder;
-import domain.Message;
 import domain.Note;
 import domain.Referee;
-import domain.SocialProfile;
 import domain.Url;
 
 @Service
@@ -36,6 +31,12 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 	@Autowired
 	private FolderService		folderService;
 	@Autowired
+	private ComplaintService complaintService;
+	@Autowired
+	private NoteService noteService;
+	@Autowired
+	private ReportService reportService;
+	@Autowired
 	private ServiceUtils		serviceUtils;
 
 	// CRUD methods
@@ -45,11 +46,6 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 		final Referee res = new Referee();
 		res.setBanned(false);
 		res.setSuspicious(false);
-		res.setComplaints(new ArrayList<Complaint>());
-		res.setFolders(new ArrayList<Folder>());
-		res.setReceivedMessages(new ArrayList<Message>());
-		res.setSendedMessages(new ArrayList<Message>());
-		res.setSocialProfiles(new ArrayList<SocialProfile>());
 		res.setUserAccount(new UserAccount()); //Create new account for a new referee
 		return res;
 	}
@@ -62,20 +58,11 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 			ref = this.repository.findOne(object.getId());
 		if (object.getId() == 0) {
 			object.setBanned(false);
-			object.setComplaints(new ArrayList<Complaint>());
-			object.setFolders(this.folderService.createSystemFolders(object));
-			object.setReceivedMessages(new ArrayList<Message>());
-			object.setSendedMessages(new ArrayList<Message>());
-			object.setSocialProfiles(new ArrayList<SocialProfile>());
+			this.folderService.createSystemFolders(object);
 			object.setSuspicious(false);
 			this.serviceUtils.checkAuthority(Authority.ADMIN);
 		} else {
 			object.setBanned(ref.getBanned());
-			object.setComplaints(ref.getComplaints());
-			object.setFolders(ref.getFolders());
-			object.setReceivedMessages(ref.getReceivedMessages());
-			object.setSendedMessages(ref.getSendedMessages());
-			object.setSocialProfiles(ref.getSocialProfiles());
 			object.setSuspicious(ref.getSuspicious());
 			object.setUserAccount(ref.getUserAccount());
 			this.serviceUtils.checkActor(ref);
@@ -110,11 +97,11 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 		Assert.notNull(referee);
 		res = this.actorService.isSuspicious(referee);
 		if(!res) {
-			for (Complaint c : referee.getComplaints()) {
+			for (Complaint c : this.complaintService.findAllComplaintsByReferee(referee)) {
 				res = this.actorService.containsSpam(c.getDescription()) ||
-						this.actorService.containsSpam(c.getReport().getDescription());
+						this.actorService.containsSpam(this.reportService.findByComplaint(c).getDescription());
 				if(!res) {
-					for (Note n : c.getReport().getNotes()) {
+					for (Note n : this.noteService.findAllByReport(this.reportService.findByComplaint(c))) {
 						for (String comment : n.getComments()) {
 							res = this.actorService.containsSpam(comment);
 							if(res)

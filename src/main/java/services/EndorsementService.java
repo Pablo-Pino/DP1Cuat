@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,12 +13,15 @@ import org.springframework.util.Assert;
 
 import repositories.EndorsementRepository;
 import security.Authority;
+import domain.Actor;
+import domain.Customer;
 import domain.Endorsable;
 import domain.Endorsement;
+import domain.HandyWorker;
 
 @Service
 @Transactional
-public class EndorsementService {
+public class EndorsementService extends GenericService<Endorsement, EndorsementRepository> implements ServiceActorDependantI<Endorsement> {
 
 	// Managed repository --------------------------------------
 	@Autowired
@@ -104,5 +108,27 @@ public class EndorsementService {
 		Assert.notNull(this.endorsableService.findOne(receiver.getId()));
 		return this.endorsementRepository.getByReceiverId(receiver.getId());
 	}
+
+	@Override
+	public Collection<Endorsement> findAllByActor(Actor a) {
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() > 0);
+		Assert.notNull(this.endorsableService.findOne(a.getId()));
+		Collection<Endorsement> res = new ArrayList<Endorsement>();
+		res.addAll(this.findByReceiver((Endorsable) a));
+		res.addAll(this.findBySender((Endorsable) a));
+		return res;
+	}
+
+	@Override
+	public Endorsement create(Actor a) {
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() > 0);
+		Assert.notNull(this.endorsableService.findOne(a.getId()));
+		Endorsement res = this.create();
+		Assert.isTrue(a instanceof HandyWorker || a instanceof Customer);
+		res.setSender((Endorsable) a);
+		return res;
+	}	
 
 }

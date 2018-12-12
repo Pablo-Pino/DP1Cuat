@@ -10,11 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.EndorserRecordRepository;
+import domain.Curriculum;
 import domain.EndorserRecord;
 
 @Transactional
 @Service
-public class EndorserRecordService {
+public class EndorserRecordService extends GenericService<EndorserRecord, EndorserRecordRepository> implements ServiceObjectDependantI<EndorserRecord, Curriculum> {
 
 	//---------------Managed Repository---------------------------------------
 
@@ -24,6 +25,9 @@ public class EndorserRecordService {
 
 	//---------------Supporting Services----------------------------------------
 
+	@Autowired
+	private CurriculumService curriculumService;
+	
 	// Constructors -----------------------------------------------------------
 
 	public EndorserRecordService() {
@@ -59,4 +63,23 @@ public class EndorserRecordService {
 		Assert.notNull(endorserRecord);
 		this.endorserRecordRepository.delete(endorserRecord);
 	}
+
+	@Override
+	public Collection<EndorserRecord> findAll(Curriculum dependency) {
+		Assert.notNull(dependency);
+		Assert.isTrue(dependency.getId() > 0);
+		Assert.notNull(this.curriculumService.findOne(dependency.getId()));
+		return dependency.getEndorserRecords();
+	}
+
+	@Override
+	public EndorserRecord create(Curriculum dependency) {
+		Assert.notNull(dependency);
+		Assert.isTrue(dependency.getId() > 0);
+		Assert.notNull(this.curriculumService.findOne(dependency.getId()));
+		EndorserRecord res = this.create();
+		res.setCurriculum(dependency);
+		return res;
+	}
+	
 }

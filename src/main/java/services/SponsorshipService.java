@@ -55,7 +55,6 @@ public class SponsorshipService {
 		if (s.getId() == 0) {
 			sp = this.sponsorService.findSponsorById(LoginService.getPrincipal().getId());
 			s.setSponsor(sp);
-			sp.getSponsorships().add(s);
 		}
 		Assert.notNull(s);
 
@@ -64,10 +63,7 @@ public class SponsorshipService {
 	public void delete(final Sponsorship s) {
 		Assert.notNull(s);
 		this.serviceUtils.checkAuthority("SPONSOR");
-		final Sponsor sp = s.getSponsor();
-		sp.getSponsorships().remove(s);
 		for (final Tutorial t : s.getTutorials()) {
-			t.getSponsorships().remove(s);
 			this.tutorialService.save(t);
 		}
 		this.sponsorshipRepository.delete(s);

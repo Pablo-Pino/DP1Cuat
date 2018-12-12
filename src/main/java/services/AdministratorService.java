@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +10,10 @@ import org.springframework.util.Assert;
 
 import repositories.AdministratorRepository;
 import domain.Administrator;
-import domain.Folder;
-import domain.Message;
-import domain.SocialProfile;
 
 @Service
 @Transactional
-public class AdministratorService {
+public class AdministratorService extends GenericService<Administrator, AdministratorRepository> implements ServiceI<Administrator> {
 
 	//--------------Managed repository---------------------------
 
@@ -49,10 +45,6 @@ public class AdministratorService {
 		result = new Administrator();
 		result.setBanned(false);
 		result.setSuspicious(false);
-		result.setFolders(new ArrayList<Folder>());
-		result.setReceivedMessages(new ArrayList<Message>());
-		result.setSendedMessages(new ArrayList<Message>());
-		result.setSocialProfiles(new ArrayList<SocialProfile>());
 		//establezco ya su tipo de userAccount porque no va a cambiar
 		result.setUserAccount(this.userAccountService.create("ADMIN"));
 
@@ -77,10 +69,7 @@ public class AdministratorService {
 		//Si el admin que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
 		if (administrator.getId() == 0) {
 			administrator.setBanned(false);
-			administrator.setFolders(this.folderService.createSystemFolders(administrator));
-			administrator.setReceivedMessages(new ArrayList<Message>());
-			administrator.setSendedMessages(new ArrayList<Message>());
-			administrator.setSocialProfiles(new ArrayList<SocialProfile>());
+			this.folderService.createSystemFolders(administrator);
 			administrator.setSuspicious(false);
 
 			//comprobamos que ningún actor resté autenticado (ya que ningun actor puede crear los customers)
@@ -88,10 +77,6 @@ public class AdministratorService {
 
 		} else {
 			administrator.setBanned(adminDB.getBanned());
-			administrator.setFolders(adminDB.getFolders());
-			administrator.setReceivedMessages(adminDB.getReceivedMessages());
-			administrator.setSendedMessages(adminDB.getSendedMessages());
-			administrator.setSocialProfiles(adminDB.getSocialProfiles());
 			administrator.setSuspicious(adminDB.getSuspicious());
 			administrator.setUserAccount(adminDB.getUserAccount());
 
@@ -167,4 +152,9 @@ public class AdministratorService {
 	////	}
 	//	
 	//	public 
+
+	@Override
+	public void delete(Administrator object) {
+		throw new IllegalArgumentException("Unallowed method");
+	}
 }

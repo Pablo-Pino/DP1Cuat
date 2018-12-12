@@ -31,6 +31,9 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 
 	@Autowired
 	private EndorsableService	endorsableService;
+	
+	@Autowired
+	private EndorsementService endorsementService;
 
 
 	// CRUD methods
@@ -145,8 +148,8 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 		final Collection<Endorsement> endorsements = new ArrayList<Endorsement>();
 		final Collection<String> buenas = this.getSettings().getPositiveWords();
 		final Collection<String> malas = this.getSettings().getNegativeWords();
-		endorsements.addAll(a.getReceivedEndorsements());
-		endorsements.addAll(a.getSendedEndorsements());
+		endorsements.addAll(this.endorsementService.findByReceiver(a));
+		endorsements.addAll(this.endorsementService.findBySender(a));
 		for (final Endorsement e : endorsements) {
 			final String[] palabras = e.getComments().split(" ");
 			for (final String word : palabras) {

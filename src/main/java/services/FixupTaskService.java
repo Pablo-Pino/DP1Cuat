@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.FixupTaskRepository;
-import domain.Application;
 import domain.Category;
 import domain.Customer;
 import domain.FixupTask;
@@ -47,7 +45,6 @@ public class FixupTaskService {
 	public FixupTask create() {
 		FixupTask ft;
 		ft = new FixupTask();
-		ft.setApplications(new ArrayList<Application>());
 		return ft;
 	}
 
@@ -67,24 +64,6 @@ public class FixupTaskService {
 	public FixupTask save(final FixupTask f) {
 
 		Assert.notNull(f);
-
-		Category category;
-		Warranty warranty;
-		Customer customer;
-
-		category = f.getCategory();
-		warranty = f.getWarranty();
-		customer = f.getCustomer();
-
-		category.getFixupTasks().add(f);
-		//categoryService.save(category);
-
-		warranty.getFixupTasks().add(f);
-		//warrantyService.save(warranty);
-
-		customer.getFixupTasks().add(f);
-		//customerService.save(customer);
-
 		this.fixupTaskRepository.save(f);
 
 		return f;

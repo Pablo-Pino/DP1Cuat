@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -11,12 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.CategoryRepository;
+import security.Authority;
 import domain.Category;
 import domain.FixupTask;
 
 @Service
 @Transactional
-public class CategoryService {
+public class CategoryService extends GenericService<Category, CategoryRepository> implements ServiceObjectDependantI<Category, Category> {
 
 	//Repositorio
 
@@ -37,7 +37,6 @@ public class CategoryService {
 
 	public Category create() {
 		final Category c = new Category();
-		c.setFixupTasks(new ArrayList<FixupTask>());
 		return c;
 	}
 
@@ -57,7 +56,7 @@ public class CategoryService {
 		Assert.notNull(category);
 		final Category padre = category.getParentCategory();
 		//	final comprueba que no final hago bucles,que mi final hijo no es final un padre  o final un abuelo final etc etc
-		if (!category.getChildsCategories().contains(padre))
+		if (!this.findByParent(category).contains(padre))
 			return this.categoryRepository.save(category);
 		else
 			throw new IllegalArgumentException("Incompatibilidad de recursividad en el guardado");
@@ -65,7 +64,7 @@ public class CategoryService {
 
 	public Boolean tieneHijas(final Category c) {
 		final Boolean res = true;
-		if (c.getChildsCategories().isEmpty())
+		if (this.findByParent(c).isEmpty())
 			return false;
 		return res;
 
@@ -76,13 +75,10 @@ public class CategoryService {
 		for (final FixupTask f : res)
 			if (f.getCategory().equals(cat)) {
 				final Category padre = cat.getParentCategory();
-				padre.getFixupTasks().add(f);
 				f.setCategory(padre);
 				this.save(padre);
 				this.fixUpTaskService.save(f);
-
 			}
-
 	}
 
 	public void delete(final Category cat) {
@@ -97,7 +93,7 @@ public class CategoryService {
 			}
 
 			if (this.tieneHijas(cat) == true)
-				for (final Category hija : cat.getChildsCategories())
+				for (final Category hija : this.findByParent(cat))
 					this.delete(hija);
 
 		}
@@ -109,6 +105,22 @@ public class CategoryService {
 		Assert.isTrue(parent.getId() > 0);
 		Assert.notNull(this.categoryRepository.findOne(parent.getId()));
 		return this.categoryRepository.findByParentId(parent.getId());
+	}
+
+	@Override
+	public Collection<Category> findAll(Category dependency) {
+		return this.findByParent(dependency);
+	}
+
+	@Override
+	public Category create(Category dependency) {
+		this.checkObject(dependency);
+		this.checkPermisionActor(null, new String[] {
+			Authority.ADMIN
+		});
+		Category res = new Category();
+		res.setParentCategory(dependency);
+		return res;
 	}
 	
 }

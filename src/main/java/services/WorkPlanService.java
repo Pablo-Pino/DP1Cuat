@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import repositories.WorkPlanRepository;
 import domain.Application;
 import domain.FixupTask;
 import domain.HandyWorker;
-import domain.Phase;
 import domain.WorkPlan;
 
 @Service
@@ -30,13 +28,13 @@ public class WorkPlanService {
 	private HandyWorkerService	handyWorkerService;
 	@Autowired
 	private FixupTaskService	fixupTaskService;
-
+	@Autowired
+	private ApplicationService applicationService;
 
 	// Simple CRUD methods
 
 	public WorkPlan create() {
 		final WorkPlan s = new WorkPlan();
-		s.setPhases(new ArrayList<Phase>());
 		Assert.notNull(s);
 		return s;
 	}
@@ -52,18 +50,14 @@ public class WorkPlanService {
 	public WorkPlan save(final WorkPlan w) {
 		Assert.notNull(w);
 		Assert.isTrue(this.checkStatusApplicationAccepted(w));
-		if (w.getId() == 0)
-			w.setPhases(new ArrayList<Phase>());
 		return this.workPlanRepository.save(w);
 	}
 
 	public void delete(final WorkPlan w) {
 		Assert.notNull(w);
 		final HandyWorker hw = w.getHandyWorker();
-		hw.getWorkPlans().remove(w);
 		this.handyWorkerService.save(hw);
 		final FixupTask ft = w.getFixupTask();
-		ft.setWorkPlan(null);
 		this.fixupTaskService.save(ft);
 		this.workPlanRepository.delete(w);
 	}
@@ -71,7 +65,7 @@ public class WorkPlanService {
 	public Boolean checkStatusApplicationAccepted(final WorkPlan w) {
 		Boolean res = false;
 		final int fixupTaskId = w.getFixupTask().getId();
-		final Collection<Application> applications = w.getHandyWorker().getApplications();
+		final Collection<Application> applications = this.applicationService.findApplicationsByHandyWorker(w.getHandyWorker());
 		for (final Application a : applications)
 			if (a.getFixupTask().getId() == fixupTaskId) {
 				if (a.getStatus().equals("ACCEPTED"))

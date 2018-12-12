@@ -54,7 +54,7 @@ public class SectionService extends GenericService<Section, SectionRepository> i
 		if (object.getId() == 0) {
 			this.serviceUtils.checkId(object.getTutorial());
 			Assert.notNull(object.getTutorial());
-			object.setNumberOrder(object.getTutorial().getSections().size());
+			object.setNumberOrder(this.findAll(object.getTutorial()).size());
 		} else {
 			object.setNumberOrder(section.getNumberOrder());
 			object.setTutorial(section.getTutorial());

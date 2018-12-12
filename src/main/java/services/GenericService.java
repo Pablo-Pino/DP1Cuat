@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -28,12 +27,12 @@ public class GenericService<R extends DomainEntity, T extends GenericRepository<
 		return this.repository.findOne(id);
 	}
 
-	public List<R> findAll(final Collection<Integer> ids) {
+	public Collection<R> findAll(final Collection<Integer> ids) {
 		this.serviceUtils.checkIds(ids);
 		return this.repository.findAll(ids);
 	}
 
-	public List<R> findAll() {
+	public Collection<R> findAll() {
 		return this.repository.findAll();
 	}
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -16,7 +17,6 @@ import org.springframework.util.Assert;
 import repositories.ReportRepository;
 import security.Authority;
 import domain.Complaint;
-import domain.Note;
 import domain.Report;
 import domain.Url;
 
@@ -44,6 +44,13 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 		Assert.notNull(this.complaintService.findOne(dependency.getId()));
 		return this.repository.findByComplaint(dependency.getId());
 	}
+	
+	public Report findByComplaint(final Complaint dependency) {
+		this.serviceUtils.checkId(dependency);
+		Assert.notNull(this.complaintService.findOne(dependency.getId()));
+		List<Report> reports = new ArrayList<Report>(this.repository.findByComplaint(dependency.getId()));
+		return reports.get(0);
+	}
 
 	@Override
 	public Report create(final Complaint dependency) {
@@ -52,7 +59,6 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 		res.setAttachments(new ArrayList<Url>());
 		res.setDraft(true);
 		res.setMoment(new Date(System.currentTimeMillis() - 1000));
-		res.setNotes(new ArrayList<Note>());
 		return res;
 	}
 
@@ -63,12 +69,10 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 			this.serviceUtils.checkId(object.getComplaint());
 			Assert.notNull(this.complaintService.findOne(object.getComplaint().getId()));
 			object.setMoment(new Date(System.currentTimeMillis() - 1000));
-			object.setNotes(new ArrayList<Note>());
 		} else {
 			Assert.isTrue(report.getDraft());
 			object.setComplaint(report.getComplaint());
 			object.setMoment(report.getMoment());
-			object.setNotes(report.getNotes());
 		}
 		this.serviceUtils.checkActor(report.getComplaint().getReferee());
 		this.serviceUtils.checkAuthority(Authority.REFEREE);
@@ -82,7 +86,6 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 		Assert.isTrue(report.getDraft());
 		this.serviceUtils.checkActor(report.getComplaint().getReferee());
 		this.serviceUtils.checkAuthority(Authority.REFEREE);
-		report.getComplaint().setReport(null);
 		this.complaintService.save(report.getComplaint());
 		this.repository.delete(report);
 	}

@@ -28,7 +28,7 @@ import domain.Sponsor;
 
 @Service
 @Transactional
-public class ActorService {
+public class ActorService extends GenericService<Actor, ActorRepository> implements ServiceI<Actor> {
 
 	//--------------------Repositories--------------------------
 
@@ -54,6 +54,15 @@ public class ActorService {
 
 	@Autowired
 	private RefereeService			refereeService;
+	
+	@Autowired
+	private FolderService folderService;
+	
+	@Autowired
+	private MessageService messageService;
+	
+	@Autowired
+	private SocialProfileService socialProfileService;
 
 	@Autowired
 	private ServiceUtils			serviceUtils;
@@ -70,6 +79,7 @@ public class ActorService {
 		return result;
 	}
 
+	@Override
 	public Collection<Actor> findAll() {
 		Collection<Actor> result;
 		result = this.actorRepository.findAll();
@@ -289,13 +299,13 @@ public class ActorService {
 		res = this.containsSpam(actor.getAddress()) || this.containsSpam(actor.getEmail()) || this.containsSpam(actor.getMiddleName()) || this.containsSpam(actor.getName()) || this.containsSpam(actor.getPhone()) || this.containsSpam(actor.getPhoto())
 			|| this.containsSpam(actor.getSurname());
 		if (!res)
-			for (final Folder f : actor.getFolders()) {
+			for (final Folder f : this.folderService.findAllByActor(actor)) {
 				res = this.containsSpam(f.getName());
 				if (res)
 					break;
 			}
 		if (!res)
-			for (final Message m : actor.getSendedMessages()) {
+			for (final Message m : this.messageService.findSendedMessages(actor)) {
 				res = this.containsSpam(m.getBody()) || this.containsSpam(m.getPriority()) || this.containsSpam(m.getSubject());
 				if (!res)
 					for (final String tag : m.getTags()) {
@@ -307,7 +317,7 @@ public class ActorService {
 					break;
 			}
 		if (!res)
-			for (final SocialProfile sp : actor.getSocialProfiles()) {
+			for (final SocialProfile sp : this.socialProfileService.findAllByActor(actor)) {
 				res = this.containsSpam(sp.getNetworkName()) || this.containsSpam(sp.getNick()) || this.containsSpam(sp.getProfile());
 				if (res)
 					break;
@@ -315,6 +325,21 @@ public class ActorService {
 		if (!res)
 			res = this.containsSpam(actor.getUserAccount().getUsername());
 		return res;
+	}
+
+	@Override
+	public Actor create() {
+		throw new IllegalArgumentException("Unallowed method");
+	}
+
+	@Override
+	public Actor save(Actor object) {
+		throw new IllegalArgumentException("Unallowed method");
+	}
+
+	@Override
+	public void delete(Actor object) {
+		throw new IllegalArgumentException("Unallowed method");
 	}
 
 }

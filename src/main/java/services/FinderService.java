@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.FinderRepository;
+import domain.Actor;
 import domain.Finder;
 import domain.HandyWorker;
 
 @Transactional
 @Service
-public class FinderService {
+public class FinderService extends GenericService<Finder, FinderRepository> implements ServiceActorDependantI<Finder> {
 
 	//---------------Managed Repository---------------------------------------
 	@Autowired
@@ -68,6 +69,18 @@ public class FinderService {
 		Assert.isTrue(h.getId() > 0);
 		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
 		return this.finderRepository.findByHandyWorkerId(h.getId());
+	}
+
+	@Override
+	public Collection<Finder> findAllByActor(Actor a) {
+		Assert.notNull(a);
+		Assert.isTrue();
+	}
+
+	@Override
+	public Finder create(Actor a) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

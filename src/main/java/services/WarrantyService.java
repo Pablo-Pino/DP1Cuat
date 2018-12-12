@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.WarrantyRepository;
-import domain.FixupTask;
 import domain.Warranty;
 
 @Service
@@ -27,6 +25,9 @@ public class WarrantyService {
 
 	// Supporting Service
 
+	@Autowired
+	private FixupTaskService fixupTaskService;
+	
 	public Warranty findOne(final Integer id) {
 		return this.warrantyRepository.findOne(id);
 	}
@@ -42,24 +43,21 @@ public class WarrantyService {
 	public Warranty create() {
 		final Warranty res = new Warranty();
 		res.setDraft(true);
-		res.setFixupTasks(new ArrayList<FixupTask>());
 		return res;
 	}
 
 	public Warranty save(final Warranty object) {
 		final Warranty warranty = object;
-		if (warranty.getId() == 0)
-			warranty.setFixupTasks(new ArrayList<FixupTask>());
 		Assert.isTrue(warranty.getDraft());
 		if (object.getDraft() == true)
-			Assert.isTrue(object.getFixupTasks().isEmpty());
+			Assert.isTrue(this.fixupTaskService.findByWarranty(object).isEmpty());
 		return this.warrantyRepository.save(object);
 	}
 
 	public void delete(final Warranty object) {
 		final Warranty warranty = object;
 		Assert.isTrue(warranty.getDraft());
-		if (warranty.getFixupTasks().isEmpty())
+		if (this.fixupTaskService.findByWarranty(object).isEmpty())
 			this.warrantyRepository.delete(object);
 		else
 			throw new IllegalArgumentException("No puedes borrar una garantía que tenga tareas");

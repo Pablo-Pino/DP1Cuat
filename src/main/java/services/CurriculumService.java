@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.CurriculumRepository;
+import domain.Actor;
 import domain.Curriculum;
 import domain.EducationRecord;
 import domain.EndorserRecord;
@@ -21,7 +22,7 @@ import domain.ProfessionalRecord;
 
 @Service
 @Transactional
-public class CurriculumService {
+public class CurriculumService extends GenericService<Curriculum, CurriculumRepository> implements ServiceActorDependantI<Curriculum> {
 
 	// Managed repository --------------------------------------
 
@@ -130,6 +131,26 @@ public class CurriculumService {
 		Assert.isTrue(h.getId() > 0);
 		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
 		return this.curriculumRepository.findByHandyWorkerId(h.getId());
+	}
+
+	@Override
+	public Collection<Curriculum> findAllByActor(Actor a) {
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(a.getId()));
+		Collection<Curriculum> res = new ArrayList<Curriculum>();
+		res.add(this.findByHandyWorker(this.handyWorkerService.findOne(a.getId())));
+		return res;
+	}
+
+	@Override
+	public Curriculum create(Actor a) {
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(a.getId()));
+		Curriculum res = this.create();
+		res.setHandyWorker(this.handyWorkerService.findOne(a.getId()));
+		return res;
 	}
 
 }

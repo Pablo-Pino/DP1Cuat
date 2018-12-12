@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,16 +12,9 @@ import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
 import security.UserAccount;
-import domain.Application;
 import domain.Customer;
-import domain.Endorsement;
 import domain.FixupTask;
-import domain.Folder;
 import domain.HandyWorker;
-import domain.Message;
-import domain.SocialProfile;
-import domain.Tutorial;
-import domain.WorkPlan;
 
 @Service
 @Transactional
@@ -52,18 +44,7 @@ public class HandyWorkerService {
 
 	public HandyWorker create() {
 		final HandyWorker hw = new HandyWorker();
-		hw.setApplications(new ArrayList<Application>());
-		hw.setWorkPlans(new ArrayList<WorkPlan>());
-		hw.setTutorials(new ArrayList<Tutorial>());
 
-		//De Endorsable
-		hw.setReceivedEndorsements(new ArrayList<Endorsement>());
-		hw.setSendedEndorsements(new ArrayList<Endorsement>());
-		//De Actor
-		hw.setSocialProfiles(new ArrayList<SocialProfile>());
-		hw.setFolders(new ArrayList<Folder>());
-		hw.setReceivedMessages(new ArrayList<Message>());
-		hw.setSendedMessages(new ArrayList<Message>());
 		hw.setUserAccount(new UserAccount());
 
 		return hw;
@@ -158,7 +139,7 @@ public class HandyWorkerService {
 
 	public Collection<FixupTask> getFixupTaskFromCustomer(final Customer customer) {
 		Collection<FixupTask> res;
-		res = customer.getFixupTasks();
+		res = this.fixupTaskService.findByCustomer(customer);
 		return res;
 	}
 
