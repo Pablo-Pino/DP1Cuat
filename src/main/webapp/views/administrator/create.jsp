@@ -114,16 +114,17 @@
 					<form:label path="userAccount.username">
 						<spring:message code="userAccount.username" />:
 				</form:label>
-					<form:input path="userAccount.username" />
+					<form:input path="userAccount.username" minlength="5" maxlength="32" />
 					<form:errors cssClass="error" path="userAccount.username" />
 					<br />
 				</div>
+				
 
 				<div>
 					<form:label path="userAccount.password">
 						<spring:message code="userAccount.password" />:
 				</form:label>
-					<form:password path="userAccount.password" />
+					<form:password path="userAccount.password" minlength="5" maxlength="32" />
 					<form:errors cssClass="error" path="userAccount.password" />
 					<br />
 				</div>
@@ -137,21 +138,16 @@
 
 	</div>
 	
-	<!--  Ahora los botones Save y cancel -->
+<!--  Ahora los botones Save y cancel -->
 
 	
-	<%-- Attributes --%> 
- 
-<%@ attribute name="code" required="true" %>
-<%@ attribute name="url" required="true" %>
-
 <%-- Definition --%>
 
-<spring:message code="${code}" var="value" />
-<button onclick='javascript: relativeRedir("<jstl:out value="${url}"></jstl:out>")' >${value}</button>
 
-<spring:message code="${code}" var="value" />
-<button onclick='javascript: relativeRedir("<jstl:out value="${url}"></jstl:out>")' >${value}</button>
 
+		<input type="button" name="save" value="<spring:message code="admin.save"></spring:message>" />
+			
+		<input type="button" name="return" value="${cancel}" onclick="javascript:relativeRedir('')" />
+		
 
 </security:authorize>
