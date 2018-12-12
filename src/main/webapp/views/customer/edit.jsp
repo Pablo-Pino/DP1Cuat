@@ -123,6 +123,6 @@
 
 <input type="submit" name="save"
 	value="<spring:message code="customer.save"></spring:message>" />
-<input type="button" name="cancel" value="${cancel}"
+<input type="button" name="cancel" value="$<spring:message code="customer.cancel"></spring:message>"
 	onclick="javascript:relativeRedir('customer/administrator/list.do')" />
 
