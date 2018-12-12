@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="category.edit" />
+	<spring:message code="application.accept" />
 </p>
 
 <!--  Primero pongo la autoridad ya que solo un admin maneja las categorias -->
@@ -52,19 +52,23 @@
 		</form:select>
 		<form:errors cssClass="error" path="status" />
 		
-		<form:label path="holderName"> <spring:message code="application.holderName" /></form:label>
+		<form:label path="holderName"> <spring:message code="creditCard.holderName" /></form:label>
 		<form:input path="holderName" /><form:errors cssClass="error" path="holderName" /><br />
 			
-		<form:label path="brandName"> <spring:message code="application.brandName" /></form:label>
-		<form:input path="brandName" /><form:errors cssClass="error" path="brandName" /><br />
+		<form:label path="brandName"><spring:message code="creditCard.brandName"></spring:message></form:label>
+		<form:select id="brandName" path="brandName">
+		<form:option value="${STATUS}" label="VISA"></form:option>
+		<form:options items="${status}" itemLabel="name" itemValue="id" />
+		</form:select>
+		<form:errors cssClass="error" path="status" />
 		
-		<form:label path="number"> <spring:message code="application.number" /></form:label>
+		<form:label path="number"> <spring:message code="creditCard.number" /></form:label>
 		<form:input path="number" /><form:errors cssClass="error" path="number" /><br />
 			
-		<form:label path="expirationDate"> <spring:message code="application.expirationDate" /></form:label>
+		<form:label path="expirationDate"> <spring:message code="creditCard.expirationDate" /></form:label>
 		<form:input path="expirationDate" /><form:errors cssClass="error" path="expirationDate" /><br />
 			
-		<form:label path="cvvCode"> <spring:message code="application.cvvCode" /></form:label>
+		<form:label path="cvvCode"> <spring:message code="creditCard.cvvCode" /></form:label>
 		<form:input path="cvvCode" /><form:errors cssClass="error" path="cvvCode" /><br />
 		
 	</div>

@@ -28,7 +28,12 @@
 	
 	<definition name="category/create" extends="master.page">	
 		<put-attribute name="title" value="Category:Creacion" />
-		<put-attribute name="body" value="/views/category/administrator/create" />
+		<put-attribute name="body" value="/views/category/administrator/edit" />
+	</definition>
+	
+		<definition name="category/create" extends="master.page">	
+		<put-attribute name="title" value="Category:editar" />
+		<put-attribute name="body" value="/views/category/administrator/edit" />
 	</definition>
 	
 	
