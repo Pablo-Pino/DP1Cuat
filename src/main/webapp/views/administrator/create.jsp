@@ -44,7 +44,7 @@
 				<!-------------------Form ------------------------------------>
 				<div>
 					<form:label path="name">
-						<spring:message code="actor.name"></spring:message>
+						<spring:message code="administrator.name"></spring:message>
 					</form:label>
 					<form:input path="name" id="name" name="name" />
 					<form:errors cssClass="error" path="name" />
@@ -53,7 +53,7 @@
 
 				<div>
 					<form:label path="middleName">
-						<spring:message code="actor.middleName"></spring:message>
+						<spring:message code="administrator.middleName"></spring:message>
 					</form:label>
 					<form:input path="middleName" id="middleName" name="middleName" />
 					<form:errors cssClass="error" path="middleName" />
@@ -62,7 +62,7 @@
 
 				<div>
 					<form:label path="surname">
-						<spring:message code="actor.surname"></spring:message>
+						<spring:message code="administrator.surname"></spring:message>
 					</form:label>
 					<form:input path="surname" id="surname" name="surname" />
 					<form:errors cssClass="error" path="surname" />
@@ -71,7 +71,7 @@
 
 				<div>
 					<form:label path="photo">
-						<spring:message code="actor.photo"></spring:message>
+						<spring:message code="administrator.photo"></spring:message>
 					</form:label>
 					<form:input path="photo" id="photo" name="photo" />
 					<form:errors cssClass="error" path="photo" />
@@ -80,7 +80,7 @@
 					
 				<div>
 					<form:label path="email">
-						<spring:message code="actor.email"></spring:message>
+						<spring:message code="administrator.email"></spring:message>
 					</form:label>
 					<form:input path="email" id="email" name="email"
 						placeholder="user@email.com" />
@@ -90,7 +90,7 @@
 
 				<div>
 					<form:label path="phone">
-						<spring:message code="actor.phone"></spring:message>
+						<spring:message code="administrator.phone"></spring:message>
 					</form:label>
 					<form:input path="phone" id="phone" name="phone"
 						placeholder="600000000" />
@@ -100,7 +100,7 @@
 
 				<div>
 					<form:label path="address">
-						<spring:message code="actor.address"></spring:message>
+						<spring:message code="administrator.address"></spring:message>
 					</form:label>
 					<form:input path="address" id="address" name="address" />
 					<form:errors cssClass="error" path="address" />

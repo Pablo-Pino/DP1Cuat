@@ -41,11 +41,7 @@
 		
 		<spring:message code="actor.phone" var="actorPhone"></spring:message>
 		<display:column property="phone" title="${actorPhone}" sortable="true" />
-		
-		<display:column>
-			<a href="actor/administrator/edit.do?actorId=${actor.id}"> 
-			<spring:message code="customer.fisxupTask.list"></spring:message></a>
-		</display:column>
+
 		
 		<display:column> 
 		<jstl:if test="${actor.suspicious eq true}">
