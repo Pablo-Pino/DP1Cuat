@@ -930,6 +930,11 @@
 				</bean>
 			</list>
 		</property>
+		<property name="sections">
+			<list>
+				<ref bean="section1" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="tutorial2" class="domain.Tutorial">
@@ -945,6 +950,11 @@
 				<bean id="url2Tutorial3" class="domain.Url">
 					<property name="url" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg" />
 				</bean>
+			</list>
+		</property>
+		<property name="sections">
+			<list>
+				<ref bean="section2" />
 			</list>
 		</property>
 	</bean>
@@ -964,6 +974,11 @@
 				</bean>
 			</list>
 		</property>
+		<property name="sections">
+			<list>
+				<ref bean="section3" />
+			</list>
+		</property>
 	</bean>
 
 	<!-- Phase -->
@@ -978,7 +993,6 @@
 	</bean>
 	
 	<bean id="phase4" class="domain.Phase">
-
 		<property name="title" value="phase4" />
 		<property name="description" value="Coger el telefono antes de hacer nada" />
 		<property name="start" value="February 17, 2017 09:30"></property>
@@ -987,7 +1001,6 @@
 	</bean>
 
 	<bean id="phase2" class="domain.Phase">
-
 		<property name="title" value="phase2" />
 		<property name="description" value="Coger el telefono antes de hacer nada" />
 		<property name="start" value="February 16, 2017 09:30"></property>
@@ -996,15 +1009,28 @@
 	</bean>
 
 	<bean id="phase3" class="domain.Phase">
-
 		<property name="title" value="phase3" />
 		<property name="description" value="Coger el telefono antes de hacer nada" />
 		<property name="start" value="February 15, 2017 09:30"></property>
 		<property name="end" value="February 18, 2017 09:30"></property>
 		<property name="workPlan" ref="workPlan3"></property>
 	</bean>
-
-
+	
+	<bean id="phase5" class="domain.Phase">
+		<property name="title" value="phase5" />
+		<property name="description" value="Coger el telefono antes de hacer algo" />
+		<property name="start" value="February 15, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="workPlan" ref="workPlan5"></property>
+	</bean>
+	
+	<bean id="phase6" class="domain.Phase">
+		<property name="title" value="phase6" />
+		<property name="description" value="Coger el telefono antes de hacer cosas" />
+		<property name="start" value="February 15, 2017 09:30"></property>
+		<property name="end" value="February 18, 2017 09:30"></property>
+		<property name="workPlan" ref="workPlan4"></property>
+	</bean>
 
 	<!-- WorkPlan -->
 
@@ -1012,26 +1038,52 @@
 	<bean id="workPlan1" class="domain.WorkPlan">
 		<property name="fixupTask" ref="fixupTask1" />
 		<property name="handyWorker" ref="handyWorker1" />
+		<property name="phases">
+			<list>
+				<ref bean="phase1" />
+				<ref bean="phase4" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="workPlan2" class="domain.WorkPlan">
 		<property name="fixupTask" ref="fixupTask2" />
 		<property name="handyWorker" ref="handyWorker2" />
+		<property name="phases">
+			<list>
+				<ref bean="phase2" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="workPlan3" class="domain.WorkPlan">
 		<property name="fixupTask" ref="fixupTask3" />
 		<property name="handyWorker" ref="handyWorker3" />
+		<property name="phases">
+			<list>
+				<ref bean="phase3" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="workPlan4" class="domain.WorkPlan">
 		<property name="fixupTask" ref="fixupTask4" />
 		<property name="handyWorker" ref="handyWorker3" />
+		<property name="phases">
+			<list>
+				<ref bean="phase6" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="workPlan5" class="domain.WorkPlan">
 		<property name="fixupTask" ref="fixupTask5" />
 		<property name="handyWorker" ref="handyWorker4" />
+		<property name="phases">
+			<list>
+				<ref bean="phase5" />
+			</list>
+		</property>
 	</bean>
 
 	<!--____________ FixupTask_________________________________ -->
