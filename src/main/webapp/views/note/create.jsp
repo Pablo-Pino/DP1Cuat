@@ -42,6 +42,15 @@
 					<form:errors cssClass="error" path="comments" />
 					<br />
 				</div>
+				
+				<div>
+					<form:label path="report">
+						<spring:message code="note.report"></spring:message>
+					</form:label>
+					<form:input path="report" id="report" name="report" />
+					<form:errors cssClass="error" path="report" />
+					<br />
+				</div>
 
 			</fieldset>
 

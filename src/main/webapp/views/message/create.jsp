@@ -28,7 +28,7 @@
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="moment" />
-			<form:hidden path="folder" />
+
 
 			
 
@@ -68,6 +68,15 @@
 					</form:label>
 					<form:input path="tags" id="tags" name="tags" />
 					<form:errors cssClass="error" path="tags" />
+					<br />
+				</div>
+				
+				<div>
+					<form:label path="folder">
+						<spring:message code="message.folder"></spring:message>
+					</form:label>
+					<form:input path="folder" id="folder" name="folder" />
+					<form:errors cssClass="error" path="folder" />
 					<br />
 				</div>
 				

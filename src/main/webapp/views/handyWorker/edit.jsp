@@ -29,7 +29,6 @@
 
 			<form:hidden path="id" />
 			<form:hidden path="version" />
-			<form:hidden path="userAccount" />
 			<form:hidden path="banned" />
 			<form:hidden path="suspicious" />
 			<form:hidden path="senderMessages" />
@@ -66,6 +65,12 @@
 			
 			<form:label path="make"> <spring:message code="handyWorker.make" /></form:label>
 			<form:input path="make" /><form:errors cssClass="error" path="make" /><br />
+			
+			<form:label path="userAccount.username">
+			<spring:message code="userAccount.username" />:
+			</form:label>
+			<form:input path="userAccount.username" />
+			<form:errors cssClass="error" path="userAccount.username" />
 		
 
 	</div>
