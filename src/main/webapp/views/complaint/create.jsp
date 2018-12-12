@@ -33,28 +33,32 @@
 			
 				<!-- Form -->
 				<div>
-					<form:label path="moment"> <spring:message code="complaint.moment"></spring:message></form:label>
-					<form:input path="moment" id="moment" name="moment" /><form:errors cssClass="error" path="moment" />
+					<spring:message code="complaint.moment" var="moment" />
+					<display:column property="moment" title="${moment}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
 					<br />
 				</div>
 				
-				<div>
+				<textarea>
 					<form:label path="description"> <spring:message code="complaint.description"></spring:message></form:label>
 					<form:input path="description" id="description" name="description" /><form:errors cssClass="error" path="description" />
-					<br />
-				</div>
+				</textarea>
+				<br />
 				
-				<div>
+				
+				<textarea>
 					<form:label path="attachments"> <spring:message code="complaint.attachments"></spring:message></form:label>
 					<form:input path="attachments" id="attachments" name="attachments" /><form:errors cssClass="error" path="attachments" />
+				</textarea>
+				
+				<br>
+				
+				<div>
+					<a href="fixupTask/display.do?fixupTaskId=${fixupTask.name}"><spring:message code="fixupTask.display"></spring:message></a>
 					<br />
 				</div>
 				
-				<div>
-					<form:label path="fixupTask"> <spring:message code="complaint.fixupTask"></spring:message></form:label>
-					<form:input path="fixupTask" id="fixupTask" name="fixupTask" /><form:errors cssClass="error" path="fixupTask" />
-					<br />
-				</div>
+				
+		
 		</form:form>
 
 	</div>

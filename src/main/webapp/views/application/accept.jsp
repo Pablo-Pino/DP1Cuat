@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="category.edit" />
+	<spring:message code="application.accept" />
 </p>
 
 <!--  Primero pongo la autoridad ya que solo un admin maneja las categorias -->
@@ -33,14 +33,14 @@
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="customer" />
-			<form:hidden path="creditCard"/>
-
+			<form:hidden path="price" />
+			<form:hidden path="moment" />
+			<form:hidden path="workerMoments" />
+			<form:hidden path="customerMoments" />
+			<form:hidden path="handyWorker" />
+			<form:hidden path="fixupTask" />
+			<form:hidden path="creditCard" />
 <!-- los atributos -->
-			<form:label path="price"> <spring:message code="application.price" /></form:label>
-			<form:input path="price" /><form:errors cssClass="error" path="price" /><br />
-			
-			<form:label path="moment"> <spring:message code="application.moment" /></form:label>
-			<form:input path="moment" /><form:errors cssClass="error" path="moment" /><br />
 			
 		<!-- Status ------------------->
 		<!-- TODO: -->
@@ -51,28 +51,29 @@
 		<form:options items="${status}" itemLabel="name" itemValue="id" />
 		</form:select>
 		<form:errors cssClass="error" path="status" />
-
-
 		
-			<!-- ---------------------- -->
+		<form:label path="holderName"> <spring:message code="creditCard.holderName" /></form:label>
+		<form:input path="holderName" /><form:errors cssClass="error" path="holderName" /><br />
 			
-			<form:label path="workerMoments"> <spring:message code="application.workerMoments" /></form:label>
-			<form:input path="workerMoments" /><form:errors cssClass="error" path="workerMoments" /><br />
-			
-			<form:label path="customerMoments"> <spring:message code="application.customerMoments" /></form:label>
-			<form:input path="customerMoments" /><form:errors cssClass="error" path="customerMoments" /><br />
+		<form:label path="brandName"><spring:message code="creditCard.brandName"></spring:message></form:label>
+		<form:select id="brandName" path="brandName">
+		<form:option value="${STATUS}" label="VISA"></form:option>
+		<form:options items="${status}" itemLabel="name" itemValue="id" />
+		</form:select>
+		<form:errors cssClass="error" path="status" />
 		
-			<form:label path="handyWorker"> <spring:message code="application.handyWorker" /></form:label>
-			<form:input path="handyWorker" /><form:errors cssClass="error" path="handyWorker" /><br />
+		<form:label path="number"> <spring:message code="creditCard.number" /></form:label>
+		<form:input path="number" /><form:errors cssClass="error" path="number" /><br />
 			
-			<form:label path="fixupTask"> <spring:message code="application.fixupTask" /></form:label>
-			<form:input path="fixupTask" /><form:errors cssClass="error" path="fixupTask" /><br />
+		<form:label path="expirationDate"> <spring:message code="creditCard.expirationDate" /></form:label>
+		<form:input path="expirationDate" /><form:errors cssClass="error" path="expirationDate" /><br />
+			
+		<form:label path="cvvCode"> <spring:message code="creditCard.cvvCode" /></form:label>
+		<form:input path="cvvCode" /><form:errors cssClass="error" path="cvvCode" /><br />
 		
-
 	</div>
 	<!--  Los botones de crear y cancelar -->
-
-		<input type="submit" name="save" value="<spring:message code="application.save"></spring:message>" />	
+		<input type="submit" name="save" value="<spring:message code="application.save"></spring:message>" />
 		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('application/list.do')" />	
 
 </security:authorize>

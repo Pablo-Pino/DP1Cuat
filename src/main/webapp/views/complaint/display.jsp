@@ -35,26 +35,32 @@
 	<jstl:out value="${complaint.description}">
 	</jstl:out>
 	<br />
+
 	
 	<spring:message code="complaint.attachments"></spring:message>
 	<jstl:out value="${complaint.attachments}">
 	</jstl:out>
 	<br />
 	
-	<spring:message code="complaint.report"></spring:message>
-	<jstl:out value="${complaint.report}">
-	</jstl:out>
+	<div>
+		<a href="report/display.do?reportId=${report.id}"><spring:message code="complaint.report"></spring:message></a>
+	</div>
 	<br />
 	
-	<spring:message code="complaint.fixupTask"></spring:message>
-	<jstl:out value="${complaint.fixupTask}">
-	</jstl:out>
+	<div>
+		<a href="fixupTask/display.do?fixupTaskId=${fixupTask.name}"><spring:message code="complaint.fixupTask"></spring:message></a>
+	</div>
 	<br />
 	
 		
 	<spring:message code="complaint.referee"></spring:message>
-	<jstl:out value="${complaint.referee}">
+	<jstl:out value="${complaint.referee.name}">
 	</jstl:out>
+	<br />
+	
+	<div>
+		<a href="report/display.do?reportId=${report.id}"><spring:message code="report.display"></spring:message></a>
+	</div>
 	<br />
 	
 	
