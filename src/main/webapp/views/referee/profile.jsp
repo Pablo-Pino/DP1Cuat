@@ -25,24 +25,21 @@
 	<p><spring:message code="referee.surname" />${referee.surname}</p>
 	<p><spring:message code="referee.email" />${referee.email}</p>
 	<p><spring:message code="referee.address" />${referee.address}</p>
+	<p><spring:message code="referee.phone" />${referee.phone}</p>
 
 </fieldset>
 
-<jstl:if test=${principal.id eq referee.id}>
+<jstl:if test="${isPrincipalAuthorizedEdit}">
 	<acme:button url="referee/edit.do?refereeId=${referee.id}" code="referee.edit" />
 </jstl:if>
 
 <security:authorize access="hasRole('ADMINISTRATOR')">
 	<jstl:choose>
 		<jstl:when test="${referee.banned}">
-			<acme:button url="actor/unban?actorId=${referee.id}" code="referee.unban" />
+			<acme:button url="actor/unban.do?actorId=${referee.id}" code="referee.unban" />
 		</jstl:when>
 		<jstl:otherwise>
-			<acme:button url="actor/ban?actorId=${referee.id}" code="referee.ban" />
+			<acme:button url="actor/ban.do?actorId=${referee.id}" code="referee.ban" />
 		</jstl:otherwise>
 	</jstl:choose>
 </security:authorize>
-	
-		
-
-

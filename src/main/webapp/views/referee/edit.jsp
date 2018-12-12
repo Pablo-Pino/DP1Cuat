@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="referee/edit" modelAttribute="referee" method="post">
+<form:form action="referee/edit.do" modelAttribute="referee" method="post">
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -33,10 +33,10 @@
 	<acme:textbox code="referee.surname" path="surname" />
 	<acme:textbox code="referee.photo" path="photo" />
 	<acme:textbox code="referee.email" path="email" />
-	<acme:textbox code="referee.phone" path="phone" />
 	<acme:textbox code="referee.address" path="address" />
+	<acme:textbox code="referee.phone" path="phone" />
 
-<jstl:if test=${principal.id eq referee.id}>	
+<jstl:if test="${isPrincipalAuthorizedEdit}">	
 	<acme:submit code="referee.save" name="save" />
 	<jstl:if test=${referee.id > 0}>
 		<acme:submit code="referee.delete" name="delete" />
@@ -45,4 +45,4 @@
 	
 </form:form>
 
-<acme:cancel code="referee.cancel" url="referee/profile?refereeId=${referee.id}" />
+<acme:cancel code="referee.cancel" url="referee/profile.do?refereeId=${referee.id}" />
