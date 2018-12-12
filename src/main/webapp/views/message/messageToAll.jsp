@@ -18,23 +18,28 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<security:authorize access="hasRole('ADMIN')">
+
+<jstl:out value="${messageCode}"></jstl:out>
 <security:authorize access="isAuthenticated()">
 	<div>
-		<form:form action="message/actor/edit.do" method="post"
-			id="formCreate" name="formCreate" modelAttribute="privateMessage">
+		<form:form action="message/admin/messageToAll.do" method="post"
+			id="formCreate" name="formCreate" modelAttribute="mensaje">
 
 			<form:hidden path="id" />
 			<form:hidden path="version" />
-			<form:hidden path="moment"/>
-			<form:hidden path="receiver"/>
+			<form:hidden path="sentDate"/>
 			<form:hidden path="sender"/>
+			<form:hidden path="receiver"/>
 			<form:hidden path="folder"/>
 
 			<form:label path="subject">
 				<spring:message code="message.subject"></spring:message>
 			</form:label>
+			:
 			<form:input path="subject" id="subject" name="subject" />
 			<form:errors cssClass="error" path="subject" />
+			<br>
 
 			<form:label path="body">
 				<spring:message code="message.body"></spring:message>
@@ -55,24 +60,7 @@
 				<form:option label="${LowHeader}" value="LOW"></form:option>
 			</form:select>
 			<form:errors cssClass="error" path="priority" />
-			
-				<form:label path="receiver">
-				<spring:message code="message.receiver"></spring:message>
-			</form:label>
-			<form:select path="receiver" name="selectReceiver"
-				id="selectReceiver">
-				<form:option label="---" value="0"></form:option>
-				<form:options items="${receivers}" itemLabel="name" itemValue="id" />
-			</form:select>
-			<form:errors cssClass="error" path="receiver" />
-			
-			<form:label path="tags">
-				<spring:message code="message.tags"></spring:message>
-			</form:label>
-			<form:input path="tags" id="body" name="tags" />
-			<form:errors cssClass="error" path="tags" />
 
-			
 
 			<input type="submit" name="save"
 				value="<spring:message code="message.save"></spring:message>" />
@@ -81,4 +69,5 @@
 				onclick="javascript:relativeRedir('message/actor/list.do')" />
 		</form:form>
 	</div>
+</security:authorize>
 </security:authorize>

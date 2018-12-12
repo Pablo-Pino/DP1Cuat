@@ -38,7 +38,6 @@
 			<form:hidden path="tutorials" />
 			<form:hidden path="curriculum" />
 			<form:hidden path="folders" />
-			<form:hidden path="finder" />
 			<form:hidden path="socialProfiles" />
 
 			<form:label path="name"> <spring:message code="handyWorker.name" /></form:label>
@@ -65,6 +64,9 @@
 			
 			<form:label path="make"> <spring:message code="handyWorker.make" /></form:label>
 			<form:input path="make" /><form:errors cssClass="error" path="make" /><br />
+			
+			<form:label path="finder"> <spring:message code="handyWorker.finder" /></form:label>
+			<form:input path="finder" /><form:errors cssClass="error" path="finder" /><br />
 			
 			<form:label path="userAccount.username">
 			<spring:message code="userAccount.username" />:

@@ -1,7 +1,7 @@
 <%--
  * list.jsp
  *
- * Copyright (C) 2017 Universidad de Sevilla
+ * Copyright (C) 2018 Universidad de Sevilla
  * 
  * The use of this project is hereby constrained to the conditions of the 
  * TDG Licence, a copy of which you may download from 
@@ -40,32 +40,23 @@
 	
 	<!-- Attributos -->
 	
-	<spring:message code="fixupTask.ticker" var="ticker" />
-	<display:column property="ticker" title="${ticker}" sortable="true" />
+	<display:column property="ticker" titleKey="fixupTask.ticker" sortable="true" />
 
-	<spring:message code="fixupTask.moment" var="moment" />
-	<display:column property="moment" title="${moment}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
+	<display:column property="moment" titleKey="fixupTask.date" sortable="true" format="{0,date,${moment}}" />
 
-	<spring:message code="fixupTask.description" var="description" />
-	<display:column property="description" title="${description}" sortable="false" />
+	<display:column property="description" titleKey="fixupTask.description" sortable="false" />
 	
-	<spring:message code="fixupTask.address" var="address" />
-	<display:column property="address" title="${address}" sortable="false" />
+	<display:column property="address" titleKey="fixupTask.address" sortable="false" />
 	
-	<spring:message code="fixupTask.maximunPrice" var="maximunPrice" />
-	<display:column property="maximunPrice" title="${maximunPrice}" sortable="false" />
+	<display:column property="maximunPrice" titleKey="fixupTask.maximunPrice" sortable="false" />
 	
-	<spring:message code="fixupTask.category" var="category" />
-	<display:column property="category" title="${category}" sortable="false" />
+	<display:column property="category" titleKey="fixupTask.category" sortable="false" />
 	
-	<spring:message code="fixupTask.warranty" var="warranty" />
-	<display:column property="warranty" title="${warranty}" sortable="false" />
+	<display:column property="warranty" titleKey="fixupTask.warranty" sortable="false" />
 	
-	<spring:message code="fixupTask.start" var="start" />
-	<display:column property="start" title="${start}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
+	<display:column property="start" titleKey="fixupTask.start" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
 	
-	<spring:message code="fixupTask.end" var="end" />
-	<display:column property="end" title="${end}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
+	<display:column property="end" titleKey="fixupTask.end" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
 	
 
 </display:table>

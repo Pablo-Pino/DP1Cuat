@@ -10,38 +10,47 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="message.display" />
-</p>
+<fieldset>
+<spring:message code="message.sentDate"></spring:message>:
+<jstl:out value="${mes.sentDate}"></jstl:out>
+</fieldset>
 
+<fieldset>
+<spring:message code="message.subject"></spring:message>:
+<jstl:out value="${mes.subject}"></jstl:out>
+</fieldset>
+	
+<fieldset>
+<spring:message code="message.body"></spring:message>:
+<jstl:out value="${mes.body}"></jstl:out>
+</fieldset>
 
-<jstl:if test="${message.subject != null }">
+<fieldset>
+<spring:message code="message.priority"></spring:message>:
+<jstl:out value="${mes.priority}"></jstl:out>
+</fieldset>
 
-	<spring:message code="message.subject"></spring:message>
-	<jstl:out value="${message.subject}"></jstl:out>
-</jstl:if>
+<fieldset>
+<spring:message code="message.folder"></spring:message>:
+		<a href="folder/actor/display.do?folderId=${mes.folder.id}">
+			<jstl:out value="${mes.folder.name}" />
+		</a>
+</fieldset>
+	
+<fieldset>
+<spring:message code="message.sender"></spring:message>:
+<jstl:out value="${mes.sender}"></jstl:out>
+</fieldset>
 
-<jstl:if test="${message.priority != null }">
-
-	<spring:message code="message.priority"></spring:message>
-	<jstl:out value="${message.priority}"></jstl:out>
-</jstl:if>
-
-<jstl:if test="${message.body != null }">
-
-	<spring:message code="message.body"></spring:message>
-	<jstl:out value="${message.body}"></jstl:out>
-</jstl:if>
-
-<jstl:if test="${message.tags != null }">
-
-	<spring:message code="message.tags"></spring:message>
-	<jstl:out value="${message.tags}"></jstl:out>
-</jstl:if>
-
-<jstl:if test="${message.folder != null }">
-
-	<spring:message code="message.folder"></spring:message>
-	<jstl:out value="${message.folder}"></jstl:out>
-</jstl:if>
-
+<fieldset>
+<spring:message code="message.receiver"></spring:message>:
+<jstl:out value="${mes.receiver}"></jstl:out>
+</fieldset>
+<br>
+<spring:message code="message.cancel" var="cancelHeader"></spring:message>
+			<input type="button" name="cancel" value="${cancelHeader}"
+				onclick="javascript:relativeRedir('message/actor/list.do')" />
+				
+		<spring:message code="message.delete" var="deleteHeader"></spring:message>
+		<input type="button" name="delete" value="${deleteHeader}"
+			onclick="javascript:relativeRedir('message/actor/list.do')" />

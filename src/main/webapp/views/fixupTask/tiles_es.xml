@@ -31,4 +31,19 @@
 		<put-attribute name="body" value="/views/fixupTask/display.jsp" />
 	</definition>
 	
+	<definition name="fixupTask/create" extends="master.page">	
+		<put-attribute name="title" value="Crear tarea de reparación" />
+		<put-attribute name="body" value="/views/fixupTask/create.jsp" />
+	</definition>
+	
+	<definition name="fixupTask/displayFinder" extends="master.page">	
+		<put-attribute name="title" value=" Finder " />
+		<put-attribute name="body" value="/views/fixupTask/displayFinder.jsp" />
+	</definition>
+	
+	<definition name="fixupTask/finderSearch" extends="master.page">	
+		<put-attribute name="title" value=" Buscador" />
+		<put-attribute name="body" value="/views/fixupTask/finderSearch.jsp" />
+	</definition>
+	
 </tiles-definitions>

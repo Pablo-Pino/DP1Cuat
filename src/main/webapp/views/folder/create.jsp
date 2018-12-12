@@ -1,7 +1,7 @@
 <%--
  * create.jsp
  *
- * Copyright (C) 2017 Universidad de Sevilla
+ * Copyright (C) 2018 Universidad de Sevilla
  * 
  * The use of this project is hereby constrained to the conditions of the 
  * TDG Licence, a copy of which you may download from 
@@ -28,6 +28,9 @@
 
 			<form:hidden path="id" />
 			<form:hidden path="version" />
+			<form:hidden path="system"/>
+			<form:hidden path="folders"/>
+			<form:hidden path="messages"/>
 
 			
 
@@ -43,14 +46,6 @@
 					<br />
 				</div>
 				
-				<div>
-					<form:label path="system">
-						<spring:message code="folder.system"></spring:message>
-					</form:label>
-					<form:input path="system" id="system" name="system" />
-					<form:errors cssClass="error" path="system" />
-					<br />
-				</div>
 				
 
 			</fieldset>
