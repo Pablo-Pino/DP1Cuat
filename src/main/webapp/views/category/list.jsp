@@ -41,7 +41,7 @@
 	<spring:message code="category.childsCategories" var="catId" />
 	<display:column title="${catId}">
 		<jstl:forEach items="${Category.childsCategories}" var="childsCategories">
-			<a href="category/admin/display.do?categoryId= ${childsCategories.id}"> <jstl:out value="${child.name}"></jstl:out></a>
+			<a href="category/admin/display.do?categoryId= ${childsCategories.id}"> <jstl:out value="${child.Categoriesname}"></jstl:out></a>
 		</jstl:forEach>
 	</display:column>
 		

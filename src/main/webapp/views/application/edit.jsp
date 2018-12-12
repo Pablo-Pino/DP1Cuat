@@ -23,7 +23,7 @@
 </p>
 
 <!--  Primero pongo la autoridad ya que solo un admin maneja las categorias -->
-<security:authorize access="hasRole('CUSTOMER' || 'HANDYWORKER')">
+<security:authorize access="hasAnyRole('CUSTOMER' , 'HANDYWORKER')">
 
 	<div>
 		<form:form action="application/edit.do" method="post" id="formCreate"
