@@ -21,8 +21,7 @@
 <security:authorize access="hasRole('ADMIN')">
 	<div>
 
-		<form:form action="administrator/create.do" method="POST"
-			id="formCreate" name="formCreate" modelAttribute="administrator">
+		<form:form action="administrator/create.do" method="POST" id="formCreate" name="formCreate" modelAttribute="administrator">
 
 			<!-- Atributos hidden-->
 
@@ -147,7 +146,7 @@
 
 		<input type="button" name="save" value="<spring:message code="admin.save"></spring:message>" />
 			
-		<input type="button" name="return" value="${cancel}" onclick="javascript:relativeRedir('')" />
+		<input type="button" name="return" value="${cancel}" onclick="javascript:relativeRedir('welcome/index.do')"/>
 		
 
 </security:authorize>
