@@ -26,7 +26,7 @@
 	<display:table name="applications" id="application" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
 
-<security:authorize access="hasRole('HANDYWORKER' || 'CUSTOMER')">
+<security:authorize access="hasAnyRole('HANDYWORKER' , 'CUSTOMER')">
 
 	<display:column>
 		<a href="application/edit.do?applicationId=${application.id}"><spring:message code="applicarion.edit"></spring:message></a>
@@ -42,7 +42,22 @@
 		<display:column property="moment" title="${applicationMoment}" sortable="true" />
 		
 		<spring:message code="application.status" var="applicationStatus"></spring:message>
-		<display:column property="status" title="${applicationStatus}" sortable="true" />		
+		
+		
+		<jstl:if test="${application.status == 'ACCEPTED'}">
+		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:green" />		
+		</jstl:if>
+		
+		<jstl:if test="${application.status == 'REJECTED'}">
+		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:orange" />		
+		</jstl:if>
+		
+		<jstl:if test="${application.status == 'PENDING'}">
+		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:scheme" />		
+		</jstl:if>
+
+		
+		
 		
 		<spring:message code="application.handyworker" var="applicationHandyworker"></spring:message>
 		<display:column property="customer" title="${applicationHandyworker.name}" sortable="true" />
