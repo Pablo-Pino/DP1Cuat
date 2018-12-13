@@ -19,8 +19,48 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
+
+
 <security:authorize access="hasRole('ADMIN')">
 
+
+	<!--                 Ahora vamos a ver los ratios de las aplicaciones             -->
+	<!-- --------------------------------------------------------------------------------------------- -->
+	
+		<fieldset>
+		<legend>
+			<spring:message code="dashboard.ratioPending"> </spring:message>
+		</legend>
+		
+		<display:table name="appsPendingRatio" id="appsPendingRatio" pagesize="5" requestURI="${requestURI}" class="displaytag">
+			<spring:message code="dashboard.appsPendingRatio" var="dash13" />
+			<display:column title="${dash13}"> <jstl:out value="${appsPendingRatio}" /> </display:column>
+		</display:table>
+	</fieldset>
+	
+		<fieldset>
+		<legend>
+			<spring:message code="dashboard.ratioAccepted"> </spring:message>
+		</legend>
+		
+		<display:table name="appsAcceptedRatio" id="appsAcceptedRatio" pagesize="5" requestURI="${requestURI}" class="displaytag">
+			<spring:message code="dashboard.appsAcceptedRatio" var="dash14" />
+			<display:column title="${dash14}"> <jstl:out value="${appsAcceptedRatio}" /> </display:column>
+		</display:table>
+	</fieldset>
+	
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.ratioRejected"> </spring:message>
+		</legend>
+		
+		<display:table name="appsRejectedRatio" id="appsRejectedRatio" pagesize="5" requestURI="${requestURI}" class="displaytag">
+			<spring:message code="dashboard.appsRejectedRatio" var="dash15" />
+			<display:column title="${dash15}"> <jstl:out value="${appsRejectedRatio}" /> </display:column>
+		</display:table>
+	</fieldset>
+
+<!-- ----------------------------------------------------------------------------------------- -->
 	<fieldset>
 		<legend>
 			<spring:message code="dashboard.fixuptaskMaxStats"></spring:message>
@@ -103,43 +143,7 @@
 	</fieldset>
 	
 	
-	<!--                 Ahora vamos a ver los ratios de las aplicaciones             -->
-	<!-- --------------------------------------------------------------------------------------------- -->
-	
-		<fieldset>
-		<legend>
-			<spring:message code="dashboard.ratioPending"> </spring:message>
-		</legend>
-		
-		<display:table name="appsPendingRatio" id="appsPendingRatio" pagesize="5" requestURI="${requestURI}" class="displaytag">
-			<spring:message code="dashboard.appsPendingRatio" var="dash13" />
-			<display:column title="${dash13}"> <jstl:out value="${appsPendingRatio}" /> </display:column>
-		</display:table>
-	</fieldset>
-	
-		<fieldset>
-		<legend>
-			<spring:message code="dashboard.ratioAccepted"> </spring:message>
-		</legend>
-		
-		<display:table name="appsAcceptedRatio" id="appsAcceptedRatio" pagesize="5" requestURI="${requestURI}" class="displaytag">
-			<spring:message code="dashboard.appsAcceptedRatio" var="dash14" />
-			<display:column title="${dash14}"> <jstl:out value="${appsAcceptedRatio}" /> </display:column>
-		</display:table>
-	</fieldset>
-	
-	<fieldset>
-		<legend>
-			<spring:message code="dashboard.ratioRejected"> </spring:message>
-		</legend>
-		
-		<display:table name="appsRejectedRatio" id="appsRejectedRatio" pagesize="5" requestURI="${requestURI}" class="displaytag">
-			<spring:message code="dashboard.appsRejectedRatio" var="dash15" />
-			<display:column title="${dash15}"> <jstl:out value="${appsRejectedRatio}" /> </display:column>
-		</display:table>
-	</fieldset>
 
-<!-- ----------------------------------------------------------------------------------------- -->
 
 		<fieldset>
 		<legend>
@@ -179,7 +183,7 @@
 		</display:table>
 	</fieldset>
 
-<!-- ------------------------------ Nivel B------------------------------------------------------- -->
+<!-- ------------------------------ Nivel B y A------------------------------------------------------- -->
 
 
 	<fieldset>
