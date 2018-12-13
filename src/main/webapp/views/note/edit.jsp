@@ -36,6 +36,12 @@
 			</form:label>
 			<form:textarea path="comments" id="comments" name="comments" />
 			<form:errors cssClass="error" path="comments"></form:errors>
+			
+				<form:label path="report">
+				<spring:message code="note.report"></spring:message>
+			</form:label>
+			<form:textarea path="report" id="report" name="report" />
+			<form:errors cssClass="error" path="report"></form:errors>
 
 			<input type="submit" name="save"
 				value="<spring:message code="note.save"></spring:message>" />

@@ -26,3 +26,8 @@
 	<jstl:out value="${note.comments}"></jstl:out>
 </jstl:if>
 
+<spring:message code="note.report"></spring:message>
+:
+<jstl:out value="${note.report}"></jstl:out>
+<br/>
+

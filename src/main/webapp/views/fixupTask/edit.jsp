@@ -27,16 +27,11 @@
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="moment" />
 
 	<form:label path="ticker"> <spring:message code="fixupTask.ticker" />:</form:label>
 	<form:input path="ticker" /><form:errors cssClass="error" path="ticker" /><br />
 
-	<form:label path="moment">
-		<spring:message code="fixupTask.moment" />:
-	</form:label>
-	<form:input path="moment" />
-	<form:errors cssClass="error" path="moment" />
-	<br />
 
 	<form:label path="description">
 		<spring:message code="fixupTask.description" />:
