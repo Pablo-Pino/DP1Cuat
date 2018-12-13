@@ -100,15 +100,19 @@
 	<button type="submit" name="save" class="btn btn-primary">
 		<spring:message code="referee.save" />
 	</button>
-	<jstl:if test=${referee.id > 0}>
-		<button type="submit" name="delete" class="btn btn-primary">
-			<spring:message code="referee.delete" />
-		</button>
-	</jstl:if>
-</jstl:if>	
+</jstl:if>
 	
 </form:form>
 
-<button type="button" onclick="javascript: relativeRedir('referee/profile.do?refereeId=${referee.id}')" >
-	<spring:message code="referee.cancel" />
-</button>
+<jstl:choose>
+	<jstl:when test="${referee.id > 0}">
+		<button type="button" onclick="javascript: relativeRedir('referee/profile.do?refereeId=${referee.id}')" >
+			<spring:message code="referee.cancel" />
+		</button>
+	</jstl:when>
+	<jstl:when test="${referee.id == 0}">
+		<button type="button" onclick="javascript: relativeRedir('')" >
+			<spring:message code="referee.cancel" />
+		</button>
+	</jstl:when>
+</jstl:choose>
