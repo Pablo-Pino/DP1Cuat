@@ -30,13 +30,6 @@
 	<form:label path="title"> <spring:message code="tutorial.title" />:</form:label>
 	<form:input path="title" /><form:errors cssClass="error" path="title" /><br />
 
-	<form:label path="moment">
-		<spring:message code="tutorial.moment" />:
-	</form:label>
-	<form:input path="moment" />
-	<form:errors cssClass="error" path="moment" />
-	<br />
-
 	<form:label path="summary">
 		<spring:message code="tutorial.summary" />:
 	</form:label>
