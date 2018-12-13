@@ -32,13 +32,8 @@
 			<form:hidden path="suspicious" />
 			<form:hidden path="senderMessages" />
 			<form:hidden path="recipientMessages" />
-			<form:hidden path="applications" />
-			<form:hidden path="workplan" />
-			<form:hidden path="tutorials" />
-			<form:hidden path="curriculum" />
 			<form:hidden path="folders" />
 			<form:hidden path="finder" />
-			<form:hidden path="socialProfiles" />
 
 			<fieldset>
 				<!-------------------Form ------------------------------------>
@@ -106,6 +101,40 @@
 					<form:errors cssClass="error" path="address" />
 					<br />
 				</div>
+				
+				
+					<%-- TODO: mirar si el == 0 está dentro o fuera de las llaves --%>
+	<jstl:if test="${customer.id} != 0">
+		<fieldset>
+			<legend>
+				<spring:message code="administrator.socialProfiles"></spring:message>
+			</legend>
+			<display:table name="socialProfiles" id="socialProfile"
+				requestURI="${requestURI}" pagesize="5" class="displaytag">
+
+				<spring:message code="socialProfile.networkName"
+					var="socialProfileNetworkName"></spring:message>
+				<display:column property="networkName"
+					title="${socialProfileNetworkName}" sortable="true" />
+
+				<spring:message code="socialProfile.nick" var="socialProfileNick"></spring:message>
+				<display:column property="nick" title="${socialProfileNick}"
+					sortable="true" />
+
+				<spring:message code="socialProfile.profile"
+					var="socialProfileNetworkProfile"></spring:message>
+				<display:column property="profile"
+					title="${socialProfileNetworkProfile}" sortable="true" />
+
+				<display:column>
+					<a
+						href="socialProfile/edit.do?socialProfileId=${socialProfiles.id}"><spring:message
+							code="socialProfile.display"></spring:message></a>
+				</display:column>
+
+			</display:table>
+		</fieldset>
+	</jstl:if>
 
 
 				<!-- UserAccount  -->
