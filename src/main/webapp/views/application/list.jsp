@@ -60,9 +60,7 @@
 		<jstl:if test="${application.status == 'PENDING' && application.moment < now}">
 		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:grey" />		
 		</jstl:if>
-
-		
-		
+	
 		
 		<spring:message code="application.handyworker" var="applicationHandyworker"></spring:message>
 		<display:column property="customer" title="${applicationHandyworker.name}" sortable="true" />
@@ -73,3 +71,7 @@
 	
 		
 	</display:table>
+	
+	<security:authorize access="hasRole('HANDYWORKER')">
+            <a href="application/create.do"><spring:message code="application.create"></spring:message></a>
+	</security:authorize>

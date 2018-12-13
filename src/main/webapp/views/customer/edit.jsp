@@ -42,14 +42,14 @@
 		</form:label>
 		<form:input path="userAccount.username" />
 		<form:errors cssClass="error" path="userAccount.username" />
-<br />
+		<br />
 
 		<form:label path="userAccount.password">
 			<spring:message code="userAccount.password" />:
 		</form:label>
 		<form:password path="userAccount.password" />
 		<form:errors cssClass="error" path="userAccount.password" />
-<br />
+		<br />
 
 
 
@@ -104,34 +104,38 @@
 		<br />
 	</form:form>
 
-	<fieldset>
-		<legend>
-			<spring:message code="customer.socialProfiles"></spring:message>
-		</legend>
-		<display:table name="socialProfiles" id="socialProfile"
-			requestURI="${requestURI}" pagesize="5" class="displaytag">
+	<%-- TODO: mirar si el == 0 está dentro o fuera de las llaves --%>
+	<jstl:if test="${customer.id} != 0">
+		<fieldset>
+			<legend>
+				<spring:message code="customer.socialProfiles"></spring:message>
+			</legend>
+			<display:table name="socialProfiles" id="socialProfile"
+				requestURI="${requestURI}" pagesize="5" class="displaytag">
 
-			<spring:message code="socialProfile.networkName"
-				var="socialProfileNetworkName"></spring:message>
-			<display:column property="networkName"
-				title="${socialProfileNetworkName}" sortable="true" />
+				<spring:message code="socialProfile.networkName"
+					var="socialProfileNetworkName"></spring:message>
+				<display:column property="networkName"
+					title="${socialProfileNetworkName}" sortable="true" />
 
-			<spring:message code="socialProfile.nick" var="socialProfileNick"></spring:message>
-			<display:column property="nick" title="${socialProfileNick}"
-				sortable="true" />
+				<spring:message code="socialProfile.nick" var="socialProfileNick"></spring:message>
+				<display:column property="nick" title="${socialProfileNick}"
+					sortable="true" />
 
-			<spring:message code="socialProfile.profile"
-				var="socialProfileNetworkProfile"></spring:message>
-			<display:column property="profile"
-				title="${socialProfileNetworkProfile}" sortable="true" />
+				<spring:message code="socialProfile.profile"
+					var="socialProfileNetworkProfile"></spring:message>
+				<display:column property="profile"
+					title="${socialProfileNetworkProfile}" sortable="true" />
 
-			<display:column>
-				<a href="socialProfile/edit.do?socialProfileId=${socialProfiles.id}"><spring:message
-						code="socialProfile.display"></spring:message></a>
-			</display:column>
+				<display:column>
+					<a
+						href="socialProfile/edit.do?socialProfileId=${socialProfiles.id}"><spring:message
+							code="socialProfile.display"></spring:message></a>
+				</display:column>
 
-		</display:table>
-	</fieldset>
+			</display:table>
+		</fieldset>
+	</jstl:if>
 
 
 </div>
