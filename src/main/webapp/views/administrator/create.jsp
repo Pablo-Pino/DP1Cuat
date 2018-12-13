@@ -144,7 +144,7 @@
 
 
 
-		<input type="button" name="save" value="<spring:message code="admin.save"></spring:message>" />
+		<input type="button" name="save" value="<spring:message code="administrator.save"></spring:message>" />
 			
 		<input type="button" name="return" value="${cancel}" onclick="javascript:relativeRedir('welcome/index.do')"/>
 		

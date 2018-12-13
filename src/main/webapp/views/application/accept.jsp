@@ -22,12 +22,11 @@
 	<spring:message code="application.accept" />
 </p>
 
-<!--  Primero pongo la autoridad ya que solo un admin maneja las categorias -->
-<security:authorize access="hasAnyRole('CUSTOMER' , 'HANDYWORKER')">
+<!--  Primero pongo la autoridad ya que solo un customer acepta las apps -->
+<security:authorize access="hasRole('CUSTOMER')">
 
 	<div>
-		<form:form action="application/edit.do" method="post" id="formCreate"
-			name="formCreate" modelAttribute="application"></form:form>
+		<form:form action="application/edit.do" method="post" id="formCreate" name="formCreate" modelAttribute="application"></form:form>
 
 	<!-- No me acuerdo exactamente para que hacia falta  -->
 			<form:hidden path="id" />
@@ -44,6 +43,7 @@
 			
 		<!-- Status ------------------->
 		<!-- TODO: -->
+		
 			
 		<form:label path="status"><spring:message code="application.status"></spring:message></form:label>
 		<form:select id="status" path="status">
