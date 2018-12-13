@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Finder extends DomainEntity {
@@ -38,6 +40,7 @@ public class Finder extends DomainEntity {
 		return this.category;
 	}
 
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	public Date getMinimumDate() {
 		return this.minimumDate;
 	}
@@ -46,6 +49,7 @@ public class Finder extends DomainEntity {
 		this.minimumDate = minimumDate;
 	}
 
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	public Date getMaximumDate() {
 		return this.maximumDate;
 	}
@@ -94,6 +98,7 @@ public class Finder extends DomainEntity {
 		this.maxPrice = maxPrice;
 	}
 
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	public Date getStart() {
 		return this.start;
 	}
@@ -102,6 +107,7 @@ public class Finder extends DomainEntity {
 		this.start = start;
 	}
 
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	public Date getEnd() {
 		return this.end;
 	}

@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -84,6 +85,7 @@ public class FixupTask extends Ticketable {
 
 	@Past
 	@NotNull
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -121,6 +123,7 @@ public class FixupTask extends Ticketable {
 	}
 
 	@NotNull
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	public Date getStart() {
 		return this.start;
 	}
@@ -130,6 +133,7 @@ public class FixupTask extends Ticketable {
 	}
 
 	@NotNull
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	public Date getEnd() {
 		return this.end;
 	}
