@@ -43,7 +43,7 @@
 		
 		<form:select id="parentCategory" path="parentCategory">
 		<form:option value="${CATEGORY}" label="CATEGORY"></form:option>
-		<form:options items="${categories}" itemLabel="name" itemValue="id" />
+		<form:options items="${childCategories}" itemLabel="name" itemValue="id" />
 		</form:select>
 		<form:errors cssClass="error" path="parentCategory" />
 		<br />
@@ -55,8 +55,10 @@
 	<!--  Los botones de crear y cancelar -->
 
 		<input type="button" name="save" value="<spring:message code="category.save"></spring:message>" />
+		
+		<spring:message code="category.return" var="return"></spring:message>
+		<input type="button" name="return" value="${return}" onclick="javascript:relativeRedir('category/list.do')" />
 			
-		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('category/administrator/list.do')" />
 		
 		<input type="button" name="delete" value="<spring:message code="category.delete"></spring:message>" />
 		

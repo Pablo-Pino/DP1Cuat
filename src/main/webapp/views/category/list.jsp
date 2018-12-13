@@ -27,7 +27,7 @@
 	
 	<!--  La columna que va a la vista edit de las categorias -->
 	<display:column>
-		<a href="category/administrator/display.do?categoryId=${idCategory.id}"><spring:message
+		<a href="category/administrator/display.do?categoryId=${Category.id}"><spring:message
 		   code="category.edit"></spring:message></a>
 	</display:column>
 	
