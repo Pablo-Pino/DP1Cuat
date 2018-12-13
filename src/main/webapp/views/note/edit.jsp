@@ -41,7 +41,7 @@
 				value="<spring:message code="note.save"></spring:message>" />
 			<spring:message code="note.cancel" var="cancel"></spring:message>
 			<input type="button" name="cancel" value="${cancel}"
-				onclick="javascript:relativeRedir('note/list.do')" />
+				onclick="javascript:relativeRedir('note/referee/list.do')" />
 		</form:form>
 
 	</div>

@@ -32,4 +32,14 @@
 		<put-attribute name="body" value="/views/message/display.jsp" />
 	</definition>
 	
+	<definition name="message/list" extends="master.page">	
+		<put-attribute name="title" value="Listar mensaje" />
+		<put-attribute name="body" value="/views/message/list.jsp" />
+	</definition>
+	
+	<definition name="message/messageToAll" extends="master.page">	
+		<put-attribute name="title" value="Listar mensaje" />
+		<put-attribute name="body" value="/views/message/messageToAll.jsp" />
+	</definition>
+	
 </tiles-definitions>

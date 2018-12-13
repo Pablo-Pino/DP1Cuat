@@ -23,7 +23,7 @@ public class EndorserRecord extends DomainEntity {
 	private String		photo;
 	private String		email;
 	private String		phone;
-	private String		linkedProfile;
+	private String		linkedinProfile;
 
 	//------------Relaciones--------
 
@@ -79,11 +79,11 @@ public class EndorserRecord extends DomainEntity {
 	@URL
 	@NotNull
 	public String getLinkedProfile() {
-		return this.linkedProfile;
+		return this.linkedinProfile;
 	}
 
 	public void setLinkedProfile(final String linkedProfile) {
-		this.linkedProfile = linkedProfile;
+		this.linkedinProfile = linkedProfile;
 	}
 
 	@Valid

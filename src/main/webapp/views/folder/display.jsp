@@ -10,20 +10,31 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="folder.display" />
-</p>
+<fieldset>
+<spring:message code="folder.name"></spring:message>:
+<jstl:out value="${fo.name}"></jstl:out>
+</fieldset>
 
+<fieldset>
+<spring:message code="folder.system"></spring:message>:
+<jstl:out value="${fo.systemFolder}"></jstl:out>
+</fieldset>
+	
 
-<jstl:if test="${folder.name != null }">
+<fieldset>
+<spring:message code="folder.folders"></spring:message>:
+<jstl:forEach items="${fo.folders}" var="fol">
+<jstl:out value="${fol.name}"></jstl:out>
+</jstl:forEach>
+</fieldset>
 
-	<spring:message code="folder.name"></spring:message>
-	<jstl:out value="${folder.name}"></jstl:out>
-</jstl:if>
-
-<jstl:if test="${folder.system != null }">
-
-	<spring:message code="folder.system"></spring:message>
-	<jstl:out value="${folder.system}"></jstl:out>
-</jstl:if>
-
+<fieldset>
+<spring:message code="folder.messages"></spring:message>:
+<jstl:forEach items="${fo.messages}" var="mes">
+<jstl:out value="${mes.subject}"></jstl:out>
+</jstl:forEach>
+</fieldset>
+<br>
+<spring:message code="folder.cancel" var="cancelHeader"></spring:message>
+			<input type="button" name="cancel" value="${cancelHeader}"
+				onclick="javascript:relativeRedir('folder/actor/list.do')" />
