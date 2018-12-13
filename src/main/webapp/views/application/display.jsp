@@ -37,7 +37,7 @@
 	<spring:message code="application.customerComments"></spring:message> <jstl:out value="${application.customerComments}"></jstl:out>
 	<br />
 	
-	<spring:message code="application.creditCard"></spring:message> <jstl:out value="${application.creditCard}"></jstl:out>
+	<spring:message code="application.creditCard"></spring:message> <jstl:out value="${application.creditCard.brandName}"></jstl:out>
 	<br />
 	
 	<spring:message code="application.customer"></spring:message> <jstl:out value="${application.customer.name}"></jstl:out>

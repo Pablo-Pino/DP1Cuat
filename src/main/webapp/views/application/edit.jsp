@@ -35,6 +35,10 @@
 			<form:hidden path="customer" />
 			<form:hidden path="creditCard"/>
 			<form:hidden path="handyWorker" />
+			<form:hidden path="moment" />
+			<form:hidden path="fixupTask" />
+			
+			
 			
 
 <!-- los atributos -->
@@ -44,8 +48,6 @@
 			<form:input path="price" /><form:errors cssClass="error" path="price" /><br />
 		</security:authorize>
 			
-			<form:label path="moment"> <spring:message code="application.moment" /></form:label>
-			<form:input path="moment" /><form:errors cssClass="error" path="moment" /><br />
 			
 		<!-- Status ------------------->
 		<!-- TODO: -->
@@ -73,9 +75,6 @@
 			<form:input path="customerMoments" /><form:errors cssClass="error" path="customerMoments" /><br />
 			</security:authorize>
 		
-		
-			<form:label path="fixupTask"> <spring:message code="application.fixupTask" /></form:label>
-			<form:input path="fixupTask" /><form:errors cssClass="error" path="fixupTask" /><br />
 		
 	</div>
 	<!--  Los botones de crear y cancelar -->

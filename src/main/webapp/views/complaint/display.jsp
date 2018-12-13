@@ -24,7 +24,7 @@
 
 
 
-<security:authorize access="hasRole('REFEREE'|| 'CUSTOMER')">
+<security:authorize access="hasAnyRole('REFEREE', 'CUSTOMER')">
 
 	<spring:message code="complaint.moment"></spring:message>
 	<jstl:out value="${category.moment}">
@@ -58,10 +58,8 @@
 	</jstl:out>
 	<br />
 	
-	<div>
-		<a href="report/display.do?reportId=${report.id}"><spring:message code="report.display"></spring:message></a>
-	</div>
-	<br />
+
+	<input type="button" name="return" value="${cancel}" onclick="javascript:relativeRedir('welcome/index.do')"/>
 	
 	
 

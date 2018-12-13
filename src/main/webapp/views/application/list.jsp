@@ -65,8 +65,10 @@
 		<spring:message code="application.handyworker" var="applicationHandyworker"></spring:message>
 		<display:column property="customer" title="${applicationHandyworker.name}" sortable="true" />
 		
-		<spring:message code="application.fixupTask" var="applicationFixupTask"></spring:message>
-		<display:column property="fixupTask" title="${applicationFixupTask}" sortable="true" />
+		<display:column>
+			<a href="fixupTask/display.do?fixupTaskId=${applicationFixupTask.id}">
+			<spring:message code="application.fixupTask"></spring:message></a>
+		</display:column>
 		
 	
 		

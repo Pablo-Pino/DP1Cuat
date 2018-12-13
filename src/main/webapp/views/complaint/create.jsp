@@ -28,7 +28,6 @@
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="referee" />
-			<form:hidden path="customer" />
 			
 			
 				<!-- Form -->
@@ -51,12 +50,21 @@
 				</textarea>
 				
 				<br>
+							
+				<form:label path="fixupTask"><spring:message code="complaint.fixupTask"></spring:message></form:label>
+				<form:select id="fixupTask" path="fixupTask">
+				<form:option value="${FIXUPTASK}" label="------"></form:option>
+				<form:options items="${FIXUPTASK}" itemLabel="name" itemValue="id" />
+				</form:select>
+				<form:errors cssClass="error" path="fixuptask" />
 				
-				<div>
-					<a href="fixupTask/display.do?fixupTaskId=${fixupTask.name}"><spring:message code="fixupTask.display"></spring:message></a>
-					<br />
-				</div>
 				
+				<form:label path="report"><spring:message code="complaint.report"></spring:message></form:label>
+				<form:select id="report" path="report">
+				<form:option value="${REPORT}" label=""></form:option>
+				<form:options items="${REPORT}" itemLabel="name" itemValue="id" />
+				</form:select>
+				<form:errors cssClass="error" path="report" />
 				
 		
 		</form:form>
