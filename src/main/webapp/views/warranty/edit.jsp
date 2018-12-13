@@ -19,7 +19,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="tutorial/customer/edit.do" modelAttribute="tutorial">
+<form:form action="warranty/customer/edit.do" modelAttribute="warranty">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -27,18 +27,18 @@
 	<form:hidden path="sections" />
 	<form:hidden path="sponsorships" />
 
-	<form:label path="title"> <spring:message code="tutorial.title" />:</form:label>
+	<form:label path="title"> <spring:message code="warranty.title" />:</form:label>
 	<form:input path="title" /><form:errors cssClass="error" path="title" /><br />
 
 	<form:label path="summary">
-		<spring:message code="tutorial.summary" />:
+		<spring:message code="warranty.summary" />:
 	</form:label>
 	<form:input path="summary" />
 	<form:errors cssClass="error" path="summary" />
 	<br />
 	
 	<form:label path="pictures">
-		<spring:message code="tutorial.pictures" />:
+		<spring:message code="warranty.pictures" />:
 	</form:label>
 	<form:input path="pictures" />
 	<form:errors cssClass="error" path="pictures" />
@@ -46,15 +46,15 @@
 	
 
 	<input type="submit" name="save"
-		value="<spring:message code="tutorial" />" />&nbsp; 
-	<jstl:if test="${tutorial.id != 0}">
+		value="<spring:message code="warranty" />" />&nbsp; 
+	<jstl:if test="${warranty.id != 0}">
 		<input type="submit" name="delete"
-			value="<spring:message code="tutorial.delete" />"
-			onclick="return confirm('<spring:message code="tutorial.confirm.delete" />')" />&nbsp;
+			value="<spring:message code="warranty.delete" />"
+			onclick="return confirm('<spring:message code="warranty.confirm.delete" />')" />&nbsp;
 	</jstl:if>
 	<input type="button" name="cancel"
-		value="<spring:message code="tutorial.cancel" />"
-		onclick="javascript: relativeRedir('tutorial/handyWorker/list.do');" />
+		value="<spring:message code="warranty.cancel" />"
+		onclick="javascript: relativeRedir('warranty/handyWorker/list.do');" />
 	<br />
 
 </form:form>
