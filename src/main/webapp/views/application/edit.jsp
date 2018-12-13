@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="category.edit" />
+	<spring:message code="application.edit" />
 </p>
 
 <!--  Primero pongo la autoridad ya que solo un admin maneja las categorias -->
@@ -34,41 +34,49 @@
 			<form:hidden path="version" />
 			<form:hidden path="customer" />
 			<form:hidden path="creditCard"/>
+			<form:hidden path="handyWorker" />
+			
 
 <!-- los atributos -->
+
+		<security:authorize access="hasRole('HANDYWORKER')">
 			<form:label path="price"> <spring:message code="application.price" /></form:label>
 			<form:input path="price" /><form:errors cssClass="error" path="price" /><br />
+		</security:authorize>
 			
 			<form:label path="moment"> <spring:message code="application.moment" /></form:label>
 			<form:input path="moment" /><form:errors cssClass="error" path="moment" /><br />
 			
 		<!-- Status ------------------->
 		<!-- TODO: -->
-			
+		<security:authorize access="hasRole('CUSTOMER')">
+
 		<form:label path="status"><spring:message code="application.status"></spring:message></form:label>
 		<form:select id="status" path="status">
 		<form:option value="${STATUS}" label="PENDING"></form:option>
 		<form:options items="${status}" itemLabel="name" itemValue="id" />
 		</form:select>
 		<form:errors cssClass="error" path="status" />
+		</security:authorize>
 
 
 		
 			<!-- ---------------------- -->
-			
+			<security:authorize access="hasRole('HANDYWORKER')">
 			<form:label path="workerMoments"> <spring:message code="application.workerMoments" /></form:label>
 			<form:input path="workerMoments" /><form:errors cssClass="error" path="workerMoments" /><br />
+			</security:authorize>
+			
+			<security:authorize access="hasRole('CUSTOMER')">
 			
 			<form:label path="customerMoments"> <spring:message code="application.customerMoments" /></form:label>
 			<form:input path="customerMoments" /><form:errors cssClass="error" path="customerMoments" /><br />
+			</security:authorize>
 		
-			<form:label path="handyWorker"> <spring:message code="application.handyWorker" /></form:label>
-			<form:input path="handyWorker" /><form:errors cssClass="error" path="handyWorker" /><br />
-			
+		
 			<form:label path="fixupTask"> <spring:message code="application.fixupTask" /></form:label>
 			<form:input path="fixupTask" /><form:errors cssClass="error" path="fixupTask" /><br />
 		
-
 	</div>
 	<!--  Los botones de crear y cancelar -->
 
