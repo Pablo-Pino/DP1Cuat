@@ -104,7 +104,7 @@
 				
 				
 					<%-- TODO: mirar si el == 0 está dentro o fuera de las llaves --%>
-	<jstl:if test="${customer.id} != 0">
+	<jstl:if test="${administrator.id} != 0">
 		<fieldset>
 			<legend>
 				<spring:message code="administrator.socialProfiles"></spring:message>
