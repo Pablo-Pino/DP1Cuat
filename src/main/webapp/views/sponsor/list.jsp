@@ -21,49 +21,37 @@
 
 <!-- Listing grid -->
 
-<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="tutorials" requestURI="${requestURI}" id="row">
+<display:table pagesize="5" class="displaytag" keepStatus="true" name="sponsors" requestURI="${requestURI}" id="row">
 	
 	<!-- Action links -->
 
-	<security:authorize access="hasRole('HANDYWORKER')">
-		<display:column>
-			<a href="tutorial/handyWorker/edit.do?tutorialId=${row.id}">
-				<spring:message	code="tutorial.edit" />
-			</a>
-		</display:column>		
-	</security:authorize>
 	
 	<!-- Attributos -->
 	
-	<spring:message code="tutorial.ticker" var="ticker" />
-	<display:column property="ticker" title="${ticker}" sortable="true" />
-
-	<spring:message code="tutorial.moment" var="moment" />
-	<display:column property="moment" title="${moment}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
-
-	<spring:message code="tutorial.summary" var="summary" />
-	<display:column property="summary" title="${summary}" sortable="false" />
+	<display:table name="sponsors" id="sponsor" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
-	<spring:message code="tutorial.pictures" var="pictures" />
-	<display:column property="pictures" title="${pictures}" sortable="false" />
-	
-	<spring:message code="tutorial.sections" var="tutsec" />
-	<display:column title="${tutsec}">
-		<jstl:forEach items="${Tutorial.sections}" var="tutorialSections">
-			<a href="tutorial/handyworker/list.do?sectionId= ${tutorialSections.id}"> <jstl:out value="tutorial.section"></jstl:out></a>
+		<spring:message code="sponsor.name" var="sponsorName"></spring:message>
+		<display:column property="name" title="${sponsorName}" sortable="true" />
+		
+		<spring:message code="sponsor.middleName" var="sponsorMiddleName"></spring:message>
+		<display:column property="middleName" title="${sponsorMiddleName}" sortable="true" />
+		
+		<spring:message code="sponsor.surName" var="sponsorSurName"></spring:message>
+		<display:column property="surName" title="${sponsorSurName}" sortable="true" />
+		
+		<spring:message code="sponsor.email" var="sponsorEmail"></spring:message>
+		<display:column property="email" title="${sponsorEmail}" sortable="true" />
+		
+		<spring:message code="sponsor.phone" var="sponsorPhone"></spring:message>
+		<display:column property="phone" title="${sponsorPhone}" sortable="true" />
+		
+		<spring:message code="sponsor.sponsorships" var="sponsorships" />
+	<display:column title="${sponsorships}">
+		<jstl:forEach items="${Sponsor.sponsorships}" var="sponsorSponsorships">
+			<a href="sponsorship/sponsor/list.do?sponsorId= ${sponsorSponsorships.id}"> <jstl:out value="sponsor.sponsorship"></jstl:out></a>
 		</jstl:forEach>
 	</display:column>
-	
-
+	</display:table>
 </display:table>
 
 <!-- Botones  -->
-
-<security:authorize access="hasRole('HANDYWORKER')">
-	<div>
-		<a href="tutorial/handyWorker/create.do"> <spring:message
-				code="tutorial.create" />
-		</a>
-	</div>
-</security:authorize>

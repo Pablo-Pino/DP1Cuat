@@ -16,19 +16,19 @@
        
 <tiles-definitions>
 
-	<definition name="tutorial/edit" extends="master.page">	
-		<put-attribute name="title" value="Editar tutoriales" />
-		<put-attribute name="body" value="/views/tutorial/edit.jsp" />
+	<definition name="workplan/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar plan de trabajo" />
+		<put-attribute name="body" value="/views/workplan/edit.jsp" />
 	</definition>
 	
-	<definition name="tutorial/list" extends="master.page">	
-		<put-attribute name="title" value="Listar tutoriales" />
-		<put-attribute name="body" value="/views/tutorial/list.jsp" />
+	<definition name="workplan/list" extends="master.page">	
+		<put-attribute name="title" value="Listar planes de trabajo" />
+		<put-attribute name="body" value="/views/workplan/list.jsp" />
 	</definition>
 	
-	<definition name="tutorial/display" extends="master.page">	
-		<put-attribute name="title" value="Mostrar tutorial" />
-		<put-attribute name="body" value="/views/tutorial/display.jsp" />
+	<definition name="workplan/display" extends="master.page">	
+		<put-attribute name="title" value="Mostrar plan de trabajo" />
+		<put-attribute name="body" value="/views/workplan/display.jsp" />
 	</definition>
 	
 </tiles-definitions>

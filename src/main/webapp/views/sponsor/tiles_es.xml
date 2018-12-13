@@ -16,19 +16,19 @@
        
 <tiles-definitions>
 
-	<definition name="tutorial/edit" extends="master.page">	
-		<put-attribute name="title" value="Editar tutoriales" />
-		<put-attribute name="body" value="/views/tutorial/edit.jsp" />
+	<definition name="sponsor/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar patrocinador" />
+		<put-attribute name="body" value="/views/sponsor/edit.jsp" />
 	</definition>
 	
-	<definition name="tutorial/list" extends="master.page">	
-		<put-attribute name="title" value="Listar tutoriales" />
-		<put-attribute name="body" value="/views/tutorial/list.jsp" />
+	<definition name="sponsor/list" extends="master.page">	
+		<put-attribute name="title" value="Listar patrocinadores" />
+		<put-attribute name="body" value="/views/sponsor/list.jsp" />
 	</definition>
 	
-	<definition name="tutorial/display" extends="master.page">	
-		<put-attribute name="title" value="Mostrar tutorial" />
-		<put-attribute name="body" value="/views/tutorial/display.jsp" />
+	<definition name="sponsor/display" extends="master.page">	
+		<put-attribute name="title" value="Mostrar patrocinador" />
+		<put-attribute name="body" value="/views/sponsor/display.jsp" />
 	</definition>
 	
 </tiles-definitions>

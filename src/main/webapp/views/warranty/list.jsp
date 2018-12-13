@@ -22,36 +22,36 @@
 <!-- Listing grid -->
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="tutorials" requestURI="${requestURI}" id="row">
+	name="warrantys" requestURI="${requestURI}" id="row">
 	
 	<!-- Action links -->
 
 	<security:authorize access="hasRole('HANDYWORKER')">
 		<display:column>
-			<a href="tutorial/handyWorker/edit.do?tutorialId=${row.id}">
-				<spring:message	code="tutorial.edit" />
+			<a href="warranty/handyWorker/edit.do?warrantyId=${row.id}">
+				<spring:message	code="warranty.edit" />
 			</a>
 		</display:column>		
 	</security:authorize>
 	
 	<!-- Attributos -->
 	
-	<spring:message code="tutorial.ticker" var="ticker" />
+	<spring:message code="warranty.ticker" var="ticker" />
 	<display:column property="ticker" title="${ticker}" sortable="true" />
 
-	<spring:message code="tutorial.moment" var="moment" />
+	<spring:message code="warranty.moment" var="moment" />
 	<display:column property="moment" title="${moment}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
 
-	<spring:message code="tutorial.summary" var="summary" />
+	<spring:message code="warranty.summary" var="summary" />
 	<display:column property="summary" title="${summary}" sortable="false" />
 	
-	<spring:message code="tutorial.pictures" var="pictures" />
+	<spring:message code="warranty.pictures" var="pictures" />
 	<display:column property="pictures" title="${pictures}" sortable="false" />
 	
-	<spring:message code="tutorial.sections" var="tutsec" />
+	<spring:message code="warranty.sections" var="tutsec" />
 	<display:column title="${tutsec}">
-		<jstl:forEach items="${Tutorial.sections}" var="tutorialSections">
-			<a href="tutorial/handyworker/list.do?sectionId= ${tutorialSections.id}"> <jstl:out value="tutorial.section"></jstl:out></a>
+		<jstl:forEach items="${Tutorial.sections}" var="warrantySections">
+			<a href="warranty/handyworker/list.do?sectionId= ${warrantySections.id}"> <jstl:out value="warranty.section"></jstl:out></a>
 		</jstl:forEach>
 	</display:column>
 	
@@ -62,8 +62,8 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 	<div>
-		<a href="tutorial/handyWorker/create.do"> <spring:message
-				code="tutorial.create" />
+		<a href="warranty/handyWorker/create.do"> <spring:message
+				code="warranty.create" />
 		</a>
 	</div>
 </security:authorize>

@@ -22,36 +22,36 @@
 <!-- Listing grid -->
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="tutorials" requestURI="${requestURI}" id="row">
+	name="sponsorships" requestURI="${requestURI}" id="row">
 	
 	<!-- Action links -->
 
 	<security:authorize access="hasRole('HANDYWORKER')">
 		<display:column>
-			<a href="tutorial/handyWorker/edit.do?tutorialId=${row.id}">
-				<spring:message	code="tutorial.edit" />
+			<a href="sponsorship/handyWorker/edit.do?sponsorshipId=${row.id}">
+				<spring:message	code="sponsorship.edit" />
 			</a>
 		</display:column>		
 	</security:authorize>
 	
 	<!-- Attributos -->
 	
-	<spring:message code="tutorial.ticker" var="ticker" />
+	<spring:message code="sponsorship.ticker" var="ticker" />
 	<display:column property="ticker" title="${ticker}" sortable="true" />
 
-	<spring:message code="tutorial.moment" var="moment" />
+	<spring:message code="sponsorship.moment" var="moment" />
 	<display:column property="moment" title="${moment}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
 
-	<spring:message code="tutorial.summary" var="summary" />
+	<spring:message code="sponsorship.summary" var="summary" />
 	<display:column property="summary" title="${summary}" sortable="false" />
 	
-	<spring:message code="tutorial.pictures" var="pictures" />
+	<spring:message code="sponsorship.pictures" var="pictures" />
 	<display:column property="pictures" title="${pictures}" sortable="false" />
 	
-	<spring:message code="tutorial.sections" var="tutsec" />
+	<spring:message code="sponsorship.sections" var="tutsec" />
 	<display:column title="${tutsec}">
-		<jstl:forEach items="${Tutorial.sections}" var="tutorialSections">
-			<a href="tutorial/handyworker/list.do?sectionId= ${tutorialSections.id}"> <jstl:out value="tutorial.section"></jstl:out></a>
+		<jstl:forEach items="${Tutorial.sections}" var="sponsorshipSections">
+			<a href="sponsorship/handyworker/list.do?sectionId= ${sponsorshipSections.id}"> <jstl:out value="sponsorship.section"></jstl:out></a>
 		</jstl:forEach>
 	</display:column>
 	
@@ -62,8 +62,8 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 	<div>
-		<a href="tutorial/handyWorker/create.do"> <spring:message
-				code="tutorial.create" />
+		<a href="sponsorship/handyWorker/create.do"> <spring:message
+				code="sponsorship.create" />
 		</a>
 	</div>
 </security:authorize>
