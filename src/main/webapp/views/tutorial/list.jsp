@@ -48,6 +48,13 @@
 	<spring:message code="tutorial.pictures" var="pictures" />
 	<display:column property="pictures" title="${pictures}" sortable="false" />
 	
+	<spring:message code="tutorial.sections" var="tutsec" />
+	<display:column title="${tutsec}">
+		<jstl:forEach items="${Tutorial.sections}" var="tutorialSections">
+			<a href="tutorial/handyworker/list.do?sectionId= ${tutorialSections.id}"> <jstl:out value="tutorial.section"></jstl:out></a>
+		</jstl:forEach>
+	</display:column>
+	
 
 </display:table>
 
