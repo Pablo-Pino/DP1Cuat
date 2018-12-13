@@ -32,7 +32,7 @@
 		<a href="application/edit.do?applicationId=${application.id}"><spring:message code="applicarion.edit"></spring:message></a>
 	</display:column>
 </security:authorize>
-
+		
 
 	
 		<spring:message code="application.price" var="applicationPrice"></spring:message>
@@ -43,6 +43,7 @@
 		
 		<spring:message code="application.status" var="applicationStatus"></spring:message>
 		
+		<jsp:useBean id="now" class="java.util.Date"/>	
 		
 		<jstl:if test="${application.status == 'ACCEPTED'}">
 		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:green" />		
@@ -52,8 +53,12 @@
 		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:orange" />		
 		</jstl:if>
 		
-		<jstl:if test="${application.status == 'PENDING'}">
+		<jstl:if test="${application.status == 'PENDING' && application.moment >= now}">
 		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:scheme" />		
+		</jstl:if>
+		
+		<jstl:if test="${application.status == 'PENDING' && application.moment < now}">
+		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:grey" />		
 		</jstl:if>
 
 		
