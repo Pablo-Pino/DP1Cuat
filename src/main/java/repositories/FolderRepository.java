@@ -4,13 +4,14 @@ package repositories;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Folder;
 
 @Repository
-public interface FolderRepository extends GenericRepository<Folder> {
+public interface FolderRepository extends JpaRepository<Folder, Integer> {
 
 	@Query("select f from Folder f where f.actor.id = ?1")
 	List<Folder> findFoldersByActor(Integer actorId);

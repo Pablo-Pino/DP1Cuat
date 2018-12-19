@@ -15,3 +15,7 @@ src/main/java/Repositories/
 
 # Other
 *~*
+
+.classpath
+src/main/resources/Entities.map
+

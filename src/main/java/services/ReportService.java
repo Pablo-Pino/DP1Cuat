@@ -22,7 +22,7 @@ import domain.Url;
 
 @Service
 @Transactional
-public class ReportService extends GenericService<Report, ReportRepository> implements ServiceObjectDependantI<Report, Complaint> {
+public class ReportService {
 
 	// Repository
 	
@@ -38,7 +38,20 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 
 	// CRUD methods
 
-	@Override
+	public Report findOne(Integer id) {
+		this.serviceUtils.checkId(id);
+		return this.repository.findOne(id);
+	}
+
+	public Collection<Report> findAll(final Collection<Integer> ids) {
+		this.serviceUtils.checkIds(ids);
+		return this.repository.findAll(ids);
+	}
+
+	public Collection<Report> findAll() {
+		return this.repository.findAll();
+	}
+	
 	public Collection<Report> findAll(final Complaint dependency) {
 		this.serviceUtils.checkId(dependency);
 		Assert.notNull(this.complaintService.findOne(dependency.getId()));
@@ -52,7 +65,6 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 		return reports.get(0);
 	}
 
-	@Override
 	public Report create(final Complaint dependency) {
 		final Report res = new Report();
 		res.setComplaint(dependency);
@@ -62,27 +74,26 @@ public class ReportService extends GenericService<Report, ReportRepository> impl
 		return res;
 	}
 
-	@Override
 	public Report save(final Report object) {
-		final Report report = super.checkObjectSave(object);
-		if (object.getId() == 0) {
-			this.serviceUtils.checkId(object.getComplaint());
-			Assert.notNull(this.complaintService.findOne(object.getComplaint().getId()));
-			object.setMoment(new Date(System.currentTimeMillis() - 1000));
+		Report report = (Report) this.serviceUtils.checkObjectSave(object);
+		if (report.getId() == 0) {
+			this.serviceUtils.checkId(report.getComplaint());
+			Assert.notNull(this.complaintService.findOne(report.getComplaint().getId()));
+			report.setMoment(new Date(System.currentTimeMillis() - 1000));
 		} else {
 			Assert.isTrue(report.getDraft());
-			object.setComplaint(report.getComplaint());
-			object.setMoment(report.getMoment());
+			report.setAttachments(object.getAttachments());
+			report.setDescription(object.getDescription());
+			report.setDraft(object.getDraft());
 		}
 		this.serviceUtils.checkActor(report.getComplaint().getReferee());
 		this.serviceUtils.checkAuthority(Authority.REFEREE);
-		final Report res = this.repository.save(object);
+		final Report res = this.repository.save(report);
 		return res;
 	}
 
-	@Override
 	public void delete(final Report object) {
-		final Report report = super.checkObject(object);
+		final Report report = (Report) this.serviceUtils.checkObject(object);
 		Assert.isTrue(report.getDraft());
 		this.serviceUtils.checkActor(report.getComplaint().getReferee());
 		this.serviceUtils.checkAuthority(Authority.REFEREE);

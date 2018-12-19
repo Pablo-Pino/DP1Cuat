@@ -34,6 +34,8 @@ public class ReportServiceTest extends AbstractTest {
 	private ReportService		reportService;
 	@Autowired
 	private ComplaintService		complaintService;
+	@Autowired
+	private NoteService noteService;
 
 	// Tests
 
@@ -72,7 +74,7 @@ public class ReportServiceTest extends AbstractTest {
 		try {
 			final Collection<Report> reports = this.reportService.findAll(complaint);
 			Assert.isTrue(1 == reports.size());
-			Assert.isTrue(reports.contains(complaint.getReport()));
+			Assert.isTrue(reports.contains(this.reportService.findByComplaint(complaint)));
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
@@ -108,7 +110,7 @@ public class ReportServiceTest extends AbstractTest {
 				report = this.reportService.findOne(reportId);
 				oldComplaint = report.getComplaint();
 				oldMoment = report.getMoment();
-				oldNotes = report.getNotes();
+				oldNotes = this.noteService.findByReport(report);
 			}
 			report.setDescription(description);
 			report.setAttachments(attachments);
@@ -116,7 +118,6 @@ public class ReportServiceTest extends AbstractTest {
 			report.setDescription(description);
 			report.setDraft(draft);
 			report.setMoment(moment);
-			report.setNotes(notes);
 			report.setComplaint(complaint);
 			final Report savedReport = this.reportService.save(report);
 			this.reportService.flush();
@@ -128,11 +129,11 @@ public class ReportServiceTest extends AbstractTest {
 			Assert.isTrue(savedReport.getComplaint().equals(complaint));
 			if (reportId == null) {
 				Assert.isTrue(savedReport.getComplaint().equals(complaint));
-				Assert.isTrue(savedReport.getNotes().isEmpty());
+				Assert.isTrue(this.noteService.findByReport(savedReport).isEmpty());
 			} else {
 				Assert.isTrue(savedReport.getComplaint().equals(oldComplaint));
 				Assert.isTrue(savedReport.getMoment().equals(oldMoment));
-				Assert.isTrue(savedReport.getNotes().equals(oldNotes));
+				Assert.isTrue(this.noteService.findByReport(savedReport).equals(oldNotes));
 			}
 			this.unauthenticate();
 		} catch (final Throwable oops) {
@@ -230,7 +231,7 @@ public class ReportServiceTest extends AbstractTest {
 		attachment.setUrl("http://attach");
 		Collection<Url> attachments = new ArrayList<Url>();
 		attachments.add(attachment);
-		Collection<Note> notes = report.getNotes();
+		Collection<Note> notes = this.noteService.findByReport(report);
 		this.saveReport("referee1", attachments, "desc", true, report.getMoment(), notes, this.getEntityId("report1"), this.getEntityId("complaint1"), null);
 	}
 

@@ -89,12 +89,12 @@ public class NoteService {
 		return this.noteRepository.findByReportId(report.getId());
 	}
 	
-	public Note findByReport(Report report) {
+	public Collection<Note> findByReport(Report report) {
 		Assert.notNull(report);
 		Assert.isTrue(report.getId() > 0);
 		Assert.notNull(this.reportService.findOne(report.getId()));
 		List<Note> notes = new ArrayList<Note>(this.noteRepository.findByReportId(report.getId()));
-		return notes.get(0);
+		return notes;
 	}
 
 }

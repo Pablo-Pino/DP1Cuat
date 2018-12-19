@@ -22,8 +22,7 @@ import domain.ProfessionalRecord;
 
 @Service
 @Transactional
-public class CurriculumService extends GenericService<Curriculum, CurriculumRepository> implements ServiceActorDependantI<Curriculum> {
-
+public class CurriculumService {
 	// Managed repository --------------------------------------
 
 	@Autowired
@@ -133,7 +132,6 @@ public class CurriculumService extends GenericService<Curriculum, CurriculumRepo
 		return this.curriculumRepository.findByHandyWorkerId(h.getId());
 	}
 
-	@Override
 	public Collection<Curriculum> findAllByActor(Actor a) {
 		Assert.notNull(a);
 		Assert.isTrue(a.getId() > 0);
@@ -143,7 +141,6 @@ public class CurriculumService extends GenericService<Curriculum, CurriculumRepo
 		return res;
 	}
 
-	@Override
 	public Curriculum create(Actor a) {
 		Assert.notNull(a);
 		Assert.isTrue(a.getId() > 0);

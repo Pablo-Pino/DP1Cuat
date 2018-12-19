@@ -15,7 +15,7 @@ import domain.EndorserRecord;
 
 @Transactional
 @Service
-public class EndorserRecordService extends GenericService<EndorserRecord, EndorserRecordRepository> implements ServiceObjectDependantI<EndorserRecord, Curriculum> {
+public class EndorserRecordService {
 
 	//---------------Managed Repository---------------------------------------
 
@@ -64,7 +64,6 @@ public class EndorserRecordService extends GenericService<EndorserRecord, Endors
 		this.endorserRecordRepository.delete(endorserRecord);
 	}
 
-	@Override
 	public Collection<EndorserRecord> findAll(Curriculum dependency) {
 		Assert.notNull(dependency);
 		Assert.isTrue(dependency.getId() > 0);
@@ -72,7 +71,6 @@ public class EndorserRecordService extends GenericService<EndorserRecord, Endors
 		return dependency.getEndorserRecords();
 	}
 
-	@Override
 	public EndorserRecord create(Curriculum dependency) {
 		Assert.notNull(dependency);
 		Assert.isTrue(dependency.getId() > 0);

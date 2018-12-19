@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import domain.Url;
 
 @Service
 @Transactional
-public class RefereeService extends GenericService<Referee, RefereeRepository> implements ServiceI<Referee> {
+public class RefereeService {
 
 	// Repository
 	
@@ -41,7 +43,20 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 
 	// CRUD methods
 	
-	@Override
+	public Referee findOne(Integer id) {
+		this.serviceUtils.checkId(id);
+		return this.repository.findOne(id);
+	}
+
+	public Collection<Referee> findAll(final Collection<Integer> ids) {
+		this.serviceUtils.checkIds(ids);
+		return this.repository.findAll(ids);
+	}
+
+	public Collection<Referee> findAll() {
+		return this.repository.findAll();
+	}
+	
 	public Referee create() {
 		final Referee res = new Referee();
 		res.setBanned(false);
@@ -50,33 +65,29 @@ public class RefereeService extends GenericService<Referee, RefereeRepository> i
 		return res;
 	}
 
-	@Override
 	public Referee save(final Referee object) {
-		this.serviceUtils.checkIdSave(object);
-		Referee ref = object;
-		if (object.getId() > 0)
-			ref = this.repository.findOne(object.getId());
+		Referee referee = (Referee) this.serviceUtils.checkObject(object);
 		if (object.getId() == 0) {
 			object.setBanned(false);
 			this.folderService.createSystemFolders(object);
 			object.setSuspicious(false);
 			this.serviceUtils.checkAuthority(Authority.ADMIN);
 		} else {
-			object.setBanned(ref.getBanned());
-			object.setSuspicious(ref.getSuspicious());
-			object.setUserAccount(ref.getUserAccount());
-			this.serviceUtils.checkActor(ref);
+			referee.setAddress(object.getAddress());
+			referee.setEmail(object.getEmail());
+			referee.setMiddleName(object.getMiddleName());
+			referee.setName(object.getName());
+			referee.setPhone(object.getPhone());
+			referee.setPhoto(object.getPhoto());
+			referee.setSurname(object.getSurname());
+			referee.setUserAccount(object.getUserAccount());
+			this.serviceUtils.checkActor(referee);
 			this.serviceUtils.checkAuthority(Authority.REFEREE);
 		}
 		final Referee res = this.repository.save(object);
 		return res;
 	}
-	
-	@Override
-	public void delete(final Referee object) {
-		throw new IllegalArgumentException("Unallowed method");
-	}
-	
+
 	// Other methods
 	public void changeBanned(final Referee referee) {
 		this.serviceUtils.checkId(referee);

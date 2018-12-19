@@ -15,7 +15,7 @@ import domain.SocialProfile;
 
 @Service
 @Transactional
-public class SocialProfileService extends GenericService<SocialProfile, SocialProfileRepository> implements ServiceActorDependantI<SocialProfile> {
+public class SocialProfileService {
 
 	// Repository
 	
@@ -31,7 +31,20 @@ public class SocialProfileService extends GenericService<SocialProfile, SocialPr
 
 	// CRUD methods
 	
-	@Override
+	public SocialProfile findOne(Integer id) {
+		this.serviceUtils.checkId(id);
+		return this.repository.findOne(id);
+	}
+
+	public Collection<SocialProfile> findAll(final Collection<Integer> ids) {
+		this.serviceUtils.checkIds(ids);
+		return this.repository.findAll(ids);
+	}
+
+	public Collection<SocialProfile> findAll() {
+		return this.repository.findAll();
+	}
+	
 	public Collection<SocialProfile> findAllByActor(final Actor a) {
 		Assert.notNull(a);
 		Assert.isTrue(a.getId() > 0);
@@ -39,28 +52,28 @@ public class SocialProfileService extends GenericService<SocialProfile, SocialPr
 		return this.repository.findByActor(a.getId());
 	}
 
-	@Override
 	public SocialProfile create(final Actor a) {
 		final SocialProfile res = new SocialProfile();
 		res.setActor(a);
 		return res;
 	}
 
-	@Override
 	public SocialProfile save(final SocialProfile object) {
-		final SocialProfile socialProfile = this.checkObjectSave(object);
-		if (object.getId() == 0)
-			object.setActor(this.actorService.findPrincipal());
-		else
-			object.setActor(socialProfile.getActor());
+		final SocialProfile socialProfile = (SocialProfile) this.serviceUtils.checkObjectSave(object);
+		if (socialProfile.getId() == 0)
+			socialProfile.setActor(this.actorService.findPrincipal());
+		else {
+			socialProfile.setNetworkName(object.getNetworkName());
+			socialProfile.setNick(object.getNick());
+			socialProfile.setProfile(object.getProfile());
+		}
 		this.serviceUtils.checkActor(socialProfile.getActor());
-		final SocialProfile res = this.repository.save(object);
+		final SocialProfile res = this.repository.save(socialProfile);
 		return res;
 	}
 
-	@Override
 	public void delete(final SocialProfile object) {
-		final SocialProfile socialProfile = super.checkObject(object);
+		final SocialProfile socialProfile = (SocialProfile) this.serviceUtils.checkObject(object);
 		this.serviceUtils.checkActor(socialProfile.getActor());
 		this.repository.delete(socialProfile);
 	}

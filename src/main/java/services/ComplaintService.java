@@ -16,7 +16,7 @@ import domain.Referee;
 
 @Service
 @Transactional
-public class ComplaintService extends GenericService<Complaint, ComplaintRepository> implements ServiceObjectDependantI<Complaint, FixupTask> {
+public class ComplaintService {
 	
 	//Managed Repository
 
@@ -79,12 +79,10 @@ public class ComplaintService extends GenericService<Complaint, ComplaintReposit
 		return this.complaintRepository.findByFixupTaskId(fixupTask.getId());
 	}
 
-	@Override
 	public Collection<Complaint> findAll(FixupTask dependency) {
 		return this.findByFixupTask(dependency);
 	}
 
-	@Override
 	public Complaint create(FixupTask dependency) {
 		Assert.notNull(dependency);
 		Assert.isTrue(dependency.getId() > 0);
@@ -94,7 +92,6 @@ public class ComplaintService extends GenericService<Complaint, ComplaintReposit
 		return res;
 	}
 
-	@Override
 	public void delete(Complaint object) {
 		throw new IllegalArgumentException("Unallowed method");
 	}

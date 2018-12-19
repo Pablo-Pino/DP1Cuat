@@ -16,7 +16,7 @@ import domain.Endorsable;
 
 @Service
 @Transactional
-public class EndorsableService extends GenericService<Endorsable, EndorsableRepository> implements ServiceI<Endorsable> {
+public class EndorsableService {
 
 	//--------------------Managed Repositories-------------------------
 
@@ -63,14 +63,4 @@ public class EndorsableService extends GenericService<Endorsable, EndorsableRepo
 		return this.endorsableRepository.findOneByUserAccount(userAccount.getId());
 	}
 
-	@Override
-	public Endorsable create() {
-		throw new IllegalArgumentException("Unallowed method");
-	}
-
-	@Override
-	public void delete(Endorsable object) {
-		throw new IllegalArgumentException("Unallowed method");
-	}
-	
 }

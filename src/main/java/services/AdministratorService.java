@@ -13,8 +13,7 @@ import domain.Administrator;
 
 @Service
 @Transactional
-public class AdministratorService extends GenericService<Administrator, AdministratorRepository> implements ServiceI<Administrator> {
-
+public class AdministratorService {
 	//--------------Managed repository---------------------------
 
 	@Autowired
@@ -153,8 +152,4 @@ public class AdministratorService extends GenericService<Administrator, Administ
 	//	
 	//	public 
 
-	@Override
-	public void delete(Administrator object) {
-		throw new IllegalArgumentException("Unallowed method");
-	}
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.DomainEntityRepository;
 import security.Authority;
 import security.LoginService;
 import domain.Actor;
@@ -20,6 +21,9 @@ public class ServiceUtils {
 
 	@Autowired
 	private ActorService	actorService;
+	
+	@Autowired
+	private DomainEntityRepository domainEntityRepository;
 
 
 	public void checkAuthority(final String auth) {
@@ -121,6 +125,35 @@ public class ServiceUtils {
 			}
 			Assert.isTrue(res);
 		}
+	}
+	
+	public DomainEntity checkObjectSave(final DomainEntity object) {
+		this.checkIdSave(object);
+		final DomainEntity res = this.checkObjectExists(object);
+		return res;
+	}
+
+	public DomainEntity checkObject(final DomainEntity object) {
+		this.checkId(object);
+		final DomainEntity res = this.checkObjectExists(object);
+		return res;
+	}
+
+	public void checkPermisionActor(final Actor actor, final String[] auths) {
+		this.checkActor(actor);
+		this.checkAnyAuthority(auths);
+	}
+
+	public void checkPermisionActors(final Actor[] actors, final String[] auths) {
+		this.checkAnyActor(actors);
+		this.checkAnyAuthority(auths);
+	}
+
+	public DomainEntity checkObjectExists(final DomainEntity object) {
+		DomainEntity res = object;
+		if (object.getId() > 0)
+			res = this.domainEntityRepository.findOne(object.getId());
+		return res;
 	}
 
 }

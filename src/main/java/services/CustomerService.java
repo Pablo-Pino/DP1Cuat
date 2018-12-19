@@ -16,7 +16,7 @@ import domain.FixupTask;
 
 @Service
 @Transactional
-public class CustomerService extends GenericService<Customer, CustomerRepository> implements ServiceI<Customer> {
+public class CustomerService {
 
 	// Managed repository --------------------------------------
 
@@ -167,11 +167,6 @@ public class CustomerService extends GenericService<Customer, CustomerRepository
 		a.setBanned(false);
 		this.customerRepository.save(a);
 
-	}
-
-	@Override
-	public void delete(Customer object) {
-		throw new IllegalArgumentException("Unallowed method");
 	}
 
 }

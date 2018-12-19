@@ -21,8 +21,7 @@ import domain.HandyWorker;
 
 @Service
 @Transactional
-public class EndorsementService extends GenericService<Endorsement, EndorsementRepository> implements ServiceActorDependantI<Endorsement> {
-
+public class EndorsementService {
 	// Managed repository --------------------------------------
 	@Autowired
 	private EndorsementRepository	endorsementRepository;
@@ -109,7 +108,6 @@ public class EndorsementService extends GenericService<Endorsement, EndorsementR
 		return this.endorsementRepository.getByReceiverId(receiver.getId());
 	}
 
-	@Override
 	public Collection<Endorsement> findAllByActor(Actor a) {
 		Assert.notNull(a);
 		Assert.isTrue(a.getId() > 0);
@@ -120,7 +118,6 @@ public class EndorsementService extends GenericService<Endorsement, EndorsementR
 		return res;
 	}
 
-	@Override
 	public Endorsement create(Actor a) {
 		Assert.notNull(a);
 		Assert.isTrue(a.getId() > 0);

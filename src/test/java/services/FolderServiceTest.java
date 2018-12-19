@@ -106,7 +106,7 @@ public class FolderServiceTest extends AbstractTest {
 		final Actor a = this.actorService.findOne(actorId);
 		//this.authenticate("admin1");
 
-		final List<Folder> result = this.folderService.findFoldersByActor(a);
+		final List<Folder> result = this.folderService.findAllByActor(a);
 		System.out.println("Lista de folders :" + result);
 	}
 

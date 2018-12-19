@@ -15,8 +15,8 @@ import domain.EducationRecord;
 
 @Service
 @Transactional
-public class EducationRecordService extends GenericService<EducationRecord, EducationRecordRepository> implements ServiceObjectDependantI<EducationRecord, Curriculum> {
-
+public class EducationRecordService {
+	
 	//---------------Managed Repository---------------------------------------
 
 	@Autowired
@@ -72,7 +72,6 @@ public class EducationRecordService extends GenericService<EducationRecord, Educ
 		}
 	}
 
-	@Override
 	public Collection<EducationRecord> findAll(Curriculum dependency) {
 		Assert.notNull(dependency);
 		Assert.isTrue(dependency.getId() > 0);
@@ -80,7 +79,6 @@ public class EducationRecordService extends GenericService<EducationRecord, Educ
 		return dependency.getEducationRecords();
 	}
 
-	@Override
 	public EducationRecord create(Curriculum dependency) {
 		Assert.notNull(dependency);
 		Assert.isTrue(dependency.getId() > 0);

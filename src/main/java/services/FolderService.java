@@ -17,8 +17,7 @@ import domain.Folder;
 
 @Service
 @Transactional
-public class FolderService extends GenericService<Folder, FolderRepository> implements ServiceActorDependantI<Folder> {
-
+public class FolderService {
 	@Autowired
 	private FolderRepository	repository;
 	@Autowired
@@ -26,8 +25,20 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
+	public Folder findOne(final Integer id) {
+		this.serviceUtils.checkId(id);
+		return this.repository.findOne(id);
+	}
 
-	@Override
+	public Collection<Folder> findAll(final Collection<Integer> ids) {
+		this.serviceUtils.checkIds(ids);
+		return this.repository.findAll(ids);
+	}
+
+	public Collection<Folder> findAll() {
+		return this.repository.findAll();
+	}
+	
 	public List<Folder> findAllByActor(final Actor actor) {
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getId() > 0);
@@ -35,7 +46,6 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 		return this.repository.findFoldersByActor(actor.getId());
 	}
 
-	@Override
 	public Folder create(final Actor a) {
 		final Folder res = new Folder();
 		res.setActor(a);
@@ -44,20 +54,24 @@ public class FolderService extends GenericService<Folder, FolderRepository> impl
 		return res;
 	}
 
-	@Override
-	public Folder save(final Folder object) {
-		final Folder folder = super.checkObjectSave(object);
+	public Folder save(Folder object) {
+		Folder folder = (Folder) this.serviceUtils.checkObjectSave(object);
+		if(folder.getId() == 0) {
+			folder.setActor(this.actorService.findPrincipal());
+		} else {
+			folder.setParentFolder(object.getParentFolder());
+			folder.setName(object.getName());
+		}
 		this.serviceUtils.checkActor(folder.getActor());
 		Assert.isTrue(!folder.getSystem());
-		return this.repository.save(object);
+		return this.repository.save(folder);
 	}
 
-	@Override
 	public void delete(final Folder object) {
-		final Folder folder = super.checkObject(object);
+		final Folder folder = (Folder) this.serviceUtils.checkObject(object);
 		this.serviceUtils.checkActor(folder.getActor());
 		Assert.isTrue(!folder.getSystem());
-		this.repository.delete(object);
+		this.repository.delete(folder);
 	}
 
 	public Folder findFolderByActorAndName(final Actor actor, final String name) {

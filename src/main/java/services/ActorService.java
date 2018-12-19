@@ -28,7 +28,7 @@ import domain.Sponsor;
 
 @Service
 @Transactional
-public class ActorService extends GenericService<Actor, ActorRepository> implements ServiceI<Actor> {
+public class ActorService {
 
 	//--------------------Repositories--------------------------
 
@@ -79,7 +79,6 @@ public class ActorService extends GenericService<Actor, ActorRepository> impleme
 		return result;
 	}
 
-	@Override
 	public Collection<Actor> findAll() {
 		Collection<Actor> result;
 		result = this.actorRepository.findAll();
@@ -325,21 +324,6 @@ public class ActorService extends GenericService<Actor, ActorRepository> impleme
 		if (!res)
 			res = this.containsSpam(actor.getUserAccount().getUsername());
 		return res;
-	}
-
-	@Override
-	public Actor create() {
-		throw new IllegalArgumentException("Unallowed method");
-	}
-
-	@Override
-	public Actor save(Actor object) {
-		throw new IllegalArgumentException("Unallowed method");
-	}
-
-	@Override
-	public void delete(Actor object) {
-		throw new IllegalArgumentException("Unallowed method");
 	}
 
 }

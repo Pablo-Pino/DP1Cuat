@@ -18,11 +18,8 @@ import org.springframework.util.Assert;
 import security.Authority;
 import security.UserAccount;
 import utilities.AbstractTest;
-import domain.Complaint;
 import domain.Folder;
-import domain.Message;
 import domain.Referee;
-import domain.SocialProfile;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -37,7 +34,12 @@ public class RefereeServiceTest extends AbstractTest {
 	private RefereeService	refereeService;
 	@Autowired
 	private FolderService	folderService;
-
+	@Autowired
+	private ComplaintService complaintService;
+	@Autowired
+	private MessageService messageService;
+	@Autowired
+	private SocialProfileService socialProfileService;
 
 	// Tests
 
@@ -87,8 +89,7 @@ public class RefereeServiceTest extends AbstractTest {
 	}
 
 	public void saveReferee(final String username, final String address, final Boolean banned, final String email, final String middleName, final String name, final String phone, final String photo, final String surname, final Boolean suspicious,
-		final Integer refereeId, final String newUsername, final String newPassword, final Collection<Authority> newAuthorities, UserAccount userAccount, final Collection<Complaint> complaints, final Collection<Folder> folders,
-		final Collection<Message> receivedMessages, final Collection<Message> sendedMessages, final Collection<SocialProfile> socialProfiles, final Class<?> expected) {
+		final Integer refereeId, final String newUsername, final String newPassword, final Collection<Authority> newAuthorities, UserAccount userAccount, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			this.authenticate(username);
@@ -116,11 +117,6 @@ public class RefereeServiceTest extends AbstractTest {
 			referee.setSurname(surname);
 			referee.setSuspicious(suspicious);
 			referee.setUserAccount(userAccount);
-			referee.setComplaints(complaints);
-			referee.setFolders(folders);
-			referee.setReceivedMessages(receivedMessages);
-			referee.setSendedMessages(sendedMessages);
-			referee.setSocialProfiles(socialProfiles);
 			final Referee savedReferee = this.refereeService.save(referee);
 			this.refereeService.flush();
 			Assert.isTrue(savedReferee.getAddress().equals(address));
@@ -133,31 +129,31 @@ public class RefereeServiceTest extends AbstractTest {
 			if (refereeId == null) {
 				Assert.isTrue(!savedReferee.getBanned());
 				Assert.isTrue(!savedReferee.getSuspicious());
-				Assert.isTrue(savedReferee.getComplaints().isEmpty());
-				Assert.isTrue(savedReferee.getReceivedMessages().isEmpty());
-				Assert.isTrue(savedReferee.getSendedMessages().isEmpty());
-				Assert.isTrue(savedReferee.getSocialProfiles().isEmpty());
+				Assert.isTrue(this.complaintService.findAllComplaintsByReferee(savedReferee).isEmpty());
+				Assert.isTrue(this.messageService.findReceivedMessages(savedReferee).isEmpty());
+				Assert.isTrue(this.messageService.findSendedMessages(savedReferee).isEmpty());
+				Assert.isTrue(this.socialProfileService.findAllByActor(savedReferee).isEmpty());
 				final List<String> systemFolderNames = new ArrayList<String>();
 				systemFolderNames.addAll(Arrays.asList(new String[] {
 					"inbox", "outbox", "spambox", "trashbox"
 				}));
-				for (final Folder f : savedReferee.getFolders()) {
+				for (final Folder f : this.folderService.findAllByActor(savedReferee)) {
 					systemFolderNames.remove(f.getName());
 					Assert.isTrue(f.getSystem());
 					Assert.isTrue(f.getActor().equals(savedReferee));
-					Assert.isTrue(f.getChildFolder().isEmpty());
-					Assert.isTrue(f.getMessages().isEmpty());
+					Assert.isTrue(this.folderService.findByParent(f).isEmpty());
+					Assert.isTrue(this.messageService.findByFolder(f).isEmpty());
 					Assert.isTrue(f.getParentFolder().equals(f));
 					Assert.notNull(this.folderService.findOne(f.getId()));
 				}
 			} else {
 				Assert.isTrue(savedReferee.getBanned() == oldReferee.getBanned());
 				Assert.isTrue(savedReferee.getSuspicious() == oldReferee.getSuspicious());
-				Assert.isTrue(savedReferee.getComplaints().equals(oldReferee.getComplaints()));
-				Assert.isTrue(savedReferee.getReceivedMessages().equals(oldReferee.getReceivedMessages()));
-				Assert.isTrue(savedReferee.getSendedMessages().equals(oldReferee.getSendedMessages()));
-				Assert.isTrue(savedReferee.getSocialProfiles().equals(oldReferee.getSocialProfiles()));
-				Assert.isTrue(savedReferee.getFolders().equals(oldReferee.getFolders()));
+				Assert.isTrue(this.complaintService.findAllComplaintsByReferee(savedReferee).equals(this.complaintService.findAllComplaintsByReferee(oldReferee)));
+				Assert.isTrue(this.messageService.findReceivedMessages(savedReferee).equals(this.messageService.findReceivedMessages(oldReferee)));
+				Assert.isTrue(this.messageService.findSendedMessages(savedReferee).equals(this.messageService.findSendedMessages(oldReferee)));
+				Assert.isTrue(this.socialProfileService.findAllByActor(savedReferee).equals(this.socialProfileService.findAllByActor(oldReferee)));
+				Assert.isTrue(this.folderService.findAllByActor(savedReferee).equals(this.folderService.findAllByActor(oldReferee)));
 			}
 			this.unauthenticate();
 		} catch (final Throwable oops) {
@@ -165,21 +161,7 @@ public class RefereeServiceTest extends AbstractTest {
 		}
 		this.checkExceptions(expected, caught);
 	}
-	public void deleteReferee(final String username, final Integer refereeId, final Class<?> expected) {
-		Class<?> caught = null;
-		try {
-			this.authenticate(username);
-			final Referee referee = this.refereeService.findOne(refereeId);
-			this.refereeService.delete(referee);
-			this.refereeService.flush();
-			Assert.isNull(this.refereeService.findOne(refereeId));
-			this.unauthenticate();
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-		this.checkExceptions(expected, caught);
-	}
-
+	
 	@Test
 	public void testFindOneReferee() {
 		this.findOneReferee(super.getEntityId("referee1"), null);
@@ -211,16 +193,14 @@ public class RefereeServiceTest extends AbstractTest {
 	public void testSaveReferee() {
 		final Authority authority = new Authority();
 		authority.setAuthority("REFEREE");
-		this.saveReferee("admin1", "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, null, "Dandee", "Cadiii", Arrays.asList(authority), null, new ArrayList<Complaint>(), new ArrayList<Folder>(),
-			new ArrayList<Message>(), new ArrayList<Message>(), new ArrayList<SocialProfile>(), null);
+		this.saveReferee("admin1", "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, null, "Dandee", "Cadiii", Arrays.asList(authority), null, null);
 	}
 
 	@Test
 	public void testSaveRefereeUnauthenticated() {
 		final Authority authority = new Authority();
 		authority.setAuthority("REFEREE");
-		this.saveReferee(null, "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, null, "Dandee", "Cadiii", Arrays.asList(authority), null, new ArrayList<Complaint>(), new ArrayList<Folder>(),
-			new ArrayList<Message>(), new ArrayList<Message>(), new ArrayList<SocialProfile>(), IllegalArgumentException.class);
+		this.saveReferee(null, "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, null, "Dandee", "Cadiii", Arrays.asList(authority), null, IllegalArgumentException.class);
 	}
 
 	@Test
@@ -229,8 +209,7 @@ public class RefereeServiceTest extends AbstractTest {
 		authority.setAuthority("REFEREE");
 		final Integer refereeId = super.getEntityId("referee1");
 		final Referee referee = this.refereeService.findOne(refereeId);
-		this.saveReferee("referee1", "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, refereeId, null, null, null, referee.getUserAccount(), referee.getComplaints(),
-			referee.getFolders(), referee.getReceivedMessages(), referee.getSendedMessages(), referee.getSocialProfiles(), null);
+		this.saveReferee("referee1", "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, refereeId, null, null, null, referee.getUserAccount(), null);
 	}
 
 	@Test
@@ -239,13 +218,7 @@ public class RefereeServiceTest extends AbstractTest {
 		authority.setAuthority("REFEREE");
 		final Integer refereeId = super.getEntityId("referee1");
 		final Referee referee = this.refereeService.findOne(refereeId);
-		this.saveReferee(null, "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, refereeId, null, null, null, referee.getUserAccount(), referee.getComplaints(), referee.getFolders(),
-			referee.getReceivedMessages(), referee.getSendedMessages(), referee.getSocialProfiles(), IllegalArgumentException.class);
-	}
-
-	@Test
-	public void testDeleteReferee() {
-		this.deleteReferee("referee1", super.getEntityId("referee1"), IllegalArgumentException.class);
+		this.saveReferee(null, "direccion", false, "email@gmail.com", "Charlie", "Xavier", "+23(123)4545", "http://photo", "Bismark", false, refereeId, null, null, null, referee.getUserAccount(), IllegalArgumentException.class);
 	}
 
 }

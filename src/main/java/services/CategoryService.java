@@ -16,7 +16,7 @@ import domain.FixupTask;
 
 @Service
 @Transactional
-public class CategoryService extends GenericService<Category, CategoryRepository> implements ServiceObjectDependantI<Category, Category> {
+public class CategoryService {
 
 	//Repositorio
 
@@ -25,7 +25,9 @@ public class CategoryService extends GenericService<Category, CategoryRepository
 
 	//Servicios de soporte
 	@Autowired
-	public FixupTaskService		fixUpTaskService;
+	private FixupTaskService		fixUpTaskService;
+	@Autowired
+	private ServiceUtils serviceUtils;
 
 
 	//Constructor
@@ -107,15 +109,13 @@ public class CategoryService extends GenericService<Category, CategoryRepository
 		return this.categoryRepository.findByParentId(parent.getId());
 	}
 
-	@Override
 	public Collection<Category> findAll(Category dependency) {
 		return this.findByParent(dependency);
 	}
 
-	@Override
 	public Category create(Category dependency) {
-		this.checkObject(dependency);
-		this.checkPermisionActor(null, new String[] {
+		this.serviceUtils.checkObject(dependency);
+		this.serviceUtils.checkPermisionActor(null, new String[] {
 			Authority.ADMIN
 		});
 		Category res = new Category();

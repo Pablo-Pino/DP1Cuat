@@ -16,7 +16,7 @@ import domain.HandyWorker;
 
 @Transactional
 @Service
-public class FinderService extends GenericService<Finder, FinderRepository> implements ServiceActorDependantI<Finder> {
+public class FinderService {
 
 	//---------------Managed Repository---------------------------------------
 	@Autowired
@@ -71,16 +71,10 @@ public class FinderService extends GenericService<Finder, FinderRepository> impl
 		return this.finderRepository.findByHandyWorkerId(h.getId());
 	}
 
-	@Override
-	public Collection<Finder> findAllByActor(Actor a) {
+	public Finder findAllByActor(Actor a) {
 		Assert.notNull(a);
-		Assert.isTrue();
-	}
-
-	@Override
-	public Finder create(Actor a) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.isTrue(a.getId() > 0);
+		return this.finderRepository.findByHandyWorkerId(a.getId());
 	}
 	
 }

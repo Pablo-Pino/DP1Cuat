@@ -20,7 +20,7 @@ import domain.Message;
 
 @Service
 @Transactional
-public class ApplicationService extends GenericService<Application, ApplicationRepository> implements ServiceObjectDependantI<Application, FixupTask> {
+public class ApplicationService {
 
 	//Managed Repository
 
@@ -202,7 +202,6 @@ public class ApplicationService extends GenericService<Application, ApplicationR
 		return this.applicationRepository.findApplicationsByHandyWorker(h.getId());
 	}
 	
-	@Override
 	public Collection<Application> findAll(FixupTask f) {
 		Assert.notNull(f);
 		Assert.isTrue(f.getId() > 0);
@@ -210,16 +209,10 @@ public class ApplicationService extends GenericService<Application, ApplicationR
 		return this.applicationRepository.findApplicationsByHandyWorker(f.getId());
 	}
 
-	@Override
 	public Application create(FixupTask dependency) {
 		Application res = this.create();
 		res.setFixupTask(dependency);
 		return res;
-	}
-
-	@Override
-	public void delete(Application object) {
-		throw new IllegalArgumentException("Unallowed method");
 	}
 	
 }
