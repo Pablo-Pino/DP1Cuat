@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.FinderRepository;
+import domain.Actor;
 import domain.Finder;
+import domain.HandyWorker;
 
 @Transactional
 @Service
@@ -23,6 +25,9 @@ public class FinderService {
 
 	//---------------Supporting Services----------------------------------------
 
+	@Autowired
+	private HandyWorkerService handyWorkerService;
+	
 	// Constructors -----------------------------------------------------------
 
 	public FinderService() {
@@ -59,4 +64,17 @@ public class FinderService {
 		this.finderRepository.delete(finder);
 	}
 
+	public Finder findByHandyWorker(HandyWorker h) {
+		Assert.notNull(h);
+		Assert.isTrue(h.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
+		return this.finderRepository.findByHandyWorkerId(h.getId());
+	}
+
+	public Finder findAllByActor(Actor a) {
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() > 0);
+		return this.finderRepository.findByHandyWorkerId(a.getId());
+	}
+	
 }

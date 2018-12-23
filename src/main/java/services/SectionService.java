@@ -18,7 +18,7 @@ import domain.Url;
 
 @Service
 @Transactional
-public class SectionService extends GenericService<Section, SectionRepository> implements ServiceObjectDependantI<Section, Tutorial> {
+public class SectionService {
 
 	// Repository
 	
@@ -34,40 +34,51 @@ public class SectionService extends GenericService<Section, SectionRepository> i
 
 	// CRUD methods
 
-	@Override
+	public Section findOne(Integer id) {
+		this.serviceUtils.checkId(id);
+		return this.repository.findOne(id);
+	}
+
+	public Collection<Section> findAll(final Collection<Integer> ids) {
+		this.serviceUtils.checkIds(ids);
+		return this.repository.findAll(ids);
+	}
+
+	public Collection<Section> findAll() {
+		return this.repository.findAll();
+	}
+	
 	public Collection<Section> findAll(final Tutorial dependency) {
 		this.serviceUtils.checkId(dependency.getId());
 		Assert.notNull(this.tutorialService.findOne(dependency.getId()));
 		return this.repository.findByTutorial(dependency.getId());
 	}
 
-	@Override
 	public Section create(final Tutorial dependency) {
 		final Section res = new Section();
 		res.setPictures(new ArrayList<Url>());
 		return res;
 	}
 
-	@Override
 	public Section save(final Section object) {
-		final Section section = this.checkObjectSave(object);
-		if (object.getId() == 0) {
-			this.serviceUtils.checkId(object.getTutorial());
-			Assert.notNull(object.getTutorial());
-			object.setNumberOrder(object.getTutorial().getSections().size());
+		final Section section = (Section) this.serviceUtils.checkObjectSave(object);
+		if (section.getId() == 0) {
+			this.serviceUtils.checkId(section.getTutorial());
+			Assert.notNull(section.getTutorial());
+			section.setNumberOrder(this.findAll(section.getTutorial()).size());
 		} else {
-			object.setNumberOrder(section.getNumberOrder());
-			object.setTutorial(section.getTutorial());
+			section.setPictures(object.getPictures());
+			section.setText(object.getText());
+			section.setTitle(object.getTitle());
 		}
 		this.serviceUtils.checkActor(section.getTutorial().getHandyWorker());
 		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
-		final Section res = this.repository.save(object);
+		final Section res = this.repository.save(section);
 		return res;
 	}
 
-	@Override
 	public void delete(final Section object) {
-		final Section section = this.checkObject(object);
+		final Section section = (Section) this.serviceUtils.checkObject(object);
 		this.serviceUtils.checkActor(section.getTutorial().getHandyWorker());
 		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
 		this.repository.delete(section);
@@ -76,8 +87,8 @@ public class SectionService extends GenericService<Section, SectionRepository> i
 	// Other methods
 	
 	public void move(final Section section1, final Section section2) {
-		final Section s1 = super.checkObject(section1);
-		final Section s2 = super.checkObject(section2);
+		final Section s1 = (Section) this.serviceUtils.checkObject(section1);
+		final Section s2 = (Section) this.serviceUtils.checkObject(section2);
 		final Integer pos1 = s1.getNumberOrder();
 		final Integer pos2 = s2.getNumberOrder();
 		s1.setNumberOrder(pos2);

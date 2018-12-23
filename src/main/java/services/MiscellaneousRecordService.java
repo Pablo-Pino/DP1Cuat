@@ -21,8 +21,6 @@ public class MiscellaneousRecordService {
 	private MiscellaneousRecordRepository	miscellaneousRecordRepository;
 
 
-	// Supporting Service
-
 	public MiscellaneousRecordService() {
 		super();
 	}
@@ -38,7 +36,7 @@ public class MiscellaneousRecordService {
 	}
 
 	public Collection<MiscellaneousRecord> findAll(final int miscellaneousRecordId) {
-		Collection<MiscellaneousRecord> mr;
+		final Collection<MiscellaneousRecord> mr;
 
 		mr = this.miscellaneousRecordRepository.findAll();
 		Assert.notNull(mr);
@@ -49,8 +47,8 @@ public class MiscellaneousRecordService {
 	public MiscellaneousRecord findOne(final int miscellaneousRecordId) {
 		Assert.notNull(this);
 		return this.miscellaneousRecordRepository.findOne(miscellaneousRecordId);
-
 	}
+
 	public MiscellaneousRecord save(final MiscellaneousRecord mr) {
 		Assert.notNull(mr);
 		return this.miscellaneousRecordRepository.save(mr);
@@ -61,4 +59,5 @@ public class MiscellaneousRecordService {
 		Assert.isTrue(mr.getId() != 0);
 		this.miscellaneousRecordRepository.delete(mr);
 	}
+
 }

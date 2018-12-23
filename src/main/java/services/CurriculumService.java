@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.CurriculumRepository;
+import domain.Actor;
 import domain.Curriculum;
 import domain.EducationRecord;
 import domain.EndorserRecord;
+import domain.HandyWorker;
 import domain.MiscellaneousRecord;
 import domain.PersonalRecord;
 import domain.ProfessionalRecord;
@@ -21,7 +23,6 @@ import domain.ProfessionalRecord;
 @Service
 @Transactional
 public class CurriculumService {
-
 	// Managed repository --------------------------------------
 
 	@Autowired
@@ -31,6 +32,8 @@ public class CurriculumService {
 
 	@Autowired
 	private TicketableService		ticketableService;
+	@Autowired
+	private HandyWorkerService handyWorkerService;
 
 
 	//	@Autowired
@@ -121,4 +124,30 @@ public class CurriculumService {
 		this.curriculumRepository.delete(curriculum);
 
 	}
+
+	public Curriculum findByHandyWorker(HandyWorker h) {
+		Assert.notNull(h);
+		Assert.isTrue(h.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
+		return this.curriculumRepository.findByHandyWorkerId(h.getId());
+	}
+
+	public Collection<Curriculum> findAllByActor(Actor a) {
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(a.getId()));
+		Collection<Curriculum> res = new ArrayList<Curriculum>();
+		res.add(this.findByHandyWorker(this.handyWorkerService.findOne(a.getId())));
+		return res;
+	}
+
+	public Curriculum create(Actor a) {
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(a.getId()));
+		Curriculum res = this.create();
+		res.setHandyWorker(this.handyWorkerService.findOne(a.getId()));
+		return res;
+	}
+
 }

@@ -55,7 +55,6 @@ public class SponsorshipService {
 		if (s.getId() == 0) {
 			sp = this.sponsorService.findSponsorById(LoginService.getPrincipal().getId());
 			s.setSponsor(sp);
-			sp.getSponsorships().add(s);
 		}
 		Assert.notNull(s);
 
@@ -64,12 +63,24 @@ public class SponsorshipService {
 	public void delete(final Sponsorship s) {
 		Assert.notNull(s);
 		this.serviceUtils.checkAuthority("SPONSOR");
-		final Sponsor sp = s.getSponsor();
-		sp.getSponsorships().remove(s);
 		for (final Tutorial t : s.getTutorials()) {
-			t.getSponsorships().remove(s);
 			this.tutorialService.save(t);
 		}
 		this.sponsorshipRepository.delete(s);
 	}
+	
+	public Collection<Sponsorship> findBySponsor(Sponsor sponsor) {
+		Assert.notNull(sponsor);
+		Assert.isTrue(sponsor.getId() > 0);
+		Assert.notNull(this.sponsorshipRepository.findBySponsor(sponsor.getId()));
+		return this.sponsorshipRepository.findBySponsor(sponsor.getId());
+	}
+	
+	public Collection<Sponsorship> findByTutorial(Tutorial tutorial) {
+		Assert.notNull(tutorial);
+		Assert.isTrue(tutorial.getId() > 0);
+		Assert.notNull(this.sponsorshipRepository.findByTutorial(tutorial.getId()));
+		return this.sponsorshipRepository.findByTutorial(tutorial.getId());
+	}
+	
 }

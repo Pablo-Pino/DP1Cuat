@@ -1,13 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,9 +22,7 @@ public class Warranty extends DomainEntity {
 
 	//-----------Relaciones-------------
 
-	private Collection<FixupTask>	fixupTasks;
-
-
+	
 	//-------------Getters y Setters-------
 
 	@NotBlank
@@ -67,16 +62,6 @@ public class Warranty extends DomainEntity {
 
 	public void setDraft(final Boolean draft) {
 		this.draft = draft;
-	}
-
-	@NotNull
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "warranty")
-	public Collection<FixupTask> getFixupTasks() {
-		return this.fixupTasks;
-	}
-
-	public void setFixupTasks(final Collection<FixupTask> fixupTasks) {
-		this.fixupTasks = fixupTasks;
 	}
 
 }

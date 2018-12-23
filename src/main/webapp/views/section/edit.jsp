@@ -16,6 +16,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
 <form:form action="section/edit.do" modelAttribute="section" method="post">
 	
 	<form:hidden path="id" />
@@ -82,3 +83,4 @@
 <button type="button" onclick="javascript: relativeRedir('section/list.do?tutorialId=${tutorial.id}')" >
 	<spring:message code="section.cancel" />
 </button>
+

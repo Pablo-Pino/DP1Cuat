@@ -6,10 +6,8 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -31,7 +29,6 @@ public class Report extends DomainEntity {
 
 	//-----------Relaciones----------
 
-	private Collection<Note>	notes;
 	private Complaint			complaint;
 
 
@@ -46,16 +43,6 @@ public class Report extends DomainEntity {
 
 	public void setMoment(final Date moment) {
 		this.moment = moment;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "report", cascade = CascadeType.ALL)
-	public Collection<Note> getNotes() {
-		return this.notes;
-	}
-
-	public void setNotes(final Collection<Note> notes) {
-		this.notes = notes;
 	}
 
 	@Valid

@@ -11,12 +11,13 @@ import org.springframework.util.Assert;
 
 import repositories.ComplaintRepository;
 import domain.Complaint;
+import domain.FixupTask;
 import domain.Referee;
 
 @Service
 @Transactional
 public class ComplaintService {
-
+	
 	//Managed Repository
 
 	@Autowired
@@ -24,7 +25,8 @@ public class ComplaintService {
 	//Supporting Service
 	@Autowired
 	private TicketableService	ticketableService;
-
+	@Autowired
+	private FixupTaskService fixupTaskService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
@@ -68,5 +70,29 @@ public class ComplaintService {
 
 	public Collection<Complaint> findAllComplaintsWithoutReferee() {
 		return this.complaintRepository.SearchComplaintWithoutReferee();
+	}
+	
+	public Collection<Complaint> findByFixupTask(FixupTask fixupTask) {
+		Assert.notNull(fixupTask);
+		Assert.isTrue(fixupTask.getId() > 0);
+		Assert.notNull(this.fixupTaskService.findOne(fixupTask.getId()));
+		return this.complaintRepository.findByFixupTaskId(fixupTask.getId());
+	}
+
+	public Collection<Complaint> findAll(FixupTask dependency) {
+		return this.findByFixupTask(dependency);
+	}
+
+	public Complaint create(FixupTask dependency) {
+		Assert.notNull(dependency);
+		Assert.isTrue(dependency.getId() > 0);
+		Assert.notNull(this.fixupTaskService.findOne(dependency.getId()));
+		Complaint res = this.create();
+		res.setFixuptask(dependency);
+		return res;
+	}
+
+	public void delete(Complaint object) {
+		throw new IllegalArgumentException("Unallowed method");
 	}
 }

@@ -31,6 +31,9 @@ public class CustomerServiceTest extends AbstractTest {
 
 	//test-------------------------------------------------------------------
 
+	@Autowired
+	private FixupTaskService fixupTaskService;
+	
 	@Test
 	public void createCorrecto() {
 		final Customer customer = this.customerService.create();
@@ -123,7 +126,7 @@ public class CustomerServiceTest extends AbstractTest {
 		int customerId;
 		customerId = this.getEntityId("customer1");
 		final Customer c = this.customerService.findOne(customerId);
-		res = c.getFixupTasks();
+		res = this.fixupTaskService.findByCustomer(c);
 		Assert.notNull(res);
 		Assert.notEmpty(res);
 

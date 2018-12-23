@@ -13,9 +13,6 @@ import org.springframework.util.Assert;
 import repositories.CustomerRepository;
 import domain.Customer;
 import domain.FixupTask;
-import domain.Folder;
-import domain.Message;
-import domain.SocialProfile;
 
 @Service
 @Transactional
@@ -55,10 +52,6 @@ public class CustomerService {
 		//los atributos que no pueden estar vacíos
 		result.setBanned(false);
 		result.setSuspicious(false);
-		result.setFolders(new ArrayList<Folder>());
-		result.setReceivedMessages(new ArrayList<Message>());
-		result.setSendedMessages(new ArrayList<Message>());
-		result.setSocialProfiles(new ArrayList<SocialProfile>());
 		//establezco ya su tipo de userAccount porque no va a cambiar
 		result.setUserAccount(this.userAccountService.create("CUSTOMER"));
 		return result;
@@ -100,11 +93,7 @@ public class CustomerService {
 		//Si el customer que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
 		if (customer.getId() == 0) {
 			customer.setBanned(false);
-			customer.setFixupTasks(new ArrayList<FixupTask>());
-			customer.setFolders(this.folderService.createSystemFolders(customer));
-			customer.setReceivedMessages(new ArrayList<Message>());
-			customer.setSendedMessages(new ArrayList<Message>());
-			customer.setSocialProfiles(new ArrayList<SocialProfile>());
+			this.folderService.createSystemFolders(customer);
 			customer.setSuspicious(false);
 
 			//comprobamos que ningún actor resté autenticado (ya que ningun actor puede crear los customers)
@@ -112,11 +101,6 @@ public class CustomerService {
 
 		} else {
 			customer.setBanned(customerBD.getBanned());
-			customer.setFixupTasks(customerBD.getFixupTasks());
-			customer.setFolders(customerBD.getFolders());
-			customer.setReceivedMessages(customerBD.getReceivedMessages());
-			customer.setSendedMessages(customerBD.getSendedMessages());
-			customer.setSocialProfiles(customerBD.getSocialProfiles());
 			customer.setSuspicious(customerBD.getSuspicious());
 			customer.setUserAccount(customerBD.getUserAccount());
 
@@ -165,7 +149,7 @@ public class CustomerService {
 
 	//Un customer puede listar sus fixuptask
 	public Collection<FixupTask> getFixupTaskByCustomer(final Customer c) {
-		final Collection<FixupTask> res = c.getFixupTasks();
+		final Collection<FixupTask> res = this.fixupTaskService.findByCustomer(c);
 		return res;
 	}
 

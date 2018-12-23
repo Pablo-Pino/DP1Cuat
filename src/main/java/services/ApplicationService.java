@@ -30,7 +30,13 @@ public class ApplicationService {
 	// Supporting Service
 
 	@Autowired
+	private FolderService folderService;
+	@Autowired
 	private MessageService			messageService;
+	@Autowired
+	private HandyWorkerService handyWorkerService;
+	@Autowired
+	private FixupTaskService fixupTaskService;
 
 
 	// Constructors
@@ -75,7 +81,7 @@ public class ApplicationService {
 	}
 	private boolean getTieneYaACCEPTED(final FixupTask f) {
 		Boolean res = false;
-		for (final Application a : f.getApplications())
+		for (final Application a : this.findAll(f))
 			if (a.getStatus().equals("ACCEPTED"))
 				res = true;
 		return res;
@@ -148,14 +154,10 @@ public class ApplicationService {
 
 	public void NotificationMessage(final HandyWorker hw, final Customer c) {
 		Folder res = null;
-		System.out.println(hw);
-		System.out.println(hw.getFolders());
-		for (final Folder f : hw.getFolders()) {
-			System.out.println(f.getName());
+		for (final Folder f : this.folderService.findAllByActor(hw)) {
 			if (f.getName().equals("inBox"))
 				res = f;
 		}
-		System.out.println(res);
 		final Message m1 = this.messageService.create(res);
 		m1.setReceiver(hw);
 
@@ -164,13 +166,12 @@ public class ApplicationService {
 		m1.setSubject("Cambio en Application");
 		m1.setPriority("HIGH");
 
-		System.out.println("Guardando 1er message");
 		this.messageService.save(m1);
 		//res.getMessages().add(m1);
 		//hw.getReceivedMessages().add(m1);
 		//c.getSendedMessages().add(m1);
 		//this.folderService.save(res);
-		for (final Folder f : c.getFolders())
+		for (final Folder f : this.folderService.findAllByActor(c))
 			if (f.getName().equals("inBox"))
 				res = f;
 		final Message m2 = this.messageService.create(res);
@@ -181,7 +182,6 @@ public class ApplicationService {
 		m2.setBody("Este es un mensaje de notificación");
 		m2.setSubject("Cambio en Application");
 		m2.setPriority("HIGH");
-		System.out.println("Guardando 2o message");
 		this.messageService.save(m2);
 		//res.getMessages().add(m2);
 		//c.getReceivedMessages().add(m2);
@@ -195,4 +195,24 @@ public class ApplicationService {
 		this.applicationRepository.flush();
 	}
 
+	public Collection<Application> findApplicationsByHandyWorker(HandyWorker h) {
+		Assert.notNull(h);
+		Assert.isTrue(h.getId() > 0);
+		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
+		return this.applicationRepository.findApplicationsByHandyWorker(h.getId());
+	}
+	
+	public Collection<Application> findAll(FixupTask f) {
+		Assert.notNull(f);
+		Assert.isTrue(f.getId() > 0);
+		Assert.notNull(this.fixupTaskService.findOne(f.getId()));
+		return this.applicationRepository.findApplicationsByHandyWorker(f.getId());
+	}
+
+	public Application create(FixupTask dependency) {
+		Application res = this.create();
+		res.setFixupTask(dependency);
+		return res;
+	}
+	
 }

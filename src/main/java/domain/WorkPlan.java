@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,9 +21,9 @@ public class WorkPlan extends DomainEntity {
 
 	//----------Relaciones--------
 
-	private Collection<Phase>	phases;
 	private FixupTask			fixupTask;
 	private HandyWorker			handyWorker;
+	private Collection<Phase> phases; 
 
 
 	//----------Getters y Setters-----
@@ -37,17 +38,6 @@ public class WorkPlan extends DomainEntity {
 		this.handyWorker = handyWorker;
 	}
 
-	@NotNull
-	@NotEmpty
-	@OneToMany(mappedBy = "workPlan")
-	public Collection<Phase> getPhases() {
-		return this.phases;
-	}
-
-	public void setPhases(final Collection<Phase> phases) {
-		this.phases = phases;
-	}
-
 	@Valid
 	@OneToOne(optional = false)
 	public FixupTask getFixupTask() {
@@ -56,6 +46,18 @@ public class WorkPlan extends DomainEntity {
 
 	public void setFixupTask(final FixupTask fixupTask) {
 		this.fixupTask = fixupTask;
+	}
+
+	@Valid
+	@OneToMany(mappedBy = "workPlan", cascade = CascadeType.ALL)
+	@NotEmpty
+	@NotNull
+	public Collection<Phase> getPhases() {
+		return phases;
+	}
+
+	public void setPhases(Collection<Phase> phases) {
+		this.phases = phases;
 	}
 
 }

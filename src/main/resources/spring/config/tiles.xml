@@ -37,7 +37,7 @@
 		<value>/views/referee/tiles.xml</value>
 		<value>/views/section/tiles.xml</value>
 		<value>/views/socialprofile/tiles.xml</value>
-		
+
 	</util:list>
 
 </beans>

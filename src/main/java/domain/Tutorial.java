@@ -9,7 +9,6 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
@@ -34,9 +33,7 @@ public class Tutorial extends DomainEntity {
 	//-------------Relaciones--------------
 
 	private HandyWorker				handyWorker;
-	private Collection<Section>		sections;
-	private Collection<Sponsorship>	sponsorships;
-
+	private Collection<Section> sections;
 
 	//-------------Getters y Setters--------
 
@@ -91,28 +88,17 @@ public class Tutorial extends DomainEntity {
 	public void setHandyWorker(final HandyWorker handyWorker) {
 		this.handyWorker = handyWorker;
 	}
-
-	@NotNull
+	
+	@Valid
+	@OneToMany(mappedBy = "tutorial", cascade = CascadeType.ALL)
 	@NotEmpty
-	@OneToMany(mappedBy = "tutorial")
-	public Collection<Section> getSections() {
-		return this.sections;
-	}
-
-	public void setSections(final Collection<Section> sections) {
-		this.sections = sections;
-	}
-
 	@NotNull
-	@ManyToMany(cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH
-	})
-	public Collection<Sponsorship> getSponsorships() {
-		return this.sponsorships;
+	public Collection<Section> getSections() {
+		return sections;
 	}
 
-	public void setSponsorships(final Collection<Sponsorship> sponsorships) {
-		this.sponsorships = sponsorships;
+	public void setSections(Collection<Section> sections) {
+		this.sections = sections;
 	}
 
 }

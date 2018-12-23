@@ -1,7 +1,6 @@
 
 package domain;
 
-import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -9,7 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -17,7 +15,6 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 
 import security.UserAccount;
@@ -42,34 +39,10 @@ public abstract class Actor extends DomainEntity {
 
 	//--------------Relaciones-----------
 
-	private Collection<Message>			sendedMessages;
-	private Collection<Message>			receivedMessages;
-	private Collection<Folder>			folders;
-	private Collection<SocialProfile>	socialProfiles;
 	private UserAccount					userAccount;
 
 
 	//-----------Getters y Setters------
-
-	@NotNull
-	@OneToMany(mappedBy = "sender")
-	public Collection<Message> getSendedMessages() {
-		return this.sendedMessages;
-	}
-
-	public void setSendedMessages(final Collection<Message> sendedMessages) {
-		this.sendedMessages = sendedMessages;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "receiver")
-	public Collection<Message> getReceivedMessages() {
-		return this.receivedMessages;
-	}
-
-	public void setReceivedMessages(final Collection<Message> receivedMessages) {
-		this.receivedMessages = receivedMessages;
-	}
 
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
@@ -79,27 +52,6 @@ public abstract class Actor extends DomainEntity {
 
 	public void setUserAccount(final UserAccount userAccount) {
 		this.userAccount = userAccount;
-	}
-
-	@NotEmpty
-	@NotNull
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
-	public Collection<Folder> getFolders() {
-		return this.folders;
-	}
-
-	public void setFolders(final Collection<Folder> folders) {
-		this.folders = folders;
-	}
-
-	@NotNull
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
-	public Collection<SocialProfile> getSocialProfiles() {
-		return this.socialProfiles;
-	}
-
-	public void setSocialProfiles(final Collection<SocialProfile> socialProfiles) {
-		this.socialProfiles = socialProfiles;
 	}
 
 	@NotBlank

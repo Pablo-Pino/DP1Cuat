@@ -17,7 +17,7 @@ import domain.Settings;
 
 @Service
 @Transactional
-public class SettingsService extends GenericService<Settings, SettingsRepository> implements ServiceI<Settings> {
+public class SettingsService {
 
 	// Repository
 
@@ -31,26 +31,32 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 
 	@Autowired
 	private EndorsableService	endorsableService;
+	
+	@Autowired
+	private EndorsementService endorsementService;
 
 
 	// CRUD methods
 
-	@Override
-	public Settings create() {
-		throw new IllegalArgumentException("Unallowed method");
+	public Settings findOne(Integer id) {
+		this.serviceUtils.checkId(id);
+		return this.repository.findOne(id);
 	}
 
-	@Override
+	public Collection<Settings> findAll(final Collection<Integer> ids) {
+		this.serviceUtils.checkIds(ids);
+		return this.repository.findAll(ids);
+	}
+
+	public Collection<Settings> findAll() {
+		return this.repository.findAll();
+	}
+	
 	public Settings save(final Settings object) {
-		super.checkObject(object);
+		this.serviceUtils.checkObject(object);
 		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		final Settings res = this.repository.save(object);
 		return res;
-	}
-
-	@Override
-	public void delete(final Settings object) {
-		throw new IllegalArgumentException("Unallowed method");
 	}
 
 	// Other methods
@@ -125,8 +131,8 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 		this.deleteNegativeWords(oldWord);
 		this.addNegativeWords(newWord);
 		return this.getSettings().getNegativeWords();
-
 	}
+	
 	public void generateAllScore() {
 		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		final Collection<Endorsable> res = this.endorsableService.findAll();
@@ -145,8 +151,8 @@ public class SettingsService extends GenericService<Settings, SettingsRepository
 		final Collection<Endorsement> endorsements = new ArrayList<Endorsement>();
 		final Collection<String> buenas = this.getSettings().getPositiveWords();
 		final Collection<String> malas = this.getSettings().getNegativeWords();
-		endorsements.addAll(a.getReceivedEndorsements());
-		endorsements.addAll(a.getSendedEndorsements());
+		endorsements.addAll(this.endorsementService.findByReceiver(a));
+		endorsements.addAll(this.endorsementService.findBySender(a));
 		for (final Endorsement e : endorsements) {
 			final String[] palabras = e.getComments().split(" ");
 			for (final String word : palabras) {

@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,7 +71,6 @@ public class NoteService {
 			
 			saved= this.noteRepository.save(n);
 			report = saved.getReport();
-			report.getNotes().add(saved);
 			reportService.save(report);
 			return saved;
 		}
@@ -80,6 +80,21 @@ public class NoteService {
 		Assert.notNull(n);
 		Assert.isTrue(n.getId()!=0);
 		noteRepository.delete(n);
+	}
+	
+	public Collection<Note> findAllByReport(Report report) {
+		Assert.notNull(report);
+		Assert.isTrue(report.getId() > 0);
+		Assert.notNull(this.reportService.findOne(report.getId()));
+		return this.noteRepository.findByReportId(report.getId());
+	}
+	
+	public Collection<Note> findByReport(Report report) {
+		Assert.notNull(report);
+		Assert.isTrue(report.getId() > 0);
+		Assert.notNull(this.reportService.findOne(report.getId()));
+		List<Note> notes = new ArrayList<Note>(this.noteRepository.findByReportId(report.getId()));
+		return notes;
 	}
 
 }

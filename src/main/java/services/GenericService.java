@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -28,12 +27,12 @@ public class GenericService<R extends DomainEntity, T extends GenericRepository<
 		return this.repository.findOne(id);
 	}
 
-	public List<R> findAll(final Collection<Integer> ids) {
+	public Collection<R> findAll(final Collection<Integer> ids) {
 		this.serviceUtils.checkIds(ids);
 		return this.repository.findAll(ids);
 	}
 
-	public List<R> findAll() {
+	public Collection<R> findAll() {
 		return this.repository.findAll();
 	}
 
@@ -49,12 +48,12 @@ public class GenericService<R extends DomainEntity, T extends GenericRepository<
 		return res;
 	}
 
-	public void checkPermisionActor(final Actor actor, final String... auths) {
+	public void checkPermisionActor(final Actor actor, final String[] auths) {
 		this.serviceUtils.checkActor(actor);
 		this.serviceUtils.checkAnyAuthority(auths);
 	}
 
-	public void checkPermisionActors(final Actor[] actors, final String... auths) {
+	public void checkPermisionActors(final Actor[] actors, final String[] auths) {
 		this.serviceUtils.checkAnyActor(actors);
 		this.serviceUtils.checkAnyAuthority(auths);
 	}

@@ -1,15 +1,17 @@
 
 package repositories;
 
+import java.util.Collection;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Folder;
 
 @Repository
-public interface FolderRepository extends GenericRepository<Folder> {
+public interface FolderRepository extends JpaRepository<Folder, Integer> {
 
 	@Query("select f from Folder f where f.actor.id = ?1")
 	List<Folder> findFoldersByActor(Integer actorId);
@@ -18,6 +20,9 @@ public interface FolderRepository extends GenericRepository<Folder> {
 	Folder findFolderByActorAndName(Integer actorId, String name);
 
 	@Query("select distinct f from Folder f join f.messages m where f.actor.id = ?1 and m.id = ?2")
-	Folder findFolderByActorAndMessage();
+	Folder findFolderByActorAndMessage(int actorId, int messageId);
+	
+	@Query("select f from Folder f where f.parent.id = ?1")
+	Collection<Folder> findByParentId(int parentId);
 
 }

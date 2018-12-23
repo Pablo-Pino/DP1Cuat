@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.EducationRecordRepository;
+import domain.Curriculum;
 import domain.EducationRecord;
 
 @Service
 @Transactional
 public class EducationRecordService {
-
+	
 	//---------------Managed Repository---------------------------------------
 
 	@Autowired
@@ -24,6 +25,9 @@ public class EducationRecordService {
 
 	//---------------Supporting Services----------------------------------------
 
+	@Autowired
+	private CurriculumService curriculumService;
+	
 	// Constructors -----------------------------------------------------------
 
 	public EducationRecordService() {
@@ -66,6 +70,22 @@ public class EducationRecordService {
 			Assert.notNull(i);
 			this.educationRecordRepository.delete(i);
 		}
+	}
+
+	public Collection<EducationRecord> findAll(Curriculum dependency) {
+		Assert.notNull(dependency);
+		Assert.isTrue(dependency.getId() > 0);
+		Assert.notNull(this.curriculumService.findOne(dependency.getId()));
+		return dependency.getEducationRecords();
+	}
+
+	public EducationRecord create(Curriculum dependency) {
+		Assert.notNull(dependency);
+		Assert.isTrue(dependency.getId() > 0);
+		Assert.notNull(this.curriculumService.findOne(dependency.getId()));
+		EducationRecord res = this.create();
+		res.setCurriculum(dependency);
+		return res;
 	}
 
 }

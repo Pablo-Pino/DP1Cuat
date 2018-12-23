@@ -62,4 +62,5 @@ public class EndorsableService {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		return this.endorsableRepository.findOneByUserAccount(userAccount.getId());
 	}
+
 }

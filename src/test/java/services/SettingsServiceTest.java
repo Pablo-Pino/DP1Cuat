@@ -67,29 +67,13 @@ public class SettingsServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void createSettings(final String username, final Class<?> expected) {
-		Class<?> caught = null;
-		try {
-			this.authenticate(username);
-			final Settings settings = this.settingsService.create();
-			Assert.notNull(settings);
-			this.unauthenticate();
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-		this.checkExceptions(expected, caught);
-	}
-
 	public void saveSettings(final String username, final String banner, final String countryCode, final Collection<String> creditCardMakes, final int finderCacheHours, final int maxCacheResults, final Collection<String> negativeWords,
 		final Collection<String> positiveWords, final Collection<String> spamWords, final String systemName, final int vat, final String welcomeMessage, final Integer settingsId, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			this.authenticate(username);
 			Settings settings = null;
-			if (settingsId == null)
-				settings = this.settingsService.create();
-			else
-				settings = this.settingsService.findOne(settingsId);
+			settings = this.settingsService.findOne(settingsId);
 			settings.setBanner(banner);
 			settings.setCountryCode(countryCode);
 			settings.setCreditCardMakes(creditCardMakes);
@@ -114,21 +98,6 @@ public class SettingsServiceTest extends AbstractTest {
 			Assert.isTrue(savedSettings.getSystemName().equals(systemName));
 			Assert.isTrue(savedSettings.getVat() == vat);
 			Assert.isTrue(savedSettings.getWelcomeMessage().equals(welcomeMessage));
-			this.unauthenticate();
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-		this.checkExceptions(expected, caught);
-	}
-
-	public void deleteSettings(final String username, final Integer settingsId, final Class<?> expected) {
-		Class<?> caught = null;
-		try {
-			this.authenticate(username);
-			final Settings settings = this.settingsService.findOne(settingsId);
-			this.settingsService.delete(settings);
-			this.settingsService.flush();
-			Assert.isNull(this.settingsService.findOne(settingsId));
 			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -180,11 +149,6 @@ public class SettingsServiceTest extends AbstractTest {
 		final Settings settings = this.settingsService.findOne(this.getEntityId("settings1"));
 		this.saveSettings(null, "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", this.getEntityId("settings1"),
 			IllegalArgumentException.class);
-	}
-
-	@Test
-	public void testDeleteSettings() {
-		this.deleteSettings("admin1", super.getEntityId("settings1"), IllegalArgumentException.class);
 	}
 
 	@Test

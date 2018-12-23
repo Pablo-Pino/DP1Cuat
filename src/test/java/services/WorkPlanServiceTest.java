@@ -97,7 +97,6 @@ public class WorkPlanServiceTest extends AbstractTest {
 		WorkPlan w;
 		w = this.workPlanService.findOne(super.getEntityId("workPlan1"));
 		final Application a = this.applicationService.findOne(this.getEntityId("application1"));
-		w.getHandyWorker().getApplications().remove(a);
 		Assert.isTrue(this.workPlanService.checkStatusApplicationAccepted(w));
 	}
 }

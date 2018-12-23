@@ -33,7 +33,6 @@ public class MessageServiceTest extends AbstractTest{
 	
 	@Autowired
 	private FolderService	folderService;
-	
 	@Autowired
 	private ActorService actorService;
 
@@ -114,7 +113,7 @@ public class MessageServiceTest extends AbstractTest{
 		System.out.println(m);
 		//Assert.isNull(this.messageService.findOne(mId));
 		//Comprobar si esta en la papelera
-		Assert.isTrue(!(this.folderService.findFolderByActorAndName(a, "trashbox").getMessages().contains(m)));
+		Assert.isTrue(!(this.messageService.findByFolder(this.folderService.findFolderByActorAndName(a, "trashbox")).contains(m)));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

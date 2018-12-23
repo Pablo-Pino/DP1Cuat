@@ -1,14 +1,11 @@
 
 package domain;
 
-import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -33,8 +30,6 @@ public class Folder extends DomainEntity {
 
 	//------------Relaciones----------
 
-	private Collection<Message>	messages;
-	private Collection<Folder>	childFolder;
 	private Folder				parentFolder;
 	private Actor				actor;
 
@@ -57,26 +52,6 @@ public class Folder extends DomainEntity {
 
 	public void setSystem(final boolean system) {
 		this.system = system;
-	}
-
-	@NotNull
-	@ManyToMany
-	public Collection<Message> getMessages() {
-		return this.messages;
-	}
-
-	public void setMessages(final Collection<Message> messages) {
-		this.messages = messages;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "parentFolder")
-	public Collection<Folder> getChildFolder() {
-		return this.childFolder;
-	}
-
-	public void setChildFolder(final Collection<Folder> childFolder) {
-		this.childFolder = childFolder;
 	}
 
 	@Valid
