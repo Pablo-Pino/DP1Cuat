@@ -23,7 +23,8 @@
 	<spring:message code="fixupTask.edit" />
 </p>
 
-<form:form action="fixupTask/customer/edit.do" modelAttribute="fixupTask">
+<form:form action="fixupTask/customer/edit.do" method="post" id="formCreate" 
+		name="formCreate" modelAttribute="fixupTask">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -48,10 +49,10 @@
 	<br />
 	
 	<form:label path="maximumPrice">
-		<spring:message code="fixupTask.maximunPrice" />:
+		<spring:message code="fixupTask.maximumPrice" />:
 	</form:label>
 	<form:input path="description" />
-	<form:errors cssClass="error" path="maximunPrice" />
+	<form:errors cssClass="error" path="maximumPrice" />
 	<br />
 	
 	<form:label path="start">
@@ -68,17 +69,12 @@
 	<form:errors cssClass="error" path="end" />
 	<br />
 	
-
-	<input type="submit" name="save"
-		value="<spring:message code="fixupTask" />" />&nbsp; 
-	<jstl:if test="${fixupTask.id != 0}">
-		<input type="submit" name="delete"
-			value="<spring:message code="fixupTask.delete" />"
-			onclick="return confirm('<spring:message code="fixupTask.confirm.delete" />')" />&nbsp;
-	</jstl:if>
-	<input type="button" name="cancel"
-		value="<spring:message code="fixupTask.cancel" />"
-		onclick="javascript: relativeRedir('fixupTask/customer/list.do');" />
-	<br />
-
 </form:form>
+
+<!--  Botones -->
+
+<input type="submit" name="save"
+	value="<spring:message code="fixupTask.save"></spring:message>" />
+<input type="button" name="cancel"
+	value="$<spring:message code="fixupTask.cancel"></spring:message>"
+	onclick="javascript:relativeRedir('fixupTask/customer/list.do')" />

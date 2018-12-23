@@ -73,7 +73,7 @@
 				
 
 			<input type="submit" name="save"
-				value="<spring:message code="fixupTask"></spring:message>" />
+				value="<spring:message code="fixupTask.save"></spring:message>" />
 
 			<spring:message code="fixupTask.cancel" var="cancelHeader"></spring:message>
 			<input type="button" name="cancel" value="${cancelHeader}"
