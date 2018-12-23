@@ -79,5 +79,5 @@
 	<!--  Botones -->
 
 		<input type="submit" name="save" value="<spring:message code="handyWorker.save"></spring:message>" />	
-		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('handyWorker/list.do')" />	
+		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('handyWorker/administrator/list.do')" />	
 
