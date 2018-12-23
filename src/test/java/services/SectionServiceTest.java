@@ -68,7 +68,7 @@ public class SectionServiceTest extends AbstractTest {
 	public void findByTutorialSection(final Tutorial tutorial, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
-			final Collection<Section> sections = this.sectionService.findAll(tutorial);
+			final Collection<Section> sections = this.sectionService.findByTutorial(tutorial);
 			Assert.isTrue(tutorial.getSections().size() == sections.size());
 			for (final Section s : sections)
 				Assert.isTrue(tutorial.getSections().contains(s));

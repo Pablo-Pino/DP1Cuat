@@ -48,7 +48,7 @@ public class SectionService {
 		return this.repository.findAll();
 	}
 	
-	public Collection<Section> findAll(final Tutorial dependency) {
+	public Collection<Section> findByTutorial(final Tutorial dependency) {
 		this.serviceUtils.checkId(dependency.getId());
 		Assert.notNull(this.tutorialService.findOne(dependency.getId()));
 		return this.repository.findByTutorial(dependency.getId());
@@ -65,7 +65,7 @@ public class SectionService {
 		if (section.getId() == 0) {
 			this.serviceUtils.checkId(section.getTutorial());
 			Assert.notNull(section.getTutorial());
-			section.setNumberOrder(this.findAll(section.getTutorial()).size());
+			section.setNumberOrder(this.findByTutorial(section.getTutorial()).size());
 		} else {
 			section.setPictures(object.getPictures());
 			section.setText(object.getText());
