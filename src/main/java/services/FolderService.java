@@ -108,4 +108,21 @@ public class FolderService {
 		return this.repository.findByParentId(parent.getId());
 	}
 	
+	public Collection<Folder> findByActorAndParent(Actor actor, Folder parent) {
+		Assert.notNull(parent);
+		Assert.isTrue(parent.getId() > 0);
+		Assert.notNull(this.repository.findOne(parent.getId()));
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getId() > 0);
+		Assert.notNull(this.actorService.findOne(actor.getId()));
+		return this.repository.findByActorIdAndParentId(actor.getId(), parent.getId());
+	}
+	
+	public Collection<Folder> findByActorWithoutParent(Actor actor) {
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getId() > 0);
+		Assert.notNull(this.actorService.findOne(actor.getId()));
+		return this.repository.findByActorIdWithoutParent(actor.getId());
+	}
+	
 }
