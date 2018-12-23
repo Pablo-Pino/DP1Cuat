@@ -156,7 +156,7 @@ public class SettingsServiceTest extends AbstractTest {
 		this.authenticate("admin2");
 		final String s = "Stupendous!";
 		this.settingsService.addPositiveWords(s);
-		Assert.isTrue(this.settingsService.getSettings().getPositiveWords().contains("Stupendous!"));
+		Assert.isTrue(this.settingsService.findSettings().getPositiveWords().contains("Stupendous!"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -171,7 +171,7 @@ public class SettingsServiceTest extends AbstractTest {
 		this.authenticate("admin1");
 		final String s = "bueno";
 		this.settingsService.deletePositiveWords(s);
-		Assert.isTrue(!(this.settingsService.getSettings().getPositiveWords().contains("bueno")));
+		Assert.isTrue(!(this.settingsService.findSettings().getPositiveWords().contains("bueno")));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -186,7 +186,7 @@ public class SettingsServiceTest extends AbstractTest {
 		this.authenticate("admin2");
 		final String s = "shit";
 		this.settingsService.addNegativeWords(s);
-		Assert.isTrue(this.settingsService.getSettings().getNegativeWords().contains("shit"));
+		Assert.isTrue(this.settingsService.findSettings().getNegativeWords().contains("shit"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -201,7 +201,7 @@ public class SettingsServiceTest extends AbstractTest {
 		this.authenticate("admin1");
 		final String s = "not";
 		this.settingsService.deleteNegativeWords(s);
-		Assert.isTrue(!(this.settingsService.getSettings().getNegativeWords().contains("not")));
+		Assert.isTrue(!(this.settingsService.findSettings().getNegativeWords().contains("not")));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -216,8 +216,8 @@ public class SettingsServiceTest extends AbstractTest {
 		final String oldWord = "bueno";
 		final String newWord = "buenisimo";
 		this.settingsService.updatePositiveWord(oldWord, newWord);
-		Assert.isTrue(!(this.settingsService.getSettings().getNegativeWords().contains("bueno")));
-		Assert.isTrue(this.settingsService.getSettings().getPositiveWords().contains("buenisimo"));
+		Assert.isTrue(!(this.settingsService.findSettings().getNegativeWords().contains("bueno")));
+		Assert.isTrue(this.settingsService.findSettings().getPositiveWords().contains("buenisimo"));
 
 	}
 
@@ -226,8 +226,8 @@ public class SettingsServiceTest extends AbstractTest {
 		final String oldWord = "malo";
 		final String newWord = "malisimo";
 		this.settingsService.updateNegativeWord(oldWord, newWord);
-		Assert.isTrue(!(this.settingsService.getSettings().getNegativeWords().contains("malo")));
-		Assert.isTrue(this.settingsService.getSettings().getNegativeWords().contains("malisimo"));
+		Assert.isTrue(!(this.settingsService.findSettings().getNegativeWords().contains("malo")));
+		Assert.isTrue(this.settingsService.findSettings().getNegativeWords().contains("malisimo"));
 
 	}
 	@Test

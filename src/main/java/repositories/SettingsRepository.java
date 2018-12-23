@@ -10,6 +10,6 @@ import domain.Settings;
 public interface SettingsRepository extends GenericRepository<Settings> {
 
 	@Query("select s from Settings s")
-	Settings getSettings();
+	Settings findSettings();
 
 }

@@ -281,7 +281,7 @@ public class ActorService {
 
 	public boolean containsSpam(final String s) {
 		boolean res = false;
-		for (final String spamWord : this.settingsService.getSettings().getSpamWords())
+		for (final String spamWord : this.settingsService.findSettings().getSpamWords())
 			if (s.contains(spamWord)) {
 				res = true;
 				break;

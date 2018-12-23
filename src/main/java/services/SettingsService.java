@@ -61,8 +61,8 @@ public class SettingsService {
 
 	// Other methods
 
-	public Settings getSettings() {
-		return this.repository.getSettings();
+	public Settings findSettings() {
+		return this.repository.findSettings();
 	}
 
 	public void flush() {
@@ -71,7 +71,7 @@ public class SettingsService {
 
 	public Collection<String> addPositiveWords(final String s) {
 		Collection<String> res = new ArrayList<>();
-		final Settings settings = this.getSettings();
+		final Settings settings = this.findSettings();
 		res = settings.getPositiveWords();
 		if (res.contains(s))
 			throw new IllegalArgumentException("That word is already included");
@@ -84,7 +84,7 @@ public class SettingsService {
 
 	public Collection<String> deletePositiveWords(final String s) {
 		Collection<String> res = new ArrayList<>();
-		final Settings settings = this.getSettings();
+		final Settings settings = this.findSettings();
 		res = settings.getPositiveWords();
 		if (!(res.contains(s)))
 			throw new IllegalArgumentException("That word is not in the positive words list");
@@ -97,7 +97,7 @@ public class SettingsService {
 
 	public Collection<String> addNegativeWords(final String s) {
 		Collection<String> res = new ArrayList<>();
-		final Settings settings = this.getSettings();
+		final Settings settings = this.findSettings();
 		res = settings.getNegativeWords();
 		if (res.contains(s))
 			throw new IllegalArgumentException("That word is already included");
@@ -110,7 +110,7 @@ public class SettingsService {
 
 	public Collection<String> deleteNegativeWords(final String s) {
 		Collection<String> res = new ArrayList<>();
-		final Settings settings = this.getSettings();
+		final Settings settings = this.findSettings();
 		res = settings.getNegativeWords();
 		if (!(res.contains(s)))
 			throw new IllegalArgumentException("That word is not in the negative words list");
@@ -124,13 +124,13 @@ public class SettingsService {
 	public Collection<String> updatePositiveWord(final String oldWord, final String newWord) {
 		this.deletePositiveWords(oldWord);
 		this.addPositiveWords(newWord);
-		return this.getSettings().getPositiveWords();
+		return this.findSettings().getPositiveWords();
 	}
 
 	public Collection<String> updateNegativeWord(final String oldWord, final String newWord) {
 		this.deleteNegativeWords(oldWord);
 		this.addNegativeWords(newWord);
-		return this.getSettings().getNegativeWords();
+		return this.findSettings().getNegativeWords();
 	}
 	
 	public void generateAllScore() {
@@ -149,8 +149,8 @@ public class SettingsService {
 		Double res = 0.0;
 		Double cont = 0.0;
 		final Collection<Endorsement> endorsements = new ArrayList<Endorsement>();
-		final Collection<String> buenas = this.getSettings().getPositiveWords();
-		final Collection<String> malas = this.getSettings().getNegativeWords();
+		final Collection<String> buenas = this.findSettings().getPositiveWords();
+		final Collection<String> malas = this.findSettings().getNegativeWords();
 		endorsements.addAll(this.endorsementService.findByReceiver(a));
 		endorsements.addAll(this.endorsementService.findBySender(a));
 		for (final Endorsement e : endorsements) {
