@@ -35,11 +35,23 @@ public class FixupTaskController extends AbstractController {
 
 	@Autowired
 	FixupTaskService	fixupTaskService;
+
+	@Autowired
 	CustomerService		customerService;
+
+	@Autowired
 	WarrantyService		warrantyService;
+
+	@Autowired
 	CategoryService		categoryService;
+
+	@Autowired
 	WorkPlanService		workPlanService;
+
+	@Autowired
 	ComplaintService	complaintService;
+
+	@Autowired
 	ApplicationService	applicationService;
 
 

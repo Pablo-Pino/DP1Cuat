@@ -36,6 +36,10 @@
 			<a href="fixupTask/customer/edit.do?fixupTaskId=${row.id}"> <spring:message
 					code="fixupTask.edit" />
 			</a>
+			
+			<%-- <a href="fixupTask/customer/display.do?fixupTaskId=${row.id}"> <spring:message
+					code="fixupTask.display" />
+			</a> --%>
 		</display:column>
 	</security:authorize>
 
