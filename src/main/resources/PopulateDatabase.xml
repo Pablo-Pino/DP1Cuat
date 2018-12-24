@@ -1863,11 +1863,23 @@
 		<property name="tags">
 			<list></list>
 		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder2HandyWorker1" />
-				<ref bean="folder1Customer1" />
-			</list>
+		<property name="folder">
+			<ref bean="folder1Customer1" />
+		</property>
+		<property name="sender" ref="handyWorker1"></property>
+		<property name="receiver" ref="customer1"></property>
+	</bean>
+	
+	<bean id="message1b" class="domain.Message">
+		<property name="moment" value="July 12, 2017 12:00"></property>
+		<property name="subject" value="Asunto1"></property>
+		<property name="body" value="Cuerpo del mensaje 1"></property>
+		<property name="priority" value="NEUTRAL"></property>
+		<property name="tags">
+			<list></list>
+		</property>
+		<property name="folder">
+			<ref bean="folder2HandyWorker1" />
 		</property>
 		<property name="sender" ref="handyWorker1"></property>
 		<property name="receiver" ref="customer1"></property>
@@ -1884,11 +1896,24 @@
 		<property name="tags">
 			<list></list>
 		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder1HandyWorker2" />
-				<ref bean="folder2Customer2" />
-			</list>
+		<property name="folder">
+			<ref bean="folder1HandyWorker2" />
+		</property>
+		<property name="sender" ref="customer2"></property>
+		<property name="receiver" ref="handyWorker2"></property>
+
+	</bean>
+	
+	<bean id="message2b" class="domain.Message">
+		<property name="moment" value="July 13, 2017 12:00"></property>
+		<property name="subject" value="Asunto2"></property>
+		<property name="body" value="Cuerpo del mensaje 2"></property>
+		<property name="priority" value="HIGH"></property>
+		<property name="tags">
+			<list></list>
+		</property>
+		<property name="folder">
+			<ref bean="folder2Customer2" />
 		</property>
 		<property name="sender" ref="customer2"></property>
 		<property name="receiver" ref="handyWorker2"></property>
@@ -1905,27 +1930,29 @@
 		<property name="tags">
 			<list></list>
 		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder1HandyWorker3" />
-				<ref bean="folder2Customer3" />
-			</list>
+		<property name="folder">
+			<ref bean="folder1HandyWorker3" />
 		</property>
 		<property name="sender" ref="customer3"></property>
 		<property name="receiver" ref="handyWorker3"></property>
 
 	</bean>
 
+	<bean id="message3b" class="domain.Message">
+		<property name="moment" value="July 14, 2017 12:00"></property>
+		<property name="subject" value="Asunto3"></property>
+		<property name="body" value="Cuerpo del mensaje 3"></property>
+		<property name="priority" value="LOW"></property>
+		<property name="tags">
+			<list></list>
+		</property>
+		<property name="folder">
+			<ref bean="folder2Customer3" />
+		</property>
+		<property name="sender" ref="customer3"></property>
+		<property name="receiver" ref="handyWorker3"></property>
 
-
-
-
-
-
-
-
-
-
+	</bean>
 
 	<!-- ______________________________NOTE______________________________________ -->
 
