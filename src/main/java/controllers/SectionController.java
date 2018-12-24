@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
 import domain.Section;
 import domain.Tutorial;
 
+import services.ActorService;
 import services.SectionService;
 import services.TutorialService;
 
@@ -29,6 +31,8 @@ public class SectionController extends AbstractController {
 	private SectionService sectionService;
 	@Autowired
 	private TutorialService tutorialService;
+	@Autowired
+	private ActorService actorService;
 		
 	// List
 	
@@ -39,6 +43,7 @@ public class SectionController extends AbstractController {
 		Collection<Section> sections = this.sectionService.findByTutorial(tutorial);
 		res.addObject("sections", sections);
 		res.addObject("requestURI", "section/list.do");
+		this.isPrincipalAuthorizedEdit(res, tutorialId);
 		return res;
 	}
 	
@@ -110,7 +115,28 @@ public class SectionController extends AbstractController {
 		ModelAndView res = new ModelAndView("section/edit");
 		res.addObject("section", section);
 		res.addObject("message", message);
+		this.isPrincipalAuthorizedEdit(res, section);
 		return res;
+	}
+	
+	private void isPrincipalAuthorizedEdit(ModelAndView modelAndView, Section section) {
+		Boolean res = false;
+		Actor principal = this.actorService.findPrincipal();
+		if(section.getTutorial().getHandyWorker().equals(principal)) {
+			res = true;
+		}
+		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
+	}
+	
+	private void isPrincipalAuthorizedEdit(ModelAndView modelAndView, Integer tutorialId) {
+		Boolean res = false;
+		Actor principal = this.actorService.findPrincipal();
+		Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+		Assert.notNull(tutorial);
+		if(tutorial.getHandyWorker().equals(principal)) {
+			res = true;
+		}
+		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
 	}
 	
 }

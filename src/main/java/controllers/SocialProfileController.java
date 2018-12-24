@@ -44,6 +44,7 @@ public class SocialProfileController extends AbstractController {
 		Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllByActor(actor);
 		res.addObject("socialProfiles", socialProfiles);
 		res.addObject("requestURI", "socialProfile/list.do");
+		this.isPrincipalAuthorizedEdit(res, actorId);
 		return res;
 	}
 	
@@ -115,7 +116,28 @@ public class SocialProfileController extends AbstractController {
 		ModelAndView res = new ModelAndView("socialProfile/edit");
 		res.addObject("socialProfile", socialProfile);
 		res.addObject("message", message);
+		this.isPrincipalAuthorizedEdit(res, socialProfile);
 		return res;
+	}
+	
+	private void isPrincipalAuthorizedEdit(ModelAndView modelAndView, SocialProfile socialProfile) {
+		Boolean res = false;
+		Actor principal = this.actorService.findPrincipal();
+		if(principal.equals(socialProfile.getActor())) {
+			res = true;
+		}
+		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
+	}
+	
+	private void isPrincipalAuthorizedEdit(ModelAndView modelAndView, Integer actorId) {
+		Boolean res = false;
+		Actor principal = this.actorService.findPrincipal();
+		Actor actor = this.actorService.findOne(actorId);
+		Assert.notNull(actor);
+		if(principal.equals(actor)) {
+			res = true;
+		}
+		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
 	}
 	
 }

@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Administrator;
 import domain.Settings;
 
+import services.ActorService;
 import services.SettingsService;
 
 @Controller
@@ -22,6 +25,8 @@ public class SettingsController extends AbstractController {
 	
 	@Autowired
 	private SettingsService settingsService;
+	@Autowired
+	private ActorService actorService;
 	
 	// Edit
 	
@@ -61,7 +66,17 @@ public class SettingsController extends AbstractController {
 		ModelAndView res = new ModelAndView("settings/edit");
 		res.addObject("settings", settings);
 		res.addObject("message", message);
+		this.isPrincipalAuthorizedEdit(res);
 		return res;
+	}
+	
+	private void isPrincipalAuthorizedEdit(ModelAndView modelAndView) {
+		Boolean res = false;
+		Actor principal = this.actorService.findPrincipal();
+		if(principal instanceof Administrator) {
+			res = true;
+		}
+		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
 	}
 	
 }
