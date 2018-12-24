@@ -44,5 +44,7 @@
 
 </display:table>
 
-<spring:message code="section.create" var="createTitle" />
-<button onclick='javascript: relativeRedir("<jstl:out value="section/create.do?tutorialId=${tutorial.id}"></jstl:out>")' >${createTitle}</button>
+<jstl:if test="${isPrincipalAuthorizedEdit}">
+	<spring:message code="section.create" var="createTitle" />
+	<button onclick='javascript: relativeRedir("<jstl:out value="section/create.do?tutorialId=${tutorial.id}"></jstl:out>")' >${createTitle}</button>
+</jstl:if>
