@@ -25,6 +25,23 @@
 		
 		<bean class = "converters.FixupTaskToStringConverter"></bean>
 		<bean class = "converters.StringToFixupTaskConverter"></bean>
+		<bean class = "converters.FolderToStringConverter"></bean>
+		<bean class = "converters.StringToFolderConverter"></bean>
+		<bean class = "converters.MessageToStringConverter"></bean>
+		<bean class = "converters.StringToMessageConverter"></bean>
+		<bean class = "converters.PhaseToStringConverter"></bean>
+		<bean class = "converters.StringToPhaseConverter"></bean>
+		<bean class = "converters.RefereeToStringConverter"></bean>
+		<bean class = "converters.StringToRefereeConverter"></bean>
+		<bean class = "converters.ReportToStringConverter"></bean>
+		<bean class = "converters.StringToReportConverter"></bean>
+		<bean class = "converters.SectionToStringConverter"></bean>
+		<bean class = "converters.StringToSectionConverter"></bean>
+		<bean class = "converters.SettingsToStringConverter"></bean>
+		<bean class = "converters.StringToSettingsConverter"></bean>
+		<bean class = "converters.SocialProfileToStringConverter"></bean>
+		<bean class = "converters.StringToSocialProfileConverter"></bean>
+		
 	</util:list>
 	
 </beans>
