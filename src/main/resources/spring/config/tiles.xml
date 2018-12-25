@@ -34,6 +34,8 @@
 		<value>/views/handyWorker/tiles.xml</value>
 		<value>/views/fixupTask/tiles.xml</value>
 		<value>/views/note/tiles.xml</value>
+		<value>/views/tutorial/tiles.xml</value>
+		
 		<value>/views/report/tiles.xml</value>
 		<value>/views/referee/tiles.xml</value>
 		<value>/views/section/tiles.xml</value>

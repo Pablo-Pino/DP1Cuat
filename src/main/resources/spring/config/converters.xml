@@ -25,6 +25,22 @@
 		
 		<bean class = "converters.FixupTaskToStringConverter"></bean>
 		<bean class = "converters.StringToFixupTaskConverter"></bean>
+		
+		<bean class = "converters.HandyWorkerToStringConverter"></bean>
+		<bean class = "converters.StringToHandyWorkerConverter"></bean>
+		
+		<bean class = "converters.NoteToStringConverter"></bean>
+		<bean class = "converters.StringToNoteConverter"></bean>
+		
+		<bean class = "converters.MiscellaneousRecordToStringConverter"></bean>
+		<bean class = "converters.StringToMiscellaneousRecordConverter"></bean>
+		
+		<bean class = "converters.PersonalRecordToStringConverter"></bean>
+		<bean class = "converters.StringToPersonalRecordConverter"></bean>
+		
+		<bean class = "converters.TutorialToStringConverter"></bean>
+		<bean class = "converters.StringToTutorialConverter"></bean>
+		
 		<bean class = "converters.FolderToStringConverter"></bean>
 		<bean class = "converters.StringToFolderConverter"></bean>
 		<bean class = "converters.MessageToStringConverter"></bean>
