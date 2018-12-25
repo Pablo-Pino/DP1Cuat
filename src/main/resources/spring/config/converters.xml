@@ -29,8 +29,6 @@
 		<bean class = "converters.StringToFolderConverter"></bean>
 		<bean class = "converters.MessageToStringConverter"></bean>
 		<bean class = "converters.StringToMessageConverter"></bean>
-		<bean class = "converters.PhaseToStringConverter"></bean>
-		<bean class = "converters.StringToPhaseConverter"></bean>
 		<bean class = "converters.RefereeToStringConverter"></bean>
 		<bean class = "converters.StringToRefereeConverter"></bean>
 		<bean class = "converters.ReportToStringConverter"></bean>
