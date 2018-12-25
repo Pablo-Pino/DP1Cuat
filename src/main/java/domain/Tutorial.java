@@ -9,6 +9,7 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
@@ -34,8 +35,19 @@ public class Tutorial extends DomainEntity {
 
 	private HandyWorker				handyWorker;
 	private Collection<Section> sections;
+	private Collection<Sponsorship> sponsorships;
 
 	//-------------Getters y Setters--------
+
+	@Valid
+	@ManyToMany
+	public Collection<Sponsorship> getSponsorships() {
+		return sponsorships;
+	}
+
+	public void setSponsorships(Collection<Sponsorship> sponsorships) {
+		this.sponsorships = sponsorships;
+	}
 
 	@NotNull
 	@Past

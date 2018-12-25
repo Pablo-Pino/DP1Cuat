@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import repositories.TutorialRepository;
 import domain.HandyWorker;
+import domain.Sponsorship;
 import domain.Tutorial;
 
 @Service
@@ -23,6 +24,9 @@ public class TutorialService {
 
 	// Supporting Service
 
+	@Autowired
+	private ServiceUtils serviceUtils;
+	
 	// Simple CRUD methods
 
 	public Tutorial create() {
@@ -54,4 +58,10 @@ public class TutorialService {
 		Assert.notNull(this.tutorialRepository.findTutorialsByHandyWorker(h.getId()));
 		return this.tutorialRepository.findTutorialsByHandyWorker(h.getId());
 	}
+	
+	public Collection<Tutorial> findTutorialsBySponsorship(Sponsorship s) {
+		Sponsorship sponsorship = (Sponsorship) this.serviceUtils.checkObject(s);
+		return this.tutorialRepository.findTutorialsByHandyWorker(sponsorship.getId());
+	}
+	
 }

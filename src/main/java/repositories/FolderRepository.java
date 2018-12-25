@@ -19,7 +19,7 @@ public interface FolderRepository extends JpaRepository<Folder, Integer> {
 	@Query("select f from Folder f where f.actor.id = ?1 and f.name = ?2")
 	Folder findFolderByActorAndName(Integer actorId, String name);
 
-	@Query("select distinct f from Folder f join f.messages m where f.actor.id = ?1 and m.id = ?2")
+	@Query("select m.folder from Message m where m.folder.actor.id = ?1 and m.id = ?2")
 	Folder findFolderByActorAndMessage(int actorId, int messageId);
 	
 	@Query("select f from Folder f where f.parentFolder.id = ?1")
@@ -28,7 +28,7 @@ public interface FolderRepository extends JpaRepository<Folder, Integer> {
 	@Query("select f from Folder f where f.actor.id = ?1 and f.parentFolder.id = ?2")
 	Collection<Folder> findByActorIdAndParentId(int actorId, int folderId); 
 	
-	@Query("select f from Folder f where f.actor.id = ?1 and not exists f.parent")
+	@Query("select f from Folder f where f.actor.id = ?1 and f.parentFolder = null")
 	Collection<Folder> findByActorIdWithoutParent(int actorId);
 
 }

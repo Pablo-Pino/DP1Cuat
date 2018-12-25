@@ -714,13 +714,14 @@
 		<property name="keyword" value="cocina"></property>
 		<property name="maxPrice" value="1200.0"></property>
 		<property name="minPrice" value="2200.0"></property>
-
+		<property name="handyWorker" ref="handyWorker1"></property>
 	</bean>
 
 	<bean id="finder2" class="domain.Finder">
 		<property name="keyword" value="salon"></property>
 		<property name="minimumDate" value="May 1, 2019 12:00"></property>
 		<property name="maximumDate" value="June 25, 2019 21:00"></property>
+		<property name="handyWorker" ref="handyWorker2"></property>
 	</bean>
 
 	<bean id="finder3" class="domain.Finder">
@@ -729,12 +730,13 @@
 		<property name="minPrice" value="800.0"></property>
 		<property name="minimumDate" value="February 12, 2019 12:00"></property>
 		<property name="maximumDate" value="June 25, 2019 21:00"></property>
+		<property name="handyWorker" ref="handyWorker3"></property>
 	</bean>
 
 	<bean id="finder4" class="domain.Finder">
 		<property name="maxPrice" value="200.0"></property>
 		<property name="minPrice" value="2000.0"></property>
-
+		<property name="handyWorker" ref="handyWorker4"></property>
 	</bean>
 
 	<!-- ___________________Endorsable__________________________________ <bean 
@@ -851,12 +853,6 @@
 			</bean>
 		</property>
 		<property name="sponsor" ref="sponsor1" />
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial1" />
-				<ref bean="tutorial2" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="sponsorship2" class="domain.Sponsorship">
@@ -878,12 +874,6 @@
 			</bean>
 		</property>
 		<property name="sponsor" ref="sponsor2" />
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial1" />
-				<ref bean="tutorial3" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="sponsorship3" class="domain.Sponsorship">
@@ -905,12 +895,6 @@
 			</bean>
 		</property>
 		<property name="sponsor" ref="sponsor3" />
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial2" />
-				<ref bean="tutorial3" />
-			</list>
-		</property>
 	</bean>
 
 	<!-- Tutorial -->

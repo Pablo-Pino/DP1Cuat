@@ -146,4 +146,11 @@ public class MessageService {
 		return this.repository.findReceivedMessages(f.getId());
 	}
 	
+	public Collection<Message> findCopies(Message m) {
+		Message message = (Message) this.serviceUtils.checkObject(m);
+		return this.repository.findMessageByMomentSenderReceiverAndSubject(
+			message.getMoment(), message.getSender().getId(), message.getReceiver().getId(),
+			message.getSubject());
+	}
+	
 }

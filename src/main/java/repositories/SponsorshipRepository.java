@@ -14,7 +14,4 @@ public interface SponsorshipRepository extends GenericRepository<Sponsorship> {
 	@Query("select s from Sponsorship s where s.sponsor.id = ?1")
 	Collection<Sponsorship> findBySponsor(int sponsorId);
 	
-	@Query("select s from Sponsorship s where s.tutorial.id = ?1")
-	Collection<Sponsorship> findByTutorial(int tutorialId);
-	
 }

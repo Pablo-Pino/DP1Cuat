@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,6 @@ public class SponsorshipService {
 	public Sponsorship create() {
 		Sponsorship s;
 		s = new Sponsorship();
-		s.setTutorials(new ArrayList<Tutorial>());
 		return s;
 	}
 
@@ -63,7 +61,7 @@ public class SponsorshipService {
 	public void delete(final Sponsorship s) {
 		Assert.notNull(s);
 		this.serviceUtils.checkAuthority("SPONSOR");
-		for (final Tutorial t : s.getTutorials()) {
+		for (final Tutorial t : this.tutorialService.findTutorialsBySponsorship(s)) {
 			this.tutorialService.save(t);
 		}
 		this.sponsorshipRepository.delete(s);
@@ -74,13 +72,6 @@ public class SponsorshipService {
 		Assert.isTrue(sponsor.getId() > 0);
 		Assert.notNull(this.sponsorshipRepository.findBySponsor(sponsor.getId()));
 		return this.sponsorshipRepository.findBySponsor(sponsor.getId());
-	}
-	
-	public Collection<Sponsorship> findByTutorial(Tutorial tutorial) {
-		Assert.notNull(tutorial);
-		Assert.isTrue(tutorial.getId() > 0);
-		Assert.notNull(this.sponsorshipRepository.findByTutorial(tutorial.getId()));
-		return this.sponsorshipRepository.findByTutorial(tutorial.getId());
 	}
 	
 }

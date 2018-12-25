@@ -18,6 +18,6 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 	@Query("select c from Complaint c where c.referee IS NULL")
 	Collection<Complaint> SearchComplaintWithoutReferee();
 	
-	@Query("select c from Complaint c where c.fixupTask.id = ?1")
+	@Query("select c from Complaint c where c.fixuptask.id = ?1")
 	Collection<Complaint> findByFixupTaskId(int fixupTaskId);
 }

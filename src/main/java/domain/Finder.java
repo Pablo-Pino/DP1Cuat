@@ -7,8 +7,10 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,6 +32,7 @@ public class Finder extends DomainEntity {
 
 	private Warranty	warranty;
 	private Category	category;
+	private HandyWorker handyWorker;
 
 
 	//--------------Getters y Setters------
@@ -116,4 +119,15 @@ public class Finder extends DomainEntity {
 		this.end = end;
 	}
 
+	@NotNull
+	@Valid
+	@OneToOne(optional = false)
+	public HandyWorker getHandyWorker() {
+		return handyWorker;
+	}
+
+	public void setHandyWorker(HandyWorker handyWorker) {
+		this.handyWorker = handyWorker;
+	}
+	
 }
