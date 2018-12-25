@@ -1,14 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -29,22 +25,8 @@ public class Sponsorship extends DomainEntity {
 	//---------Relaciones--------
 
 	private Sponsor					sponsor;
-	private Collection<Tutorial>	tutorials;
-
 
 	//---------Getters y Setters------
-
-	@NotNull
-	@ManyToMany(cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH
-	})
-	public Collection<Tutorial> getTutorials() {
-		return this.tutorials;
-	}
-
-	public void setTutorials(final Collection<Tutorial> tutorials) {
-		this.tutorials = tutorials;
-	}
 
 	@Valid
 	@ManyToOne(optional = false)
