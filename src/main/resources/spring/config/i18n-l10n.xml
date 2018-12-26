@@ -40,6 +40,8 @@
 		<value>/views/section/messages</value>
 		<value>/views/socialprofile/messages</value>
 		<value>/views/referee/messages</value>
+		
+		<value>/views/category/messages</value>
 
 	</util:list>
 
