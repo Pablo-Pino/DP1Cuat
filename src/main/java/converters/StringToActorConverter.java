@@ -7,20 +7,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.MessageRepository;
-import domain.Message;
+import repositories.ActorRepository;
+import domain.Actor;
 
 @Component
 @Transactional
-public class StringToMessageConverter implements Converter<String, Message> {
+public class StringToActorConverter implements Converter<String, Actor> {
 
 	@Autowired
-	private MessageRepository	repository;
+	private ActorRepository	repository;
 
 
 	@Override
-	public Message convert(final String s) {
-		Message res;
+	public Actor convert(final String s) {
+		Actor res;
 		int id;
 
 		try {
