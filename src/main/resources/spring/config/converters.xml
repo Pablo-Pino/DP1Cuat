@@ -23,6 +23,8 @@
 			<bean class="converters.Class1ToClass2" /> 
 		-->
 		
+		<bean class = "converters.ActorToStringConverter"></bean>
+		<bean class = "converters.StringToActorConverter"></bean>
 		<bean class = "converters.FixupTaskToStringConverter"></bean>
 		<bean class = "converters.StringToFixupTaskConverter"></bean>
 		<bean class = "converters.FolderToStringConverter"></bean>
