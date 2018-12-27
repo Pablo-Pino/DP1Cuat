@@ -20,7 +20,7 @@ import services.ActorService;
 import services.FolderService;
 
 @Controller
-@RequestMapping("folder")
+@RequestMapping("folder/actor")
 public class FolderController extends AbstractController {
 
 	// Services
@@ -39,12 +39,18 @@ public class FolderController extends AbstractController {
 		Collection<Folder> folders = null;
 		if(parentId == null) {
 			folders = this.folderService.findByActorWithoutParent(actor);
+			res.addObject("showBack", false);
+			res.addObject("isPrincipalAuthorizedEdit", true);
 		} else {
 			Folder parent = this.folderService.findOne(parentId);
-			this.folderService.findByActorAndParent(actor, parent);
+			folders = this.folderService.findByActorAndParent(actor, parent);
+			if(!parent.getParentFolder().equals(parent))
+				res.addObject("backFolderId", parent.getParentFolder().getId());
+			res.addObject("showBack", true);
+			this.isPrincipalAuthorizedEdit(res, parent, false);
 		}
 		res.addObject("folders", folders);
-		res.addObject("requestURI", "folder/list.do");
+		res.addObject("requestURI", "folder/actor/list.do");
 		return res;
 	}
 	
@@ -70,6 +76,8 @@ public class FolderController extends AbstractController {
 		return res;
 	}
 	
+	// Save
+	
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "save")
 	private ModelAndView save(@Valid Folder folder, BindingResult binding) {
@@ -81,7 +89,7 @@ public class FolderController extends AbstractController {
 				this.folderService.save(folder);
 				res = new ModelAndView("redirect:list.do");
 			} catch(Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
+				res = this.createEditModelAndView(folder, "cannot.commit.error");
 			}
 		}
 		return res;
@@ -100,7 +108,7 @@ public class FolderController extends AbstractController {
 				this.folderService.delete(folder);
 				res = new ModelAndView("redirect:list.do");
 			} catch(Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
+				res = this.createEditModelAndView(folder, "cannot.commit.error");
 			}
 		}
 		return res;
@@ -114,9 +122,24 @@ public class FolderController extends AbstractController {
 	
 	private ModelAndView createEditModelAndView(Folder folder, String message) {
 		ModelAndView res = new ModelAndView("folder/edit");
+		Actor principal = this.actorService.findPrincipal();
+		Collection<Folder> folders = this.folderService.findAllByActor(principal);
+		folders.remove(folder);
 		res.addObject("folder", folder);
 		res.addObject("message", message);
+		res.addObject("folders", folders);
+		this.isPrincipalAuthorizedEdit(res, folder, true);
 		return res;
+	}
+	
+	private void isPrincipalAuthorizedEdit(ModelAndView modelAndView, Folder folder, Boolean isEdit) {
+		Boolean res = false;
+		Actor principal = this.actorService.findPrincipal();
+		if(folder.getActor().equals(principal) && !folder.getSystem() && isEdit)
+			res = true;
+		else if(folder.getActor().equals(principal) && !isEdit)
+			res = true;
+		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
 	}
 	
 }
