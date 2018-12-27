@@ -19,13 +19,13 @@
 <p><spring:message code="category.list" /></p>
 
 
-<display:table name="category" id="Category"requestURI="category/administrator/list.do" pagesize="5" class="displaytag">
+<display:table name="category" id="Category" requestURI="category/administrator/list.do" pagesize="5" class="displaytag">
 	
-	<!--  Primero compruebo que es un admin -->
+	<%--  Primero compruebo que es un admin --%>
 	<security:authorize access="hasRole('ADMIN')">
 	
 	
-	<!--  La columna que va a la vista edit de las categorias -->
+	<%--  La columna que va a la vista edit de las categorias --%>
 	<display:column>
 		<a href="category/administrator/display.do?categoryId=${Category.id}"><spring:message
 		   code="category.edit"></spring:message></a>
@@ -50,8 +50,7 @@
 </display:table>
 
 
-<!--  Boton de creacion -->
-<!--  seria edit.do? si no creo category -->
+<%--  Boton de creacion --%>
 <security:authorize access="hasRole('ADMIN')">
             <a href="category/administrator/create.do"><spring:message code="category.create"></spring:message></a>
 </security:authorize>

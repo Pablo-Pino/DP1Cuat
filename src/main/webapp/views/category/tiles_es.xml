@@ -28,18 +28,18 @@
 	
 	<definition name="category/create" extends="master.page">	
 		<put-attribute name="title" value="Category:Creacion" />
-		<put-attribute name="body" value="/views/category/administrator/edit" />
+		<put-attribute name="body" value="/views/category/administrator/edit.jsp" />
 	</definition>
 	
 		<definition name="category/create" extends="master.page">	
 		<put-attribute name="title" value="Category:editar" />
-		<put-attribute name="body" value="/views/category/administrator/edit" />
+		<put-attribute name="body" value="/views/category/administrator/edit.jsp" />
 	</definition>
 	
 	
 	<definition name="category/list" extends="master.page">	
 		<put-attribute name="title" value="Category:Listar" />
-		<put-attribute name="body" value="/views/category/administrator/list" />
+		<put-attribute name="body" value="/views/category/administrator/list.jsp" />
 	</definition>
 	
 </tiles-definitions>
