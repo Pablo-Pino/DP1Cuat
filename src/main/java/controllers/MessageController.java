@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
 import domain.Folder;
 import domain.Message;
 
+import services.ActorService;
 import services.FolderService;
 import services.MessageService;
 
 @Controller
-@RequestMapping("message")
+@RequestMapping("message/actor")
 public class MessageController extends AbstractController {
 
 	// Services
@@ -29,6 +31,8 @@ public class MessageController extends AbstractController {
 	private MessageService messageService;
 	@Autowired
 	private FolderService folderService;
+	@Autowired
+	private ActorService actorService;
 		
 	// List
 	
@@ -38,7 +42,8 @@ public class MessageController extends AbstractController {
 		Folder folder = this.folderService.findOne(folderId);
 		Collection<Message> messages = this.messageService.findByFolder(folder);
 		res.addObject("messages", messages);
-		res.addObject("requestURI", "message/list.do");
+		res.addObject("requestURI", "message/actor/list.do");
+		this.isPrincipalAuthorizedEdit(res, folder);
 		return res;
 	}
 	
@@ -46,8 +51,9 @@ public class MessageController extends AbstractController {
 	
 	@SuppressWarnings("unused")
 	@RequestMapping("create")
-	private ModelAndView create(@RequestParam(required = true) Integer folderId) {
-		Folder folder = this.folderService.findOne(folderId);
+	private ModelAndView create() {
+		Actor principal = this.actorService.findPrincipal();
+		Folder folder = this.folderService.findFolderByActorAndName(principal, "inBox");
 		Message message = this.messageService.create(folder);
 		ModelAndView res = this.createEditModelAndView(message);
 		return res;
@@ -73,9 +79,9 @@ public class MessageController extends AbstractController {
 		} else {
 			try {
 				this.messageService.save(message);
-				res = new ModelAndView("redirect:list.do");
+				res = new ModelAndView("redirect:list.do?folderId=" +  String.valueOf(message.getId()));
 			} catch(Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
+				res = this.createEditModelAndView(message, "cannot.commit.error");
 			}
 		}
 		return res;
@@ -94,7 +100,7 @@ public class MessageController extends AbstractController {
 				this.messageService.delete(message);
 				res = new ModelAndView("redirect:list.do");
 			} catch(Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
+				res = this.createEditModelAndView(message, "cannot.commit.error");
 			}
 		}
 		return res;
@@ -110,7 +116,19 @@ public class MessageController extends AbstractController {
 		ModelAndView res = new ModelAndView("message/edit");
 		res.addObject("messageObject", messageObject);
 		res.addObject("message", message);
+		res.addObject("actors", this.actorService.findAll());
+		this.isPrincipalAuthorizedEdit(res, messageObject.getFolder());
 		return res;
+	}
+	
+	private void isPrincipalAuthorizedEdit(ModelAndView modelAndView, Folder folder) {
+		Boolean res = false;
+		Actor principal = this.actorService.findPrincipal();
+		if(folder == null) 
+			res = true;
+		else if(folder.getActor().equals(principal))
+			res = true;
+		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
 	}
 	
 }

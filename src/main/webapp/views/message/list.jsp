@@ -9,40 +9,35 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="messages" id="row" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
+<jstl:if test="${isPrincipalAuthorizedEdit}">
 
-	<display:column>
-		<a href="message/actor/edit.do?mensajeId=${row.id}">
-			<spring:message code="message.edit" />
-		</a>
-	</display:column>
-
-	<spring:message code="message.date" var="date"></spring:message>
-	<display:column property="moment" titleKey="message.moment" sortable="true"
-		format="{0,date, ${date}}"></display:column>
-
+	<display:table name="messages" id="row" requestURI="${requestURI}"
+		pagesize="5" class="displaytag">
 	
-	<display:column property="subject" titleKey="${subject}" sortable="true"></display:column>
-
-
-	<display:column property="body" titleKey="message.subject" sortable="false"></display:column>
-
+		<spring:message code="message.date" var="date"></spring:message>
+		<display:column property="moment" titleKey="message.moment" sortable="true"
+			format="{0,date, ${date}}"></display:column>
 	
-	<display:column property="priority" titleKey="message.priority" sortable="true"></display:column>
+		<display:column property="subject" titleKey="${subject}" sortable="true"></display:column>
+		
+		<display:column property="body" titleKey="message.subject" sortable="false"></display:column>
 	
+		<display:column titleKey="message.priority" sortable="true">
+			<spring:message code="message.${row.priority}" />
+		</display:column>
+		
+		<display:column property="tags" titleKey="message.tags" sortable="true"></display:column>
+		
+		<display:column property="sender.name" titleKey="message.sender" sortable="true"></display:column>
 	
-	<display:column property="tags" titleKey="message.tags" sortable="true"></display:column>
+		<display:column property="receiver.name" titleKey="message.receiver" sortable="true"></display:column>
+		
+		<display:column>
+			<a href="message/actor/edit.do?mensajeId=${row.id}">
+				<spring:message code="message.edit" />
+			</a>
+		</display:column>
+		
+	</display:table>
 
-
-	<display:column>
-		<a href="folder/actor/display.do?folderId=${row.folder.id}">
-		<jstl:out value="${row.folder.name}"></jstl:out>
-		</a>
-	</display:column>
-
-	
-	<display:column property="sender.name" titleKey="message.sender" sortable="true"></display:column>
-
-	<display:column property="receiver.name" titleKey="message.receiver" sortable="true"></display:column>
-</display:table>
+</jstl:if>
