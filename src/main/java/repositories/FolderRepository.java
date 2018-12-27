@@ -25,10 +25,10 @@ public interface FolderRepository extends JpaRepository<Folder, Integer> {
 	@Query("select f from Folder f where f.parentFolder.id = ?1")
 	Collection<Folder> findByParentId(int parentId);
 	
-	@Query("select f from Folder f where f.actor.id = ?1 and f.parentFolder.id = ?2")
+	@Query("select f from Folder f where f.actor.id = ?1 and f.parentFolder.id = ?2 and not f.id = f.parentFolder.id")
 	Collection<Folder> findByActorIdAndParentId(int actorId, int folderId); 
 	
-	@Query("select f from Folder f where f.actor.id = ?1 and f.parentFolder = null")
+	@Query("select f from Folder f where f.actor.id = ?1 and f.parentFolder.id = f.id")
 	Collection<Folder> findByActorIdWithoutParent(int actorId);
 
 }

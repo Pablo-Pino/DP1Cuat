@@ -14,17 +14,28 @@ import org.springframework.util.Assert;
 import repositories.FolderRepository;
 import domain.Actor;
 import domain.Folder;
+import domain.Message;
 
 @Service
 @Transactional
 public class FolderService {
+	
+	// Repository
+	
 	@Autowired
 	private FolderRepository	repository;
+	
+	// Services
+	
 	@Autowired
 	private ActorService		actorService;
 	@Autowired
+	private MessageService messageService;
+	@Autowired
 	private ServiceUtils		serviceUtils;
 
+	// CRUD
+	
 	public Folder findOne(final Integer id) {
 		this.serviceUtils.checkId(id);
 		return this.repository.findOne(id);
@@ -57,6 +68,8 @@ public class FolderService {
 	public Folder save(Folder object) {
 		Folder folder = (Folder) this.serviceUtils.checkObjectSave(object);
 		if(folder.getId() == 0) {
+			if(folder.getParentFolder() == null)
+				folder.setParentFolder(folder);
 			folder.setActor(this.actorService.findPrincipal());
 		} else {
 			folder.setParentFolder(object.getParentFolder());
@@ -71,6 +84,15 @@ public class FolderService {
 		final Folder folder = (Folder) this.serviceUtils.checkObject(object);
 		this.serviceUtils.checkActor(folder.getActor());
 		Assert.isTrue(!folder.getSystem());
+		for(Message m : this.messageService.findByFolder(folder)) {
+			this.messageService.delete(m);
+		}
+		for(Folder f : this.findByActorAndParent(folder.getActor(), folder)) {
+			this.delete(f);
+		}
+		folder.setParentFolder(null);
+		this.save(folder);
+		this.flush();
 		this.repository.delete(folder);
 	}
 
@@ -123,6 +145,10 @@ public class FolderService {
 		Assert.isTrue(actor.getId() > 0);
 		Assert.notNull(this.actorService.findOne(actor.getId()));
 		return this.repository.findByActorIdWithoutParent(actor.getId());
+	}
+	
+	public void flush() {
+		this.repository.flush();
 	}
 	
 }

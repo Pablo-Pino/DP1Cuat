@@ -55,7 +55,7 @@ public class Folder extends DomainEntity {
 	}
 
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Folder getParentFolder() {
 		return this.parentFolder;
 	}
