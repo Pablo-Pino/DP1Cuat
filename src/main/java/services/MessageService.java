@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.MessageRepository;
-import security.LoginService;
 import domain.Actor;
 import domain.Folder;
 import domain.Message;
@@ -54,7 +53,7 @@ public class MessageService {
 	public Message create(final Folder dependency) {
 		final Message res = new Message();
 		res.setMoment(new Date(System.currentTimeMillis() - 1000));
-		res.setFolder(new Folder());
+		res.setFolder(dependency);
 		res.setSender(this.actorService.findPrincipal());
 		res.setTags(new ArrayList<String>());
 		return res;
@@ -62,23 +61,22 @@ public class MessageService {
 
 	public Message save(final Message object) {
 		Message message = (Message) this.serviceUtils.checkObjectSave(object);
+		Message message1 = null;
 		if (message.getId() == 0) {
 			message.setMoment(new Date(System.currentTimeMillis() - 1000));
-			if(LoginService.getPrincipal().equals(message.getSender().getUserAccount())) {
-				message.setFolder(this.folderService.findFolderByActorAndName(message.getSender(), "inbox"));
-			} else if(LoginService.getPrincipal().equals(message.getReceiver().getUserAccount())) {
-				if(this.containsSpam(message)) {
-					message.setFolder(this.folderService.findFolderByActorAndName(message.getReceiver(), "spambox"));
-				} else {
-					message.setFolder(this.folderService.findFolderByActorAndName(message.getReceiver(), "outbox"));
-				}
-			}
+			message.setFolder(this.folderService.findFolderByActorAndName(message.getSender(), "inBox"));
 		} else {
 			message.setFolder(object.getFolder());
 		}
-		Assert.isTrue(message.getFolder().getActor().equals(this.actorService.findPrincipal()));
-		this.serviceUtils.checkPermisionActors(new Actor[] {message.getSender(), message.getReceiver()}, null);
-		return this.repository.save(message);
+		Message res = this.repository.save(message);
+		this.serviceUtils.checkPermisionActor(message.getFolder().getActor(), null);
+		if(message.getId() == 0) 
+			message1 = message;
+			message1.setId(0);
+			message1.setVersion(0);
+			message1.setFolder(this.folderService.findFolderByActorAndName(message.getReceiver(), "outBox"));
+			repository.save(message1);
+		return res;
 	}
 
 	public void delete(final Message object) {
@@ -87,7 +85,10 @@ public class MessageService {
 		final Folder trashboxPrincipal = this.folderService.findFolderByActorAndName(principal, "trashbox");
 		if (message.getFolder().equals(trashboxPrincipal)) {
 			Assert.isTrue(message.getFolder().getActor().equals(this.actorService.findPrincipal()));
-			this.serviceUtils.checkPermisionActors(new Actor[] {message.getSender(), message.getReceiver()}, null);
+			this.serviceUtils.checkPermisionActor(message.getFolder().getActor(), null);
+			for(Message m : this.findCopies(message)) {
+				this.repository.delete(m);
+			}
 			this.repository.delete(message);
 		} else {
 			message.setFolder(this.folderService.findFolderByActorAndName(object.getFolder().getActor(), "trashbox"));
@@ -142,7 +143,7 @@ public class MessageService {
 	public Collection<Message> findByFolder(Folder f) {
 		Assert.notNull(f);
 		Assert.isTrue(f.getId() > 0);
-		Assert.notNull(this.actorService.findOne(f.getId()));
+		Assert.notNull(this.folderService.findOne(f.getId()));
 		return this.repository.findReceivedMessages(f.getId());
 	}
 	

@@ -19,7 +19,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select m from Message m where m.receiver.id = ?1")
 	Collection<Message> findReceivedMessages(int actorId);
 	
-	@Query("select distinct m from Message m where m.folder.id = ?1")
+	@Query("select m from Message m where m.folder.id = ?1")
 	Collection<Message> findByFolderId(int folderId);
 	
 	@Query("select m from Message m where m.moment = ?1 and m.sender.id = ?2 and " +
