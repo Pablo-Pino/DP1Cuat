@@ -18,9 +18,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
+<%-- <p>
 	<spring:message code="category.edit" />
-</p>
+</p> --%>
 
 <!--  Primero pongo la autoridad ya que solo un * maneja las categorias -->
 <security:authorize access="hasRole('ADMIN')">
@@ -47,20 +47,27 @@
 		</form:select>
 		<form:errors cssClass="error" path="parentCategory" />
 		<br />
+		
+		
+		
+		<!--  Los botones de crear y cancelar -->
+
+		<input type="submit" name="save" value="<spring:message code="category.save"></spring:message>" />
+			
+		<button type="button" onclick="javascript: relativeRedir('category/administrator/list.do')" ><spring:message code="category.return" /></button>
+		
+		<input type="submit" name="delete" value="<spring:message code="category.delete"></spring:message>" />
+		
+	<jstl:if test="${category.id != 0}">
+		<input type="submit" name="delete" value="<spring:message code="category.delete" />" onclick="return confirm('<spring:message code="category.confirm.delete" />')" />&nbsp;
+	</jstl:if>	
+		
 		</form:form>
 		
 		
 
 	</div>
-	<!--  Los botones de crear y cancelar -->
 
-		<input type="button" name="save" value="<spring:message code="category.save"></spring:message>" />
-		
-		<spring:message code="category.return" var="return"></spring:message>
-		<input type="button" name="return" value="${return}" onclick="javascript:relativeRedir('category/list.do')" />
-			
-		
-		<input type="button" name="delete" value="<spring:message code="category.delete"></spring:message>" />
 		
 
 </security:authorize>

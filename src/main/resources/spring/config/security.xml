@@ -62,6 +62,11 @@
 		<security:intercept-url pattern="/handyWorker/**" access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/category/**" access="hasRole('ADMIN')" />
+		<security:intercept-url access="hasRole('ADMIN')" pattern="/category/administrator/create.do"/>
+		<security:intercept-url access="hasRole('ADMIN')" pattern="/category/administrator/edit.do"/>
+		<security:intercept-url access="hasRole('ADMIN')" pattern="/category/administrator/delete.do"/>
+		
+		
 			
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

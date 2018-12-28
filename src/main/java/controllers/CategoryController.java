@@ -3,9 +3,12 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,6 +95,37 @@ public class CategoryController extends AbstractController {
 		result.addObject("category", category);
 		result.addObject("message", messageCode);
 
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Category category, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(category);
+		else
+			try {
+				this.categoryService.save(category);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(category, "category.commit.error");
+			}
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Category category, final BindingResult binding) {
+		ModelAndView result;
+		try {
+			System.out.println("Pasa por el try");
+			this.categoryService.delete(category);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			System.out.println("Pasa por el catch");
+			result = this.createEditModelAndView(category, "category.commit.error");
+
+		}
 		return result;
 	}
 }
