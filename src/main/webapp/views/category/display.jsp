@@ -32,18 +32,15 @@
 	<spring:message code="category.parentCategory"></spring:message>
 	<a href="category/administrator/display.do?categoryId=${category.parentCategory.id}"><jstl:out value="${category.parentCategory.name}"></jstl:out></a>
 	<br />
-
-
-	<fieldset>
+<%-- 	<fieldset>
 		<legend>
 			<spring:message code="category.childCategories"></spring:message>
 		</legend>
 		<jstl:forEach items="${category.childCategories}" var="category">
 			<a href="category/administrator/display.do?categoryId=${category.id}"><jstl:out value="${category.name}"></jstl:out></a>
 		</jstl:forEach>
-	</fieldset>
-	
-	<br />
+	</fieldset> --%>
+
 	<br />
 	
 	
