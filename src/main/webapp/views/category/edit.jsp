@@ -26,7 +26,7 @@
 <security:authorize access="hasRole('ADMIN')">
 
 	<div>
-	<form:form action="category/edit.do" method="post" id="formCreate"name="formCreate" modelAttribute="category">
+	<form:form action="category/edit.do" method="post" id="formCreate" name="formCreate" modelAttribute="category">
 
 	<!-- No me acuerdo exactamente para que hacia falta  -->
 			<form:hidden path="id" />
