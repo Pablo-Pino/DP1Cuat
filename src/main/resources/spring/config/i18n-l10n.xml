@@ -42,6 +42,8 @@
 		<value>/views/referee/messages</value>
 		
 		<value>/views/category/messages</value>
+		<value>/views/application/messages</value>
+		
 
 	</util:list>
 

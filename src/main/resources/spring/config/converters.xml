@@ -61,6 +61,13 @@
 		<bean class = "converters.CategoryToStringConverter"></bean>
 		<bean class = "converters.StringToCategoryConverter"></bean>
 		
+		
+		<bean class = "converters.AdministratorToStringConverter"></bean>
+		<bean class = "converters.StringToAdministratorConverter"></bean>
+		
+		<bean class = "converters.ApplicationToStringConverter"></bean>
+		<bean class = "converters.StringToApplicationConverter"></bean>
+		
 	</util:list>
 	
 </beans>
