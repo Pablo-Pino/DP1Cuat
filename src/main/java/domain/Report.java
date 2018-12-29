@@ -1,8 +1,8 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -22,21 +22,21 @@ public class Report extends DomainEntity {
 
 	//-----------Atributos-----------
 
-	private Date				moment;
-	private String				description;
-	private Collection<Url>		attachments;
-	private boolean				draft;
+	private Date		moment;
+	private String		description;
+	private List<Url>	attachments;
+	private boolean		draft;
 
 	//-----------Relaciones----------
 
-	private Complaint			complaint;
+	private Complaint	complaint;
 
 
 	//----------Getters y Setters-------
 
 	@Past
 	@NotNull
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -46,7 +46,7 @@ public class Report extends DomainEntity {
 	}
 
 	@Valid
-	@OneToOne(optional = false) 
+	@OneToOne(optional = false)
 	public Complaint getComplaint() {
 		return this.complaint;
 	}
@@ -57,11 +57,11 @@ public class Report extends DomainEntity {
 
 	@NotNull
 	@ElementCollection
-	public Collection<Url> getAttachments() {
+	public List<Url> getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final Collection<Url> attachments) {
+	public void setAttachments(final List<Url> attachments) {
 		this.attachments = attachments;
 	}
 
