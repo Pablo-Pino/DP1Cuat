@@ -119,7 +119,7 @@
 
 
 	<bean id="userAccount14" class="security.UserAccount">
-		<property name="username" value="handywoker1" />
+		<property name="username" value="handyWorker1" />
 		<property name="password" value="719ef6a0a8ecc67396974f9659f5880d" />
 		<property name="authorities">
 			<list>
@@ -132,7 +132,7 @@
 
 
 	<bean id="userAccount8" class="security.UserAccount">
-		<property name="username" value="handywoker2" />
+		<property name="username" value="handyWorker2" />
 		<property name="password" value="b76bd68be84abed21def45dbc6248dce" />
 		<property name="authorities">
 			<list>
@@ -145,7 +145,7 @@
 
 
 	<bean id="userAccount9" class="security.UserAccount">
-		<property name="username" value="handywoker3" />
+		<property name="username" value="handyWorker3" />
 		<property name="password" value="40018833b495c4530c54d2c774a5533e" />
 		<property name="authorities">
 			<list>
@@ -158,7 +158,7 @@
 
 
 	<bean id="userAccount10" class="security.UserAccount">
-		<property name="username" value="handywoker4" />
+		<property name="username" value="handyWorker4" />
 		<property name="password" value="6cc69e0ffd81eefb7ab28cea37debd03" />
 		<property name="authorities">
 			<list>
