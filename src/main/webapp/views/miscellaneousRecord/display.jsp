@@ -16,6 +16,8 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<security:authorize access="hasRole('HANDYWORKER')">
+
 <p><spring:message code="miscellaneousRecord.display" /></p>
 
 <jstl:out value="${mr.title}"></jstl:out>
@@ -30,3 +32,5 @@
 :
 <jstl:out value="${mr.comment}"></jstl:out>
 <br/>
+
+</security:authorize>

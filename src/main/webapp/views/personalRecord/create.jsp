@@ -18,6 +18,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<p>
+	<spring:message code="personalRecord.create" />
+</p>
+
 <security:authorize access="hasRole('HANDYWORKER')">
 	<div>
 

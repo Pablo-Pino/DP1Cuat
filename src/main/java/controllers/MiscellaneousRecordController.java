@@ -15,7 +15,7 @@ import domain.Curriculum;
 import domain.MiscellaneousRecord;
 
 @Controller
-@RequestMapping("/miscellaneousRecord")
+@RequestMapping("/miscellaneousRecord/handyWorker")
 public class MiscellaneousRecordController extends AbstractController {
 
 	@Autowired

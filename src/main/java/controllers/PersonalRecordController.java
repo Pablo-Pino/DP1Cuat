@@ -15,7 +15,7 @@ import domain.Curriculum;
 import domain.PersonalRecord;
 
 @Controller
-@RequestMapping("/personalRecord")
+@RequestMapping("/personalRecord/handyWorker")
 public class PersonalRecordController extends AbstractController {
 
 	@Autowired
