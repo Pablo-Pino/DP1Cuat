@@ -89,7 +89,11 @@ public class SectionService {
 					movedSection.setNumberOrder(sectionNumberOrder);
 				}
 		}
-		Assert.isTrue(object.getNumberOrder() > 0 && object.getNumberOrder() <= section.getTutorial().getSections().size() + 1);
+		if (object.getId() == 0)
+			Assert.isTrue(object.getNumberOrder() <= section.getTutorial().getSections().size() + 1);
+		else
+			Assert.isTrue(object.getNumberOrder() <= section.getTutorial().getSections().size());
+		Assert.isTrue(object.getNumberOrder() > 0);
 		if (movedSection != null)
 			this.repository.save(movedSection);
 		this.serviceUtils.checkActor(section.getTutorial().getHandyWorker());
@@ -97,7 +101,6 @@ public class SectionService {
 		final Section res = this.repository.save(section);
 		return res;
 	}
-
 	public void delete(final Section object) {
 		final Section section = (Section) this.serviceUtils.checkObject(object);
 		this.serviceUtils.checkActor(section.getTutorial().getHandyWorker());
