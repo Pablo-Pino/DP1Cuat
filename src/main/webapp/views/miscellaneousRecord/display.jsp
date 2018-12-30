@@ -28,9 +28,9 @@
 <jstl:out value="${mr.attachment}"></jstl:out>
 <br/>
 
-<spring:message code="miscellaneousRecord.comment"></spring:message>
+<spring:message code="miscellaneousRecord.comments"></spring:message>
 :
-<jstl:out value="${mr.comment}"></jstl:out>
+<jstl:out value="${mr.comments}"></jstl:out>
 <br/>
 
 </security:authorize>

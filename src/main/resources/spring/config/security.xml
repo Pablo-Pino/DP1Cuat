@@ -52,7 +52,7 @@
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 		
 		<security:intercept-url pattern="/fixupTask/**" access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/tutorial/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/tutorial/**" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/note/**"
 			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/miscellaneousRecord/**" access="hasRole('HANDYWORKER')" /> 

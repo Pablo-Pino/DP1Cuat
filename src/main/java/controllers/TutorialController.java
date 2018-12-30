@@ -22,7 +22,7 @@ import domain.Sponsorship;
 import domain.Tutorial;
 
 @Controller
-@RequestMapping("/tutorial")
+@RequestMapping("/tutorial/handyWorker")
 public class TutorialController extends AbstractController {
 
 	@Autowired
@@ -46,7 +46,7 @@ public class TutorialController extends AbstractController {
 
 		result = new ModelAndView("tutorial/list");
 		result.addObject("tutorials", tutorials);
-		result.addObject("requestURI", "tutorial/list.do");
+		result.addObject("requestURI", "tutorial/handyWorker/list.do");
 
 		return result;
 	}

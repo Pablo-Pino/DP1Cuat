@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CurriculumService;
@@ -32,6 +33,17 @@ public class PersonalRecordController extends AbstractController {
 
 		personalRecord = this.personalRecordService.create();
 		result = this.createEditModelAndView(personalRecord);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int personalRecordId) {
+		ModelAndView result;
+		PersonalRecord pr;
+		pr = this.personalRecordService.findOne(personalRecordId);
+		result = new ModelAndView("personalRecord/display");
+		result.addObject("personalRecord", pr);
 
 		return result;
 	}
