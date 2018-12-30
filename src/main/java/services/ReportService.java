@@ -17,6 +17,7 @@ import org.springframework.util.Assert;
 import repositories.ReportRepository;
 import security.Authority;
 import domain.Complaint;
+import domain.Note;
 import domain.Report;
 import domain.Url;
 
@@ -25,20 +26,21 @@ import domain.Url;
 public class ReportService {
 
 	// Repository
-	
+
 	@Autowired
 	private ReportRepository	repository;
 
 	// Services
-	
+
 	@Autowired
 	private ComplaintService	complaintService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
+
 	// CRUD methods
 
-	public Report findOne(Integer id) {
+	public Report findOne(final Integer id) {
 		this.serviceUtils.checkId(id);
 		return this.repository.findOne(id);
 	}
@@ -51,17 +53,17 @@ public class ReportService {
 	public Collection<Report> findAll() {
 		return this.repository.findAll();
 	}
-	
+
 	public Collection<Report> findAll(final Complaint dependency) {
 		this.serviceUtils.checkId(dependency);
 		Assert.notNull(this.complaintService.findOne(dependency.getId()));
 		return this.repository.findByComplaint(dependency.getId());
 	}
-	
+
 	public Report findByComplaint(final Complaint dependency) {
 		this.serviceUtils.checkId(dependency);
 		Assert.notNull(this.complaintService.findOne(dependency.getId()));
-		List<Report> reports = new ArrayList<Report>(this.repository.findByComplaint(dependency.getId()));
+		final List<Report> reports = new ArrayList<Report>(this.repository.findByComplaint(dependency.getId()));
 		return reports.get(0);
 	}
 
@@ -71,11 +73,12 @@ public class ReportService {
 		res.setAttachments(new ArrayList<Url>());
 		res.setDraft(true);
 		res.setMoment(new Date(System.currentTimeMillis() - 1000));
+		res.setNotes(new ArrayList<Note>());
 		return res;
 	}
 
 	public Report save(final Report object) {
-		Report report = (Report) this.serviceUtils.checkObjectSave(object);
+		final Report report = (Report) this.serviceUtils.checkObjectSave(object);
 		if (report.getId() == 0) {
 			this.serviceUtils.checkId(report.getComplaint());
 			Assert.notNull(this.complaintService.findOne(report.getComplaint().getId()));
@@ -100,13 +103,13 @@ public class ReportService {
 		this.complaintService.save(report.getComplaint());
 		this.repository.delete(report);
 	}
-	
+
 	// Other methods
-	
+
 	public void flush() {
 		this.repository.flush();
 	}
-	
+
 	public Map<String, Double> refeeReportStats() {
 		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		final Double[] statistics = this.repository.refeeReportStats();

@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +82,7 @@ public class ReportController extends AbstractController {
 				this.reportService.save(report);
 				res = new ModelAndView("redirect:/report/actor/profile.do?reportId=" + String.valueOf(report.getId()));
 			} catch (final Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
+				res = this.createEditModelAndView(report, "cannot.commit.error");
 			}
 		return res;
 	}
@@ -95,7 +97,7 @@ public class ReportController extends AbstractController {
 			this.reportService.delete(report);
 			res = new ModelAndView("redirect:/");
 		} catch (final Throwable t) {
-			res = new ModelAndView("cannot.commit.error");
+			res = this.createEditModelAndView(report, "cannot.commit.error");
 		}
 		return res;
 	}
@@ -109,6 +111,8 @@ public class ReportController extends AbstractController {
 		try {
 			final Url url = new Url();
 			url.setUrl("");
+			if (report.getAttachments() == null)
+				report.setAttachments(new ArrayList<Url>());
 			report.getAttachments().add(url);
 			res = this.createEditModelAndView(report);
 		} catch (final Throwable t) {
@@ -116,7 +120,6 @@ public class ReportController extends AbstractController {
 		}
 		return res;
 	}
-
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "referee/edit", method = RequestMethod.POST, params = "removeAttachment")
 	private ModelAndView removeAttachment(final Report report, final BindingResult binding) {

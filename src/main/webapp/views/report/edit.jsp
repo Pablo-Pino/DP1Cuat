@@ -16,58 +16,86 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="report/edit.do" modelAttribute="report" method="post">
-	
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="moment" />
-	<form:hidden path="complaint" />
-		
-	<div>
-		<form:label path="description">
-			<spring:message code="report.description" />
-		</form:label>	
-		<form:input path="description" />	
-		<form:errors path="description" cssClass="error" />
-	</div>
-	
-	<fieldset><legend><spring:message code="report.attachments" /></legend>
-		<jstl:forEach begin="0" end="${report.attachments.size}" step="1" varStatus="varStatusAttachments" >
-			<div>
-				<form:label path="attachments[${varStatusAttachments.index}]">
-					<spring:message code="report.attachment" />
-				</form:label>	
-				<form:input path="attachments[${varStatusAttachments.index}]" />	
-				<form:errors path="attachments[${varStatusAttachments.index}]" cssClass="error" />
-			</div>
-			
-			<spring:message code="report.attachment.remove" var="removeAttachmentTitle" />
-			<button onclick='javascript: relativeRedir("<jstl:out value="report/removeAttachment.do?reportId=${report.id}&url=${report.attachments[varStatusAttachments.index]}"></jstl:out>")' >${removeAttachmentTitle}</button>
-		</jstl:forEach>
-	
-		<spring:message code="report.attachment.add" var="addAttachmentTitle" />
-		<button onclick='javascript: relativeRedir("<jstl:out value="report/addAttachment.do?reportId=${report.id}"></jstl:out>")' >${addAttachmentTitle}</button>
-	</fieldset>
-	
-	<div>
-		<form:label path="draft">
-			<spring:message code="report.draft" />
-		</form:label>	
-		<form:checkbox path="draft" />	
-		<form:errors path="draft" cssClass="error" />
-	</div>
+<jstl:if test="${isPrincipalAuthorisedEdit}">
 
-<jstl:if test="${isPrincipalAuthorizedEdit}">	
-	<button type="submit" name="save" class="btn btn-primary">
-		<spring:message code="report.save" />
-	</button>
-</jstl:if>
+	<form:form action="report/referee/edit.do" modelAttribute="report" method="post">
+		
+		<form:hidden path="id" />
+		<form:hidden path="version" />
+		<form:hidden path="moment" />
+		<form:hidden path="complaint" />
+		<form:hidden path="notes" />
+			
+		<div>
+			<form:label path="description">
+				<spring:message code="report.description" />
+			</form:label>	
+			<form:input path="description" />	
+			<form:errors path="description" cssClass="error" />
+		</div>
+		
+		<fieldset><legend><spring:message code="report.attachments" /></legend>
+			
+			<jstl:if test="${report.attachments.size() > 0}">
+			
+				<jstl:forEach items="${report.attachments}" var="attachment" varStatus="varStatusAttachments" >
+					
+					<div>
+						<form:label path="attachments[${varStatusAttachments.index}]">
+							<spring:message code="report.attachment" />
+						</form:label>	
+						<form:input path="attachments[${varStatusAttachments.index}]" />	
+						<form:errors path="attachments[${varStatusAttachments.index}]" cssClass="error" />
+					</div>
+					
+				</jstl:forEach>
+				
+			</jstl:if>
+		
+			<jstl:if test="${report.attachments.size() == 0}">
+			
+				<form:hidden path="attachments" />
+			
+			</jstl:if>
+		
+			<spring:message code="report.attachment.add" var="addAttachmentTitle" />
+			<button type="submit" name="addAttachment" class="btn btn-primary">
+				${addAttachmentTitle}
+			</button>
+			
+			<jstl:if test="${report.attachments.size() > 0}">
+				<spring:message code="report.attachment.remove" var="removeAttachmentTitle" />
+				<button type="submit" name="removeAttachment" class="btn btn-primary">
+					${removeAttachmentTitle}
+				</button>
+			</jstl:if>
+			
+		</fieldset>
+		
+		<div>
+			<form:label path="draft">
+				<spring:message code="report.draft" />
+			</form:label>	
+			<form:checkbox path="draft" />	
+			<form:errors path="draft" cssClass="error" />
+		</div>
 	
-</form:form>
+	<jstl:if test="${isPrincipalAuthorizedEdit}">	
+		<button type="submit" name="save" class="btn btn-primary">
+			<spring:message code="report.save" />
+		</button>
+		<button type="submit" name="delete" class="btn btn-primary">
+			<spring:message code="report.delete" />
+		</button>
+	</jstl:if>
+		
+	</form:form>
+	
+</jstl:if>
 
 <jstl:choose>
 	<jstl:when test="${report.id > 0}">
-		<button type="button" onclick="javascript: relativeRedir('report/profile.do?reportId=${report.id}')" >
+		<button type="button" onclick="javascript: relativeRedir('report/actor/profile.do?reportId=${report.id}')" >
 			<spring:message code="report.cancel" />
 		</button>
 	</jstl:when>

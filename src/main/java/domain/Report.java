@@ -1,6 +1,7 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -22,14 +24,15 @@ public class Report extends DomainEntity {
 
 	//-----------Atributos-----------
 
-	private Date		moment;
-	private String		description;
-	private List<Url>	attachments;
-	private boolean		draft;
+	private Date				moment;
+	private String				description;
+	private List<Url>			attachments;
+	private boolean				draft;
 
 	//-----------Relaciones----------
 
-	private Complaint	complaint;
+	private Complaint			complaint;
+	private Collection<Note>	notes;
 
 
 	//----------Getters y Setters-------
@@ -82,6 +85,16 @@ public class Report extends DomainEntity {
 
 	public void setDraft(final boolean draft) {
 		this.draft = draft;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "report")
+	public Collection<Note> getNotes() {
+		return this.notes;
+	}
+	public void setNotes(final Collection<Note> notes) {
+		this.notes = notes;
 	}
 
 }
