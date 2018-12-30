@@ -30,6 +30,20 @@ public class NoteController extends AbstractController {
 	ReportService	reportService;
 
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<Note> notes;
+
+		notes = this.noteService.findAll();
+
+		result = new ModelAndView("note/list");
+		result.addObject("notes", notes);
+		result.addObject("requestURI", "note/referee/list.do");
+
+		return result;
+	}
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;

@@ -80,6 +80,17 @@ public class FixupTaskController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int fixupTaskId) {
+		ModelAndView result;
+		FixupTask f;
+		f = this.fixupTaskService.findOne(fixupTaskId);
+		result = new ModelAndView("fixupTask/display");
+		result.addObject("fixupTask", f);
+
+		return result;
+	}
+
 	//Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
