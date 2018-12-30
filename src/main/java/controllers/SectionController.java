@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import services.TutorialService;
 import domain.Actor;
 import domain.Section;
 import domain.Tutorial;
+import domain.Url;
 
 @Controller
 @RequestMapping("section")
@@ -43,7 +45,8 @@ public class SectionController extends AbstractController {
 		final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
 		final Collection<Section> sections = this.sectionService.findByTutorial(tutorial);
 		res.addObject("sections", sections);
-		res.addObject("requestURI", "section/list.do");
+		res.addObject("tutorialId", tutorialId);
+		res.addObject("requestURI", "section/actor/list.do");
 		this.isPrincipalAuthorizedEdit(res, tutorialId);
 		return res;
 	}
@@ -79,9 +82,9 @@ public class SectionController extends AbstractController {
 		else
 			try {
 				this.sectionService.save(section);
-				res = new ModelAndView("redirect:list.do");
+				res = new ModelAndView("redirect:");
 			} catch (final Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
+				res = this.createEditModelAndView(section, "cannot.commit.error");
 			}
 		return res;
 	}
@@ -90,17 +93,44 @@ public class SectionController extends AbstractController {
 
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "handyworker/edit", method = RequestMethod.POST, params = "delete")
-	private ModelAndView delete(@Valid final Section section, final BindingResult binding) {
+	private ModelAndView delete(final Section section, final BindingResult binding) {
 		ModelAndView res = null;
-		if (binding.hasErrors())
-			this.createEditModelAndView(section);
-		else
-			try {
-				this.sectionService.delete(section);
-				res = new ModelAndView("redirect:list.do");
-			} catch (final Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
-			}
+		try {
+			this.sectionService.delete(section);
+			res = new ModelAndView("redirect:actor/list.do?tutorialId=" + String.valueOf(section.getTutorial().getId()));
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(section, "cannot.commit.error");
+		}
+		return res;
+	}
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "handyworker/edit", method = RequestMethod.POST, params = "addPicture")
+	private ModelAndView addPicture(final Section section, final BindingResult binding) {
+		ModelAndView res = null;
+		try {
+			final Url picture = new Url();
+			picture.setUrl("");
+			if (section.getPictures() == null)
+				section.setPictures(new ArrayList<Url>());
+			section.getPictures().add(picture);
+			res = new ModelAndView("redirect:actor/list.do?tutorialId=" + String.valueOf(section.getTutorial().getId()));
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(section, "cannot.commit.error");
+		}
+		return res;
+	}
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "handyworker/edit", method = RequestMethod.POST, params = "removePicture")
+	private ModelAndView removePicture(final Section section, final BindingResult binding) {
+		ModelAndView res = null;
+		try {
+			section.getPictures().remove(section.getPictures().size() - 1);
+			res = this.createEditModelAndView(section);
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(section, "cannot.commit.error");
+		}
 		return res;
 	}
 
