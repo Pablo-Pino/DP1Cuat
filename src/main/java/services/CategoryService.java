@@ -95,30 +95,19 @@ public class CategoryService {
 			throw new IllegalArgumentException("NO SE PUEDE BORRAR LA CATEGORIA RAIZ");
 
 		}
-		if (!(cat.getName().equals("CATEGORY"))) {
-			System.out.println("pasa por 1");
-
-			if (this.tieneHijas(cat) == false) {
-				System.out.println("pasa por 2");
-
-				this.changeFixupTaskCategory(cat);
-				System.out.println("pasa por 3");
-
-				this.categoryRepository.delete(cat);
-				System.out.println("pasa por 4");
-
-			}
-
-			if (this.tieneHijas(cat) == true)
-				System.out.println("pasa por 5");
-
+		if (this.tieneHijas(cat) == true) {
 			for (final Category hija : this.findByParent(cat))
 				this.delete(hija);
+			this.changeFixupTaskCategory(cat);
+			this.categoryRepository.delete(cat);
+		}
 
+		else {
+			this.changeFixupTaskCategory(cat);
+			this.categoryRepository.delete(cat);
 		}
 
 	}
-
 	public Collection<Category> findByParent(final Category parent) {
 		Assert.notNull(parent);
 		Assert.isTrue(parent.getId() > 0);

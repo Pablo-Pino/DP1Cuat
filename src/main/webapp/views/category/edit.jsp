@@ -56,7 +56,6 @@
 			
 		<button type="button" onclick="javascript: relativeRedir('category/administrator/list.do')" ><spring:message code="category.return" /></button>
 		
-		<input type="submit" name="delete" value="<spring:message code="category.delete"></spring:message>" />
 		
 	<jstl:if test="${category.id != 0}">
 		<input type="submit" name="delete" value="<spring:message code="category.delete" />" onclick="return confirm('<spring:message code="category.confirm.delete" />')" />&nbsp;
