@@ -60,6 +60,13 @@
 		<security:intercept-url pattern="/message/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/folder/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/handyWorker/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/report/actor/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/report/referee/**" access="hasRole('REFEREE')" />
+		
+		<security:intercept-url pattern="/section/actor/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/section/handyworker/**" access="hasRole('HANDYWORKER')" />
+		
+		<security:intercept-url pattern="/socialprofile/actor/**" access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/category/**" access="hasRole('ADMIN')" />
 			
