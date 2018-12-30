@@ -18,9 +18,9 @@
 		<display:column property="moment" titleKey="message.moment" sortable="true"
 			format="{0,date, ${date}}"></display:column>
 	
-		<display:column property="subject" titleKey="${subject}" sortable="true"></display:column>
+		<display:column property="subject" titleKey="message.subject" sortable="true"></display:column>
 		
-		<display:column property="body" titleKey="message.subject" sortable="false"></display:column>
+		<display:column property="body" titleKey="message.body" sortable="false"></display:column>
 	
 		<display:column titleKey="message.priority" sortable="true">
 			<spring:message code="message.${row.priority}" />
@@ -33,7 +33,7 @@
 		<display:column property="receiver.name" titleKey="message.receiver" sortable="true"></display:column>
 		
 		<display:column>
-			<a href="message/actor/edit.do?mensajeId=${row.id}">
+			<a href="message/actor/edit.do?messageId=${row.id}">
 				<spring:message code="message.edit" />
 			</a>
 		</display:column>

@@ -66,7 +66,7 @@
 					<form:label path="tags">
 						<spring:message code="message.tags"></spring:message>
 					</form:label>
-					<form:textarea path="tags" id="tags" name="tags" />
+					<form:input path="tags" id="tags" name="tags" />
 					<form:errors cssClass="error" path="tags"></form:errors>
 				</div>
 				
@@ -97,8 +97,11 @@
 					<form:label path="folder">
 						<spring:message code="message.folder" />
 					</form:label>
-					<form:select id="folder" path="folder">
-						<form:options items="${folders}" itemLabel="name" itemValue="id" />
+					<form:select path="folder" >
+						<form:option value="0">-----</form:option>
+						<jstl:forEach items="${folders}" var="folder">
+							<form:option value="${folder.id}"><jstl:out value="${folder.name}" /></form:option>
+						</jstl:forEach>
 					</form:select>
 					<form:errors cssClass="error" path="folder" />
 				</div>
