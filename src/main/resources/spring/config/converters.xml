@@ -68,6 +68,29 @@
 		<bean class = "converters.ApplicationToStringConverter"></bean>
 		<bean class = "converters.StringToApplicationConverter"></bean>
 		
+		
+		
+		<bean class = "converters.EducationRecordToStringConverter"></bean>
+		<bean class = "converters.StringToEducationRecordConverter"></bean>
+		
+		<!-- <bean class = "converters.CurriculumToStringConverter"></bean>
+		<bean class = "converters.StringToCurriculumConverter"></bean>
+		
+		<bean class = "converters.CustomerToStringConverter"></bean>
+		<bean class = "converters.StringToCustomerConverter"></bean>
+		
+		<bean class = "converters.EndorsableToStringConverter"></bean>
+		<bean class = "converters.StringToEndorsableConverter"></bean>
+		
+		<bean class = "converters.EndorsementToStringConverter"></bean>
+		<bean class = "converters.StringToEndorsementConverter"></bean>
+		
+		<bean class = "converters.EndorserRecordToStringConverter"></bean>
+		<bean class = "converters.StringToEndorserRecordConverter"></bean>
+		
+		<bean class = "converters.FinderToStringConverter"></bean>
+		<bean class = "converters.StringToFinderConverter"></bean> -->
+		
 	</util:list>
 	
 </beans>

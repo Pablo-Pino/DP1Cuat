@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -18,7 +19,7 @@ import domain.EducationRecord;
 import domain.HandyWorker;
 
 @Controller
-@RequestMapping("educationRecord/handyWorker")
+@RequestMapping("/educationRecord/handyWorker")
 public class EducationRecordController extends AbstractController {
 
 	//-----------------Services-------------------------
@@ -47,6 +48,19 @@ public class EducationRecordController extends AbstractController {
 		result = new ModelAndView("educationRecord/list");
 		result.addObject("educationRecords", educationRecords);
 		result.addObject("requestURI", "educationRecord/handyWorker/list.do");
+
+		return result;
+	}
+
+	//-----------------Display-------------------------
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int educationRecordId) {
+		ModelAndView result;
+		EducationRecord educationRecord;
+		educationRecord = this.educationRecordService.findOne(educationRecordId);
+		result = new ModelAndView("educationRecord/display");
+		result.addObject("educationRecord", educationRecord);
 
 		return result;
 	}

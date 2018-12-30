@@ -18,12 +18,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="educationRecord.list" />
-</p>
 
 
-<display:table name="educationRecord" id="educationRecord"
+<display:table name="educationRecords" id="educationRecord"
 	requestURI="educationRecord/handyWorker/list.do" pagesize="5"
 	class="displaytag">
 
@@ -33,31 +30,47 @@
 
 		<%--  La columna que va a la vista edit de las educationRecord --%>
 		<display:column>
-			<a href="educationRecord/handyWorker/edit.do?educationRecordId=${EducationRecord.id}"><spring:message
+			<a
+				href="educationRecord/handyWorker/edit.do?educationRecordId=${educationRecord.id}"><spring:message
 					code="educationRecord.edit"></spring:message></a>
 		</display:column>
 
 
 		<%--  La columna que va a la vista display de las educationRecord --%>
 		<display:column>
-			<a href="educationRecord/handyWorker/display.do?educationRecordId=${EducationRecord.id}"><spring:message
+			<a
+				href="educationRecord/handyWorker/display.do?educationRecordId=${educationRecord.id}"><spring:message
 					code="educationRecord.display"></spring:message></a>
 		</display:column>
 
-		<spring:message code="educationRecord.diplomaTitle" var="educationRecordDiplomaTitle"></spring:message>
-		<display:column property="diplomaTitle" title="${educationRecordDiplomaTitle}"
-			sortable="true" />
+		<spring:message code="educationRecord.diplomaTitle"
+			var="educationRecordDiplomaTitle"></spring:message>
+		<display:column property="diplomaTitle"
+			title="${educationRecordDiplomaTitle}" sortable="true" />
+
+		<spring:message code="educationRecord.startDate" var="startDate"></spring:message>
+		<display:column property="start" title="${startDate}" sortable="true" />
 
 		<spring:message code="educationRecord.endDate" var="endDate"></spring:message>
-		<display:column property="endDate"
-			title="${endDate}" sortable="true" />
-			
-			<spring:message code="educationRecord.institution" var="institution"></spring:message>
-		<display:column property="institution"
-			title="${institution}" sortable="true" />
+		<display:column property="end" title="${endDate}" sortable="true" />
 
 
-	
+		<spring:message code="educationRecord.institution" var="institution"></spring:message>
+		<display:column property="institution" title="${institution}"
+			sortable="true" />
+
+		<spring:message code="educationRecord.attachment" var="attachment"></spring:message>
+		<display:column property="attachment" title="${attachment}"
+			sortable="true" />
+
+		<spring:message code="educationRecord.comments" var="comments"></spring:message>
+		<display:column property="comments" title="${comments}"
+			sortable="true" />
+
+
+
+
+
 
 
 	</security:authorize>
