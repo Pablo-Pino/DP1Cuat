@@ -74,7 +74,15 @@ public class EducationRecordController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		EducationRecord er;
+		Curriculum curriculum;
+		HandyWorker handyWorker;
+
+		handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+		curriculum = this.curriculumService.findByHandyWorker(handyWorker);
+
 		er = this.educationRecordService.create();
+
+		er.setCurriculum(curriculum);
 
 		result = this.createEditModelAndView(er);
 
@@ -133,6 +141,19 @@ public class EducationRecordController extends AbstractController {
 
 		result = this.createEditModelAndView(educationRecord, null);
 
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final EducationRecord educationRecord, final BindingResult binding) {
+		ModelAndView result;
+		try {
+			this.educationRecordService.delete(educationRecord);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
+
+		}
 		return result;
 	}
 

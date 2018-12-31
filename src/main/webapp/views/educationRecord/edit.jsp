@@ -108,7 +108,13 @@
 				<spring:message code="educationRecord.cancel" />
 			</button>
 
-			
+			<jstl:if test="${educationRecord.id != 0}">
+				<input type="submit" name="delete"
+					value="<spring:message code="educationRecord.delete" />"
+					onclick="return confirm('<spring:message code="educationRecord.confirm.delete" />')" />&nbsp;
+	</jstl:if>
+
+
 
 
 

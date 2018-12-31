@@ -43,7 +43,7 @@
 
 
 
-<input type="submit" name="edit" value="<spring:message code="educationRecord.edit"></spring:message>" />	
+<input type="button" name="edit" value="<spring:message code="educationRecord.edit"></spring:message>" onclick="javascript:relativeRedir('educationRecord/handyWorker/edit.do?educationRecordId=${educationRecord.id}')"/>	
 <input type="button" name="cancel" value="<spring:message code="educationRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('educationRecord/handyWorker/list.do')" />	
 
 
