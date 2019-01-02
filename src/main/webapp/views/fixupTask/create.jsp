@@ -72,12 +72,8 @@
 			<br />
 				
 
-			<input type="submit" name="save"
-				value="<spring:message code="fixupTask.save"></spring:message>" />
-
-			<spring:message code="fixupTask.cancel" var="cancelHeader"></spring:message>
-			<input type="button" name="cancel" value="${cancelHeader}"
-				onclick="javascript:relativeRedir('fixupTask/customer/list.do')" />
+			<input type="submit" name="save" value="<spring:message code="fixupTask.save"></spring:message>" />	
+		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('fixupTask/display.do')" />
 		</form:form>
 
 	</div>
