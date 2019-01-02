@@ -10,9 +10,20 @@
 
 package controllers;
 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import security.LoginService;
+import services.ActorService;
+import services.CustomerService;
+import services.SocialProfileService;
+import domain.Customer;
+import domain.SocialProfile;
 
 @Controller
 @RequestMapping("/customer")
@@ -23,6 +34,19 @@ public class CustomerController extends AbstractController {
 	public CustomerController() {
 		super();
 	}
+
+
+	//-----------------Services-------------------------
+
+	@Autowired
+	CustomerService			customerService;
+
+	@Autowired
+	ActorService			actorService;
+
+	@Autowired
+	SocialProfileService	socialProfileService;
+
 
 	// Action-1 ---------------------------------------------------------------		
 
@@ -42,6 +66,25 @@ public class CustomerController extends AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("customer/action-2");
+
+		return result;
+	}
+
+	//-----------------Display-------------------------
+
+	//display creado para mostrar al customer logueado
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display() {
+		ModelAndView result;
+		Customer customer;
+		Collection<SocialProfile> socialProfiles;
+
+		customer = (Customer) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+		socialProfiles = this.socialProfileService.findAllByActor(customer);
+		System.out.println("\n\n\n---------------------------------------------" + socialProfiles);
+		result = new ModelAndView("customer/display");
+		result.addObject("customer", customer);
+		result.addObject(socialProfiles);
 
 		return result;
 	}
