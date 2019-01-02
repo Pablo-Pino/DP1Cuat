@@ -46,7 +46,7 @@
 	
 
 	<input type="submit" name="save"
-		value="<spring:message code="tutorial" />" />&nbsp; 
+		value="<spring:message code="tutorial.save" />" />&nbsp; 
 	<jstl:if test="${tutorial.id != 0}">
 		<input type="submit" name="delete"
 			value="<spring:message code="tutorial.delete" />"

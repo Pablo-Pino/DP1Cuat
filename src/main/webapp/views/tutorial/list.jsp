@@ -41,8 +41,7 @@
 	
 	<!-- Attributos -->
 	
-	<spring:message code="tutorial.ticker" var="ticker" />
-	<display:column property="ticker" title="${ticker}" sortable="true" />
+
 
 	<spring:message code="tutorial.moment" var="moment" />
 	<display:column property="moment" title="${moment}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
@@ -55,7 +54,7 @@
 	
 	<spring:message code="tutorial.sections" var="tutsec" />
 	<display:column title="${tutsec}">
-		<jstl:forEach items="${Tutorial.sections}" var="tutorialSections">
+		<jstl:forEach items="${tutorial.sections}" var="tutorialSections">
 			<a href="tutorial/handyworker/list.do?sectionId= ${tutorialSections.id}"> <jstl:out value="tutorial.section"></jstl:out></a>
 		</jstl:forEach>
 	</display:column>

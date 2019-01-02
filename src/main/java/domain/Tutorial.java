@@ -34,24 +34,25 @@ public class Tutorial extends DomainEntity {
 	//-------------Relaciones--------------
 
 	private HandyWorker				handyWorker;
-	private Collection<Section> sections;
-	private Collection<Sponsorship> sponsorships;
+	private Collection<Section>		sections;
+	private Collection<Sponsorship>	sponsorships;
+
 
 	//-------------Getters y Setters--------
 
 	@Valid
 	@ManyToMany
 	public Collection<Sponsorship> getSponsorships() {
-		return sponsorships;
+		return this.sponsorships;
 	}
 
-	public void setSponsorships(Collection<Sponsorship> sponsorships) {
+	public void setSponsorships(final Collection<Sponsorship> sponsorships) {
 		this.sponsorships = sponsorships;
 	}
 
 	@NotNull
 	@Past
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -100,16 +101,16 @@ public class Tutorial extends DomainEntity {
 	public void setHandyWorker(final HandyWorker handyWorker) {
 		this.handyWorker = handyWorker;
 	}
-	
+
 	@Valid
 	@OneToMany(mappedBy = "tutorial", cascade = CascadeType.ALL)
 	@NotEmpty
 	@NotNull
 	public Collection<Section> getSections() {
-		return sections;
+		return this.sections;
 	}
 
-	public void setSections(Collection<Section> sections) {
+	public void setSections(final Collection<Section> sections) {
 		this.sections = sections;
 	}
 
