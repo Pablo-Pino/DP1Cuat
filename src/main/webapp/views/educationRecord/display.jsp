@@ -16,36 +16,35 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="educationRecord.display" /></p>
 
-<spring:message code="educationRecord.dimplomaTitle"></spring:message>:
+<b><spring:message code="educationRecord.diplomaTitle"></spring:message>:</b>
 <jstl:out value="${educationRecord.diplomaTitle}"></jstl:out>
 <br/>
 
-<spring:message code="educationRecord.start"></spring:message>:
+<b><spring:message code="educationRecord.start"></spring:message>:</b>
 <jstl:out value="${educationRecord.start}"></jstl:out>
 <br/>
 
-<spring:message code="educationRecord.end"></spring:message>:
+<b><spring:message code="educationRecord.end"></spring:message>:</b>
 <jstl:out value="${educationRecord.end}"></jstl:out>
 <br/>
 
-<spring:message code="educationRecord.institution"></spring:message>:
+<b><spring:message code="educationRecord.institution"></spring:message>:</b>
 <jstl:out value="${educationRecord.institution}"></jstl:out>
 <br/>
 
-<spring:message code="educationRecord.attachment"></spring:message>:
+<b><spring:message code="educationRecord.attachment"></spring:message>:</b>
 <jstl:out value="${educationRecord.attachment}"></jstl:out>
 <br/>
 
-<spring:message code="educationRecord.comments"></spring:message>:
+<b><spring:message code="educationRecord.comments"></spring:message>:</b>
 <jstl:out value="${educationRecord.comments}"></jstl:out>
 <br/>
 
 
 
 <input type="submit" name="edit" value="<spring:message code="educationRecord.edit"></spring:message>" />	
-<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('educationRecord/display.do')" />	
+<input type="button" name="cancel" value="<spring:message code="educationRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('educationRecord/handyWorker/list.do')" />	
 
 
 

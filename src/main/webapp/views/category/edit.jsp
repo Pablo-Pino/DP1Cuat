@@ -18,15 +18,15 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
+<%-- <p>
 	<spring:message code="category.edit" />
-</p>
+</p> --%>
 
 <!--  Primero pongo la autoridad ya que solo un * maneja las categorias -->
 <security:authorize access="hasRole('ADMIN')">
 
 	<div>
-	<form:form action="category/edit.do" method="post" id="formCreate"name="formCreate" modelAttribute="category">
+	<form:form action="category/administrator/edit.do" method="post" id="formCreate" name="formCreate" modelAttribute="category">
 
 	<!-- No me acuerdo exactamente para que hacia falta  -->
 			<form:hidden path="id" />
@@ -42,25 +42,31 @@
 		<form:label path="parentCategory"> <spring:message code="category.parentCategory"></spring:message></form:label>
 		
 		<form:select id="parentCategory" path="parentCategory">
-		<form:option value="${CATEGORY}" label="CATEGORY"></form:option>
-		<form:options items="${childCategories}" itemLabel="name" itemValue="id" />
+		<form:option value="${category.parentCategory}" label="------"></form:option>
+		<form:options items="${categories}" itemLabel="name" itemValue="id" />
 		</form:select>
 		<form:errors cssClass="error" path="parentCategory" />
 		<br />
+		
+		
+		
+		<!--  Los botones de crear y cancelar -->
+
+		<input type="submit" name="save" value="<spring:message code="category.save"></spring:message>" />
+			
+		<button type="button" onclick="javascript: relativeRedir('category/administrator/list.do')" ><spring:message code="category.return" /></button>
+		
+		
+	<jstl:if test="${category.id != 0}">
+		<input type="submit" name="delete" value="<spring:message code="category.delete" />" onclick="return confirm('<spring:message code="category.confirm.delete" />')" />&nbsp;
+	</jstl:if>	
+		
 		</form:form>
 		
 		
 
 	</div>
-	<!--  Los botones de crear y cancelar -->
 
-		<input type="button" name="save" value="<spring:message code="category.save"></spring:message>" />
-		
-		<spring:message code="category.return" var="return"></spring:message>
-		<input type="button" name="return" value="${return}" onclick="javascript:relativeRedir('category/list.do')" />
-			
-		
-		<input type="button" name="delete" value="<spring:message code="category.delete"></spring:message>" />
 		
 
 </security:authorize>

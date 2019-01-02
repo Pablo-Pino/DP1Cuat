@@ -18,36 +18,31 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="category.display" />
-</p>
+
 
 
 <security:authorize access="hasRole('ADMIN')">
-	<spring:message code="category.name"></spring:message> 
+	<spring:message code="category.name"></spring:message>:
 	<jstl:out value="${category.name}"></jstl:out>
 	<br />
 
 
-	<spring:message code="category.parentCategory"></spring:message>
+	<spring:message code="category.parentCategory"></spring:message>:
 	<a href="category/administrator/display.do?categoryId=${category.parentCategory.id}"><jstl:out value="${category.parentCategory.name}"></jstl:out></a>
 	<br />
-
-
-	<fieldset>
+<%-- 	<fieldset>
 		<legend>
 			<spring:message code="category.childCategories"></spring:message>
 		</legend>
 		<jstl:forEach items="${category.childCategories}" var="category">
 			<a href="category/administrator/display.do?categoryId=${category.id}"><jstl:out value="${category.name}"></jstl:out></a>
 		</jstl:forEach>
-	</fieldset>
-	
+	</fieldset> --%>
+
 	<br />
-	<br />
 	
 	
-	<fieldset>
+<%-- 	<fieldset>
 	<legend>
 		<spring:message code="category.fixupTasks"></spring:message>
 	</legend>
@@ -57,15 +52,22 @@
 
 
 
-</fieldset>
+</fieldset> --%>
 </security:authorize>
 
 <security:authorize access="hasRole('ADMIN')">
-	<spring:message code="category.return" var="return"></spring:message>
-	<input type="button" name="return" value="${return}" onclick="javascript:relativeRedir('category/list.do')" />
+<%-- 	<spring:message code="category.return" var="return"></spring:message>
+	<input type="button" name="return" value="${return}" onclick="javascript:relativeRedir('category/list.do')" /> --%>
 		
 	<spring:message code="category.edit" var="edit"></spring:message>
 	<input type="button" name="edit" value="${edit}" onclick="javascript:relativeRedir('category/administrator/edit.do?categoryId=${category.id}')" />
+	
+		<spring:message code="category.delete" var="delete"></spring:message>
+	<input type="button" name="delete" value="${delete}" onclick="javascript:relativeRedir('category/administrator/delete.do?categoryId=${category.id}')" />
+	
+	<button type="button" onclick="javascript: relativeRedir('category/administrator/list.do')" ><spring:message code="category.return" />
+	</button>
+
 		
 </security:authorize>
 

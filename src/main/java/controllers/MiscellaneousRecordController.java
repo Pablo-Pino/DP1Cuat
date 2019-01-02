@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CurriculumService;
@@ -15,7 +16,7 @@ import domain.Curriculum;
 import domain.MiscellaneousRecord;
 
 @Controller
-@RequestMapping("/miscellaneousRecord")
+@RequestMapping("/miscellaneousRecord/handyWorker")
 public class MiscellaneousRecordController extends AbstractController {
 
 	@Autowired
@@ -32,6 +33,17 @@ public class MiscellaneousRecordController extends AbstractController {
 
 		miscellaneousRecord = this.miscellaneousRecordService.create();
 		result = this.createEditModelAndView(miscellaneousRecord);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int miscellaneousRecordId) {
+		ModelAndView result;
+		MiscellaneousRecord mr;
+		mr = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
+		result = new ModelAndView("miscellaneousRecord/display");
+		result.addObject("miscellaneousRecord", mr);
 
 		return result;
 	}

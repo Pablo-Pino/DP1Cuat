@@ -10,9 +10,14 @@
 
 package controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import services.ActorService;
+import services.AdministratorService;
 
 @Controller
 @RequestMapping("/administrator")
@@ -23,6 +28,15 @@ public class AdministratorController extends AbstractController {
 	public AdministratorController() {
 		super();
 	}
+
+
+	// Services ----------------------------------------------------------------
+	@Autowired
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private ActorService			actorService;
+
 
 	// Action-1 ---------------------------------------------------------------		
 
@@ -45,5 +59,22 @@ public class AdministratorController extends AbstractController {
 
 		return result;
 	}
+	//---------------------------DashBoard-------------------------------------
 
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView list() {
+
+		final ModelAndView result;
+		//----------------------------------
+		final Double maxFixStats;
+		maxFixStats = this.actorService.fixupTasksStats().get("MAX");
+		//---------------------------------
+
+		result = new ModelAndView("administrator/display");
+
+		result.addObject("dash1", maxFixStats);
+
+		return result;
+
+	}
 }

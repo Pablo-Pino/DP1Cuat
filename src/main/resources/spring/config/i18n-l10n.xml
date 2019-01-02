@@ -42,6 +42,17 @@
 		<value>/views/referee/messages</value>
 		
 		<value>/views/category/messages</value>
+		<value>/views/application/messages</value>
+		
+		
+		<value>/views/educationRecord/messages</value>
+		<!-- <value>/views/curriculum/messages</value>
+		<value>/views/endorsement/messages</value>
+		<value>/views/endorserRecord/messages</value>
+		<value>/views/finder/messages</value> -->
+		
+		
+		
 
 	</util:list>
 
