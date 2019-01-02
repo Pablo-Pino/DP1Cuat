@@ -98,7 +98,7 @@
 		<bean class = "converters.StringToEndorserRecordConverter"></bean>
 		
 		<bean class = "converters.FinderToStringConverter"></bean>
-		<bean class = "converters.StringToFinderConverter"></bean> 
+		<bean class = "converters.StringToFinderConverter"></bean> -->
 		
 	</util:list>
 	
