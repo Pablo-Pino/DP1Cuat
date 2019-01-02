@@ -1,7 +1,7 @@
 
 package domain;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -19,14 +19,14 @@ public class Section extends DomainEntity {
 
 	//------------Atributos------------
 
-	private String			title;
-	private String			text;
-	private Collection<Url>	pictures;
-	private int				numberOrder;
+	private String		title;
+	private String		text;
+	private List<Url>	pictures;
+	private int			numberOrder;
 
 	//------------Relaciones-----------
 
-	private Tutorial		tutorial;
+	private Tutorial	tutorial;
 
 
 	//-----------Getters y Setters-------
@@ -63,11 +63,11 @@ public class Section extends DomainEntity {
 
 	@NotNull
 	@ElementCollection
-	public Collection<Url> getPictures() {
+	public List<Url> getPictures() {
 		return this.pictures;
 	}
 
-	public void setPictures(final Collection<Url> pictures) {
+	public void setPictures(final List<Url> pictures) {
 		this.pictures = pictures;
 	}
 

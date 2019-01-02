@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="sections" id="section" requestURI="section/list.do?tutorialId=${tutorialId}" pagesize="5" >
+<display:table name="sections" id="section" requestURI="section/actor/list.do?tutorialId=${tutorialId}" pagesize="5" >
 
 	<spring:message code="section.title" var="titleTitle" />
 	<display:column title="${titleTitle}" sortable="true" property="title" />
@@ -27,18 +27,18 @@
 	
 	<spring:message code="section.pictures" var="picturesTitle" />
 	<display:column title="${picturesTitle}" >
-		<jstl:forEach items="${section.pictures}" step="picture" >
-			<img src="${picture}" alt="${picture}">
+		<jstl:forEach items="${section.pictures}" var="picture" >
+			<img src="${picture.url}" alt="${picture.url}">
 		</jstl:forEach>
 	</display:column>
 	
-	<spring:message code="section.numberOrder" var="numberOrderTitle" />
+	<spring:message code="section.numberorder" var="numberOrderTitle" />
 	<display:column title="${numberOrderTitle}" sortable="true" property="numberOrder" />
 	
 	<jstl:if test="${isPrincipalAuthorizedEdit}">
 		<spring:message code="section.edit" var="editTitle" />
 		<display:column>
-			<a href="section/edit.do?sectionId=${section.id}">${editTitle}</a>
+			<a href="section/handyworker/edit.do?sectionId=${section.id}">${editTitle}</a>
 		</display:column>
 	</jstl:if>
 
@@ -46,5 +46,5 @@
 
 <jstl:if test="${isPrincipalAuthorizedEdit}">
 	<spring:message code="section.create" var="createTitle" />
-	<button onclick='javascript: relativeRedir("<jstl:out value="section/create.do?tutorialId=${tutorial.id}"></jstl:out>")' >${createTitle}</button>
+	<a href="section/handyworker/create.do?tutorialId=${tutorialId}" >${createTitle}</a>
 </jstl:if>

@@ -7,20 +7,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.ApplicationRepository;
-import domain.Application;
+import repositories.ComplaintRepository;
+import domain.Complaint;
 
 @Component
 @Transactional
-public class StringToApplicationConverter implements Converter<String, Application> {
+public class StringToComplaintConverter implements Converter<String, Complaint> {
 
 	@Autowired
-	private ApplicationRepository	repository;
+	private ComplaintRepository	repository;
 
 
 	@Override
-	public Application convert(final String s) {
-		Application res;
+	public Complaint convert(final String s) {
+		Complaint res;
 		int id;
 
 		try {

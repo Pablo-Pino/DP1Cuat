@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ApplicationService;
+import services.FixupTaskService;
 import domain.Application;
+import domain.FixupTask;
+import domain.HandyWorker;
 
 @Controller
 @RequestMapping("/application")
@@ -19,6 +23,9 @@ public class ApplicationController extends AbstractController {
 	//-----------------Services-------------------------
 	@Autowired
 	private ApplicationService	applicationService;
+
+	@Autowired
+	private FixupTaskService	fixupTaskService;
 
 
 	//-----------------List----------------------------
@@ -38,32 +45,29 @@ public class ApplicationController extends AbstractController {
 	}
 
 	//	//-----------------Display-------------------------
-	//
-	//	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	//	public ModelAndView display(@RequestParam final int categoryId) {
-	//		ModelAndView result;
-	//		Category c;
-	//		c = this.categoryService.findOne(categoryId);
-	//		result = new ModelAndView("category/display");
-	//		result.addObject("category", c);
-	//
-	//		return result;
-	//	}
-	//
-	//	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	//	public ModelAndView create() {
-	//		ModelAndView result;
-	//		Category c;
-	//		System.out.println("Pasa por aqui");
-	//		c = this.categoryService.create();
-	//		System.out.println("Pasa por aqui tb");
-	//
-	//		result = this.createEditModelAndView(c);
-	//		System.out.println("Pasa por aqui tb tb");
-	//
-	//		return result;
-	//
-	//	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int applicationId) {
+		ModelAndView result;
+		Application c;
+		c = this.applicationService.findOne(applicationId);
+		result = new ModelAndView("application/display");
+		result.addObject("application", c);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Application c;
+		c = this.applicationService.create();
+
+		result = this.createEditModelAndView(c);
+
+		return result;
+
+	}
 	//
 	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	//	public ModelAndView edit(@RequestParam final int categoryId) {
@@ -78,23 +82,27 @@ public class ApplicationController extends AbstractController {
 	//
 	//	}
 	//
-	//	protected ModelAndView createEditModelAndView(final Category c) {
-	//		ModelAndView result;
+	protected ModelAndView createEditModelAndView(final Application c) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(c, null);
+
+		return result;
+	}
 	//
-	//		result = this.createEditModelAndView(c, null);
-	//
-	//		return result;
-	//	}
-	//
-	//	protected ModelAndView createEditModelAndView(final Category category, final String messageCode) {
-	//		final ModelAndView result;
-	//
-	//		result = new ModelAndView("category/edit");
-	//		result.addObject("category", category);
-	//		result.addObject("message", messageCode);
-	//
-	//		return result;
-	//	}
+	protected ModelAndView createEditModelAndView(final Application app, final String messageCode) {
+		final ModelAndView result;
+		final HandyWorker hw;
+		final Collection<FixupTask> fixs = this.fixupTaskService.findAll();
+
+		result = new ModelAndView("application/edit");
+		result.addObject("application", app);
+		result.addObject("fixupTasks", fixs);
+		result.addObject("message", messageCode);
+
+		return result;
+	}
+
 	//
 	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	//	public ModelAndView save(@Valid final Category category, final BindingResult binding) {

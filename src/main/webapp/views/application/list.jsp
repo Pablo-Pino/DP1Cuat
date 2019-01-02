@@ -20,15 +20,19 @@
 
 
 
-<display:table name="applications" id="ass" requestURI="application/list.do" pagesize="5" class="displaytag">
+<display:table name="applications" id="app" requestURI="application/list.do" pagesize="5" class="displaytag">
 	
 
 <security:authorize access="hasAnyRole('CUSTOMER','HANDYWORKER')">
 
 	<display:column>
-		<a href="application/edit.do?applicationId=${application.id}"><spring:message code="application.edit"></spring:message></a>
+		<a href="application/edit.do?applicationId=${app.id}"><spring:message code="application.edit"></spring:message></a>
 	</display:column>
 </security:authorize>
+
+		<display:column>
+		<a href="application/display.do?applicationId=${app.id}"><spring:message code="application.display"></spring:message></a>
+		</display:column>
 		
 
 	
@@ -43,31 +47,31 @@
 		
 		
 		
-		<jstl:if test="${application.status == 'ACCEPTED'}">
+		<jstl:if test="${app.status == 'ACCEPTED'}">
 		<spring:message code="application.status" var="applicationStatus"></spring:message>
 		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:green" />		
 		</jstl:if>
 		
-		<jstl:if test="${application.status == 'REJECTED'}">
+		<jstl:if test="${app.status == 'REJECTED'}">
 		<spring:message code="application.status" var="applicationStatus"></spring:message>
 		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:orange" />		
 		</jstl:if>
 		
-		<jstl:if test="${application.status == 'PENDING' && application.moment >= now}">
+		<jstl:if test="${app.status == 'PENDING' && app.moment >= now}">
 		<spring:message code="application.status" var="applicationStatus"></spring:message>
 		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:scheme" />		
 		</jstl:if>
 		
-		<jstl:if test="${application.status == 'PENDING' && application.moment < now}">
+		<jstl:if test="${app.status == 'PENDING' && app.moment < now}">
 		<spring:message code="application.status" var="applicationStatus"></spring:message>
 		<display:column property="status" title="${applicationStatus}" sortable="true" style="background-color:grey" />		
 		</jstl:if>
 	
 		
 		<spring:message code="application.handyworker" var="applicationHandyworker"></spring:message>
-		<display:column property="handyWorker" title="${application.Handyworker.name}" sortable="true" /> 
+		<display:column property="handyWorker.name" title="${applicationHandyworker}" sortable="true" /> 
 		
-		<display:column>
+		<display:column >
 			<a href="fixupTask/display.do?fixupTaskId=${applicationFixupTask.id}">
 			<spring:message code="application.fixupTask"></spring:message></a>
 		</display:column>
@@ -78,4 +82,6 @@
 	
 	<security:authorize access="hasRole('HANDYWORKER')">
             <a href="application/create.do"><spring:message code="application.create"></spring:message></a>
+            
+            
 	</security:authorize>

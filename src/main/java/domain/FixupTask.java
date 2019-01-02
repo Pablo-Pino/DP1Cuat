@@ -1,12 +1,14 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -34,6 +36,8 @@ public class FixupTask extends Ticketable {
 	private Customer				customer;
 	private Category				category;
 	private Warranty				warranty;
+	private Collection<Application>	applications;
+	private Collection<Complaint>	complaints;
 
 
 	//------------Getters y Setters-------
@@ -69,7 +73,7 @@ public class FixupTask extends Ticketable {
 
 	@Past
 	@NotNull
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -107,7 +111,7 @@ public class FixupTask extends Ticketable {
 	}
 
 	@NotNull
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getStart() {
 		return this.start;
 	}
@@ -117,13 +121,33 @@ public class FixupTask extends Ticketable {
 	}
 
 	@NotNull
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getEnd() {
 		return this.end;
 	}
 
 	public void setEnd(final Date end) {
 		this.end = end;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "fixupTask")
+	public Collection<Application> getApplications() {
+		return this.applications;
+	}
+	public void setApplications(final Collection<Application> applications) {
+		this.applications = applications;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "fixuptask")
+	public Collection<Complaint> getComplaints() {
+		return this.complaints;
+	}
+	public void setComplaints(final Collection<Complaint> complaints) {
+		this.complaints = complaints;
 	}
 
 }

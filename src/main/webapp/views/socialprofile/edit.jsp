@@ -16,7 +16,9 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="socialProfile/edit.do" modelAttribute="socialProfile" method="post">
+<jstl:if test="${isPrincipalAuthorizedEdit}">
+
+<form:form action="socialprofile/actor/edit.do" modelAttribute="socialProfile" method="post">
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -50,7 +52,7 @@
 	<button type="submit" name="save" class="btn btn-primary">
 		<spring:message code="socialprofile.save" />
 	</button>
-	<jstl:if test=${socialProfile.id > 0}>
+	<jstl:if test="${socialProfile.id > 0}">
 		<button type="submit" name="delete" class="btn btn-primary">
 			<spring:message code="socialprofile.delete" />
 		</button>
@@ -59,6 +61,8 @@
 	
 </form:form>
 
-<button type="button" onclick="javascript: relativeRedir('socialProfile/list.do?actorId=${socialProfile.actor.id}')" >
+<button type="button" onclick="javascript: relativeRedir('socialprofile/actor/list.do')" >
 	<spring:message code="socialprofile.cancel" />
 </button>
+
+</jstl:if>

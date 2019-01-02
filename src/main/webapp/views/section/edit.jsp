@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="section/edit.do" modelAttribute="section" method="post">
+<form:form action="section/handyworker/edit.do" modelAttribute="section" method="post">
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -49,21 +49,35 @@
 	
 <fieldset><legend><spring:message code="section.pictures" /></legend>
 
-	<jstl:forEach begin="0" end="${section.pictures.size}" step="1" varStatus="varStatusPictures" >
-		<div>
-			<form:label path="pictures[${varStatusPictures.index}]">
-				<spring:message code="section.picture" />
-			</form:label>	
-			<form:input path="pictures[${varStatusPictures.index}]" />	
-			<form:errors path="pictures[${varStatusPictures.index}]" cssClass="error" />
-		</div>
+	<jstl:if test="${section.pictures.size() == 0}">
+	
+		<form:hidden path="pictures" />
+	
+	</jstl:if>
+	
+	<jstl:if test="${section.pictures.size() > 0}">
+	
+		<jstl:forEach begin="0" end="${section.pictures.size() - 1}" varStatus="varStatusPictures" >
+			<div>
+				<form:label path="pictures[${varStatusPictures.index}]">
+					<spring:message code="section.picture" />
+				</form:label>	
+				<form:input path="pictures[${varStatusPictures.index}]" />	
+				<form:errors path="pictures[${varStatusPictures.index}]" cssClass="error" />
+			</div>
+		</jstl:forEach>
 		
 		<spring:message code="section.picture.remove" var="removePictureTitle" />
-		<button onclick='javascript: relativeRedir("<jstl:out value="section/removePicture.do?sectionId=${section.id}&url=${section.pictures[varStatusPictures.index]}"></jstl:out>")' >${removePictureTitle}</button>
-	</jstl:forEach>
+			<button type="submit" name="removePicture" class="btn btn-primary">
+				<spring:message code="section.picture.remove" />
+			</button>
+	
+	</jstl:if>
 
 	<spring:message code="section.picture.add" var="addPictureTitle" />
-	<button onclick='javascript: relativeRedir("<jstl:out value="section/addPicture.do?sectionId=${section.id}"></jstl:out>")' >${addPictureTitle}</button>
+	<button type="submit" name="addPicture" class="btn btn-primary">
+		<spring:message code="section.picture.add" />
+	</button>
 
 </fieldset>
 
@@ -71,7 +85,7 @@
 	<button type="submit" name="save" class="btn btn-primary">
 		<spring:message code="section.save" />
 	</button>
-	<jstl:if test=${section.id > 0}>
+	<jstl:if test="${section.id > 0}">
 		<button type="submit" name="delete" class="btn btn-primary">
 			<spring:message code="section.delete" />
 		</button>
@@ -80,7 +94,7 @@
 	
 </form:form>
 
-<button type="button" onclick="javascript: relativeRedir('section/list.do?tutorialId=${tutorial.id}')" >
+<button type="button" onclick="javascript: relativeRedir('section/actor/list.do?tutorialId=${section.tutorial.id}')" >
 	<spring:message code="section.cancel" />
 </button>
 
