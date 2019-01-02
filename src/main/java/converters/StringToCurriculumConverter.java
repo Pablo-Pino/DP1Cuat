@@ -24,7 +24,7 @@ public class StringToCurriculumConverter implements Converter<String, Curriculum
 		int id;
 
 		try {
-			if (!StringUtils.isEmpty(s))
+			if (StringUtils.isEmpty(s))
 				res = null;
 			else {
 				id = Integer.valueOf(s);

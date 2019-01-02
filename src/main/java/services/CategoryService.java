@@ -25,9 +25,9 @@ public class CategoryService {
 
 	//Servicios de soporte
 	@Autowired
-	private FixupTaskService		fixUpTaskService;
+	private FixupTaskService	fixUpTaskService;
 	@Autowired
-	private ServiceUtils serviceUtils;
+	private ServiceUtils		serviceUtils;
 
 
 	//Constructor
@@ -56,14 +56,18 @@ public class CategoryService {
 
 	public Category save(final Category category) {
 		Assert.notNull(category);
+		System.out.println("Entra en el save");
 		final Category padre = category.getParentCategory();
-		//	final comprueba que no final hago bucles,que mi final hijo no es final un padre  o final un abuelo final etc etc
-		if (!this.findByParent(category).contains(padre))
-			return this.categoryRepository.save(category);
-		else
-			throw new IllegalArgumentException("Incompatibilidad de recursividad en el guardado");
-	}
+		//final comprueba que no final hago bucles,que mi final hijo no es final un padre  o final un abuelo final etc etc
+		if (!category.getName().equals("CATEGORY")) {
+			System.out.println("Entra en el if");
 
+			return this.categoryRepository.save(category);
+		} else {
+			System.out.println("Entra en el else");
+			throw new IllegalArgumentException("Incompatibilidad de recursividad en el guardado");
+		}
+	}
 	public Boolean tieneHijas(final Category c) {
 		final Boolean res = true;
 		if (this.findByParent(c).isEmpty())
@@ -85,42 +89,44 @@ public class CategoryService {
 
 	public void delete(final Category cat) {
 		Assert.notNull(cat);
-		//	Assert.isTrue(this.categoryRepository.exists(cat.getId()));
-		if (cat.getName().equals("CATEGORY"))
+		Assert.isTrue(this.categoryRepository.exists(cat.getId()));
+		if (cat.getName().equals("CATEGORY")) {
+			System.out.println("Pasa por el primer if del delete");
 			throw new IllegalArgumentException("NO SE PUEDE BORRAR LA CATEGORIA RAIZ");
-		if (!(cat.getName().equals("CATEGORY"))) {
-			if (this.tieneHijas(cat) == false) {
-				this.changeFixupTaskCategory(cat);
-				this.categoryRepository.delete(cat);
-			}
 
-			if (this.tieneHijas(cat) == true)
-				for (final Category hija : this.findByParent(cat))
-					this.delete(hija);
+		}
+		if (this.tieneHijas(cat) == true) {
+			for (final Category hija : this.findByParent(cat))
+				this.delete(hija);
+			this.changeFixupTaskCategory(cat);
+			this.categoryRepository.delete(cat);
+		}
 
+		else {
+			this.changeFixupTaskCategory(cat);
+			this.categoryRepository.delete(cat);
 		}
 
 	}
-	
-	public Collection<Category> findByParent(Category parent) {
+	public Collection<Category> findByParent(final Category parent) {
 		Assert.notNull(parent);
 		Assert.isTrue(parent.getId() > 0);
 		Assert.notNull(this.categoryRepository.findOne(parent.getId()));
 		return this.categoryRepository.findByParentId(parent.getId());
 	}
 
-	public Collection<Category> findAll(Category dependency) {
+	public Collection<Category> findAll(final Category dependency) {
 		return this.findByParent(dependency);
 	}
 
-	public Category create(Category dependency) {
+	public Category create(final Category dependency) {
 		this.serviceUtils.checkObject(dependency);
 		this.serviceUtils.checkPermisionActor(null, new String[] {
 			Authority.ADMIN
 		});
-		Category res = new Category();
+		final Category res = new Category();
 		res.setParentCategory(dependency);
 		return res;
 	}
-	
+
 }

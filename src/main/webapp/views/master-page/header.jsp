@@ -8,56 +8,79 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="images/logoHandyWorker.png" alt="Acme-Handy-Worker Co., Inc." /></a>
+	<a href="#"><img src="images/logoHandyWorker.png"
+		alt="Acme-Handy-Worker Co., Inc." /></a>
 </div>
 
 <div>
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
+			<li><a class="fNiv"><spring:message
+						code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>	
-					<li><a href="category/administrator/list.do"><spring:message code="category.list"></spring:message></a>				
-				</ul>
-			</li>
+					<li><a href="administrator/action-1.do"><spring:message
+								code="master.page.administrator.action.1" /></a></li>
+					<li><a href="administrator/action-2.do"><spring:message
+								code="master.page.administrator.action.2" /></a></li>
+					<li><a href="category/administrator/list.do"><spring:message
+								code="category.list"></spring:message></a>
+				</ul></li>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
+			<li><a class="fNiv"><spring:message
+						code="master.page.customer" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>					
-				</ul>
-			</li>
+					<li><a href="customer/action-1.do"><spring:message
+								code="master.page.customer.action.1" /></a></li>
+					
+				</ul></li>
 		</security:authorize>
-		
+
+		<security:authorize access="hasRole('HANDYWORKER')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.handyWorker" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="application/list.do"><spring:message
+								code="master.page.handyWorker.application.list" /></a></li>
+				</ul></li>
+		</security:authorize>
+
 		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li><a class="fNiv" href="security/login.do"><spring:message
+						code="master.page.login" /></a></li>
 		</security:authorize>
-		
+
 		<security:authorize access="isAuthenticated()">
-			<li>
-				<a class="fNiv"> 
-					<spring:message code="master.page.profile" /> 
-			        (<security:authentication property="principal.username" />)
-				</a>
+			<li><a class="fNiv"> <spring:message
+						code="master.page.profile" /> (<security:authentication
+						property="principal.username" />)
+			</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="folder/actor/list.do"><spring:message code="master.page.listfolders" /> </a></li>
-					<li><a href="message/actor/create.do"><spring:message code="master.page.writemessage" /> </a></li>
-					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
-				</ul>
-			</li>
+					<li><a href="folder/actor/list.do"><spring:message
+								code="master.page.listfolders" /> </a></li>
+					<li><a href="message/actor/create.do"><spring:message
+								code="master.page.writemessage" /> </a></li>
+					<security:authorize access="hasRole('CUSTOMER')">
+						<li><a href="customer/display.do"><spring:message
+									code="master.page.customer.profile" /></a></li>
+					</security:authorize>
+					<li><a href="j_spring_security_logout"><spring:message
+								code="master.page.logout" /> </a></li>
+				</ul></li>
 		</security:authorize>
 	</ul>
 </div>

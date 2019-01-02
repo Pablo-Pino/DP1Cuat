@@ -36,6 +36,11 @@
 		<put-attribute name="body" value="/views/application/list.jsp" />
 	</definition>
 	
+	<definition name="application/create" extends="master.page">	
+		<put-attribute name="title" value="Application:Creation" />
+		<put-attribute name="body" value="/views/application/create.jsp" />
+	</definition>
+	
 	
 	
 </tiles-definitions>

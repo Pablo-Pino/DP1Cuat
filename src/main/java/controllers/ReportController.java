@@ -1,4 +1,7 @@
+
 package controllers;
+
+import java.util.ArrayList;
 
 import javax.validation.Valid;
 
@@ -11,118 +14,145 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.ComplaintService;
+import services.ReportService;
 import domain.Actor;
+import domain.Complaint;
 import domain.Referee;
 import domain.Report;
-import domain.Complaint;
-
-import services.ActorService;
-import services.ReportService;
-import services.ComplaintService;
+import domain.Url;
 
 @Controller
 @RequestMapping("report")
 public class ReportController extends AbstractController {
 
 	// Services
-	
+
 	@Autowired
-	private ReportService reportService;
+	private ReportService		reportService;
 	@Autowired
-	private ComplaintService complaintService;
+	private ComplaintService	complaintService;
 	@Autowired
-	private ActorService actorService;
-		
+	private ActorService		actorService;
+
+
 	// List
-	
-	@RequestMapping("profile")
-	public ModelAndView profile(@RequestParam(required = true) Integer reportId) {
-		ModelAndView res = new ModelAndView("report/profile");
-		Report report = this.reportService.findOne(reportId);
+
+	@RequestMapping("actor/profile")
+	public ModelAndView profile(@RequestParam(required = true) final Integer reportId) {
+		final ModelAndView res = new ModelAndView("report/profile");
+		final Report report = this.reportService.findOne(reportId);
 		res.addObject("report", report);
 		res.addObject("requestURI", "report/profile.do");
 		this.isPrincipalAuthorizedEdit(res, report);
 		return res;
 	}
-	
+
 	// Create
-	
+
 	@SuppressWarnings("unused")
-	@RequestMapping("create")
-	private ModelAndView create(@RequestParam(required = true) Integer complaintId) {
-		Complaint complaint = this.complaintService.findOne(complaintId);
-		Report report = this.reportService.create(complaint);
-		ModelAndView res = this.createEditModelAndView(report);
+	@RequestMapping("referee/create")
+	private ModelAndView create(@RequestParam(required = true) final Integer complaintId) {
+		final Complaint complaint = this.complaintService.findOne(complaintId);
+		final Report report = this.reportService.create(complaint);
+		final ModelAndView res = this.createEditModelAndView(report);
 		return res;
 	}
-	
+
 	// Edit
-	
+
 	@SuppressWarnings("unused")
-	@RequestMapping("edit")
-	private ModelAndView edit(@RequestParam(required = true) Integer reportId) {
-		Report report = this.reportService.findOne(reportId);
+	@RequestMapping("referee/edit")
+	private ModelAndView edit(@RequestParam(required = true) final Integer reportId) {
+		final Report report = this.reportService.findOne(reportId);
 		Assert.notNull(report);
-		ModelAndView res = this.createEditModelAndView(report);
+		final ModelAndView res = this.createEditModelAndView(report);
 		return res;
 	}
-	
+
 	@SuppressWarnings("unused")
-	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "save")
-	private ModelAndView save(@Valid Report report, BindingResult binding) {
+	@RequestMapping(value = "referee/edit", method = RequestMethod.POST, params = "save")
+	private ModelAndView save(@Valid final Report report, final BindingResult binding) {
 		ModelAndView res = null;
-		if(binding.hasErrors()) {
-			this.createEditModelAndView(report);
-		} else {
+		if (binding.hasErrors())
+			res = this.createEditModelAndView(report);
+		else
 			try {
 				this.reportService.save(report);
-				res = new ModelAndView("redirect:list.do");
-			} catch(Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
+				res = new ModelAndView("redirect:/report/actor/profile.do?reportId=" + String.valueOf(report.getId()));
+			} catch (final Throwable t) {
+				res = this.createEditModelAndView(report, "cannot.commit.error");
 			}
-		}
 		return res;
 	}
-	
+
 	// Delete
-	
+
 	@SuppressWarnings("unused")
-	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "delete")
-	private ModelAndView delete(@Valid Report report, BindingResult binding) {
+	@RequestMapping(value = "referee/edit", method = RequestMethod.POST, params = "delete")
+	private ModelAndView delete(final Report report, final BindingResult binding) {
 		ModelAndView res = null;
-		if(binding.hasErrors()) {
-			this.createEditModelAndView(report);
-		} else {
-			try {
-				this.reportService.delete(report);
-				res = new ModelAndView("redirect:list.do");
-			} catch(Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
-			}
+		try {
+			this.reportService.delete(report);
+			res = new ModelAndView("redirect:/");
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(report, "cannot.commit.error");
 		}
 		return res;
 	}
-	
-	// Ancillary methods
-	
-	private ModelAndView createEditModelAndView(Report report) {
-		return createEditModelAndView(report, null);
+
+	// Others
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "referee/edit", method = RequestMethod.POST, params = "addAttachment")
+	private ModelAndView addAttachment(final Report report, final BindingResult binding) {
+		ModelAndView res = null;
+		try {
+			final Url url = new Url();
+			url.setUrl("");
+			if (report.getAttachments() == null)
+				report.setAttachments(new ArrayList<Url>());
+			report.getAttachments().add(url);
+			res = this.createEditModelAndView(report);
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(report, "cannot.commit.error");
+		}
+		return res;
 	}
-	
-	private ModelAndView createEditModelAndView(Report report, String message) {
-		ModelAndView res = new ModelAndView("report/edit");
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "referee/edit", method = RequestMethod.POST, params = "removeAttachment")
+	private ModelAndView removeAttachment(final Report report, final BindingResult binding) {
+		ModelAndView res = null;
+		try {
+			report.getAttachments().remove(report.getAttachments().size() - 1);
+			res = this.createEditModelAndView(report);
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(report, "cannot.commit.error");
+		}
+		return res;
+	}
+
+	// Ancillary methods
+
+	private ModelAndView createEditModelAndView(final Report report) {
+		return this.createEditModelAndView(report, null);
+	}
+
+	private ModelAndView createEditModelAndView(final Report report, final String message) {
+		final ModelAndView res = new ModelAndView("report/edit");
 		res.addObject("report", report);
 		res.addObject("message", message);
 		this.isPrincipalAuthorizedEdit(res, report);
 		return res;
 	}
-	
-	private void isPrincipalAuthorizedEdit(ModelAndView modelAndView, Report report) {
+
+	private void isPrincipalAuthorizedEdit(final ModelAndView modelAndView, final Report report) {
 		Boolean res = false;
-		Actor principal = this.actorService.findPrincipal();
-		if(report.getDraft() && principal instanceof Referee)
+		final Actor principal = this.actorService.findPrincipal();
+		if (report.getDraft() && principal instanceof Referee)
 			res = true;
 		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
 	}
-	
+
 }

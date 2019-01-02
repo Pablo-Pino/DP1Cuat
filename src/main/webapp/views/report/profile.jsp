@@ -17,20 +17,24 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-	<p><spring:message code="report.moment" /><fmt:formatDate value="${report.moment}" pattern="dd/MM/yyyy HH:mm" /></p>
-	<p><spring:message code="report.description" />${report.description}</p>
+<jstl:if test="${isPrincipalAuthorizedEdit or not report.draft}">
+
+	<p><spring:message code="report.moment" /> : <fmt:formatDate value="${report.moment}" pattern="dd/MM/yyyy HH:mm" /></p>
+	<p><spring:message code="report.description" /> : ${report.description}</p>
 	
 	<fieldset><legend><spring:message code="report.attachments" /></legend>
 		<ul>
-			<jstl:forEach items="report.attachments" var="attachment">
-				<li>${attachment}</li>
+			<jstl:forEach items="${report.attachments}" var="attachment">
+				<li>${attachment.url}</li>
 			</jstl:forEach>
 		</ul>
 	</fieldset>
 	
-	<p><spring:message code="report.draft" />${report.draft}</p>
+	<p><spring:message code="report.draft" /> : ${report.draft}</p>
+	
+</jstl:if>	
 	
 <jstl:if test="${isPrincipalAuthorizedEdit}">
 	<spring:message code="report.edit" var="editMessage" />
-	<button onclick='javascript: relativeRedir("<jstl:out value="report/edit.do?reportId=${report.id}"></jstl:out>")' >${editMessage}</button>
+	<a href ="report/referee/edit.do?reportId=${report.id}">${editMessage}</a>
 </jstl:if>

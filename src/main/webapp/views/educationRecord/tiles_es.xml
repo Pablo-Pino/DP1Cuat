@@ -9,14 +9,19 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
-	<definition name="educationRecord/create" extends="master.page">
-		<put-attribute name="title" value="Crear expediente de educación" />
-		<put-attribute name="body" value="/views/educationRecord/create.jsp" />
+	<definition name="educationRecord/edit" extends="master.page">
+		<put-attribute name="title" value="Editar expediente de educación" />
+		<put-attribute name="body" value="/views/educationRecord/edit.jsp" />
 	</definition>
 	
 	<definition name="educationRecord/display" extends="master.page">
 		<put-attribute name="title" value="Mostrar expediente de educación" />
 		<put-attribute name="body" value="/views/educationRecord/display.jsp" />
+	</definition>
+	
+	<definition name="educationRecord/list" extends="master.page">
+		<put-attribute name="title" value="Listar expedientes de educación" />
+		<put-attribute name="body" value="/views/educationRecord/list.jsp" />
 	</definition>
 
 </tiles-definitions>

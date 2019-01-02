@@ -16,7 +16,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="socialProfiles" id="socialProfile" requestURI="socialProfile/list.do?actorId=${actorId}" pagesize="5" >
+<display:table name="socialProfiles" id="socialProfile" requestURI="socialprofile/actor/list.do?actorId=${actorId}" pagesize="5" >
 
 	<spring:message code="socialprofile.nick" var="nickTitle" />
 	<display:column title="${nickTitle}" sortable="true" property="nick" />
@@ -30,11 +30,11 @@
 	<jstl:if test="${isPrincipalAuthorizedEdit}">
 		<spring:message code="socialprofile.edit" var="editTitle" />
 		<display:column>
-			<a href="socialProfile/edit.do?socialProfileId=${socialProfile.id}">${editTitle}</a>
+			<a href="socialprofile/actor/edit.do?socialProfileId=${socialProfile.id}">${editTitle}</a>
 		</display:column>
 	</jstl:if>
 
 </display:table>
 
-<spring:message code="socialProfile.create" var="createTitle" />
-<button onclick='javascript: relativeRedir("<jstl:out value="socialProfile/create.do?actorId=${actor.id}"></jstl:out>")' >${createTitle}</button>	
+<spring:message code="socialprofile.create" var="createTitle" />
+<a href="socialprofile/actor/create.do">${createTitle}</a>

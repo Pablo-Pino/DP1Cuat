@@ -33,9 +33,13 @@
 
 		<%--  La columna que va a la vista edit de las categorias --%>
 		<display:column>
-			<a href="category/administrator/edit.do?categoryId=${Category.id}"><spring:message
-					code="category.edit"></spring:message></a>
+<%-- 			<jstl:if test='${not (Category.name eq CATEGORY)} '>
+ --%>				<a href="category/administrator/edit.do?categoryId=${Category.id}"><spring:message
+						code="category.edit"></spring:message></a>
+<%-- 			</jstl:if>
+ --%>
 		</display:column>
+
 
 
 		<%--  La columna que va a la vista edit de las categorias --%>

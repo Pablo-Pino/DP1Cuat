@@ -26,7 +26,7 @@
 <security:authorize access="hasRole('ADMIN')">
 
 	<div>
-	<form:form action="category/edit.do" method="post" id="formCreate" name="formCreate" modelAttribute="category">
+	<form:form action="category/administrator/edit.do" method="post" id="formCreate" name="formCreate" modelAttribute="category">
 
 	<!-- No me acuerdo exactamente para que hacia falta  -->
 			<form:hidden path="id" />
@@ -42,8 +42,8 @@
 		<form:label path="parentCategory"> <spring:message code="category.parentCategory"></spring:message></form:label>
 		
 		<form:select id="parentCategory" path="parentCategory">
-		<form:option value="${CATEGORY}" label="CATEGORY"></form:option>
-		<form:options items="${childCategories}" itemLabel="name" itemValue="id" />
+		<form:option value="${category.parentCategory}" label="------"></form:option>
+		<form:options items="${categories}" itemLabel="name" itemValue="id" />
 		</form:select>
 		<form:errors cssClass="error" path="parentCategory" />
 		<br />
@@ -56,7 +56,6 @@
 			
 		<button type="button" onclick="javascript: relativeRedir('category/administrator/list.do')" ><spring:message code="category.return" /></button>
 		
-		<input type="submit" name="delete" value="<spring:message code="category.delete"></spring:message>" />
 		
 	<jstl:if test="${category.id != 0}">
 		<input type="submit" name="delete" value="<spring:message code="category.delete" />" onclick="return confirm('<spring:message code="category.confirm.delete" />')" />&nbsp;

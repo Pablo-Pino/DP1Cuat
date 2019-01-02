@@ -35,13 +35,21 @@
 			<form:hidden path="customer" />
 			<form:hidden path="creditCard"/>
 			<form:hidden path="handyWorker" />
-			<form:hidden path="moment" />
-			<form:hidden path="fixupTask" />
 			
 			
 			
 
 <!-- los atributos -->
+
+		<security:authorize access="hasRole('HANDYWORKER')">
+		
+			<jstl:if test="${application.id == 0}">
+			<form:label path="moment"> <spring:message code="application.moment" /></form:label>
+			<form:input path="moment" /><form:errors cssClass="error" path="moment" /><br />
+			</jstl:if>
+		</security:authorize>
+		
+		
 
 		<security:authorize access="hasRole('HANDYWORKER')">
 			<form:label path="price"> <spring:message code="application.price" /></form:label>
@@ -74,6 +82,17 @@
 			<form:label path="customerMoments"> <spring:message code="application.customerMoments" /></form:label>
 			<form:input path="customerMoments" /><form:errors cssClass="error" path="customerMoments" /><br />
 			</security:authorize>
+			
+			
+			<!--  Categoria padre (desplegable) -->
+			<form:label path="fixupTask"> <spring:message code="application.fixupTask"></spring:message></form:label>
+		
+			<form:select id="fixupTask" path="fixupTask">
+			<form:option value="${application.fixupTask}" label="------"></form:option>
+			<form:options items="${fixupTasks}" itemLabel="name" itemValue="id" />
+			</form:select>
+			<form:errors cssClass="error" path="fixupTask" />
+			<br />
 		
 		
 	</div>

@@ -93,9 +93,13 @@ public class CategoryController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Category category, final String messageCode) {
 		final ModelAndView result;
+		final Category p = category.getParentCategory();
+		final Collection<Category> res = this.categoryService.findAll();
 
 		result = new ModelAndView("category/edit");
 		result.addObject("category", category);
+		result.addObject("parentCategory", p);
+		result.addObject("categories", res);
 		result.addObject("message", messageCode);
 
 		return result;
@@ -121,11 +125,9 @@ public class CategoryController extends AbstractController {
 	public ModelAndView delete(final Category category, final BindingResult binding) {
 		ModelAndView result;
 		try {
-			System.out.println("Pasa por el try");
 			this.categoryService.delete(category);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			System.out.println("Pasa por el catch");
 			result = this.createEditModelAndView(category, "category.commit.error");
 
 		}

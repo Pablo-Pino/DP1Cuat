@@ -3,11 +3,13 @@ package domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -24,19 +26,20 @@ public class Report extends DomainEntity {
 
 	private Date				moment;
 	private String				description;
-	private Collection<Url>		attachments;
+	private List<Url>			attachments;
 	private boolean				draft;
 
 	//-----------Relaciones----------
 
 	private Complaint			complaint;
+	private Collection<Note>	notes;
 
 
 	//----------Getters y Setters-------
 
 	@Past
 	@NotNull
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
 		return this.moment;
 	}
@@ -46,7 +49,7 @@ public class Report extends DomainEntity {
 	}
 
 	@Valid
-	@OneToOne(optional = false) 
+	@OneToOne(optional = false)
 	public Complaint getComplaint() {
 		return this.complaint;
 	}
@@ -57,11 +60,11 @@ public class Report extends DomainEntity {
 
 	@NotNull
 	@ElementCollection
-	public Collection<Url> getAttachments() {
+	public List<Url> getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final Collection<Url> attachments) {
+	public void setAttachments(final List<Url> attachments) {
 		this.attachments = attachments;
 	}
 
@@ -82,6 +85,16 @@ public class Report extends DomainEntity {
 
 	public void setDraft(final boolean draft) {
 		this.draft = draft;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "report")
+	public Collection<Note> getNotes() {
+		return this.notes;
+	}
+	public void setNotes(final Collection<Note> notes) {
+		this.notes = notes;
 	}
 
 }

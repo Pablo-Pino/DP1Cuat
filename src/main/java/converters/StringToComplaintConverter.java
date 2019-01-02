@@ -7,20 +7,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.EducationRecordRepository;
-import domain.EducationRecord;
+import repositories.ComplaintRepository;
+import domain.Complaint;
 
 @Component
 @Transactional
-public class StringToEducationRecordConverter implements Converter<String, EducationRecord> {
+public class StringToComplaintConverter implements Converter<String, Complaint> {
 
 	@Autowired
-	private EducationRecordRepository	repository;
+	private ComplaintRepository	repository;
 
 
 	@Override
-	public EducationRecord convert(final String s) {
-		EducationRecord res;
+	public Complaint convert(final String s) {
+		Complaint res;
 		int id;
 
 		try {
