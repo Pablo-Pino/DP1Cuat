@@ -10,8 +10,6 @@
 
 package controllers;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +21,6 @@ import services.ActorService;
 import services.CustomerService;
 import services.SocialProfileService;
 import domain.Customer;
-import domain.SocialProfile;
 
 @Controller
 @RequestMapping("/customer")
@@ -77,15 +74,30 @@ public class CustomerController extends AbstractController {
 	public ModelAndView display() {
 		ModelAndView result;
 		Customer customer;
-		Collection<SocialProfile> socialProfiles;
 
 		customer = (Customer) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
-		socialProfiles = this.socialProfileService.findAllByActor(customer);
-		System.out.println("\n\n\n---------------------------------------------" + socialProfiles);
 		result = new ModelAndView("customer/display");
 		result.addObject("customer", customer);
-		result.addObject(socialProfiles);
 
 		return result;
 	}
+
+	protected ModelAndView createEditModelAndView(final Customer customer) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(customer, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Customer customer, final String messageCode) {
+		final ModelAndView result;
+
+		result = new ModelAndView("educationRecord/edit");
+		result.addObject("customer", customer);
+		result.addObject("message", messageCode);
+
+		return result;
+	}
+
 }

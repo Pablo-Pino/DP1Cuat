@@ -18,9 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="customer.display" />
-</p>
+
 
 <%-- Si esto da error creo que tambien se puede poner así: access="hasRole('ADMIN') OR hasRole('CUSTOMER')" --%>
 <security:authorize access="hasAnyRole('ADMIN', 'CUSTOMER')">
@@ -59,29 +57,7 @@
 		<br />
 	</security:authorize>
 
-	<fieldset>
-		<legend>
-			<b><spring:message code="customer.socialProfiles"></spring:message></b>
-		</legend>
-		<display:table name="socialProfiles" id="socialProfile"
-			requestURI="${requestURI}" pagesize="5" class="displaytag">
-
-		<b>	<spring:message code="socialProfile.networkName"
-				var="socialProfileNetworkName"></spring:message>:</b>
-			<display:column property="networkName"
-				title="${socialProfile.networkName}" sortable="true" />
-
-			<b><spring:message code="socialProfile.nick" var="socialProfileNick"></spring:message>:</b>
-			<display:column property="nick" title="${social.profileNick}"
-				sortable="true" />
-
-			<b><spring:message code="socialProfile.profile"
-				var="socialProfileNetworkProfile"></spring:message>:</b>
-			<display:column property="profile"
-				title="${socialProfile.networkProfile}" sortable="true" />
-
-		</display:table>
-	</fieldset>
+	
 
 	<spring:message code="customer.edit" var="edit"></spring:message>
 	<input type="button" name="edit" value="${edit}"

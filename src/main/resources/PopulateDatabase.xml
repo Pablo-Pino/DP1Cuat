@@ -1847,6 +1847,34 @@
 		<property name="profile" value="https://profile.es/"></property>
 	</bean>
 
+<bean id="socialProfileCustomer1" class="domain.SocialProfile">
+		<property name="nick" value="Alfonso"></property>
+		<property name="networkName" value="Twitter"></property>
+		<property name="actor" ref="customer1" />
+		<property name="profile" value="https://profile.es/"></property>
+	</bean>
+	
+	<bean id="socialProfile2Customer1" class="domain.SocialProfile">
+		<property name="nick" value="AlfonsoFB"></property>
+		<property name="networkName" value="Facebook"></property>
+		<property name="actor" ref="customer1" />
+		<property name="profile" value="https://profile.es/"></property>
+	</bean>
+	
+	<bean id="socialProfile3Customer1" class="domain.SocialProfile">
+		<property name="nick" value="Alfonsito_guapete"></property>
+		<property name="networkName" value="Tinder"></property>
+		<property name="actor" ref="customer1" />
+		<property name="profile" value="https://profile.es/"></property>
+	</bean>
+
+	<bean id="socialProfile4Customer1" class="domain.SocialProfile">
+		<property name="nick" value="Alfonsitx"></property>
+		<property name="networkName" value="Tumblr"></property>
+		<property name="actor" ref="customer1" />
+		<property name="profile" value="https://profile.es/"></property>
+	</bean>
+
 	<!-- _______________________________________HANDYWORKER ______________________________________________ -->
 
 
