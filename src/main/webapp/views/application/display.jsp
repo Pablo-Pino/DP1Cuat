@@ -40,8 +40,8 @@
 	<spring:message code="application.creditCard"></spring:message> <jstl:out value="${application.creditCard.brandName}"></jstl:out>
 	<br />
 	
-	<spring:message code="application.customer"></spring:message> <jstl:out value="${application.customer.name}"></jstl:out>
-	<br />
+<%-- 	<spring:message code="application.customer"></spring:message> <jstl:out value="${application.customer.name}"></jstl:out>
+	<br /> --%>
 	
 	<spring:message code="application.handyWorker"></spring:message> <jstl:out value="${application.handyWorker.name}"></jstl:out>
 	<br />
@@ -49,5 +49,6 @@
 
 <!-- Boton return -->
 
-	<spring:message code="application.return" var="return"></spring:message> <input type="button" name="return" value="${return}"
-		onclick="javascript:relativeRedir('application/list.do')" />
+			
+	<button type="button" onclick="javascript: relativeRedir('application/list.do')" ><spring:message code="application.return" />
+	</button>
