@@ -79,8 +79,10 @@
 
 <%--  Boton de creacion --%>
 <security:authorize access="hasRole('HANDYWORKER')">
-	<a href="educationRecord/handyWorker/create.do"><spring:message
-			code="educationRecord.create"></spring:message></a>
+
+	<input type="button" name="cancel"
+		value="<spring:message code="educationRecord.create"></spring:message>"
+		onclick="javascript:relativeRedir('educationRecord/handyWorker/create.do')" />
 </security:authorize>
 
 

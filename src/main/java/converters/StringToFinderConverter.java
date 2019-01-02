@@ -24,7 +24,7 @@ public class StringToFinderConverter implements Converter<String, Finder> {
 		int id;
 
 		try {
-			if (!StringUtils.isEmpty(s))
+			if (StringUtils.isEmpty(s))
 				res = null;
 			else {
 				id = Integer.valueOf(s);

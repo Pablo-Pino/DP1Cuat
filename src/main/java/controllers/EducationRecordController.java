@@ -3,8 +3,12 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,6 +69,56 @@ public class EducationRecordController extends AbstractController {
 		return result;
 	}
 
+	//------------------------------------------
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		EducationRecord er;
+		Curriculum curriculum;
+		HandyWorker handyWorker;
+
+		handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+		curriculum = this.curriculumService.findByHandyWorker(handyWorker);
+
+		er = this.educationRecordService.create();
+
+		er.setCurriculum(curriculum);
+
+		result = this.createEditModelAndView(er);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int educationRecordId) {
+		ModelAndView result;
+		EducationRecord er;
+
+		er = this.educationRecordService.findOne(educationRecordId);
+		Assert.notNull(er);
+		result = this.createEditModelAndView(er);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final EducationRecord educationRecord, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(educationRecord);
+		else
+			try {
+				this.educationRecordService.save(educationRecord);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
+			}
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final EducationRecord educationRecord, final String messageCode) {
 		final ModelAndView result;
 
@@ -90,13 +144,16 @@ public class EducationRecordController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final EducationRecord educationRecord, final BindingResult binding) {
 		ModelAndView result;
-		EducationRecord educationRecord;
+		try {
+			this.educationRecordService.delete(educationRecord);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
 
-		educationRecord = this.educationRecordService.create();
-		result = this.createEditModelAndView(educationRecord);
+		}
 		return result;
 	}
 
