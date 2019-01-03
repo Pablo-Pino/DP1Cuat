@@ -106,12 +106,10 @@ public class CustomerController extends AbstractController {
 	public ModelAndView save(@Valid final Customer customer, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors()) {
-			System.out.println("\n\n----------------ERROR-----------------------------");
+		if (binding.hasErrors())
 			result = this.createEditModelAndView(customer);
-		} else
+		else
 			try {
-				System.out.println("\n\n---------------------------------------------");
 				this.customerService.save(customer);
 				result = new ModelAndView("redirect:display.do");
 			} catch (final Throwable oops) {

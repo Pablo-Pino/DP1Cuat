@@ -31,21 +31,10 @@
 		<form:hidden path="suspicious" />
 		<form:hidden path="fixupTasks" />
 		<form:hidden path="score"/>
+		
 
 
-		<form:label path="userAccount.username">
-			<spring:message code="userAccount.username" />:
-		</form:label>
-		<form:input path="userAccount.username" />
-		<form:errors cssClass="error" path="userAccount.username" />
-		<br />
-
-		<form:label path="userAccount.password">
-			<spring:message code="userAccount.password" />:
-		</form:label>
-		<form:password path="userAccount.password" />
-		<form:errors cssClass="error" path="userAccount.password" />
-		<br />
+		
 
 
 
