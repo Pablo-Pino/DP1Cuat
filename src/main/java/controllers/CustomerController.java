@@ -10,10 +10,15 @@
 
 package controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -82,6 +87,39 @@ public class CustomerController extends AbstractController {
 		return result;
 	}
 
+	//------------------Edit---------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int customerId) {
+		ModelAndView result;
+		Customer customer;
+
+		customer = this.customerService.findOne(customerId);
+		Assert.notNull(customer);
+		result = this.createEditModelAndView(customer);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Customer customer, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			System.out.println("\n\n----------------ERROR-----------------------------");
+			result = this.createEditModelAndView(customer);
+		} else
+			try {
+				System.out.println("\n\n---------------------------------------------");
+				this.customerService.save(customer);
+				result = new ModelAndView("redirect:display.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(customer, "customer.commit.error");
+			}
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final Customer customer) {
 		ModelAndView result;
 
@@ -93,7 +131,7 @@ public class CustomerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Customer customer, final String messageCode) {
 		final ModelAndView result;
 
-		result = new ModelAndView("educationRecord/edit");
+		result = new ModelAndView("customer/edit");
 		result.addObject("customer", customer);
 		result.addObject("message", messageCode);
 
