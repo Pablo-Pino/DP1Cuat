@@ -3,8 +3,12 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ApplicationService;
 import services.FixupTaskService;
 import domain.Application;
-import domain.FixupTask;
 import domain.HandyWorker;
 
 @Controller
@@ -68,20 +71,20 @@ public class ApplicationController extends AbstractController {
 		return result;
 
 	}
-	//
-	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	//	public ModelAndView edit(@RequestParam final int categoryId) {
-	//		ModelAndView result;
-	//		Category c;
-	//
-	//		c = this.categoryService.findOne(categoryId);
-	//		Assert.notNull(c);
-	//		result = this.createEditModelAndView(c);
-	//
-	//		return result;
-	//
-	//	}
-	//
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int applicationID) {
+		ModelAndView result;
+		Application c;
+
+		c = this.applicationService.findOne(applicationID);
+		Assert.notNull(c);
+		result = this.createEditModelAndView(c);
+
+		return result;
+
+	}
+
 	protected ModelAndView createEditModelAndView(final Application c) {
 		ModelAndView result;
 
@@ -93,32 +96,31 @@ public class ApplicationController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Application app, final String messageCode) {
 		final ModelAndView result;
 		final HandyWorker hw;
-		final Collection<FixupTask> fixs = this.fixupTaskService.findAll();
+		//final Collection<FixupTask> fixs = this.fixupTaskService.findAll();
 
 		result = new ModelAndView("application/edit");
 		result.addObject("application", app);
-		result.addObject("fixupTasks", fixs);
+		//result.addObject("fixupTasks", fixs);
 		result.addObject("message", messageCode);
 
 		return result;
 	}
 
-	//
-	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	//	public ModelAndView save(@Valid final Category category, final BindingResult binding) {
-	//		ModelAndView result;
-	//
-	//		if (binding.hasErrors())
-	//			result = this.createEditModelAndView(category);
-	//		else
-	//			try {
-	//				this.categoryService.save(category);
-	//				result = new ModelAndView("redirect:list.do");
-	//			} catch (final Throwable oops) {
-	//				result = this.createEditModelAndView(category, "category.commit.error");
-	//			}
-	//		return result;
-	//	}
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Application a, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(a);
+		else
+			try {
+				this.applicationService.save(a);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(a, "application.commit.error");
+			}
+		return result;
+	}
 	//
 	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	//	public ModelAndView delete(final Category category, final BindingResult binding) {
