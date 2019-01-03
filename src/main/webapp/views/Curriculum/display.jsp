@@ -18,34 +18,38 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="curriculum.display" />
-</p>
 
-<spring:message code="curriculum.ticker" />
+<b><spring:message code="curriculum.ticker" />:</b>
 <jstl:out value="${curriculum.ticker}" />
+<br />
+
+
+
+
 
 <security:authorize access="hasRole('HANDYWORKER')">
-	<jstl:out value="${curriculum.handyWorker.id}" value="handyWorkerId"></jstl:out>
+	
 	<security:authentication property="principal.username" var="username" />
+	
 	<jstl:if
-		test='${curriculum.handyWorker.userAccount.username} == ${username}'>
+		test='${handyWorker.userAccount.username == username}'>
 		
 		
 		<fieldset>
 			<legend>
 				<spring:message code="curriculum.personalRecord"></spring:message>
 			</legend>
-			<spring:message code="curriculum.fullName"></spring:message>
-			<jstl:out value="${customer.personalRecord.fullName}"></jstl:out>
+			<b><spring:message code="curriculum.fullName"></spring:message>: </b>
+			<jstl:out value="${curriculum.personalRecord.fullName}"></jstl:out>
 			<br />
 			<spring:message code="curriculum.linkedinProfile"></spring:message>
-			<jstl:out value="${customer.personalRecord.linkedinProfile}"></jstl:out>
+			<jstl:out value="${curriculum.personalRecord.linkedinProfile}"></jstl:out>
 			<br />
+			
 			<jstl:if test="${curriculum.id}== 0">
 				<spring:message code="curriculum.add" var="add"></spring:message>
 				<input type="button" name="add" value="${add}"
-					onclick="javascript:relativeRedir('personalRecord/create.do?handyWorkerId=${curriculum.handyWorker.id}')" />
+					onclick="javascript:relativeRedir('personalRecord/create.do?handyWorkerId=${handyWorker.id}')" />
 			</jstl:if>
 			<spring:message code="curriculum.display" var="display"></spring:message>
 			<input type="button" name="display" value="${display}"
@@ -60,7 +64,7 @@
 		
 		<fieldset>
 			<legend>
-				<spring:message code="curriculum.EducationRecords"></spring:message>
+				<spring:message code="curriculum.educationRecords"></spring:message>
 			</legend>
 			<display:table name="educationRecords" id="eduactionRecord" pagesize="5" class="displaytag">
 			
@@ -94,5 +98,5 @@
 		
 		
 	</jstl:if>
-	<security:authentication property="principal.username" />
+	
 </security:authorize>

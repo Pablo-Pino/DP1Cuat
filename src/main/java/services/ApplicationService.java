@@ -30,13 +30,13 @@ public class ApplicationService {
 	// Supporting Service
 
 	@Autowired
-	private FolderService folderService;
+	private FolderService			folderService;
 	@Autowired
 	private MessageService			messageService;
 	@Autowired
-	private HandyWorkerService handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
 	@Autowired
-	private FixupTaskService fixupTaskService;
+	private FixupTaskService		fixupTaskService;
 
 
 	// Constructors
@@ -130,13 +130,10 @@ public class ApplicationService {
 		return res;
 	}
 
-	public Map<String, Double> lateApplicationsRatio() {
+	public Double lateApplicationsRatio() {
 		final Double ratio = this.applicationRepository.lateApplicationsRatio();
-		final Map<String, Double> res = new HashMap<>();
 
-		res.put("Ratio", ratio);
-
-		return res;
+		return ratio;
 	}
 
 	public Application changeStatus(final Application a, final String status) {
@@ -154,10 +151,9 @@ public class ApplicationService {
 
 	public void NotificationMessage(final HandyWorker hw, final Customer c) {
 		Folder res = null;
-		for (final Folder f : this.folderService.findAllByActor(hw)) {
+		for (final Folder f : this.folderService.findAllByActor(hw))
 			if (f.getName().equals("inBox"))
 				res = f;
-		}
 		final Message m1 = this.messageService.create(res);
 		m1.setReceiver(hw);
 
@@ -195,24 +191,24 @@ public class ApplicationService {
 		this.applicationRepository.flush();
 	}
 
-	public Collection<Application> findApplicationsByHandyWorker(HandyWorker h) {
+	public Collection<Application> findApplicationsByHandyWorker(final HandyWorker h) {
 		Assert.notNull(h);
 		Assert.isTrue(h.getId() > 0);
 		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
 		return this.applicationRepository.findApplicationsByHandyWorker(h.getId());
 	}
-	
-	public Collection<Application> findAll(FixupTask f) {
+
+	public Collection<Application> findAll(final FixupTask f) {
 		Assert.notNull(f);
 		Assert.isTrue(f.getId() > 0);
 		Assert.notNull(this.fixupTaskService.findOne(f.getId()));
 		return this.applicationRepository.findApplicationsByHandyWorker(f.getId());
 	}
 
-	public Application create(FixupTask dependency) {
-		Application res = this.create();
+	public Application create(final FixupTask dependency) {
+		final Application res = this.create();
 		res.setFixupTask(dependency);
 		return res;
 	}
-	
+
 }
