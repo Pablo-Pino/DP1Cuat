@@ -2117,7 +2117,7 @@
 		<property name="photo" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="lipasam@gmail.es"></property>
 		<property name="phone" value="+34(456)123456713"></property>
-		<property name="linkedProfile" value="http://www.linkedin.com/in/lipasam"></property>
+		<property name="linkedinProfile" value="http://www.linkedin.com/in/lipasam"></property>
 		<property name="curriculum" ref="curriculum1" />
 	</bean>
 				
@@ -2126,7 +2126,7 @@
 		<property name="photo" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="Emasesa@gmail.es"></property>
 		<property name="phone" value="+34(456)123456712"></property>
-		<property name="linkedProfile" value="http://www.linkedin.com/in/emasesa"></property>
+		<property name="linkedinProfile" value="http://www.linkedin.com/in/emasesa"></property>
 		<property name="curriculum" ref="curriculum1" />
 	</bean>
 				
@@ -2135,7 +2135,7 @@
 		<property name="photo" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="vips@gmail.es"></property>
 		<property name="phone" value="+34(456)123456711"></property>
-		<property name="linkedProfile" value="http://www.linkedin.com/in/emasesa"></property>
+		<property name="linkedinProfile" value="http://www.linkedin.com/in/emasesa"></property>
 		<property name="curriculum" ref="curriculum2" />
 	</bean>
  
@@ -2144,7 +2144,7 @@
 		<property name="photo" value="https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg"></property>
 		<property name="email" value="disneyfantasy@gmail.es"></property>
 		<property name="phone" value="+34(456)1234567"></property>
-		<property name="linkedProfile" value="http://www.linkedin.com/in/disney"></property>
+		<property name="linkedinProfile" value="http://www.linkedin.com/in/disney"></property>
 		<property name="curriculum" ref="curriculum3" />
 	</bean>
 	
@@ -2177,7 +2177,7 @@
 		<property name="photo" value="https://www.cinetecamadrid.com/sites/default/files/activity/image/imagen_EL_GRINCH00_0.jpg"></property>
 		<property name="email" value="elgrinch@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456722"></property>
-		<property name="linkedlnProfile" value="https://www.linkedin.com/company/grinch.spielverderber"></property>	
+		<property name="linkedinProfile" value="https://www.linkedin.com/company/grinch.spielverderber"></property>	
 		<property name="curriculum" ref="curriculum1" />	
 	</bean>
  
@@ -2186,7 +2186,7 @@
 		<property name="photo" value="https://cdn.memegenerator.es/imagenes/memes/full/16/43/16433834.jpg"></property>
 		<property name="email" value="pokeluisito@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456721"></property>
-		<property name="linkedlnProfile" value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+		<property name="linkedinProfile" value="https://www.linkedin.com/company/grinch.spielverderber"></property>
 		<property name="curriculum" ref="curriculum2" />
 	</bean>
  
@@ -2195,7 +2195,7 @@
 		<property name="photo" value="https://misanimales.com/wp-content/uploads/2018/05/curiosidades-del-perezoso.jpg"></property>
 		<property name="email" value="camunon@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456720"></property>
-		<property name="linkedlnProfile" value="https://www.linkedin.com/company/grinch.spielverderber"></property>
+		<property name="linkedinProfile" value="https://www.linkedin.com/company/grinch.spielverderber"></property>
 		<property name="curriculum" ref="curriculum3" />
 	</bean>	
  
@@ -2204,7 +2204,7 @@
 		<property name="photo" value="https://www.peluchetes.com/contenido/uploads/2015/08/peluche-perro-salchicha.jpg"></property>
 		<property name="email" value="tobi@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456719"></property>
-		<property name="linkedlnProfile" value="https://www.linkedin.com"></property>
+		<property name="linkedinProfile" value="https://www.linkedin.com"></property>
 		<property name="curriculum" ref="curriculum4" />
 	</bean>
  
