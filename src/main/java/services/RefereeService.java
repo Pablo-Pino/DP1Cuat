@@ -22,28 +22,29 @@ import domain.Url;
 public class RefereeService {
 
 	// Repository
-	
+
 	@Autowired
 	private RefereeRepository	repository;
 
 	// Services
-	
+
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
 	@Autowired
 	private FolderService		folderService;
 	@Autowired
-	private ComplaintService complaintService;
+	private ComplaintService	complaintService;
 	@Autowired
-	private NoteService noteService;
+	private NoteService			noteService;
 	@Autowired
-	private ReportService reportService;
+	private ReportService		reportService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
+
 	// CRUD methods
-	
-	public Referee findOne(Integer id) {
+
+	public Referee findOne(final Integer id) {
 		this.serviceUtils.checkId(id);
 		return this.repository.findOne(id);
 	}
@@ -56,7 +57,7 @@ public class RefereeService {
 	public Collection<Referee> findAll() {
 		return this.repository.findAll();
 	}
-	
+
 	public Referee create() {
 		final Referee res = new Referee();
 		res.setBanned(false);
@@ -66,7 +67,7 @@ public class RefereeService {
 	}
 
 	public Referee save(final Referee object) {
-		Referee referee = (Referee) this.serviceUtils.checkObject(object);
+		final Referee referee = (Referee) this.serviceUtils.checkObject(object);
 		if (object.getId() == 0) {
 			object.setBanned(false);
 			this.folderService.createSystemFolders(object);
@@ -94,8 +95,10 @@ public class RefereeService {
 		Referee ref = referee;
 		if (referee.getId() > 0)
 			ref = this.repository.findOne(referee.getId());
-		if (this.isSuspicious(ref))
+		if (this.isSuspicious(ref) && !ref.getBanned())
 			ref.setBanned(true);
+		else
+			ref.setBanned(false);
 		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		this.repository.save(ref);
 	}
@@ -104,33 +107,31 @@ public class RefereeService {
 		boolean res = false;
 		Assert.notNull(r);
 		this.serviceUtils.checkId(r.getId());
-		Referee referee = this.repository.findOne(r.getId());
+		final Referee referee = this.repository.findOne(r.getId());
 		Assert.notNull(referee);
 		res = this.actorService.isSuspicious(referee);
-		if(!res) {
-			for (Complaint c : this.complaintService.findAllComplaintsByReferee(referee)) {
-				res = this.actorService.containsSpam(c.getDescription()) ||
-						this.actorService.containsSpam(this.reportService.findByComplaint(c).getDescription());
-				if(!res) {
-					for (Note n : this.noteService.findAllByReport(this.reportService.findByComplaint(c))) {
-						for (String comment : n.getComments()) {
+		if (!res)
+			for (final Complaint c : this.complaintService.findAllComplaintsByReferee(referee)) {
+				res = this.actorService.containsSpam(c.getDescription()) || this.actorService.containsSpam(this.reportService.findByComplaint(c).getDescription());
+				if (!res)
+					for (final Note n : this.noteService.findAllByReport(this.reportService.findByComplaint(c))) {
+						for (final String comment : n.getComments()) {
 							res = this.actorService.containsSpam(comment);
-							if(res)
+							if (res)
 								break;
 						}
-						if(res) 
+						if (res)
 							break;
 					}
-				} if(!res) {
-					for (Url u : c.getAttachments()) {
+				if (!res)
+					for (final Url u : c.getAttachments()) {
 						res = this.actorService.containsSpam(u.getUrl());
-						if(res)
+						if (res)
 							break;
 					}
-				} if(res)
+				if (res)
 					break;
 			}
-		}
 		return res;
 	}
 
