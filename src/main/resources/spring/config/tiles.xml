@@ -43,6 +43,8 @@
 		
 		<value>/views/category/tiles.xml</value>
 		<value>/views/application/tiles.xml</value>
+		<value>/views/complaint/tiles.xml</value>
+		
 		
 		
 		

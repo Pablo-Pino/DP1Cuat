@@ -89,6 +89,9 @@
 		
 		<security:intercept-url pattern="/customer/**" access="hasRole('CUSTOMER')" />
 		
+		
+		<security:intercept-url pattern="/complaint/**" access="hasRole('CUSTOMER')" />
+		
 			
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

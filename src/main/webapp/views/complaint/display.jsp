@@ -59,7 +59,8 @@
 	<br />
 	
 
-	<input type="button" name="return" value="${cancel}" onclick="javascript:relativeRedir('welcome/index.do')"/>
+		<button type="button" onclick="javascript: relativeRedir('complaint/list.do')" ><spring:message code="complaint.return" />
+	</button>
 	
 	
 
