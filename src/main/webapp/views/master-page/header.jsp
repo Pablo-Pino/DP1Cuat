@@ -80,6 +80,10 @@
 						<li><a href="customer/display.do"><spring:message
 									code="master.page.customer.profile" /></a></li>
 					</security:authorize>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="administrator/display2.do"><spring:message
+									code="master.page.administrator.edit" /></a></li>
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>
