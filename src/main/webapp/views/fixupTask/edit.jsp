@@ -23,6 +23,7 @@
 	<spring:message code="fixupTask.edit" />
 </p>
 
+<security:authorize access="hasRole('CUSTOMER')">
 <form:form action="fixupTask/customer/edit.do" method="post" id="formCreate" 
 		name="formCreate" modelAttribute="fixupTask">
 
@@ -35,46 +36,50 @@
 
 
 	<form:label path="description">
-		<spring:message code="fixupTask.description" />:
+		<spring:message code="fixupTask.description"></spring:message>
 	</form:label>
 	<form:input path="description" />
-	<form:errors cssClass="error" path="description" />
+	<form:errors cssClass="error" path="description"></form:errors>
 	<br />
 	
 	<form:label path="address">
-		<spring:message code="fixupTask.address" />:
+		<spring:message code="fixupTask.address" ></spring:message>
 	</form:label>
 	<form:input path="address" />
-	<form:errors cssClass="error" path="address" />
+	<form:errors cssClass="error" path="address" ></form:errors>
 	<br />
 	
 	<form:label path="maximumPrice">
-		<spring:message code="fixupTask.maximumPrice" />:
+		<spring:message code="fixupTask.maximumPrice" >:</spring:message>
 	</form:label>
 	<form:input path="description" />
-	<form:errors cssClass="error" path="maximumPrice" />
+	<form:errors cssClass="error" path="maximumPrice" ></form:errors>
 	<br />
 	
 	<form:label path="start">
-		<spring:message code="fixupTask.start" />:
+		<spring:message code="fixupTask.start" >: </spring:message>
 	</form:label>
 	<form:input path="start" />
-	<form:errors cssClass="error" path="start" />
+	<form:errors cssClass="error" path="start" ></form:errors>
 	<br />
 	
 	<form:label path="end">
-		<spring:message code="fixupTask.end" />:
+		<spring:message code="fixupTask.end" >:</spring:message>
 	</form:label>
 	<form:input path="end" />
-	<form:errors cssClass="error" path="end" />
+	<form:errors cssClass="error" path="end" /> 
 	<br />
 	
-</form:form>
+
 
 <!--  Botones -->
 
 <input type="submit" name="save"
 	value="<spring:message code="fixupTask.save"></spring:message>" />
-<input type="button" name="cancel"
-	value="$<spring:message code="fixupTask.cancel"></spring:message>"
+<spring:message code="fixupTask.cancel" var="cancel"></spring:message>
+<input type="button" name="cancel" value="${cancel}"
 	onclick="javascript:relativeRedir('fixupTask/customer/list.do')" />
+	
+</form:form>
+	
+</security:authorize>

@@ -85,6 +85,10 @@
 		<security:intercept-url pattern="/educationRecord/**" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url access="hasRole('HANDYWORKER')" pattern="/educationRecord/handyWorker/list.do"/>
 		
+		<security:intercept-url pattern="/curriculum/**" access="hasRole('HANDYWORKER')" />
+		
+		<security:intercept-url pattern="/customer/**" access="hasRole('CUSTOMER')" />
+		
 			
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

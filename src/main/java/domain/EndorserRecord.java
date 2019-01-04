@@ -78,12 +78,12 @@ public class EndorserRecord extends DomainEntity {
 	@NotBlank
 	@URL
 	@NotNull
-	public String getLinkedProfile() {
+	public String getlinkedinProfile() {
 		return this.linkedinProfile;
 	}
 
-	public void setLinkedProfile(final String linkedProfile) {
-		this.linkedinProfile = linkedProfile;
+	public void setlinkedinProfile(final String linkedinProfile) {
+		this.linkedinProfile = linkedinProfile;
 	}
 
 	@Valid

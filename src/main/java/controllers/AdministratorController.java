@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.AdministratorService;
+import services.ApplicationService;
+import services.HandyWorkerService;
 
 @Controller
 @RequestMapping("/administrator")
@@ -36,6 +38,12 @@ public class AdministratorController extends AbstractController {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private ApplicationService		applicationService;
+
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
 
 
 	// Action-1 ---------------------------------------------------------------		
@@ -66,13 +74,19 @@ public class AdministratorController extends AbstractController {
 
 		final ModelAndView result;
 		//----------------------------------
-		final Double maxFixStats;
-		maxFixStats = this.actorService.fixupTasksStats().get("MAX");
+		//final Double maxFixStats;
+		final Double ratioElapsed;
+		//Collection<HandyWorker> handyWorkerMostComplaints = new ArrayList<>();
+		//ratioElapsed= this.actorService.fixupTasksStats().get("MAX");
+		ratioElapsed = this.applicationService.lateApplicationsRatio();
+		//handyWorkerMostComplaints = this.handyWorkerService.getTop3HandyWorkerWithMoreComplaints();
 		//---------------------------------
 
 		result = new ModelAndView("administrator/display");
 
-		result.addObject("dash1", maxFixStats);
+		//result.addObject("dash1", maxFixStats);
+		result.addObject("dash16", ratioElapsed);
+		//result.addObject("dash29", handyWorkerMostComplaints);
 
 		return result;
 

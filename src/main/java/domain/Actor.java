@@ -1,7 +1,6 @@
 
 package domain;
 
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
@@ -26,20 +25,20 @@ public abstract class Actor extends DomainEntity {
 
 	//----------------Atributos-------------------
 
-	private String						name;
-	private String						middleName;
-	private String						surname;
-	private String						photo;
-	private String						email;
+	private String		name;
+	private String		middleName;
+	private String		surname;
+	private String		photo;
+	private String		email;
 
-	private String						phone;
-	private String						address;
-	private Boolean						banned;
-	private Boolean						suspicious;
+	private String		phone;
+	private String		address;
+	private Boolean		banned;
+	private Boolean		suspicious;
 
 	//--------------Relaciones-----------
 
-	private UserAccount					userAccount;
+	private UserAccount	userAccount;
 
 
 	//-----------Getters y Setters------

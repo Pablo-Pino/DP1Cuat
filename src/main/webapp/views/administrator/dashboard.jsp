@@ -24,7 +24,7 @@
 <security:authorize access="hasRole('ADMIN')">
 
 
-	<!--                 Ahora vamos a ver los ratios de las aplicaciones             -->
+<%-- 	<!--                 Ahora vamos a ver los ratios de las aplicaciones             -->
 	<!-- --------------------------------------------------------------------------------------------- -->
 	
 		<fieldset>
@@ -144,7 +144,7 @@
 	
 	
 
-
+ --%>
 		<fieldset>
 		<legend>
 			<spring:message code="dashboard.ratioAppsElapsed"> </spring:message>
@@ -156,7 +156,7 @@
 		</display:table>
 	</fieldset>
 	
-<!-- --------------------------------------------------------------------------------------------- -->
+<%-- <!-- --------------------------------------------------------------------------------------------- -->
 
 	
 	<fieldset>
@@ -279,6 +279,6 @@
 				<display:column title="${dash29}"> <jstl:out value="${topHandyWorkerComplaint.name}"/> 
 				</display:column>	
 			</display:table>
-	</fieldset>
+	</fieldset> --%>
 
 </security:authorize>

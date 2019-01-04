@@ -79,12 +79,12 @@ public class PersonalRecord extends DomainEntity {
 	@NotBlank
 	@URL
 	@NotNull
-	public String getLinkedlnProfile() {
+	public String getLinkedinProfile() {
 		return this.linkedinProfile;
 	}
 
-	public void setLinkedlnProfile(final String linkedlnProfile) {
-		this.linkedinProfile = linkedlnProfile;
+	public void setLinkedinProfile(final String linkedinProfile) {
+		this.linkedinProfile = linkedinProfile;
 	}
 
 	@Valid
