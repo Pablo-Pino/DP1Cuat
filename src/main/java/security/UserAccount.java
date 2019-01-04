@@ -23,9 +23,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
+import services.ActorService;
+import domain.Actor;
 import domain.DomainEntity;
 
 @Entity
@@ -45,6 +48,9 @@ public class UserAccount extends DomainEntity implements UserDetails {
 
 
 	// Attributes -------------------------------------------------------------
+
+	@Autowired
+	private ActorService			actorService;
 
 	// UserDetails interface --------------------------------------------------
 
@@ -110,9 +116,12 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		Boolean res = false;
+		final Actor actor = this.actorService.findOneByUserAccount(this);
+		if (actor != null)
+			res = !actor.getBanned();
+		return res;
 	}
-
 	@Transient
 	@Override
 	public boolean isCredentialsNonExpired() {
@@ -122,7 +131,11 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isEnabled() {
-		return true;
+		Boolean res = false;
+		final Actor actor = this.actorService.findOneByUserAccount(this);
+		if (actor != null)
+			res = !actor.getBanned();
+		return res;
 	}
 
 }
