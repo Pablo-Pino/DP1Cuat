@@ -1,3 +1,4 @@
+
 package controllers;
 
 import javax.validation.Valid;
@@ -11,103 +12,101 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.ComplaintService;
+import services.RefereeService;
 import domain.Actor;
 import domain.Administrator;
-import domain.Referee;
 import domain.Complaint;
-
-import services.ActorService;
-import services.RefereeService;
-import services.ComplaintService;
+import domain.Referee;
 
 @Controller
 @RequestMapping("referee")
 public class RefereeController extends AbstractController {
 
 	// Services
-	
+
 	@Autowired
-	private RefereeService refereeService;
+	private RefereeService		refereeService;
 	@Autowired
-	private ComplaintService complaintService;
+	private ComplaintService	complaintService;
 	@Autowired
-	private ActorService actorService;
-		
+	private ActorService		actorService;
+
+
 	// List
-	
-	@RequestMapping("profile")
-	public ModelAndView profile(@RequestParam(required = true) Integer refereeId) {
-		ModelAndView res = new ModelAndView("referee/profile");
-		Referee referee = this.refereeService.findOne(refereeId);
+
+	@RequestMapping("/referee/profile")
+	public ModelAndView profile(@RequestParam(required = true) final Integer refereeId) {
+		final ModelAndView res = new ModelAndView("referee/profile");
+		final Referee referee = this.refereeService.findOne(refereeId);
 		res.addObject("referee", referee);
 		res.addObject("requestURI", "referee/profile.do");
 		this.isPrincipalAuthorizedEdit(res, referee);
 		return res;
 	}
-	
+
 	// Create
-	
+
 	@SuppressWarnings("unused")
-	@RequestMapping("create")
-	private ModelAndView create(@RequestParam(required = true) Integer complaintId) {
-		Complaint complaint = this.complaintService.findOne(complaintId);
-		Referee referee = this.refereeService.create();
-		ModelAndView res = this.createEditModelAndView(referee);
+	@RequestMapping("administrator/create")
+	private ModelAndView create(@RequestParam(required = true) final Integer complaintId) {
+		final Complaint complaint = this.complaintService.findOne(complaintId);
+		final Referee referee = this.refereeService.create();
+		final ModelAndView res = this.createEditModelAndView(referee);
 		return res;
 	}
-	
+
 	// Edit
-	
+
 	@SuppressWarnings("unused")
-	@RequestMapping("edit")
-	private ModelAndView edit(@RequestParam(required = true) Integer refereeId) {
-		Referee referee = this.refereeService.findOne(refereeId);
+	@RequestMapping("referee-administrator/edit")
+	private ModelAndView edit(@RequestParam(required = true) final Integer refereeId) {
+		final Referee referee = this.refereeService.findOne(refereeId);
 		Assert.notNull(referee);
-		ModelAndView res = this.createEditModelAndView(referee);
+		final ModelAndView res = this.createEditModelAndView(referee);
 		return res;
 	}
-	
+
 	@SuppressWarnings("unused")
-	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "save")
-	private ModelAndView save(@Valid Referee referee, BindingResult binding) {
+	@RequestMapping(value = "referee-administrator/edit", method = RequestMethod.POST, params = "save")
+	private ModelAndView save(@Valid final Referee referee, final BindingResult binding) {
 		ModelAndView res = null;
-		if(binding.hasErrors()) {
+		if (binding.hasErrors())
 			this.createEditModelAndView(referee);
-		} else {
+		else
 			try {
 				this.refereeService.save(referee);
 				res = new ModelAndView("redirect:list.do");
-			} catch(Throwable t) {
+			} catch (final Throwable t) {
 				res = new ModelAndView("cannot.commit.error");
 			}
-		}
 		return res;
 	}
-	
+
 	// Ancillary methods
-	
-	private ModelAndView createEditModelAndView(Referee referee) {
-		return createEditModelAndView(referee, null);
+
+	private ModelAndView createEditModelAndView(final Referee referee) {
+		return this.createEditModelAndView(referee, null);
 	}
-	
-	private ModelAndView createEditModelAndView(Referee referee, String message) {
-		ModelAndView res = new ModelAndView("referee/edit");
+
+	private ModelAndView createEditModelAndView(final Referee referee, final String message) {
+		final ModelAndView res = new ModelAndView("referee/edit");
 		res.addObject("referee", referee);
 		res.addObject("message", message);
 		this.isPrincipalAuthorizedEdit(res, referee);
 		return res;
 	}
-	
-	private void isPrincipalAuthorizedEdit(ModelAndView modelAndView, Referee referee) {
+
+	private void isPrincipalAuthorizedEdit(final ModelAndView modelAndView, final Referee referee) {
 		Boolean res = false;
-		Actor principal = this.actorService.findPrincipal();
-		if(referee.getId() == 0) 
-			if(principal instanceof Administrator) 
+		final Actor principal = this.actorService.findPrincipal();
+		if (referee.getId() == 0)
+			if (principal instanceof Administrator)
 				res = true;
-		else 
-			if(principal.equals(referee)) 
+			else if (principal.equals(referee))
 				res = true;
 		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
 	}
-	
+
 }

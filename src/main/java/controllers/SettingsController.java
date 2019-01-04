@@ -1,3 +1,4 @@
+
 package controllers;
 
 import javax.validation.Valid;
@@ -10,73 +11,71 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.SettingsService;
 import domain.Actor;
 import domain.Administrator;
 import domain.Settings;
 
-import services.ActorService;
-import services.SettingsService;
-
 @Controller
-@RequestMapping("settings")
+@RequestMapping("settings/administrator")
 public class SettingsController extends AbstractController {
 
 	// Services
-	
+
 	@Autowired
-	private SettingsService settingsService;
+	private SettingsService	settingsService;
 	@Autowired
-	private ActorService actorService;
-	
+	private ActorService	actorService;
+
+
 	// Edit
-	
+
 	@SuppressWarnings("unused")
 	@RequestMapping("edit")
 	private ModelAndView edit() {
-		Settings settings = this.settingsService.findSettings();
+		final Settings settings = this.settingsService.findSettings();
 		Assert.notNull(settings);
-		ModelAndView res = this.createEditModelAndView(settings);
+		final ModelAndView res = this.createEditModelAndView(settings);
 		return res;
 	}
-	
+
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "save")
-	private ModelAndView save(@Valid Settings settings, BindingResult binding) {
+	private ModelAndView save(@Valid final Settings settings, final BindingResult binding) {
 		ModelAndView res = null;
-		if(binding.hasErrors()) {
+		if (binding.hasErrors())
 			this.createEditModelAndView(settings);
-		} else {
+		else
 			try {
 				this.settingsService.save(settings);
 				res = new ModelAndView("redirect:list.do");
-			} catch(Throwable t) {
+			} catch (final Throwable t) {
 				res = new ModelAndView("cannot.commit.error");
 			}
-		}
 		return res;
 	}
-	
+
 	// Ancillary methods
-	
-	private ModelAndView createEditModelAndView(Settings settings) {
-		return createEditModelAndView(settings, null);
+
+	private ModelAndView createEditModelAndView(final Settings settings) {
+		return this.createEditModelAndView(settings, null);
 	}
-	
-	private ModelAndView createEditModelAndView(Settings settings, String message) {
-		ModelAndView res = new ModelAndView("settings/edit");
+
+	private ModelAndView createEditModelAndView(final Settings settings, final String message) {
+		final ModelAndView res = new ModelAndView("settings/edit");
 		res.addObject("settings", settings);
 		res.addObject("message", message);
 		this.isPrincipalAuthorizedEdit(res);
 		return res;
 	}
-	
-	private void isPrincipalAuthorizedEdit(ModelAndView modelAndView) {
+
+	private void isPrincipalAuthorizedEdit(final ModelAndView modelAndView) {
 		Boolean res = false;
-		Actor principal = this.actorService.findPrincipal();
-		if(principal instanceof Administrator) {
+		final Actor principal = this.actorService.findPrincipal();
+		if (principal instanceof Administrator)
 			res = true;
-		}
 		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
 	}
-	
+
 }
