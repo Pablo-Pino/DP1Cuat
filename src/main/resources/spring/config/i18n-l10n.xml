@@ -43,6 +43,8 @@
 		
 		<value>/views/category/messages</value>
 		<value>/views/application/messages</value>
+		<value>/views/complaint/messages</value>
+		
 		
 		
 		<value>/views/educationRecord/messages</value>
