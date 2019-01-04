@@ -85,7 +85,7 @@
 		<bean class = "converters.CurriculumToStringConverter"></bean>
 		<bean class = "converters.StringToCurriculumConverter"></bean>
 		
-		<!-- <bean class = "converters.CustomerToStringConverter"></bean>
+		<bean class = "converters.CustomerToStringConverter"></bean>
 		<bean class = "converters.StringToCustomerConverter"></bean>
 		
 		<bean class = "converters.EndorsableToStringConverter"></bean>
