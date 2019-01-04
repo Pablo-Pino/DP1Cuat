@@ -20,7 +20,7 @@ import domain.ProfessionalRecord;
 
 @Controller
 @RequestMapping("/professionalRecord/handyWorker")
-public class ProfesionalRecordController extends AbstractController {
+public class ProfessionalRecordController extends AbstractController {
 
 	@Autowired
 	ProfessionalRecordService	professionalRecordService;
