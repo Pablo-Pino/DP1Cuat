@@ -1,6 +1,9 @@
 
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,11 @@ import security.LoginService;
 import services.ActorService;
 import services.CurriculumService;
 import domain.Curriculum;
+import domain.EducationRecord;
+import domain.EndorserRecord;
 import domain.HandyWorker;
+import domain.MiscellaneousRecord;
+import domain.ProfessionalRecord;
 
 @Controller
 @RequestMapping("/curriculum/handyWorker")
@@ -38,13 +45,25 @@ public class CurriculumController extends AbstractController {
 		ModelAndView result;
 		Curriculum curriculum;
 		HandyWorker handyWorker;
+		final Collection<EducationRecord> educationRecords = new ArrayList<>();
+		final Collection<ProfessionalRecord> professionalRecords = new ArrayList<>();
+		final Collection<EndorserRecord> endorserRecords = new ArrayList<>();
+		final Collection<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>();
 
 		handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
 		curriculum = this.curriculumService.findByHandyWorker(handyWorker);
+		educationRecords.addAll(curriculum.getEducationRecords());
+		professionalRecords.addAll(curriculum.getProfessionalRecords());
+		endorserRecords.addAll(curriculum.getEndorserRecords());
+		miscellaneousRecords.addAll(curriculum.getMiscellaneousRecords());
 
 		result = new ModelAndView("curriculum/display");
 		result.addObject("curriculum", curriculum);
 		result.addObject("handyWorker", handyWorker);
+		result.addObject("educationRecords", educationRecords);
+		result.addObject("professionalRecords", professionalRecords);
+		result.addObject("endorserRecords", endorserRecords);
+		result.addObject("miscellaneousRecords", miscellaneousRecords);
 
 		return result;
 	}

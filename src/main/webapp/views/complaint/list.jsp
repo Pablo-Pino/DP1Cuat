@@ -38,15 +38,23 @@
 		</display:column>
 		
 			
-		<spring:message code="complaint.moment" var="complaintName"></spring:message>
-		<display:column property="name" title="${complaintName}" sortable="true" />
+		<spring:message code="complaint.ticker" var="complaintTicker"></spring:message>
+		<display:column property="ticker" title="${complaintTicker}" sortable="true" />
+		
+		
+		<spring:message code="complaint.moment" var="complaintMoment"></spring:message>
+		<display:column property="moment" title="${complaintMoment}" sortable="true" />
+		
+		<spring:message code="complaint.description" var="complaintDescription"></spring:message>
+		<display:column property="description" title="${complaintDescription}" sortable="true" />
+		
 
 
-		<spring:message code="complaint.customer" var="complaintCustomer"></spring:message>
-		<display:column property="customer" title="${complaintCustomer}" sortable="true" />
+<%-- 		<spring:message code="complaint.customer" var="complaintCustomer"></spring:message>
+		<display:column property="customer" title="${complaintCustomer}" sortable="true" /> --%>
 		
 		<spring:message code="complaint.referee" var="complaintReferee"></spring:message>
-		<display:column property="referee" title="${complaintReferee}" sortable="true" />
+		<display:column property="referee.name" title="${complaintReferee}" sortable="true" />
 		
 		<display:column>
 		<a href="fixupTask/display.do?fixupTaskId=${comlpaint.fixupTask.name}"><spring:message
@@ -64,6 +72,6 @@
 
 <security:authorize access="hasRole('CUSTOMER')">
 
-<a href="application/create.do"><spring:message code="application.create"></spring:message></a>
+<a href="complaint/create.do"><spring:message code="complaint.create"></spring:message></a>
 
 </security:authorize>

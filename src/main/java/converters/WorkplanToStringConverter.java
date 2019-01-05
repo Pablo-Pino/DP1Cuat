@@ -10,7 +10,7 @@ import domain.WorkPlan;
 
 @Component
 @Transactional
-public class WorkPlanToStringConverter implements Converter<WorkPlan, String> {
+public class WorkplanToStringConverter implements Converter<WorkPlan, String> {
 
 	@Override
 	public String convert(final WorkPlan t) {

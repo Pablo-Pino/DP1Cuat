@@ -43,13 +43,15 @@
 		
 		<value>/views/category/tiles.xml</value>
 		<value>/views/application/tiles.xml</value>
+		<value>/views/complaint/tiles.xml</value>
+		
 		
 		
 		
 		<value>/views/educationRecord/tiles.xml</value>
 		<value>/views/endorsement/tiles.xml</value>
-<!-- 		<value>/views/curriculum/tiles.xml</value>
- -->		<!-- <value>/views/endorserRecord/tiles.xml</value>
+ 		<value>/views/curriculum/tiles.xml</value>
+ 		<!-- <value>/views/endorserRecord/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>-->
 		 
 		
