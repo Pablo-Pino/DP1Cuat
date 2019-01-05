@@ -18,10 +18,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="actor.list" />
-</p>
-
 
 <security:authorize access="hasRole('ADMIN')">
 
@@ -33,24 +29,26 @@
 		<spring:message code="actor.middleName" var="actorMiddleName"></spring:message>
 		<display:column property="middleName" title="${actorMiddleName}" sortable="true" />
 		
-		<spring:message code="actor.surName" var="actorSurName"></spring:message>
-		<display:column property="surName" title="${actorSurName}" sortable="true" />
+		<spring:message code="actor.surname" var="actorSurname"></spring:message>
+		<display:column property="surname" title="${actorSurname}" sortable="true" />
+		
+		<spring:message code="userAccount.authorities" var="userAccount.authorities"></spring:message>
+		<display:column property="userAccount.authorities" title="${actor.userAccount.authorities}" sortable="true" />
 		
 		<spring:message code="actor.email" var="actorEmail"></spring:message>
-		<display:column property="email" title="${customerEmail}" sortable="true" />
-		
-		<spring:message code="actor.phone" var="actorPhone"></spring:message>
-		<display:column property="phone" title="${actorPhone}" sortable="true" />
+		<display:column property="email" title="${actorEmail}" sortable="true" />
+
 
 		
 		<display:column> 
+		
 		<jstl:if test="${actor.suspicious eq true}">
-			<jstl:if test="${actor.banned eq true}"></jstl:if>
+			<jstl:if test="${actor.banned eq true}">
 					<a href="administrator/ban.do?actorId=${actor.id}"><spring:message
-					code="actor.ban"></spring:message></a>
-			<jstl:if test="${actor.banned eq false && actor.suspicious eq true}"></jstl:if>
+					code="actor.unBan"></spring:message></a></jstl:if>
+			<jstl:if test="${actor.banned eq false && actor.suspicious eq true}">
 					<a href="administrator/ban.do?actorId=${actor.id}"><spring:message
-					code="actor.unBan"></spring:message></a>
+					code="actor.ban"></spring:message></a></jstl:if>
 		
 		</jstl:if>
 		
