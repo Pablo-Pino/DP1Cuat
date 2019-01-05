@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -31,14 +32,14 @@ public class SettingsService {
 
 	@Autowired
 	private EndorsableService	endorsableService;
-	
+
 	@Autowired
-	private EndorsementService endorsementService;
+	private EndorsementService	endorsementService;
 
 
 	// CRUD methods
 
-	public Settings findOne(Integer id) {
+	public Settings findOne(final Integer id) {
 		this.serviceUtils.checkId(id);
 		return this.repository.findOne(id);
 	}
@@ -51,7 +52,7 @@ public class SettingsService {
 	public Collection<Settings> findAll() {
 		return this.repository.findAll();
 	}
-	
+
 	public Settings save(final Settings object) {
 		this.serviceUtils.checkObject(object);
 		this.serviceUtils.checkAuthority(Authority.ADMIN);
@@ -70,7 +71,7 @@ public class SettingsService {
 	}
 
 	public Collection<String> addPositiveWords(final String s) {
-		Collection<String> res = new ArrayList<>();
+		List<String> res = new ArrayList<>();
 		final Settings settings = this.findSettings();
 		res = settings.getPositiveWords();
 		if (res.contains(s))
@@ -83,7 +84,7 @@ public class SettingsService {
 	}
 
 	public Collection<String> deletePositiveWords(final String s) {
-		Collection<String> res = new ArrayList<>();
+		List<String> res = new ArrayList<>();
 		final Settings settings = this.findSettings();
 		res = settings.getPositiveWords();
 		if (!(res.contains(s)))
@@ -96,7 +97,7 @@ public class SettingsService {
 	}
 
 	public Collection<String> addNegativeWords(final String s) {
-		Collection<String> res = new ArrayList<>();
+		List<String> res = new ArrayList<>();
 		final Settings settings = this.findSettings();
 		res = settings.getNegativeWords();
 		if (res.contains(s))
@@ -109,7 +110,7 @@ public class SettingsService {
 	}
 
 	public Collection<String> deleteNegativeWords(final String s) {
-		Collection<String> res = new ArrayList<>();
+		List<String> res = new ArrayList<>();
 		final Settings settings = this.findSettings();
 		res = settings.getNegativeWords();
 		if (!(res.contains(s)))
@@ -132,7 +133,7 @@ public class SettingsService {
 		this.addNegativeWords(newWord);
 		return this.findSettings().getNegativeWords();
 	}
-	
+
 	public void generateAllScore() {
 		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		final Collection<Endorsable> res = this.endorsableService.findAll();

@@ -114,7 +114,7 @@ public class SectionController extends AbstractController {
 			if (section.getPictures() == null)
 				section.setPictures(new ArrayList<Url>());
 			section.getPictures().add(picture);
-			res = new ModelAndView("redirect:actor/list.do?tutorialId=" + String.valueOf(section.getTutorial().getId()));
+			res = this.createEditModelAndView(section);
 		} catch (final Throwable t) {
 			res = this.createEditModelAndView(section, "cannot.commit.error");
 		}

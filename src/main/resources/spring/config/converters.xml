@@ -25,6 +25,7 @@
 		
 		<bean class = "converters.ActorToStringConverter"></bean>
 		<bean class = "converters.StringToActorConverter"></bean>
+		
 		<bean class = "converters.FixupTaskToStringConverter"></bean>
 		<bean class = "converters.StringToFixupTaskConverter"></bean>
 		
@@ -98,7 +99,7 @@
 		<bean class = "converters.StringToEndorserRecordConverter"></bean>
 		
 		<bean class = "converters.FinderToStringConverter"></bean>
-		<bean class = "converters.StringToFinderConverter"></bean> -->
+		<bean class = "converters.StringToFinderConverter"></bean>
 		
 	</util:list>
 	

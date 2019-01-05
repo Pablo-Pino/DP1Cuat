@@ -196,6 +196,6 @@
 </form:form>
 
 <button type="button" onclick="javascript: relativeRedir('/')" >
-	<spring:message code="section.cancel" />
+	<spring:message code="settings.cancel" />
 </button>
 

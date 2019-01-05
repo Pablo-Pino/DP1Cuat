@@ -2,6 +2,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -24,14 +25,14 @@ public class Settings extends DomainEntity {
 	private String				systemName;
 	private String				banner;
 	private String				welcomeMessage;
-	private Collection<String>	spamWords;
+	private List<String>		spamWords;
 	private int					vat;
 	private String				countryCode;
 	private Collection<String>	creditCardMakes;
 	private int					finderCacheHours;
 	private int					maxCacheResults;
-	private Collection<String>	positiveWords;
-	private Collection<String>	negativeWords;
+	private List<String>		positiveWords;
+	private List<String>		negativeWords;
 
 
 	//--------Getters y Setters-------
@@ -69,11 +70,11 @@ public class Settings extends DomainEntity {
 
 	@NotNull
 	@ElementCollection
-	public Collection<String> getSpamWords() {
+	public List<String> getSpamWords() {
 		return this.spamWords;
 	}
 
-	public void setSpamWords(final Collection<String> spamWords) {
+	public void setSpamWords(final List<String> spamWords) {
 		this.spamWords = spamWords;
 	}
 
@@ -126,21 +127,21 @@ public class Settings extends DomainEntity {
 
 	@NotNull
 	@ElementCollection
-	public Collection<String> getPositiveWords() {
+	public List<String> getPositiveWords() {
 		return this.positiveWords;
 	}
 
-	public void setPositiveWords(final Collection<String> positiveWords) {
+	public void setPositiveWords(final List<String> positiveWords) {
 		this.positiveWords = positiveWords;
 	}
 
 	@NotNull
 	@ElementCollection
-	public Collection<String> getNegativeWords() {
+	public List<String> getNegativeWords() {
 		return this.negativeWords;
 	}
 
-	public void setNegativeWords(final Collection<String> negativeWords) {
+	public void setNegativeWords(final List<String> negativeWords) {
 		this.negativeWords = negativeWords;
 	}
 

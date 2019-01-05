@@ -15,15 +15,10 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
        
 <tiles-definitions>
-
-	<definition name="section/list" extends="master.page">	
-		<put-attribute name="title" value="Sections' list" />
-		<put-attribute name="body" value="/views/section/list.jsp" />
-	</definition>
 	
-	<definition name="section/edit" extends="master.page">	
-		<put-attribute name="title" value="Section's edition" />
-		<put-attribute name="body" value="/views/section/edit.jsp" />
+	<definition name="settings/edit" extends="master.page">	
+		<put-attribute name="title" value="Settings' edition" />
+		<put-attribute name="body" value="/views/settings/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

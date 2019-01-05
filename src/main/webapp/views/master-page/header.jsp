@@ -28,10 +28,10 @@
 						code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message
-								code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message
-								code="master.page.administrator.action.2" /></a></li>
+					<li><a href="actor/administrator/list-suspicious-actors.do"><spring:message
+								code="master.page.listsuspiciousactors" /></a></li>
+					<li><a href="referee/administrator/create.do"><spring:message
+								code="master.page.createreferee" /></a></li>
 					<li><a href="category/administrator/list.do"><spring:message
 								code="category.list"></spring:message></a>
 				</ul></li>
@@ -53,8 +53,18 @@
 						code="master.page.handyWorker" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="application/list.do"><spring:message
+					<li><a href="referee/referee/profile.do"><spring:message
 								code="master.page.handyWorker.application.list" /></a></li>
+				</ul></li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('REFEREE')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.referee" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="referee/referee/profile.do"><spring:message
+								code="master.page.refereeprofile" /></a></li>
 				</ul></li>
 		</security:authorize>
 

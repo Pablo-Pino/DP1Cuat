@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,95 @@ public class SettingsController extends AbstractController {
 			} catch (final Throwable t) {
 				res = new ModelAndView("cannot.commit.error");
 			}
+		return res;
+	}
+
+	// Other methods
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "addSpamWord")
+	private ModelAndView addSpamWord(final Settings settings, final BindingResult binding) {
+		ModelAndView res = null;
+		try {
+			final String spamWord = "";
+			if (settings.getSpamWords() == null)
+				settings.setSpamWords(new ArrayList<String>());
+			settings.getSpamWords().add(spamWord);
+			res = this.createEditModelAndView(settings);
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(settings, "cannot.commit.error");
+		}
+		return res;
+	}
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "removeSpamWord")
+	private ModelAndView removeSpamWord(final Settings settings, final BindingResult binding) {
+		ModelAndView res = null;
+		try {
+			settings.getSpamWords().remove(settings.getSpamWords().size() - 1);
+			res = this.createEditModelAndView(settings);
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(settings, "cannot.commit.error");
+		}
+		return res;
+	}
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "addPositiveWord")
+	private ModelAndView addPositiveWord(final Settings settings, final BindingResult binding) {
+		ModelAndView res = null;
+		try {
+			final String positiveWord = "";
+			if (settings.getPositiveWords() == null)
+				settings.setPositiveWords(new ArrayList<String>());
+			settings.getPositiveWords().add(positiveWord);
+			res = this.createEditModelAndView(settings);
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(settings, "cannot.commit.error");
+		}
+		return res;
+	}
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "removePositiveWord")
+	private ModelAndView removePositiveWord(final Settings settings, final BindingResult binding) {
+		ModelAndView res = null;
+		try {
+			settings.getPositiveWords().remove(settings.getPositiveWords().size() - 1);
+			res = this.createEditModelAndView(settings);
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(settings, "cannot.commit.error");
+		}
+		return res;
+	}
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "addNegativeWord")
+	private ModelAndView addNegativeWord(final Settings settings, final BindingResult binding) {
+		ModelAndView res = null;
+		try {
+			final String negativeWord = "";
+			if (settings.getNegativeWords() == null)
+				settings.setNegativeWords(new ArrayList<String>());
+			settings.getNegativeWords().add(negativeWord);
+			res = this.createEditModelAndView(settings);
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(settings, "cannot.commit.error");
+		}
+		return res;
+	}
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "removeNegativeWord")
+	private ModelAndView removeNegativeWord(final Settings settings, final BindingResult binding) {
+		ModelAndView res = null;
+		try {
+			settings.getNegativeWords().remove(settings.getNegativeWords().size() - 1);
+			res = this.createEditModelAndView(settings);
+		} catch (final Throwable t) {
+			res = this.createEditModelAndView(settings, "cannot.commit.error");
+		}
 		return res;
 	}
 
