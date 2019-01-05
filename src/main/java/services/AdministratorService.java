@@ -14,6 +14,7 @@ import domain.Administrator;
 @Service
 @Transactional
 public class AdministratorService {
+
 	//--------------Managed repository---------------------------
 
 	@Autowired
@@ -121,35 +122,34 @@ public class AdministratorService {
 		a.setBanned(false);
 		this.administratorRepository.save(a);
 
+		//	//Ban actor
+		//	public Boolean banActor(final Administrator a) {
+		//		Boolean banned = false;
+		//		Assert.notNull(a);
+		//		//if (checkBan(a)){
+		//		a.setBanned(true);
+		//		//}
+		//		this.save(a);
+		//		return banned;
+		//	}
+		//	
+		//	//unban actor
+		//	public Boolean unbanActor(final Administrator a) {
+		//		Boolean banned = true;
+		//		Assert.notNull(a);
+		//		Assert.isTrue(a.getBanned());
+		//		a.setBanned(false);
+		//		this.save(a);
+		//		return banned;
+		//	}
+		//	
+		//	//comprueba que tenga spam, 
+		//	
+		////	public Boolean checkBan(final Actor a){
+		////		Boolean res= false;
+		////		
+		////	}
+		//	
+		//	public 
 	}
-	//	//Ban actor
-	//	public Boolean banActor(final Administrator a) {
-	//		Boolean banned = false;
-	//		Assert.notNull(a);
-	//		//if (checkBan(a)){
-	//		a.setBanned(true);
-	//		//}
-	//		this.save(a);
-	//		return banned;
-	//	}
-	//	
-	//	//unban actor
-	//	public Boolean unbanActor(final Administrator a) {
-	//		Boolean banned = true;
-	//		Assert.notNull(a);
-	//		Assert.isTrue(a.getBanned());
-	//		a.setBanned(false);
-	//		this.save(a);
-	//		return banned;
-	//	}
-	//	
-	//	//comprueba que tenga spam, 
-	//	
-	////	public Boolean checkBan(final Actor a){
-	////		Boolean res= false;
-	////		
-	////	}
-	//	
-	//	public 
-
 }

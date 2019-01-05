@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import services.ActorService;
 import services.AdministratorService;
 import services.ApplicationService;
 import services.HandyWorkerService;
+import domain.Actor;
 import domain.Administrator;
 
 @Controller
@@ -164,4 +167,21 @@ public class AdministratorController extends AbstractController {
 
 		return result;
 	}
+
+	//-----------------List----------------------------
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView listActors() {
+		ModelAndView result;
+		Collection<Actor> actors;
+
+		actors = this.actorService.findAll();
+
+		result = new ModelAndView("actor/list");
+		result.addObject("requestURI", "administrator/list.do");
+		result.addObject("actors", actors);
+
+		return result;
+	}
+
 }

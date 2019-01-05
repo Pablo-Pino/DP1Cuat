@@ -91,6 +91,8 @@
 		
 		
 		<security:intercept-url pattern="/complaint/**" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/actor/**" access="hasRole('ADMIN')" />
+		
 		
 			
 	
