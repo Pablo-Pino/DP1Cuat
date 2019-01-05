@@ -113,13 +113,14 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isAccountNonExpired() {
-		return this.getBanned();
+		return true;
 	}
 
 	@Transient
 	@Override
 	public boolean isAccountNonLocked() {
-		return this.getBanned();
+		System.out.println(this.getBanned());
+		return !this.getBanned();
 	}
 
 	@Transient
@@ -131,8 +132,8 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isEnabled() {
-		final Boolean res = false;
-		return res;
+		System.out.println(this.getBanned());
+		return !this.getBanned();
 	}
 
 }
