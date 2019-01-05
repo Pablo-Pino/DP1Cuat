@@ -71,7 +71,7 @@ public class SocialProfileController extends AbstractController {
 	private ModelAndView save(@Valid final SocialProfile socialProfile, final BindingResult binding) {
 		ModelAndView res = null;
 		if (binding.hasErrors())
-			this.createEditModelAndView(socialProfile);
+			res = this.createEditModelAndView(socialProfile);
 		else
 			try {
 				this.socialProfileService.save(socialProfile);

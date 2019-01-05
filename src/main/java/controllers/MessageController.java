@@ -77,7 +77,7 @@ public class MessageController extends AbstractController {
 	private ModelAndView save(@Valid final Message message, final BindingResult binding) {
 		ModelAndView res = null;
 		if (binding.hasErrors())
-			this.createEditModelAndView(message);
+			res = this.createEditModelAndView(message);
 		else
 			try {
 				this.messageService.save(message);

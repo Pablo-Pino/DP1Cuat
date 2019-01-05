@@ -39,6 +39,7 @@
 		<value>/views/report/messages</value>
 		<value>/views/section/messages</value>
 		<value>/views/socialprofile/messages</value>
+		<value>/views/settings/messages</value>
 		<value>/views/referee/messages</value>
 		
 		<value>/views/category/messages</value>

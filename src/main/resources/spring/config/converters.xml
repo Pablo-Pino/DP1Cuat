@@ -74,6 +74,9 @@
 		<bean class = "converters.UrlToStringConverter"></bean>
 		<bean class = "converters.StringToUrlConverter"></bean>
 		
+		<bean class = "converters.AuthorityToStringConverter"></bean>
+		<bean class = "converters.StringToAuthorityConverter"></bean>
+		
 		<bean class = "converters.ComplaintToStringConverter"></bean>
 		<bean class = "converters.StringToComplaintConverter"></bean>
 		

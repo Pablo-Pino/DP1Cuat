@@ -16,27 +16,29 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="referee/edit.do" modelAttribute="referee" method="post">
+<form:form action="referee/referee-administrator/edit.do" modelAttribute="referee" method="post">
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="complaints" />
+	<form:hidden path="suspicious" />
+	<form:hidden path="userAccount.banned" />
+	<form:hidden path="userAccount.authorities[0]" />
 	
 	<fieldset><legend><spring:message code="referee.useraccount" /></legend>
 		<div>	
-			<form:label path="useraccount.username">
+			<form:label path="userAccount.username">
 				<spring:message code="referee.useraccount.username" />
 			</form:label>	
-			<form:input path="useraccount.username" />	
-			<form:errors path="useraccount.username" cssClass="error" />
+			<form:input path="userAccount.username" />	
+			<form:errors path="userAccount.username" cssClass="error" />
 		</div>
 		
 		<div>
-			<form:label path="useraccount.password">
+			<form:label path="userAccount.password">
 				<spring:message code="referee.useraccount.password" />
 			</form:label>	
-			<form:password path="useraccount.password" />	
-			<form:errors path="useraccount.password" cssClass="error" />
+			<form:password path="userAccount.password" />	
+			<form:errors path="userAccount.password" cssClass="error" />
 		</div>
 	</fieldset>
 	

@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
-import services.ComplaintService;
 import services.RefereeService;
 import domain.Actor;
 import domain.Administrator;
-import domain.Complaint;
 import domain.Referee;
 
 @Controller
@@ -27,11 +25,9 @@ public class RefereeController extends AbstractController {
 	// Services
 
 	@Autowired
-	private RefereeService		refereeService;
+	private RefereeService	refereeService;
 	@Autowired
-	private ComplaintService	complaintService;
-	@Autowired
-	private ActorService		actorService;
+	private ActorService	actorService;
 
 
 	// List
@@ -50,8 +46,7 @@ public class RefereeController extends AbstractController {
 
 	@SuppressWarnings("unused")
 	@RequestMapping("administrator/create")
-	private ModelAndView create(@RequestParam(required = true) final Integer complaintId) {
-		final Complaint complaint = this.complaintService.findOne(complaintId);
+	private ModelAndView create() {
 		final Referee referee = this.refereeService.create();
 		final ModelAndView res = this.createEditModelAndView(referee);
 		return res;
@@ -73,17 +68,16 @@ public class RefereeController extends AbstractController {
 	private ModelAndView save(@Valid final Referee referee, final BindingResult binding) {
 		ModelAndView res = null;
 		if (binding.hasErrors())
-			this.createEditModelAndView(referee);
+			res = this.createEditModelAndView(referee);
 		else
-			try {
-				this.refereeService.save(referee);
-				res = new ModelAndView("redirect:list.do");
-			} catch (final Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
-			}
+			//try {
+			this.refereeService.save(referee);
+		res = new ModelAndView("redirect:/");
+		//} catch (final Throwable t) {
+		res = this.createEditModelAndView(referee, "cannot.commit.error");
+		//}
 		return res;
 	}
-
 	// Ancillary methods
 
 	private ModelAndView createEditModelAndView(final Referee referee) {
