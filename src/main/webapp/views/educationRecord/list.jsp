@@ -80,9 +80,17 @@
 <%--  Boton de creacion --%>
 <security:authorize access="hasRole('HANDYWORKER')">
 
-	<input type="button" name="cancel"
+	<input type="button" name="create"
 		value="<spring:message code="educationRecord.create"></spring:message>"
 		onclick="javascript:relativeRedir('educationRecord/handyWorker/create.do')" />
+</security:authorize>
+
+<%--  Boton de ATRAS --%>
+<security:authorize access="hasRole('HANDYWORKER')">
+
+	<input type="button" name="back"
+		value="<spring:message code="educationRecord.back"></spring:message>"
+		onclick="javascript:relativeRedir('curriculum/handyWorker/display.do')" />
 </security:authorize>
 
 
