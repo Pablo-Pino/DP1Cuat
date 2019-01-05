@@ -146,14 +146,14 @@ public class HandyWorkerService {
 	public void banActor(final HandyWorker hw) {
 		Assert.notNull(hw);
 		this.serviceUtils.checkAuthority("ADMIN");
-		hw.setBanned(true);
+		hw.getUserAccount().setBanned(true);
 		this.handyWorkerRepository.save(hw);
 	}
 
 	public void unbanActor(final HandyWorker hw) {
 		Assert.notNull(hw);
 		this.serviceUtils.checkAuthority("ADMIN");
-		hw.setBanned(false);
+		hw.getUserAccount().setBanned(false);
 		this.handyWorkerRepository.save(hw);
 	}
 

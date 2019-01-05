@@ -14,6 +14,7 @@ import domain.Administrator;
 @Service
 @Transactional
 public class AdministratorService {
+
 	//--------------Managed repository---------------------------
 
 	@Autowired
@@ -30,6 +31,9 @@ public class AdministratorService {
 	@Autowired
 	private UserAccountService		userAccountService;
 
+	@Autowired
+	private ActorService			actorService;
+
 
 	// --------------------------Constructor-----------------------
 
@@ -42,10 +46,10 @@ public class AdministratorService {
 	public Administrator create() {
 		Administrator result;
 		result = new Administrator();
-		result.setBanned(false);
+		result.setUserAccount(this.userAccountService.create("ADMIN"));
+		result.getUserAccount().setBanned(false);
 		result.setSuspicious(false);
 		//establezco ya su tipo de userAccount porque no va a cambiar
-		result.setUserAccount(this.userAccountService.create("ADMIN"));
 
 		return result;
 
@@ -67,7 +71,7 @@ public class AdministratorService {
 
 		//Si el admin que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
 		if (administrator.getId() == 0) {
-			administrator.setBanned(false);
+			administrator.getUserAccount().setBanned(false);
 			this.folderService.createSystemFolders(administrator);
 			administrator.setSuspicious(false);
 
@@ -75,7 +79,7 @@ public class AdministratorService {
 			//this.serviceUtils.checkNoActor();
 
 		} else {
-			administrator.setBanned(adminDB.getBanned());
+			administrator.getUserAccount().setBanned(adminDB.getUserAccount().getBanned());
 			administrator.setSuspicious(adminDB.getSuspicious());
 			administrator.setUserAccount(adminDB.getUserAccount());
 
@@ -110,7 +114,7 @@ public class AdministratorService {
 	public void banActor(final Administrator a) {
 		Assert.notNull(a);
 		this.serviceUtils.checkAuthority("ADMIN");
-		a.setBanned(true);
+		a.getUserAccount().setBanned(true);
 		this.administratorRepository.save(a);
 
 	}
@@ -118,10 +122,11 @@ public class AdministratorService {
 	public void unBanActor(final Administrator a) {
 		Assert.notNull(a);
 		this.serviceUtils.checkAuthority("ADMIN");
-		a.setBanned(false);
+		a.getUserAccount().setBanned(false);
 		this.administratorRepository.save(a);
 
 	}
+
 	//	//Ban actor
 	//	public Boolean banActor(final Administrator a) {
 	//		Boolean banned = false;

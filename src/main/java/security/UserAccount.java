@@ -23,12 +23,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
-import services.ActorService;
-import domain.Actor;
 import domain.DomainEntity;
 
 @Entity
@@ -49,14 +46,12 @@ public class UserAccount extends DomainEntity implements UserDetails {
 
 	// Attributes -------------------------------------------------------------
 
-	@Autowired
-	private ActorService			actorService;
-
 	// UserDetails interface --------------------------------------------------
 
 	private String					username;
 	private String					password;
 	private Collection<Authority>	authorities;
+	private boolean					banned;
 
 
 	@Size(min = 5, max = 32)
@@ -93,6 +88,14 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		this.authorities = authorities;
 	}
 
+	public boolean getBanned() {
+		return this.banned;
+	}
+
+	public void setBanned(final boolean banned) {
+		this.banned = banned;
+	}
+
 	public void addAuthority(final Authority authority) {
 		Assert.notNull(authority);
 		Assert.isTrue(!this.authorities.contains(authority));
@@ -110,18 +113,15 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isAccountNonExpired() {
-		return true;
+		return !this.getBanned();
 	}
 
 	@Transient
 	@Override
 	public boolean isAccountNonLocked() {
-		Boolean res = false;
-		final Actor actor = this.actorService.findOneByUserAccount(this);
-		if (actor != null)
-			res = !actor.getBanned();
-		return res;
+		return !this.getBanned();
 	}
+
 	@Transient
 	@Override
 	public boolean isCredentialsNonExpired() {
@@ -131,10 +131,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isEnabled() {
-		Boolean res = false;
-		final Actor actor = this.actorService.findOneByUserAccount(this);
-		if (actor != null)
-			res = !actor.getBanned();
+		final Boolean res = false;
 		return res;
 	}
 

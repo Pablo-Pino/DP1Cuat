@@ -60,16 +60,16 @@ public class RefereeService {
 
 	public Referee create() {
 		final Referee res = new Referee();
-		res.setBanned(false);
-		res.setSuspicious(false);
 		res.setUserAccount(new UserAccount()); //Create new account for a new referee
+		res.getUserAccount().setBanned(false);
+		res.setSuspicious(false);
 		return res;
 	}
 
 	public Referee save(final Referee object) {
 		final Referee referee = (Referee) this.serviceUtils.checkObject(object);
 		if (object.getId() == 0) {
-			object.setBanned(false);
+			object.getUserAccount().setBanned(false);
 			this.folderService.createSystemFolders(object);
 			object.setSuspicious(false);
 			this.serviceUtils.checkAuthority(Authority.ADMIN);
@@ -95,10 +95,10 @@ public class RefereeService {
 		Referee ref = referee;
 		if (referee.getId() > 0)
 			ref = this.repository.findOne(referee.getId());
-		if (this.isSuspicious(ref) && !ref.getBanned())
-			ref.setBanned(true);
+		if (this.isSuspicious(ref) && !ref.getUserAccount().getBanned())
+			ref.getUserAccount().setBanned(true);
 		else
-			ref.setBanned(false);
+			ref.getUserAccount().setBanned(false);
 		this.serviceUtils.checkAuthority(Authority.ADMIN);
 		this.repository.save(ref);
 	}
@@ -138,7 +138,7 @@ public class RefereeService {
 	public void banActor(final Referee r) {
 		Assert.notNull(r);
 		this.serviceUtils.checkAuthority("ADMIN");
-		r.setBanned(true);
+		r.getUserAccount().setBanned(true);
 		this.repository.save(r);
 
 	}
@@ -146,7 +146,7 @@ public class RefereeService {
 	public void unbanActor(final Referee r) {
 		Assert.notNull(r);
 		this.serviceUtils.checkAuthority("ADMIN");
-		r.setBanned(false);
+		r.getUserAccount().setBanned(false);
 		this.repository.save(r);
 
 	}

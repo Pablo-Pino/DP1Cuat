@@ -49,11 +49,11 @@ public class CustomerService {
 	public Customer create() {
 		Customer result;
 		result = new Customer();
-		//los atributos que no pueden estar vacíos
-		result.setBanned(false);
-		result.setSuspicious(false);
 		//establezco ya su tipo de userAccount porque no va a cambiar
 		result.setUserAccount(this.userAccountService.create("CUSTOMER"));
+		//los atributos que no pueden estar vacíos
+		result.getUserAccount().setBanned(false);
+		result.setSuspicious(false);
 		return result;
 	}
 
@@ -92,7 +92,7 @@ public class CustomerService {
 
 		//Si el customer que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
 		if (customer.getId() == 0) {
-			customer.setBanned(false);
+			customer.getUserAccount().setBanned(false);
 			this.folderService.createSystemFolders(customer);
 			customer.setSuspicious(false);
 
@@ -100,7 +100,7 @@ public class CustomerService {
 			this.serviceUtils.checkNoActor();
 
 		} else {
-			customer.setBanned(customerBD.getBanned());
+			customer.getUserAccount().setBanned(customerBD.getUserAccount().getBanned());
 			customer.setSuspicious(customerBD.getSuspicious());
 			customer.setUserAccount(customerBD.getUserAccount());
 
@@ -156,7 +156,7 @@ public class CustomerService {
 	public void banActor(final Customer a) {
 		Assert.notNull(a);
 		this.serviceUtils.checkAuthority("ADMIN");
-		a.setBanned(true);
+		a.getUserAccount().setBanned(true);
 		this.customerRepository.save(a);
 
 	}
@@ -164,7 +164,7 @@ public class CustomerService {
 	public void unBanActor(final Customer a) {
 		Assert.notNull(a);
 		this.serviceUtils.checkAuthority("ADMIN");
-		a.setBanned(false);
+		a.getUserAccount().setBanned(false);
 		this.customerRepository.save(a);
 
 	}

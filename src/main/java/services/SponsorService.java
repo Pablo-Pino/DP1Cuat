@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.SponsorRepository;
+import security.UserAccount;
 import domain.Sponsor;
 
 @Service
@@ -34,8 +35,9 @@ public class SponsorService {
 	public Sponsor create() {
 		Sponsor e;
 		e = new Sponsor();
+		e.setUserAccount(new UserAccount());
 		e.setSuspicious(false);
-		e.setBanned(false);
+		e.getUserAccount().setBanned(false);
 		return e;
 	}
 
@@ -60,20 +62,20 @@ public class SponsorService {
 
 	public void delete(final Sponsor s) {
 		Assert.notNull(s);
-		s.setBanned(true);
+		s.getUserAccount().setBanned(true);
 	}
 
 	public void banActor(final Sponsor s) {
 		Assert.notNull(s);
 		this.serviceUtils.checkAuthority("ADMIN");
-		s.setBanned(true);
+		s.getUserAccount().setBanned(true);
 		this.sponsorRepository.save(s);
 	}
 
 	public void unbanActor(final Sponsor s) {
 		Assert.notNull(s);
 		this.serviceUtils.checkAuthority("ADMIN");
-		s.setBanned(false);
+		s.getUserAccount().setBanned(false);
 		this.sponsorRepository.save(s);
 	}
 

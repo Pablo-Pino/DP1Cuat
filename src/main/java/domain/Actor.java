@@ -33,7 +33,7 @@ public abstract class Actor extends DomainEntity {
 
 	private String		phone;
 	private String		address;
-	private Boolean		banned;
+	// private Boolean		banned;
 	private Boolean		suspicious;
 
 	//--------------Relaciones-----------
@@ -117,16 +117,16 @@ public abstract class Actor extends DomainEntity {
 	public void setAddress(final String address) {
 		this.address = address;
 	}
-
-	@NotNull
-	public Boolean getBanned() {
-		return this.banned;
-	}
-
-	public void setBanned(final Boolean banned) {
-		this.banned = banned;
-	}
-
+	/*
+	 * @NotNull
+	 * public Boolean getBanned() {
+	 * return this.banned;
+	 * }
+	 * 
+	 * public void setBanned(final Boolean banned) {
+	 * this.banned = banned;
+	 * }
+	 */
 	@NotNull
 	public Boolean getSuspicious() {
 		return this.suspicious;

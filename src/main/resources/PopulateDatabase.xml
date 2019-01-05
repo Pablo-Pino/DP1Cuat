@@ -21,6 +21,7 @@
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin1" />
 		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -33,6 +34,7 @@
 	<bean id="userAccount15" class="security.UserAccount">
 		<property name="username" value="admin2" />
 		<property name="password" value="c84258e9c39059a89ab77d846ddab909" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -45,6 +47,7 @@
 	<bean id="userAccount2" class="security.UserAccount">
 		<property name="username" value="customer1" />
 		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -55,15 +58,13 @@
 	</bean>
 
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="username" value="system" />
+		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
 					<property name="authority" value="ADMIN" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
 				</bean>
 			</list>
 		</property>
@@ -72,6 +73,7 @@
 	<bean id="userAccount4" class="security.UserAccount">
 		<property name="username" value="customer2" />
 		<property name="password" value="5ce4d191fd14ac85a1469fb8c29b7a7b" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -84,6 +86,7 @@
 	<bean id="userAccount5" class="security.UserAccount">
 		<property name="username" value="customer3" />
 		<property name="password" value="033f7f6121501ae98285ad77f216d5e7" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -96,6 +99,7 @@
 	<bean id="userAccount6" class="security.UserAccount">
 		<property name="username" value="customer4" />
 		<property name="password" value="55feb130be438e686ad6a80d12dd8f44" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -108,6 +112,7 @@
 	<bean id="userAccount7" class="security.UserAccount">
 		<property name="username" value="referee1" />
 		<property name="password" value="092d469d0a71c8002e32f808b861f9a4" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -121,6 +126,7 @@
 	<bean id="userAccount14" class="security.UserAccount">
 		<property name="username" value="handyWorker1" />
 		<property name="password" value="78da4cd657c85d3cf54ae4497ed223f2" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -134,6 +140,7 @@
 	<bean id="userAccount8" class="security.UserAccount">
 		<property name="username" value="handyWorker2" />
 		<property name="password" value="118ad5acc8ff3ea8006c280b310cd492" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -147,6 +154,7 @@
 	<bean id="userAccount9" class="security.UserAccount">
 		<property name="username" value="handyWorker3" />
 		<property name="password" value="c210fdd660ad5034b88ad8bb9c135c26" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -160,6 +168,7 @@
 	<bean id="userAccount10" class="security.UserAccount">
 		<property name="username" value="handyWorker4" />
 		<property name="password" value="e14d43d31080bd377e4984615da9f3aa" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -173,6 +182,7 @@
 	<bean id="userAccount11" class="security.UserAccount">
 		<property name="username" value="sponsor1" />
 		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -186,6 +196,7 @@
 	<bean id="userAccount12" class="security.UserAccount">
 		<property name="username" value="sponsor2" />
 		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -199,6 +210,7 @@
 	<bean id="userAccount13" class="security.UserAccount">
 		<property name="username" value="sponsor3" />
 		<property name="password" value="857a54956061fdc1b88d7722cafe6519" />
+		<property name="banned" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -226,7 +238,6 @@
 		<property name="email" value="maxagar@gmail.com" />
 		<property name="phone" value="+34(456)123456789" />
 		<property name="address" value="C/Calle, 32" />
-		<property name="banned" value="false" />
 		<property name="suspicious" value="true" />
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
@@ -236,7 +247,6 @@
 		<property name="surname" value="Prats" />
 		<property name="email" value="maxagar@gmail.com" />
 		<property name="phone" value="+34(456)123456759" />
-		<property name="banned" value="false" />
 		<property name="suspicious" value="false" />
 		<property name="userAccount" ref="userAccount15" />
 	</bean>
@@ -608,7 +618,6 @@
 		<property name="email" value="uncorreonormal@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456718"></property>
 		<property name="address" value="C/ sal y arena"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="score" value="0.75"></property>
 		<property name="userAccount" ref="userAccount2"></property>
@@ -629,7 +638,6 @@
 		<property name="email" value="uncorreomaslargo@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456717"></property>
 		<property name="address" value="C/ esperanza de rafael"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="score" value="0.75"></property>
 		<property name="userAccount" ref="userAccount4">
@@ -650,7 +658,6 @@
 		<property name="email" value="juandelaaceitunaynooliva@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456716"></property>
 		<property name="address" value="C/ Perdida de la mano de Dios"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="score" value="0.81"></property>
 		<property name="userAccount" ref="userAccount5"></property>
@@ -670,7 +677,6 @@
 		<property name="email" value="tomaslena@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456715"></property>
 		<property name="address" value="C/ pasada la estacion del ave"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="score" value="0.65"></property>
 		<property name="userAccount" ref="userAccount6"></property>
@@ -692,7 +698,6 @@
 		<property name="email" value="uncorreonormal@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456714"></property>
 		<property name="address" value="C/ se señor"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="userAccount" ref="userAccount7"></property>
 	</bean>
@@ -829,7 +834,6 @@
 		<property name="email" value="nachete@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456757"></property>
 		<property name="address" value="C/ Vietnam"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="userAccount" ref="userAccount11"></property>
 	</bean>
@@ -843,7 +847,6 @@
 		<property name="email" value="yisusmurciano@gmail.com"></property>
 		<property name="phone" value="+34(456)123456756"></property>
 		<property name="address" value="C/ Achoooooo"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="userAccount" ref="userAccount12"></property>
 	</bean>
@@ -857,7 +860,6 @@
 		<property name="email" value="ramire@gmail.com"></property>
 		<property name="phone" value="+34(456)123456755"></property>
 		<property name="address" value="C/ Duero"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="userAccount" ref="userAccount13">
 		</property>
@@ -1887,7 +1889,6 @@
 		<property name="email" value="elgrinch@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456754"></property>
 		<property name="address" value="C/ Polo Norte"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="score" value="0.95"></property>
 		<property name="userAccount" ref="userAccount14"></property>
@@ -1903,7 +1904,6 @@
 		<property name="email" value="pokeluisito@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456753"></property>
 		<property name="address" value="C/ Rataland"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="score" value="0.85"></property>
 		<property name="userAccount" ref="userAccount8"></property>
@@ -1919,7 +1919,6 @@
 		<property name="email" value="camunon@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456752"></property>
 		<property name="address" value="C/ Lovaina"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="score" value="0.75"></property>
 		<property name="userAccount" ref="userAccount9">
@@ -1936,7 +1935,6 @@
 		<property name="email" value="tobi@hotmail.com"></property>
 		<property name="phone" value="+34(456)123456751"></property>
 		<property name="address" value="C/ Reja"></property>
-		<property name="banned" value="false"></property>
 		<property name="suspicious" value="false"></property>
 		<property name="score" value="0.66"></property>
 		<property name="userAccount" ref="userAccount10"></property>

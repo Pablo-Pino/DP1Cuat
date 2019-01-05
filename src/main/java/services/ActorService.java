@@ -54,15 +54,15 @@ public class ActorService {
 
 	@Autowired
 	private RefereeService			refereeService;
-	
+
 	@Autowired
-	private FolderService folderService;
-	
+	private FolderService			folderService;
+
 	@Autowired
-	private MessageService messageService;
-	
+	private MessageService			messageService;
+
 	@Autowired
-	private SocialProfileService socialProfileService;
+	private SocialProfileService	socialProfileService;
 
 	@Autowired
 	private ServiceUtils			serviceUtils;
@@ -120,6 +120,16 @@ public class ActorService {
 		return res;
 	}
 
+	public Collection<Actor> listSuspiciousActors() {
+		final Collection<Actor> res = new ArrayList<Actor>();
+		for (final Actor a : this.findAll())
+			if (a instanceof Administrator)
+				if (this.isSuspicious(a))
+					res.add(a);
+
+		return res;
+	}
+
 	//	//Ban actor
 	//	public Boolean banActor(final Actor a) {
 	//		final Boolean banned = false;
@@ -167,7 +177,7 @@ public class ActorService {
 
 	public Boolean unBanActor(final Actor a) {
 		Boolean res = false;
-		if (a.getBanned())
+		if (a.getUserAccount().getBanned())
 			for (final Authority au : a.getUserAccount().getAuthorities()) {
 				if (au.getAuthority().equals(Authority.ADMIN)) {
 
@@ -225,7 +235,7 @@ public class ActorService {
 		if (this.isSuspicious(a))
 			a.setSuspicious(true);
 		Boolean res = false;
-		if (a.getSuspicious() && !(a.getBanned()))
+		if (a.getSuspicious() && !(a.getUserAccount().getBanned()))
 			for (final Authority au : a.getUserAccount().getAuthorities()) {
 				if (au.getAuthority().equals(Authority.ADMIN)) {
 					final Collection<Administrator> admins = this.adminService.findAll();
