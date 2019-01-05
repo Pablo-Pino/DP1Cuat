@@ -28,24 +28,24 @@
 
 
 <security:authorize access="hasRole('HANDYWORKER')">
-	
+
 	<security:authentication property="principal.username" var="username" />
-	
-	<jstl:if
-		test='${handyWorker.userAccount.username == username}'>
-		
-		
+
+	<jstl:if test='${handyWorker.userAccount.username == username}'>
+
+
 		<fieldset>
 			<legend>
-				<spring:message code="curriculum.personalRecord"></spring:message>
+				<b><spring:message code="curriculum.personalRecord"></spring:message></b>
 			</legend>
-			<b><spring:message code="curriculum.fullName"></spring:message>: </b>
+			<b><spring:message code="curriculum.fullName"></spring:message>:
+			</b>
 			<jstl:out value="${curriculum.personalRecord.fullName}"></jstl:out>
 			<br />
-			<spring:message code="curriculum.linkedinProfile"></spring:message>
+			<b><spring:message code="curriculum.linkedinProfile"></spring:message></b>
 			<jstl:out value="${curriculum.personalRecord.linkedinProfile}"></jstl:out>
 			<br />
-			
+
 			<jstl:if test="${curriculum.id}== 0">
 				<spring:message code="curriculum.add" var="add"></spring:message>
 				<input type="button" name="add" value="${add}"
@@ -58,45 +58,114 @@
 			<input type="button" name="edit" value="${edit}"
 				onclick="javascript:relativeRedir('personalRecord/edit.do?personalRecordId=${curriculum.personalRecord.id}')" />
 		</fieldset>
+
+
+
+
+		<fieldset>
+			<legend>
+				<b><spring:message code="curriculum.educationRecords"></spring:message></b>
+			</legend>
+			<display:table name="educationRecords" id="eduactionRecord"
+				pagesize="5" class="displaytag">
+
+				<spring:message code="curriculum.diplomeTitle" var="diplomaTitle"></spring:message>
+				<display:column property="diplomaTitle" title="${diplomaTitle}"
+					sortable="true" />
+
+			</display:table>
+			
+			<spring:message code="curriculum.seeEducationRecords" var="seeEducationRecords"></spring:message>
+			<input type="button" name="seeEducationRecords" value="${seeEducationRecords}"
+				onclick="javascript:relativeRedir('educationRecord/handyWorker/list.do')" />
+			
+			
+			
+		</fieldset>
 		
+		<fieldset>
+			<legend>
+				<b><spring:message code="curriculum.professionalRecords"></spring:message></b>
+			</legend>
+			<display:table name="professionalRecords" id="professionalRecord"
+				pagesize="5" class="displaytag">
+
+				<spring:message code="curriculum.professionalRecord.company" var="company"></spring:message>
+				<display:column property="company" title="${company}"
+					sortable="true" />
+					
+				<spring:message code="curriculum.professionalRecord.role" var="role"></spring:message>
+				<display:column property="role" title="${role}"
+					sortable="true" />
+
+			</display:table>
+			
+			<spring:message code="curriculum.seeProfessionalRecords" var="seeProfessionalRecords"></spring:message>
+			<input type="button" name="seeProfessionalRecords" value="${seeProfessionalRecords}"
+				onclick="javascript:relativeRedir('professionalRecord/handyWorker/list.do')" />
+			
+			
+			
+		</fieldset>
 		
 		
 		
 		<fieldset>
 			<legend>
-				<spring:message code="curriculum.educationRecords"></spring:message>
+				<b><spring:message code="curriculum.endorserRecords"></spring:message></b>
 			</legend>
-			<display:table name="educationRecords" id="eduactionRecord" pagesize="5" class="displaytag">
-			
-			<spring:message code="curriculum.diplomeTitle" var="diplomeTitle"></spring:message>
-		<display:column property="name" title="${diplomeTitle}" sortable="true" />
-			
+			<display:table name="endorserRecords" id="endorserRecord"
+				pagesize="5" class="displaytag">
+
+				<spring:message code="curriculum.endorserRecord.fullName" var="fullName"></spring:message>
+				<display:column property="fullName" title="${fullName}"
+					sortable="true" />
+				
+				<spring:message code="curriculum.endorserRecord.linkedinProfile" var="linkedinProfile"></spring:message>
+				<display:column property="linkedinProfile" title="${linkedinProfile}"
+					sortable="true" />
+
 			</display:table>
 			
+			<spring:message code="curriculum.seeEndorserRecords" var="seeEndorserRecords"></spring:message>
+			<input type="button" name="seeEndorserRecords" value="${seeEndorserRecords}"
+				onclick="javascript:relativeRedir('endorserRecord/handyWorker/list.do')" />
 			
-			<spring:message code="curriculum.fullName"></spring:message>
-			<jstl:out value="${customer.personalRecord.fullName}"></jstl:out>
-			<br />
-			<spring:message code="curriculum.linkedinProfile"></spring:message>
-			<jstl:out value="${customer.personalRecord.linkedinProfile}"></jstl:out>
-			<br />
-			<jstl:if test="${curriculum.id}== 0">
-				<spring:message code="curriculum.add" var="add"></spring:message>
-				<input type="button" name="add" value="${add}"
-					onclick="javascript:relativeRedir('personalRecord/create.do?handyWorkerId=${curriculum.handyWorker.id}')" />
-			</jstl:if>
-			<spring:message code="curriculum.display" var="display"></spring:message>
-			<input type="button" name="display" value="${display}"
-				onclick="javascript:relativeRedir('personalRecord/display.do?personalRecordId=${curriculum.personalRecord.id}')" />
-			<spring:message code="curriculum.edit" var="edit"></spring:message>
-			<input type="button" name="edit" value="${edit}"
-				onclick="javascript:relativeRedir('personalRecord/edit.do?personalRecordId=${curriculum.personalRecord.id}')" />
+			
+			
 		</fieldset>
 		
-		
-		
-		
-		
+		<fieldset>
+			<legend>
+				<b><spring:message code="curriculum.miscellaneousRecords"></spring:message></b>
+			</legend>
+			<display:table name="miscellaneousRecords" id="miscellaneousRecord"
+				pagesize="5" class="displaytag">
+
+				<spring:message code="curriculum.miscellaneousRecord.title" var="title"></spring:message>
+				<display:column property="title" title="${title}"
+					sortable="true" />
+				
+				
+
+			</display:table>
+			
+			<spring:message code="curriculum.seeMiscellaneousRecords" var="seeMiscellaneousRecords"></spring:message>
+			<input type="button" name="seeMiscellaneousRecords" value="${seeMiscellaneousRecords}"
+				onclick="javascript:relativeRedir('miscellaneousRecord/handyWorker/list.do')" />
+			
+			
+			
+		</fieldset>
+
+
+
+
+
+
+
+
+
 	</jstl:if>
-	
+
 </security:authorize>
