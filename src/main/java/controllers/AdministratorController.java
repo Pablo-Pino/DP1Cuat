@@ -184,4 +184,45 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
+	//------------------BAN---------------------------------------------
+	//
+	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	//	public ModelAndView ban(@RequestParam final int actorId) {
+	//		ModelAndView result;
+	//		Assert.notNull(actorId);
+	//		final Actor actor = this.actorService.findOne(actorId);
+	//		final UserAccount ua = actor.getUserAccount();
+	//		if (ua.getBanned() == true) {
+	//			ua.setBanned(false);
+	//			result = new ModelAndView("redirect:administrator/list.do");
+	//
+	//		}
+	//		if (ua.getBanned() == false) {
+	//			ua.setBanned(true);
+	//			result = new ModelAndView("redirect:administrator/list.do");
+	//
+	//		}
+	//
+	//		result = this.createEditModelAndView2(actor);
+	//
+	//		return result;
+	//
+	//	}
+	//	protected ModelAndView createEditModelAndView2(final Actor admin) {
+	//		ModelAndView result;
+	//
+	//		result = this.createEditModelAndView2(admin, null);
+	//
+	//		return result;
+	//	}
+	//
+	//	protected ModelAndView createEditModelAndView2(final Actor admin, final String messageCode) {
+	//		final ModelAndView result;
+	//
+	//		result = new ModelAndView("administrator/edit");
+	//		result.addObject("administrator", admin);
+	//		result.addObject("message", messageCode);
+	//
+	//		return result;
+	//	}
 }
