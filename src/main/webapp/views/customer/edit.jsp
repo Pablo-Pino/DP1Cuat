@@ -27,7 +27,6 @@
 
 		<form:hidden path="id" />
 		<form:hidden path="version" />
-		<form:hidden path="banned" />
 		<form:hidden path="suspicious" />
 		<form:hidden path="fixupTasks" />
 		<form:hidden path="score"/>
