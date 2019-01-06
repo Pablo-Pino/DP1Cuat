@@ -10,6 +10,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -30,6 +31,7 @@ import services.ApplicationService;
 import services.HandyWorkerService;
 import domain.Actor;
 import domain.Administrator;
+import domain.HandyWorker;
 
 @Controller
 @RequestMapping("/administrator")
@@ -84,19 +86,19 @@ public class AdministratorController extends AbstractController {
 
 		final ModelAndView result;
 		//----------------------------------
-		//final Double maxFixStats;
-		final Double ratioElapsed;
-		//Collection<HandyWorker> handyWorkerMostComplaints = new ArrayList<>();
-		//ratioElapsed= this.actorService.fixupTasksStats().get("MAX");
+		final Double maxFixStats = null;
+		Double ratioElapsed;
+		Collection<HandyWorker> handyWorkerMostComplaints = new ArrayList<HandyWorker>();
+		ratioElapsed = this.actorService.fixupTasksStats().get("MAX");
 		ratioElapsed = this.applicationService.lateApplicationsRatio();
-		//handyWorkerMostComplaints = this.handyWorkerService.getTop3HandyWorkerWithMoreComplaints();
+		handyWorkerMostComplaints = this.handyWorkerService.getTop3HandyWorkerWithMoreComplaints();
 		//---------------------------------
 
 		result = new ModelAndView("administrator/display");
 
-		//result.addObject("dash1", maxFixStats);
+		result.addObject("dash1", maxFixStats);
 		result.addObject("dash16", ratioElapsed);
-		//result.addObject("dash29", handyWorkerMostComplaints);
+		result.addObject("dash29", handyWorkerMostComplaints);
 
 		return result;
 
