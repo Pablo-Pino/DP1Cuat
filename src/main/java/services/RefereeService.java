@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -67,9 +68,11 @@ public class RefereeService {
 	}
 
 	public Referee save(final Referee object) {
-		final Referee referee = (Referee) this.serviceUtils.checkObject(object);
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		final Referee referee = (Referee) this.serviceUtils.checkObjectSave(object);
 		if (object.getId() == 0) {
 			object.getUserAccount().setBanned(false);
+			object.getUserAccount().setPassword(encoder.encodePassword(object.getUserAccount().getPassword(), null));
 			this.folderService.createSystemFolders(object);
 			object.setSuspicious(false);
 			this.serviceUtils.checkAuthority(Authority.ADMIN);
@@ -82,13 +85,13 @@ public class RefereeService {
 			referee.setPhoto(object.getPhoto());
 			referee.setSurname(object.getSurname());
 			referee.setUserAccount(object.getUserAccount());
+			referee.getUserAccount().setPassword(encoder.encodePassword(object.getUserAccount().getPassword(), null));
 			this.serviceUtils.checkActor(referee);
 			this.serviceUtils.checkAuthority(Authority.REFEREE);
 		}
 		final Referee res = this.repository.save(object);
 		return res;
 	}
-
 	// Other methods
 	public void changeBanned(final Referee referee) {
 		this.serviceUtils.checkId(referee);

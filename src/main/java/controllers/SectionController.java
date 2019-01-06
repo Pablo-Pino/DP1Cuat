@@ -78,7 +78,7 @@ public class SectionController extends AbstractController {
 	private ModelAndView save(@Valid final Section section, final BindingResult binding) {
 		ModelAndView res = null;
 		if (binding.hasErrors())
-			this.createEditModelAndView(section);
+			res = this.createEditModelAndView(section);
 		else
 			try {
 				this.sectionService.save(section);

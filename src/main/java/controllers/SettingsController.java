@@ -47,13 +47,13 @@ public class SettingsController extends AbstractController {
 	private ModelAndView save(@Valid final Settings settings, final BindingResult binding) {
 		ModelAndView res = null;
 		if (binding.hasErrors())
-			this.createEditModelAndView(settings);
+			res = this.createEditModelAndView(settings);
 		else
 			try {
 				this.settingsService.save(settings);
-				res = new ModelAndView("redirect:list.do");
+				res = new ModelAndView("redirect:/");
 			} catch (final Throwable t) {
-				res = new ModelAndView("cannot.commit.error");
+				res = this.createEditModelAndView(settings, "cannot.commit.error");
 			}
 		return res;
 	}

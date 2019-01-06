@@ -19,23 +19,24 @@ import domain.Message;
 @Service
 @Transactional
 public class FolderService {
-	
+
 	// Repository
-	
+
 	@Autowired
 	private FolderRepository	repository;
-	
+
 	// Services
-	
+
 	@Autowired
 	private ActorService		actorService;
 	@Autowired
-	private MessageService messageService;
+	private MessageService		messageService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
+
 	// CRUD
-	
+
 	public Folder findOne(final Integer id) {
 		this.serviceUtils.checkId(id);
 		return this.repository.findOne(id);
@@ -49,7 +50,7 @@ public class FolderService {
 	public Collection<Folder> findAll() {
 		return this.repository.findAll();
 	}
-	
+
 	public List<Folder> findAllByActor(final Actor actor) {
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getId() > 0);
@@ -65,18 +66,18 @@ public class FolderService {
 		return res;
 	}
 
-	public Folder save(Folder object) {
-		Folder folder = (Folder) this.serviceUtils.checkObjectSave(object);
-		if(folder.getId() == 0) {
-			if(folder.getParentFolder() == null)
+	public Folder save(final Folder object) {
+		final Folder folder = (Folder) this.serviceUtils.checkObjectSave(object);
+		if (folder.getId() == 0) {
+			if (folder.getParentFolder() == null)
 				folder.setParentFolder(folder);
 			folder.setActor(this.actorService.findPrincipal());
 		} else {
+			Assert.isTrue(!folder.getSystem());
 			folder.setParentFolder(object.getParentFolder());
 			folder.setName(object.getName());
 		}
 		this.serviceUtils.checkActor(folder.getActor());
-		Assert.isTrue(!folder.getSystem());
 		return this.repository.save(folder);
 	}
 
@@ -84,12 +85,10 @@ public class FolderService {
 		final Folder folder = (Folder) this.serviceUtils.checkObject(object);
 		this.serviceUtils.checkActor(folder.getActor());
 		Assert.isTrue(!folder.getSystem());
-		for(Message m : this.messageService.findByFolder(folder)) {
+		for (final Message m : this.messageService.findByFolder(folder))
 			this.messageService.delete(m);
-		}
-		for(Folder f : this.findByActorAndParent(folder.getActor(), folder)) {
+		for (final Folder f : this.findByActorAndParent(folder.getActor(), folder))
 			this.delete(f);
-		}
 		folder.setParentFolder(null);
 		this.save(folder);
 		this.flush();
@@ -117,20 +116,20 @@ public class FolderService {
 			newFolder.setName(name);
 			newFolder.setSystem(true);
 			newFolder.setParentFolder(newFolder);
-			Folder newFolderSaved = this.save(newFolder);
+			final Folder newFolderSaved = this.save(newFolder);
 			resFolders.add(newFolderSaved);
 		}
 		return resFolders;
 	}
-	
-	public Collection<Folder> findByParent(Folder parent) {
+
+	public Collection<Folder> findByParent(final Folder parent) {
 		Assert.notNull(parent);
 		Assert.isTrue(parent.getId() > 0);
 		Assert.notNull(this.repository.findOne(parent.getId()));
 		return this.repository.findByParentId(parent.getId());
 	}
-	
-	public Collection<Folder> findByActorAndParent(Actor actor, Folder parent) {
+
+	public Collection<Folder> findByActorAndParent(final Actor actor, final Folder parent) {
 		Assert.notNull(parent);
 		Assert.isTrue(parent.getId() > 0);
 		Assert.notNull(this.repository.findOne(parent.getId()));
@@ -139,16 +138,16 @@ public class FolderService {
 		Assert.notNull(this.actorService.findOne(actor.getId()));
 		return this.repository.findByActorIdAndParentId(actor.getId(), parent.getId());
 	}
-	
-	public Collection<Folder> findByActorWithoutParent(Actor actor) {
+
+	public Collection<Folder> findByActorWithoutParent(final Actor actor) {
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getId() > 0);
 		Assert.notNull(this.actorService.findOne(actor.getId()));
 		return this.repository.findByActorIdWithoutParent(actor.getId());
 	}
-	
+
 	public void flush() {
 		this.repository.flush();
 	}
-	
+
 }

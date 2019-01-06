@@ -84,7 +84,7 @@ public class FolderController extends AbstractController {
 	private ModelAndView save(@Valid final Folder folder, final BindingResult binding) {
 		ModelAndView res = null;
 		if (binding.hasErrors())
-			this.createEditModelAndView(folder);
+			res = this.createEditModelAndView(folder);
 		else
 			try {
 				this.folderService.save(folder);
