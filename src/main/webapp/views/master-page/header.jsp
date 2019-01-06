@@ -57,6 +57,8 @@
 					<li class="arrow"></li>
 					<li><a href="referee/referee/profile.do"><spring:message
 								code="master.page.handyWorker.application.list" /></a></li>
+					<li><a href="curriculum/handyWorker/display.do"><spring:message
+								code="master.page.handyWorker.curriculum" /></a></li>
 				</ul></li>
 		</security:authorize>
 		
