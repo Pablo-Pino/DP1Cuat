@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import security.UserAccount;
 import services.ActorService;
 import services.CustomerService;
 import services.SocialProfileService;
@@ -109,12 +110,14 @@ public class CustomerController extends AbstractController {
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(customer);
 		else
+
 			try {
 				this.customerService.save(customer);
 				result = new ModelAndView("redirect:display.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(customer, "customer.commit.error");
 			}
+
 		return result;
 	}
 
@@ -128,9 +131,12 @@ public class CustomerController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Customer customer, final String messageCode) {
 		final ModelAndView result;
+		UserAccount userAccount = new UserAccount();
+		userAccount = customer.getUserAccount();
 
 		result = new ModelAndView("customer/edit");
 		result.addObject("customer", customer);
+		result.addObject("userAccount", userAccount);
 		result.addObject("message", messageCode);
 
 		return result;
