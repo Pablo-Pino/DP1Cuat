@@ -176,8 +176,10 @@ public class AdministratorController extends AbstractController {
 	public ModelAndView listActors() {
 		ModelAndView result;
 		Collection<Actor> actors;
+		Actor a;
+		a = this.actorService.findOneByUserAccount(LoginService.getPrincipal());
 
-		actors = this.actorService.findAll();
+		actors = this.actorService.findAllExceptMe(a);
 
 		result = new ModelAndView("actor/list");
 		result.addObject("requestURI", "administrator/list.do");
