@@ -64,12 +64,12 @@
 
 </display:table>
 
-<!-- Botones  -->
+<!-- Boton crear?  -->
 
-<security:authorize access="hasRole('HANDYWORKER')">
-	<div>
-		<a href="tutorial/handyWorker/create.do"> <spring:message
-				code="tutorial.create" />
-		</a>
-	</div>
-</security:authorize>
+<%-- <security:authorize access="hasRole('HANDYWORKER')"> --%>
+<!-- 	<div> -->
+<%-- 		<a href="tutorial/handyWorker/create.do"> <spring:message --%>
+<%-- 				code="tutorial.create" /> --%>
+<!-- 		</a> -->
+<!-- 	</div> -->
+<%-- </security:authorize> --%>

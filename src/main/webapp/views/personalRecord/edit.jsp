@@ -51,6 +51,15 @@
 					<form:errors cssClass="error" path="photo" />
 					<br />
 				</div>
+				
+				<div>
+					<form:label path="phone">
+						<spring:message code="personalRecord.phone"></spring:message>
+					</form:label>
+					<form:input path="phone" id="phone" name="phone" />
+					<form:errors cssClass="error" path="phone" />
+					<br />
+				</div>
 
 				<div>
 					<form:label path="email">

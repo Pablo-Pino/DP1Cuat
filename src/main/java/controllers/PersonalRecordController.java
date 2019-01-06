@@ -48,6 +48,26 @@ public class PersonalRecordController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		PersonalRecord pr;
+		Curriculum curriculum;
+		HandyWorker handyWorker;
+
+		handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+		curriculum = this.curriculumService.findByHandyWorker(handyWorker);
+
+		pr = this.personalRecordService.create();
+
+		pr.setCurriculum(curriculum);
+
+		result = this.createEditModelAndView(pr);
+
+		return result;
+
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int personalRecordId) {
 		ModelAndView result;
