@@ -10,7 +10,6 @@
 
 package controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -28,9 +27,13 @@ import security.LoginService;
 import services.ActorService;
 import services.AdministratorService;
 import services.ApplicationService;
+import services.CustomerService;
+import services.FixupTaskService;
 import services.HandyWorkerService;
+import services.ReportService;
 import domain.Actor;
 import domain.Administrator;
+import domain.Customer;
 import domain.HandyWorker;
 
 @Controller
@@ -55,7 +58,16 @@ public class AdministratorController extends AbstractController {
 	private ApplicationService		applicationService;
 
 	@Autowired
+	private FixupTaskService		fixupTaskService;
+
+	@Autowired
 	private HandyWorkerService		handyWorkerService;
+
+	@Autowired
+	private CustomerService			customerService;
+
+	@Autowired
+	private ReportService			reportService;
 
 
 	// Action-1 ---------------------------------------------------------------		
@@ -84,26 +96,101 @@ public class AdministratorController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView list() {
 
-		final ModelAndView result;
+		final ModelAndView result = new ModelAndView("administrator/display");
+
 		//----------------------------------
-		final Double maxFixStats = null;
-		Double ratioElapsed;
-		Collection<HandyWorker> handyWorkerMostComplaints = new ArrayList<HandyWorker>();
-		ratioElapsed = this.actorService.fixupTasksStats().get("MAX");
-		ratioElapsed = this.applicationService.lateApplicationsRatio();
-		handyWorkerMostComplaints = this.handyWorkerService.getTop3HandyWorkerWithMoreComplaints();
+
+		final Double maxFixupTaskPerUser = this.actorService.fixupTasksStats().get("MAX");
+		final Double minFixupTaskPerUser = this.actorService.fixupTasksStats().get("MIN");
+		final Double avgFixupTaskPerUser = this.actorService.fixupTasksStats().get("AVG");
+		final Double stdFixupTaskPerUser = this.actorService.fixupTasksStats().get("STD");
+
+		final Double maxApplicationsPerFixupTask = this.fixupTaskService.appsStats().get("MAX");
+		final Double minApplicationsPerFixupTask = this.fixupTaskService.appsStats().get("MIN");
+		final Double avgApplicationsPerFixupTask = this.fixupTaskService.appsStats().get("AVG");
+		final Double stdApplicationsPerFixupTask = this.fixupTaskService.appsStats().get("STD");
+
+		final Double maxMaximumPriceOfFixupTasks = this.fixupTaskService.maxFixupStaskStats().get("MAX");
+		final Double minMaximumPriceOfFixupTasks = this.fixupTaskService.maxFixupStaskStats().get("MIN");
+		final Double avgMaximumPriceOfFixupTasks = this.fixupTaskService.maxFixupStaskStats().get("AVG");
+		final Double stdMaximumPriceOfFixupTasks = this.fixupTaskService.maxFixupStaskStats().get("STD");
+
+		final Double maxPriceOfApplications = this.applicationService.applicationPriceStats().get("MAX");
+		final Double minPriceOfApplications = this.applicationService.applicationPriceStats().get("MIN");
+		final Double avgPriceOfApplications = this.applicationService.applicationPriceStats().get("AVG");
+		final Double stdPriceOfApplications = this.applicationService.applicationPriceStats().get("STD");
+
+		final Double ratioPendingApplications = this.applicationService.pendingRatio().get("Ratio");
+		final Double ratioAcceptedApplications = this.applicationService.acceptedRatio().get("Ratio");
+		final Double ratioRejectedApplications = this.applicationService.appsRejectedRatio().get("Ratio");
+		final Double ratioLateApplications = this.applicationService.lateApplicationsRatio();
+
+		final Collection<Customer> customersMoreFixupTasksAverage = this.customerService.listCustomer10();
+		final Collection<HandyWorker> handyWorkersMoreFixupTasksAverage = this.handyWorkerService.listHandyWorkerApplication();
+
+		final Double maxComplaintsPerFixupTask = this.fixupTaskService.fixupComplaintsStats().get("MAX");
+		final Double minComplaintsPerFixupTask = this.fixupTaskService.fixupComplaintsStats().get("MIN");
+		final Double avgComplaintsPerFixupTask = this.fixupTaskService.fixupComplaintsStats().get("AVG");
+		final Double stdComplaintsPerFixupTask = this.fixupTaskService.fixupComplaintsStats().get("STD");
+
+		final Double maxNotesPerReport = this.reportService.refeeReportStats().get("MAX");
+		final Double minNotesPerReport = this.reportService.refeeReportStats().get("MIN");
+		final Double avgNotesPerReport = this.reportService.refeeReportStats().get("AVG");
+		final Double stdNotesPerReport = this.reportService.refeeReportStats().get("STD");
+
+		final Double ratioFixupTasksWithComplaints = this.fixupTaskService.getRatioFixupTasksWithComplaints().get("Ratio");
+
+		final Collection<Customer> top3CustomersWithMoreComplaints = this.customerService.getTop3CustomerWithMoreComplaints();
+		final Collection<HandyWorker> top3HandyWorkersWithMoreComplaints = this.handyWorkerService.getTop3HandyWorkerWithMoreComplaints();
+
+		result.addObject("maxFixupTaskPerUser", maxFixupTaskPerUser);
+		result.addObject("minFixupTaskPerUser", minFixupTaskPerUser);
+		result.addObject("avgFixupTaskPerUser", avgFixupTaskPerUser);
+		result.addObject("stdFixupTaskPerUser", stdFixupTaskPerUser);
+
+		result.addObject("maxApplicationsPerFixupTask", maxApplicationsPerFixupTask);
+		result.addObject("minApplicationsPerFixupTask", minApplicationsPerFixupTask);
+		result.addObject("avgApplicationsPerFixupTask", avgApplicationsPerFixupTask);
+		result.addObject("stdApplicationsPerFixupTask", stdApplicationsPerFixupTask);
+
+		result.addObject("maxMaximumPriceOfFixupTasks", maxMaximumPriceOfFixupTasks);
+		result.addObject("minMaximumPriceOfFixupTasks", minMaximumPriceOfFixupTasks);
+		result.addObject("avgMaximumPriceOfFixupTasks", avgMaximumPriceOfFixupTasks);
+		result.addObject("stdMaximumPriceOfFixupTasks", stdMaximumPriceOfFixupTasks);
+
+		result.addObject("maxPriceOfApplications", maxPriceOfApplications);
+		result.addObject("minPriceOfApplications", minPriceOfApplications);
+		result.addObject("avgPriceOfApplications", avgPriceOfApplications);
+		result.addObject("stdPriceOfApplications", stdPriceOfApplications);
+
+		result.addObject("ratioPendingApplications", ratioPendingApplications);
+		result.addObject("ratioAcceptedApplications", ratioAcceptedApplications);
+		result.addObject("ratioRejectedApplications", ratioRejectedApplications);
+		result.addObject("ratioLateApplications", ratioLateApplications);
+
+		result.addObject("customersMoreFixupTasksAverage", customersMoreFixupTasksAverage);
+		result.addObject("handyWorkersMoreFixupTasksAverage", handyWorkersMoreFixupTasksAverage);
+
+		result.addObject("maxComplaintsPerFixupTask", maxComplaintsPerFixupTask);
+		result.addObject("minComplaintsPerFixupTask", minComplaintsPerFixupTask);
+		result.addObject("avgComplaintsPerFixupTask", avgComplaintsPerFixupTask);
+		result.addObject("stdComplaintsPerFixupTask", stdComplaintsPerFixupTask);
+
+		result.addObject("maxNotesPerReport", maxNotesPerReport);
+		result.addObject("minNotesPerReport", minNotesPerReport);
+		result.addObject("avgNotesPerReport", avgNotesPerReport);
+		result.addObject("stdNotesPerReport", stdNotesPerReport);
+
+		result.addObject("ratioFixupTasksWithComplaints", ratioFixupTasksWithComplaints);
+
+		result.addObject("top3CustomersWithMoreComplaints", top3CustomersWithMoreComplaints);
+		result.addObject("top3HandyWorkersWithMoreComplaints", top3HandyWorkersWithMoreComplaints);
+
 		//---------------------------------
-
-		result = new ModelAndView("administrator/display");
-
-		result.addObject("dash1", maxFixStats);
-		result.addObject("dash16", ratioElapsed);
-		result.addObject("dash29", handyWorkerMostComplaints);
 
 		return result;
 
 	}
-
 	//-------------------------------Aqui acaba el dashboard----------------------
 
 	//-----------------Display-------------------------

@@ -44,7 +44,7 @@ public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Intege
 	 * Collection<HandyWorker> listHandyWorkerApplication();
 	 */
 
-	@Query("select h.id, count(a5) from Application a5 join a5.handyWorker h where (((select count(a)*1.0 from Application a where a.handyWorker.id = h.id and a.status = 'ACCEPTED')) / ((select count(a2)*1.0 from Application a2 where a2.status = 'ACCEPTED') / (select count(h1) from HandyWorker h1))) >= 1.1 group by h order by count(a5)")
+	@Query("select h.id from Application a5 join a5.handyWorker h where (((select count(a)*1.0 from Application a where a.handyWorker.id = h.id and a.status = 'ACCEPTED')) / ((select count(a2)*1.0 from Application a2 where a2.status = 'ACCEPTED') / (select count(h1) from HandyWorker h1))) >= 1.1 group by h order by count(a5)")
 	Collection<HandyWorker> listHandyWorkerApplication();
 
 }
