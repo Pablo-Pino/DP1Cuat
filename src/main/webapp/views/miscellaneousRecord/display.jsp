@@ -20,17 +20,19 @@
 
 <p><spring:message code="miscellaneousRecord.display" /></p>
 
-<jstl:out value="${mr.title}"></jstl:out>
+<spring:message code="miscellaneousRecord.title"></spring:message>
+:
+<jstl:out value="${miscellaneousRecord.title}"></jstl:out>
 <br/>
 
 <spring:message code="miscellaneousRecord.attachment"></spring:message>
 :
-<jstl:out value="${mr.attachment}"></jstl:out>
+<jstl:out value="${miscellaneousRecord.attachment}"></jstl:out>
 <br/>
 
 <spring:message code="miscellaneousRecord.comments"></spring:message>
 :
-<jstl:out value="${mr.comments}"></jstl:out>
+<jstl:out value="${miscellaneousRecord.comments}"></jstl:out>
 <br/>
 
 </security:authorize>

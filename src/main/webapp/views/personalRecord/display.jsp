@@ -16,17 +16,29 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="personalRecord.display" /></p>
 
-<jstl:out value="${personalRecord.title}"></jstl:out>
+<b><spring:message code="personalRecord.fullName"></spring:message>:</b>
+<jstl:out value="${personalRecord.fullName}"></jstl:out>
 <br/>
 
-<spring:message code="personalRecord.attachment"></spring:message>
-:
-<jstl:out value="${personalRecord.attachment}"></jstl:out>
+<b><spring:message code="personalRecord.photo"></spring:message>:</b>
+<jstl:out value="${personalRecord.photo}"></jstl:out>
 <br/>
 
-<spring:message code="personalRecord.comment"></spring:message>
-:
-<jstl:out value="${personalRecord.comment}"></jstl:out>
+<b><spring:message code="personalRecord.email"></spring:message>:</b>
+<jstl:out value="${personalRecord.email}"></jstl:out>
 <br/>
+
+<b><spring:message code="personalRecord.phone"></spring:message>:</b>
+<jstl:out value="${personalRecord.phone}"></jstl:out>
+<br/>
+
+<b><spring:message code="personalRecord.linkedinProfile"></spring:message>:</b>
+<jstl:out value="${personalRecord.linkedinProfile}"></jstl:out>
+<br/>
+
+
+
+<input type="button" name="edit" value="<spring:message code="personalRecord.edit"></spring:message>" onclick="javascript:relativeRedir('personalRecord/handyWorker/edit.do?personalRecordId=${personalRecord.id}')"/>	
+<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('personalRecord/handyWorker/list.do')" />	
+

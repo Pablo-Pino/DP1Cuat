@@ -23,10 +23,10 @@
 </p>
 
 
-	<div>
-		<form:form action="handyWorker/edit.do" method="post" id="formCreate"
-			name="formCreate" modelAttribute="handyWorker"></form:form>
-
+<div>
+	<form:form action="handyWorker/edit.do" method="post" id="formCreate"
+			name="formCreate" modelAttribute="handyWorker">
+			
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="banned" />
@@ -74,10 +74,11 @@
 			<form:input path="userAccount.username" />
 			<form:errors cssClass="error" path="userAccount.username" />
 		
-
-	</div>
-	<!--  Botones -->
+		<!--  Botones -->
 
 		<input type="submit" name="save" value="<spring:message code="handyWorker.save"></spring:message>" />	
 		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('handyWorker/administrator/list.do')" />	
+	</form:form>
+</div>
+
 

@@ -10,13 +10,15 @@
 
 <tiles-definitions>
 
-	<definition name="personalRecord/create" extends="master.page">
-		<put-attribute name="title" value="Crear crónica de miscelánea" />
-		<put-attribute name="body" value="/views/personalRecord/create.jsp" />
-	</definition>
+	
 	<definition name="personalRecord/display" extends="master.page">
 		<put-attribute name="title" value="Mostrar crónica de miscelánea" />
 		<put-attribute name="body" value="/views/personalRecord/display.jsp" />
+	</definition>
+	
+	<definition name="personalRecord/edit" extends="master.page">
+		<put-attribute name="title" value="Editar crónica de miscelánea" />
+		<put-attribute name="body" value="/views/personalRecord/edit.jsp" />
 	</definition>
 
 </tiles-definitions>

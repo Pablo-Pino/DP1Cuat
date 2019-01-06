@@ -124,17 +124,17 @@ public class FixupTaskController extends AbstractController {
 
 	//delete
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final FixupTask fixupTask, final BindingResult binding) {
-		ModelAndView result;
-		try {
-			this.fixupTaskService.delete(fixupTask);
-			result = new ModelAndView("redirect:list.do");
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(fixupTask, "fixupTask.commit.error");
-		}
-		return result;
-	}
+	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	//	public ModelAndView delete(final FixupTask fixupTask, final BindingResult binding) {
+	//		ModelAndView result;
+	//		try {
+	//			this.fixupTaskService.delete(fixupTask);
+	//			result = new ModelAndView("redirect:list.do");
+	//		} catch (final Throwable oops) {
+	//			result = this.createEditModelAndView(fixupTask, "fixupTask.commit.error");
+	//		}
+	//		return result;
+	//	}
 
 	protected ModelAndView createEditModelAndView(final FixupTask fixupTask) {
 		ModelAndView result;

@@ -21,14 +21,15 @@
 <security:authorize access="hasRole('HANDYWORKER')">
 	<div>
 
-		<form:form action="miscellaneousRecord/create.do" method="POST"
+		<form:form action="miscellaneousRecord/handyWorker/edit.do" method="post"
 			id="formCreate" name="formCreate" modelAttribute="miscellaneousRecord">
 
 			<!-- Atributos hidden-->
 
 			<form:hidden path="id" />
 			<form:hidden path="version" />
-			
+			<form:hidden path="curriculum" />
+
 
 			<fieldset>
 				<!-------------------Form ------------------------------------>
@@ -36,11 +37,11 @@
 					<form:label path="title">
 						<spring:message code="miscellaneousRecord.title"></spring:message>
 					</form:label>
-					<form:input path="title" id="title" name="title" />
+					<form:input path="title" id="title"
+						name="title" />
 					<form:errors cssClass="error" path="title" />
 					<br />
 				</div>
-
 
 				<div>
 					<form:label path="attachment">
@@ -59,22 +60,36 @@
 					<form:errors cssClass="error" path="comments" />
 					<br />
 				</div>
-				
-
 
 
 			</fieldset>
+
+
+			<!--  Los botones de crear y cancelar -->
+
+			<input type="submit" name="save"
+				value="<spring:message code="miscellaneousRecord.save"></spring:message>" />
+
+			<button type="button"
+				onclick="javascript: relativeRedir('miscellaneousRecord/handyWorker/list.do')">
+				<spring:message code="miscellaneousRecord.cancel" />
+			</button>
+
+			<jstl:if test="${miscellaneousRecord.id != 0}">
+				<input type="submit" name="delete"
+					value="<spring:message code="miscellaneousRecord.delete" />"
+					onclick="return confirm('<spring:message code="miscellaneousRecord.confirm.delete" />')" />&nbsp;
+	</jstl:if>
+
+
+
 
 
 
 		</form:form>
 
 	</div>
-	
-	<!--  Botones -->
-	
-		<input type="submit" name="save" value="<spring:message code="miscellaneousRecord.save"></spring:message>" />	
-		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('miscellaneousRecord/display.do')" />	
+
 
 
 

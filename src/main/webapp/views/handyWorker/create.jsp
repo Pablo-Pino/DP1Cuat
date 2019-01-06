@@ -140,12 +140,6 @@
 
 		</fieldset>
 
-
-
-	</form:form>
-
-</div>
-
 <!--  Botones -->
 
 <input type="submit" name="save"
@@ -153,3 +147,7 @@
 <input type="button" name="cancel" value="${cancel}"
 	onclick="javascript:relativeRedir('handyWorker/list.do')" />
 
+
+	</form:form>
+
+</div>

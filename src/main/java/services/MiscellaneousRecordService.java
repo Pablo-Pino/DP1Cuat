@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.MiscellaneousRecordRepository;
+import domain.Curriculum;
 import domain.MiscellaneousRecord;
 
 @Service
@@ -19,6 +20,9 @@ public class MiscellaneousRecordService {
 
 	@Autowired
 	private MiscellaneousRecordRepository	miscellaneousRecordRepository;
+
+	@Autowired
+	private CurriculumService				curriculumService;
 
 
 	public MiscellaneousRecordService() {
@@ -42,6 +46,13 @@ public class MiscellaneousRecordService {
 		Assert.notNull(mr);
 
 		return mr;
+	}
+
+	public Collection<MiscellaneousRecord> findAll(final Curriculum dependency) {
+		Assert.notNull(dependency);
+		Assert.isTrue(dependency.getId() > 0);
+		Assert.notNull(this.curriculumService.findOne(dependency.getId()));
+		return dependency.getMiscellaneousRecords();
 	}
 
 	public MiscellaneousRecord findOne(final int miscellaneousRecordId) {
