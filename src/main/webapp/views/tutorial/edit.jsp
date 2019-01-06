@@ -24,8 +24,10 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
-<%-- 	<form:hidden path="sections" /> --%>
-<%-- 	<form:hidden path="sponsorships" />  --%>
+	<form:hidden path ="handyWorker" />
+	<form:hidden path="sponsorships" /> 
+	<form:hidden path="sections" /> 
+	
 	
 
 	<form:label path="title"> <spring:message code="tutorial.title" />:</form:label>
