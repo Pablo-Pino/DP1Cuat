@@ -53,11 +53,11 @@
 			</jstl:if>
 			<spring:message code="curriculum.display" var="display"></spring:message>
 			<input type="button" name="display" value="${display}"
-				<%--onclick="javascript:relativeRedir('personalRecord/display.do?personalRecordId=${curriculum.personalRecord.id}')" /> --%>
-				onclick="javascript:relativeRedir('personalRecord/handyWorker/display.do)" />
+			onclick="javascript:relativeRedir('personalRecord/handyWorker/display.do?personalRecordId=${curriculum.personalRecord.id}')" />
+			
 			<spring:message code="curriculum.edit" var="edit"></spring:message>
 			<input type="button" name="edit" value="${edit}"
-				onclick="javascript:relativeRedir('personalRecord/edit.do?personalRecordId=${curriculum.personalRecord.id}')" />
+				onclick="javascript:relativeRedir('personalRecord/handyWorker/edit.do?personalRecordId=${curriculum.personalRecord.id}')" />
 		</fieldset>
 
 

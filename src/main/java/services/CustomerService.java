@@ -92,7 +92,6 @@ public class CustomerService {
 
 		//Si el customer que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
 		if (customer.getId() == 0) {
-			customer.getUserAccount().setBanned(false);
 			this.folderService.createSystemFolders(customer);
 			customer.setSuspicious(false);
 
@@ -100,7 +99,6 @@ public class CustomerService {
 			this.serviceUtils.checkNoActor();
 
 		} else {
-			customer.getUserAccount().setBanned(customerBD.getUserAccount().getBanned());
 			customer.setSuspicious(customerBD.getSuspicious());
 			customer.setUserAccount(customerBD.getUserAccount());
 

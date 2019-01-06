@@ -34,61 +34,48 @@
 			<fieldset>
 				<!-------------------Form ------------------------------------>
 				<div>
-					<form:label path="diplomaTitle">
-						<spring:message code="personalRecord.diplomaTitle"></spring:message>
+					<form:label path="fullName">
+						<spring:message code="personalRecord.fullName"></spring:message>
 					</form:label>
-					<form:input path="diplomaTitle" id="diplomaTitle"
-						name="diplomaTitle" />
-					<form:errors cssClass="error" path="diplomaTitle" />
+					<form:input path="fullName" id="fullName"
+						name="fullName" />
+					<form:errors cssClass="error" path="fullName" />
 					<br />
 				</div>
 
 				<div>
-					<form:label path="start">
-						<spring:message code="personalRecord.start"></spring:message>
+					<form:label path="photo">
+						<spring:message code="personalRecord.photo"></spring:message>
 					</form:label>
-					<form:input path="start" id="start" name="start" />
-					<form:errors cssClass="error" path="start" />
+					<form:input path="photo" id="photo" name="photo" />
+					<form:errors cssClass="error" path="photo" />
 					<br />
 				</div>
 
 				<div>
-					<form:label path="end">
-						<spring:message code="personalRecord.end"></spring:message>
+					<form:label path="email">
+						<spring:message code="personalRecord.email"></spring:message>
 					</form:label>
-					<form:input path="end" id="end" name="end" />
-					<form:errors cssClass="error" path="end" />
+					<form:input path="email" id="email" name="email" />
+					<form:errors cssClass="error" path="email" />
 					<br />
 				</div>
 
 				<div>
-					<form:label path="institution">
-						<spring:message code="personalRecord.institution"></spring:message>
+					<form:label path="linkedinProfile">
+						<spring:message code="personalRecord.linkedinProfile"></spring:message>
 					</form:label>
-					<form:input path="institution" id="institution" name="institution" />
-					<form:errors cssClass="error" path="institution" />
+					<form:input path="linkedinProfile" id="linkedinProfile" name="linkedinProfile" />
+					<form:errors cssClass="error" path="linkedinProfile" />
 					<br />
 				</div>
-
-				<div>
-					<form:label path="attachment">
-						<spring:message code="personalRecord.attachment"></spring:message>
-					</form:label>
-					<form:input path="attachment" id="attachment" name="attachment" />
-					<form:errors cssClass="error" path="attachment" />
-					<br />
-				</div>
-
 
 			</fieldset>
-
-
-
-			<input type="submit" name="save"
-				value="<spring:message code="personalRecord.save"></spring:message>" />
+			
+			<input type="submit" name="save" value="<spring:message code="personalRecord.save"></spring:message>" />
 
 			<button type="button"
-				onclick="javascript: relativeRedir('personalRecord/handyWorker/list.do')">
+				onclick="javascript: relativeRedir('curriculum/handyWorker/display.do">
 				<spring:message code="personalRecord.cancel" />
 			</button>
 
@@ -101,9 +88,6 @@
 		</form:form>
 
 	</div>
-
-
-
 
 
 </security:authorize>

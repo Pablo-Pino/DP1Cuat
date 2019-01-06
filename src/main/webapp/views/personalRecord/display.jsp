@@ -38,7 +38,3 @@
 <br/>
 
 
-
-<input type="button" name="edit" value="<spring:message code="personalRecord.edit"></spring:message>" onclick="javascript:relativeRedir('personalRecord/handyWorker/edit.do?personalRecordId=${personalRecord.id}')"/>	
-<input type="button" name="cancel" value="<spring:message code="personalRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('personalRecord/handyWorker/list.do')" />	
-
