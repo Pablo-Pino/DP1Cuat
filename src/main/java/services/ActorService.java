@@ -87,6 +87,15 @@ public class ActorService {
 		return result;
 	}
 
+	public Collection<Actor> findAllExceptMe(final Actor a) {
+		Collection<Actor> result;
+		result = this.actorRepository.findAll();
+		result.remove(a);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	// -------------------------Other methods-------------------------
 
 	public Actor findOneByUserAccount(final UserAccount userAccount) {
