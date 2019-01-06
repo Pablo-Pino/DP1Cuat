@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.ActorService;
+import services.CurriculumService;
 import services.SectionService;
 import services.SponsorshipService;
 import services.TutorialService;
+import domain.HandyWorker;
 import domain.Section;
 import domain.Sponsorship;
 import domain.Tutorial;
@@ -34,6 +38,12 @@ public class TutorialController extends AbstractController {
 	@Autowired
 	SectionService		sectionService;
 
+	@Autowired
+	ActorService		actorService;
+
+	@Autowired
+	CurriculumService	curriculumService;
+
 
 	//List
 
@@ -49,6 +59,21 @@ public class TutorialController extends AbstractController {
 		result.addObject("requestURI", "tutorial/handyWorker/list.do");
 
 		return result;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Tutorial tutorial;
+		HandyWorker handyWorker;
+		handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+
+		tutorial = this.tutorialService.create();
+		tutorial.setHandyWorker(handyWorker);
+		result = this.createEditModelAndView(tutorial);
+
+		return result;
+
 	}
 
 	//Edit
