@@ -9,9 +9,9 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
-	<definition name="endorserRecord/create" extends="master.page">
-		<put-attribute name="title" value="Create endorser record" />
-		<put-attribute name="body" value="/views/endorserRecord/create.jsp" />
+	<definition name="endorserRecord/edit" extends="master.page">
+		<put-attribute name="title" value="Edit endorser record" />
+		<put-attribute name="body" value="/views/endorserRecord/edit.jsp" />
 	</definition>
 	
 	<definition name="endorserRecord/display" extends="master.page">
