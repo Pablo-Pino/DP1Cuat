@@ -51,6 +51,7 @@
 		
 		
 		<value>/views/educationRecord/messages</value>
+		<value>/views/professionalRecord/messages</value>
 		<value>/views/curriculum/messages</value>
 		<value>/views/endorserRecord/messages</value>
 		<!-- <value>/views/endorsement/messages</value>
