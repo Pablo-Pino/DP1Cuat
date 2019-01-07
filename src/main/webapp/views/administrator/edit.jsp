@@ -28,6 +28,8 @@
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="suspicious" />
+		<form:hidden path="userAccount.authorities" />
+
 
 
 
@@ -112,10 +114,19 @@
 		<input type="submit" name="save"
 			value="<spring:message code="administrator.save"></spring:message>" />
 
-		<input type="button" name="cancel"
-			value="<spring:message code="administrator.cancel"></spring:message>"
-			onclick="javascript:relativeRedir('administrator/display2.do')" />
+		<jstl:if test="${administrator.id == 0 }">
+			<input type="button" name="cancel"
+				value="<spring:message code="administrator.cancel"></spring:message>"
+				onclick="javascript:relativeRedir('/')" />
+		</jstl:if>
 
+		<jstl:if test="${administrator.id != 0 }">
+
+			<input type="button" name="cancel"
+				value="<spring:message code="administrator.cancel"></spring:message>"
+				onclick="javascript:relativeRedir('administrator/display2.do')" />
+
+		</jstl:if>
 	</form:form>
 
 
