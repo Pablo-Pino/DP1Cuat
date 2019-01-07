@@ -46,7 +46,7 @@
 					<li class="arrow"></li>
 					<li><a href="customer/action-1.do"><spring:message
 								code="master.page.customer.action.1" /></a></li>
-					
+
 				</ul></li>
 		</security:authorize>
 
@@ -61,7 +61,7 @@
 								code="master.page.handyWorker.curriculum" /></a></li>
 				</ul></li>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('REFEREE')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.referee" /></a>
@@ -75,8 +75,18 @@
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
-			<li><a class="fNiv" href="security/signup.do"><spring:message
-						code="master.page.signup" /></a></li>
+
+			<li><a class="fNiv"><spring:message
+						code="master.page.signup" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="referee/referee/profile.do"><spring:message
+								code="master.page.AsHandyWorker" /></a></li>
+					<li><a href="customer/create.do"><spring:message
+								code="master.page.AsCustomer" /></a></li>
+					<li><a href="curriculum/handyWorker/display.do"><spring:message
+								code="master.page.AsReferee" /></a></li>
+				</ul></li>
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
