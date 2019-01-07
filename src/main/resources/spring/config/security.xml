@@ -35,6 +35,8 @@
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
+		
+		<security:intercept-url pattern="/security/signup.do" access="isAnonymous()" />
 
 		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
@@ -103,6 +105,8 @@
 			
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
+		
+		
 
 		<security:form-login 
 			login-page="/security/login.do"

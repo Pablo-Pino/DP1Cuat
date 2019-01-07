@@ -54,6 +54,20 @@ public class LoginController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping("/signup")
+	public ModelAndView signup(@Valid final Credentials credentials, final BindingResult bindingResult, @RequestParam(required = false) final boolean showError) {
+		Assert.notNull(credentials);
+		Assert.notNull(bindingResult);
+
+		ModelAndView result;
+
+		result = new ModelAndView("security/signup");
+		result.addObject("credentials", credentials);
+		result.addObject("showError", showError);
+
+		return result;
+	}
+
 	// LoginFailure -----------------------------------------------------------
 
 	@RequestMapping("/loginFailure")
