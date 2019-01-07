@@ -86,7 +86,7 @@
 					<li class="arrow"></li>
 					<li><a href="referee/referee/profile.do"><spring:message
 								code="master.page.AsHandyWorker" /></a></li>
-					<li><a href="customer/create.do"><spring:message
+					<li><a href="none/customer/create.do"><spring:message
 								code="master.page.AsCustomer" /></a></li>
 					<li><a href="curriculum/handyWorker/display.do"><spring:message
 								code="master.page.AsReferee" /></a></li>

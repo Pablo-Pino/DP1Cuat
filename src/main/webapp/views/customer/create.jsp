@@ -22,14 +22,37 @@
 
 
 <div>
-	<form:form action="customer/create.do" method="post" id="formCreate"
-		name="formCreate" modelAttribute="customer">
+	<form:form action="none/customer/create.do" method="post"
+		id="formCreate" name="formCreate" modelAttribute="customer">
 
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="suspicious" />
 		<form:hidden path="fixupTasks" />
 		<form:hidden path="score" />
+		<form:hidden path="userAccount.authorities" />
+	
+
+		<fieldset>
+			<legend>
+				<spring:message code="customer.useraccount" />
+			</legend>
+			<div>
+				<form:label path="userAccount.username">
+					<spring:message code="customer.useraccount.username" />
+				</form:label>
+				<form:input path="userAccount.username" />
+				<form:errors path="userAccount.username" cssClass="error" />
+			</div>
+
+			<div>
+				<form:label path="userAccount.password">
+					<spring:message code="customer.useraccount.password" />
+				</form:label>
+				<form:password path="userAccount.password" />
+				<form:errors path="userAccount.password" cssClass="error" />
+			</div>
+		</fieldset> 
 
 
 
@@ -88,7 +111,7 @@
 		<br />
 
 
-		<form:label path="userAccount.username">
+		<%-- <form:label path="userAccount.username">
 			<spring:message code="userAccount.username" />:
 		</form:label>
 		<form:input path="userAccount.username" />
@@ -100,7 +123,7 @@
 		</form:label>
 		<form:password path="userAccount.password" />
 		<form:errors cssClass="error" path="userAccount.password" />
-		<br />
+		<br /> --%>
 
 
 		<!--  Botones -->

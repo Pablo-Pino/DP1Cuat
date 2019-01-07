@@ -94,14 +94,13 @@
 		
 		<security:intercept-url pattern="/curriculum/**" access="hasRole('HANDYWORKER')" />
 		
-		<security:intercept-url pattern="/customer/edit.do" access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/customer/display.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/customer/**" access="hasRole('CUSTOMER')" />
 		
 		
 		<security:intercept-url pattern="/complaint/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/actor/**" access="hasRole('ADMIN')" />
 		
-		<security:intercept-url pattern="/customer/create.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/none/customer/create.do" access="isAnonymous()" />
 		
 		
 		
