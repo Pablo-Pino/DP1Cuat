@@ -92,6 +92,7 @@
 		<security:intercept-url pattern="/endorserRecord/**" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/professionalRecord/**" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/workPlan/**" access="hasRole('HANDYWORKER')" />
+		<security:intercept-url pattern="/warranty/**" access="hasRole('ADMIN')" />
 		<security:intercept-url access="hasRole('HANDYWORKER')" pattern="/educationRecord/handyWorker/list.do"/>
 		
 		<security:intercept-url pattern="/curriculum/**" access="hasRole('HANDYWORKER')" />

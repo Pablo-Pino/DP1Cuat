@@ -149,4 +149,9 @@ public class FixupTaskService {
 		return this.fixupTaskRepository.findByWarrantyId(warranty.getId());
 	}
 
+	public Collection<FixupTask> findAcceptedFixupTasks() {
+		// TODO Auto-generated method stub
+		return this.fixupTaskRepository.findAcceptedFixupTasks();
+	}
+
 }

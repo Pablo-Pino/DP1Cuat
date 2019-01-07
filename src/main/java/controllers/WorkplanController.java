@@ -77,7 +77,7 @@ public class WorkplanController extends AbstractController {
 		else
 			try {
 				final WorkPlan aud = this.workplanService.save(workplan);
-				result = new ModelAndView("redirect:display.do?workplanId=" + aud.getId());
+				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(workplan, "workplan.commit.error");
 			}
@@ -129,6 +129,20 @@ public class WorkplanController extends AbstractController {
 		res.addObject("requestURI", "workplan/handyWorker/list.do");
 
 		return res;
+	}
+
+	//delete
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final WorkPlan workplan, final BindingResult binding) {
+		ModelAndView result;
+		try {
+			this.workplanService.delete(workplan);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(workplan, "workplan.commit.error");
+		}
+		return result;
 	}
 
 	//Ancillary methods

@@ -53,7 +53,8 @@
 	<jstl:if test="${warranty.id != 0}">
 		<input type="submit" name="delete"
 			value="<spring:message code="warranty.delete" />"
-			onclick="return confirm('<spring:message code="warranty.confirm.delete" />')" />&nbsp;
+	onclick="return confirm('<spring:message code="warranty.confirm.delete" />')" />&nbsp;
+	
 	</jstl:if>
 	<input type="button" name="cancel"
 		value="<spring:message code="warranty.cancel" />"

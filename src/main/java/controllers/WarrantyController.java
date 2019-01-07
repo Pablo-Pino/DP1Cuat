@@ -68,11 +68,23 @@ public class WarrantyController extends AbstractController {
 		else
 			try {
 				final Warranty aud = this.warrantyService.save(warranty);
-				result = new ModelAndView("redirect:display.do?warrantyId=" + aud.getId());
+				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(warranty, "warranty.commit.error");
 			}
 
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Warranty warranty, final BindingResult binding) {
+		ModelAndView result;
+		try {
+			this.warrantyService.delete(warranty);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(warranty, "warranty.commit.error");
+		}
 		return result;
 	}
 
