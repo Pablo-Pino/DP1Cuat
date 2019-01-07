@@ -41,7 +41,7 @@
 		<put-attribute name="body" value="/views/customer/display.jsp" />
 	</definition>
 	
-	<definition name="customer/create" extends="master.page">	
+	<definition name="none/customer/create" extends="master.page">	
 		<put-attribute name="title" value="Customer: Create" />
 		<put-attribute name="body" value="/views/customer/create.jsp" />
 	</definition>
