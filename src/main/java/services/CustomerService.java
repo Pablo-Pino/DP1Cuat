@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.CustomerRepository;
+import security.Authority;
+import security.UserAccount;
 import domain.Customer;
 import domain.FixupTask;
 
@@ -50,7 +52,10 @@ public class CustomerService {
 		Customer result;
 		result = new Customer();
 		//establezco ya su tipo de userAccount porque no va a cambiar
-		result.setUserAccount(this.userAccountService.create("CUSTOMER"));
+		result.setUserAccount(new UserAccount());
+		final Authority authority = new Authority();
+		authority.setAuthority(Authority.CUSTOMER);
+		result.getUserAccount().addAuthority(authority);
 		//los atributos que no pueden estar vacíos
 		result.getUserAccount().setBanned(false);
 		result.setSuspicious(false);
@@ -79,26 +84,29 @@ public class CustomerService {
 	public Customer save(final Customer customer) {
 		//comprobamos que el customer que nos pasan no sea nulo
 		Assert.notNull(customer);
+		Boolean isCreating = null;
 
-		//comprobamos que su id no sea negativa por motivos de seguridad
-		this.serviceUtils.checkIdSave(customer);
-
-		//este customer será el que está en la base de datos para usarlo si estamos ante un customer que ya existe
-		Customer customerBD;
-		Assert.isTrue(customer.getId() > 0);
-
-		//cogemos el customer de la base de datos
-		customerBD = this.customerRepository.findOne(customer.getId());
-
-		//Si el customer que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
 		if (customer.getId() == 0) {
-			this.folderService.createSystemFolders(customer);
+			isCreating = true;
 			customer.setSuspicious(false);
 
 			//comprobamos que ningún actor resté autenticado (ya que ningun actor puede crear los customers)
-			this.serviceUtils.checkNoActor();
+			//this.serviceUtils.checkNoActor();
 
 		} else {
+			isCreating = false;
+			//comprobamos que su id no sea negativa por motivos de seguridad
+			this.serviceUtils.checkIdSave(customer);
+
+			//este customer será el que está en la base de datos para usarlo si estamos ante un customer que ya existe
+			Customer customerBD;
+			Assert.isTrue(customer.getId() > 0);
+
+			//cogemos el customer de la base de datos
+			customerBD = this.customerRepository.findOne(customer.getId());
+
+			//Si el customer que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
+
 			customer.setSuspicious(customerBD.getSuspicious());
 			customer.setUserAccount(customerBD.getUserAccount());
 
@@ -111,6 +119,9 @@ public class CustomerService {
 		Customer res;
 		//le meto al resultado final el customer que he ido modificando anteriormente
 		res = this.customerRepository.save(customer);
+		this.flush();
+		if (isCreating)
+			this.folderService.createSystemFolders(res);
 		return res;
 	}
 
@@ -165,6 +176,10 @@ public class CustomerService {
 		a.getUserAccount().setBanned(false);
 		this.customerRepository.save(a);
 
+	}
+
+	public void flush() {
+		this.customerRepository.flush();
 	}
 
 }

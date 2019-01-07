@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.FixupTaskService;
 import services.HandyWorkerService;
+import services.PhaseService;
 import services.WorkPlanService;
+import domain.FixupTask;
 import domain.WorkPlan;
 
 @Controller
@@ -30,11 +33,17 @@ public class WorkplanController extends AbstractController {
 	@Autowired
 	WorkPlanService		workplanService;
 
+	@Autowired
+	FixupTaskService	fixupTaskService;
+
+	@Autowired
+	PhaseService		phaseService;
+
 
 	//create
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int handyWorkerId) {
+	public ModelAndView create() {
 		ModelAndView res;
 		WorkPlan workplan;
 		workplan = this.workplanService.create();
@@ -134,10 +143,13 @@ public class WorkplanController extends AbstractController {
 	}
 
 	protected ModelAndView createEditModelAndView(final WorkPlan workplan, final String message) {
-		ModelAndView result;
+		final ModelAndView result;
+		Collection<FixupTask> fixUp;
+		fixUp = this.fixupTaskService.findAcceptedFixupTasks();
 
 		result = new ModelAndView("workplan/edit");
 		result.addObject("workplan", workplan);
+		result.addObject("fixUp", fixUp);
 
 		return result;
 	}

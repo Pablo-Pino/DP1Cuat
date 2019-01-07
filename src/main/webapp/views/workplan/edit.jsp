@@ -19,34 +19,22 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="workplan/customer/edit.do" modelAttribute="workplan">
+<form:form action="workplan/handyWorker/edit.do" modelAttribute="workplan">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="handyWorker" />
-	<form:hidden path="sections" />
-	<form:hidden path="sponsorships" />
-
-	<form:label path="title"> <spring:message code="workplan.title" />:</form:label>
-	<form:input path="title" /><form:errors cssClass="error" path="title" /><br />
-
-	<form:label path="summary">
-		<spring:message code="workplan.summary" />:
-	</form:label>
-	<form:input path="summary" />
-	<form:errors cssClass="error" path="summary" />
-	<br />
+	<form:hidden path="phases" />
 	
-	<form:label path="pictures">
-		<spring:message code="workplan.pictures" />:
-	</form:label>
-	<form:input path="pictures" />
-	<form:errors cssClass="error" path="pictures" />
-	<br />
-	
+	<form:select id="fixupTask" path="fixupTask">
+			<form:option value="0" label="------"></form:option>
+			<form:options items="${fixUp}" itemLabel="ticker" itemValue="id" />
+			</form:select>
+			<form:errors cssClass="error" path="fixupTask" />
+	<br/>
 
 	<input type="submit" name="save"
-		value="<spring:message code="workplan" />" />&nbsp; 
+		value="<spring:message code="workplan.save" />" />&nbsp; 
 	<jstl:if test="${workplan.id != 0}">
 		<input type="submit" name="delete"
 			value="<spring:message code="workplan.delete" />"

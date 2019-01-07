@@ -19,17 +19,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<b><spring:message code="security.signup.select" /></b>
-<br />
-<br />
 
-<spring:message code="security.signup.handyWorker" var="handyWorker"></spring:message>
-<input type="button" name="handyWorker" value="${handyWorker}"
-	onclick="javascript:relativeRedir('personalRecord/handyWorker/display.do)" />
-	
-<spring:message code="security.signup.customer" var="customer"></spring:message>
-<input type="button" name="customer" value="${customer}"
-	onclick="javascript:relativeRedir('personalRecord/handyWorker/display.do)" />
 
 <form:form action="j_spring_security_check" modelAttribute="credentials">
 
@@ -54,6 +44,6 @@
 		</div>
 	</jstl:if>
 
-	<input type="submit" value="<spring:message code="security.login" />" />
+	<input type="submit" value="<spring:message code="security.register" />" />
 
 </form:form>

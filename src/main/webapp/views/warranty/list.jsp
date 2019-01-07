@@ -22,13 +22,13 @@
 <!-- Listing grid -->
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="warrantys" requestURI="${requestURI}" id="row">
+	name="warranties" requestURI="${requestURI}" id="row">
 	
 	<!-- Action links -->
 
-	<security:authorize access="hasRole('HANDYWORKER')">
+	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<a href="warranty/handyWorker/edit.do?warrantyId=${row.id}">
+			<a href="warranty/administrator/edit.do?warrantyId=${row.id}">
 				<spring:message	code="warranty.edit" />
 			</a>
 		</display:column>		
@@ -36,33 +36,26 @@
 	
 	<!-- Attributos -->
 	
-	<spring:message code="warranty.ticker" var="ticker" />
-	<display:column property="ticker" title="${ticker}" sortable="true" />
+	<spring:message code="warranty.title" var="title" />
+	<display:column property="title" title="${title}" sortable="true" />
 
-	<spring:message code="warranty.moment" var="moment" />
-	<display:column property="moment" title="${moment}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
+	<spring:message code="warranty.laws" var="laws" />
+	<display:column property="laws" title="${laws}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
 
-	<spring:message code="warranty.summary" var="summary" />
-	<display:column property="summary" title="${summary}" sortable="false" />
+	<spring:message code="warranty.terms" var="terms" />
+	<display:column property="terms" title="${terms}" sortable="false" />
 	
-	<spring:message code="warranty.pictures" var="pictures" />
-	<display:column property="pictures" title="${pictures}" sortable="false" />
-	
-	<spring:message code="warranty.sections" var="tutsec" />
-	<display:column title="${tutsec}">
-		<jstl:forEach items="${Tutorial.sections}" var="warrantySections">
-			<a href="warranty/handyworker/list.do?sectionId= ${warrantySections.id}"> <jstl:out value="warranty.section"></jstl:out></a>
-		</jstl:forEach>
-	</display:column>
+	<spring:message code="warranty.draft" var="draft" />
+	<display:column property="draft" title="${draft}" sortable="false" />
 	
 
 </display:table>
 
 <!-- Botones  -->
 
-<security:authorize access="hasRole('HANDYWORKER')">
+<security:authorize access="hasRole('ADMIN')">
 	<div>
-		<a href="warranty/handyWorker/create.do"> <spring:message
+		<a href="warranty/administrator/create.do"> <spring:message
 				code="warranty.create" />
 		</a>
 	</div>
