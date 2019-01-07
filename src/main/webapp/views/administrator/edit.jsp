@@ -28,10 +28,31 @@
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="suspicious" />
-		
 
 
-		
+
+		<jstl:if test="${administrator.id == 0 }">
+			<fieldset>
+				<legend>
+					<spring:message code="administrator.useraccount" />
+				</legend>
+				<div>
+					<form:label path="userAccount.username">
+						<spring:message code="administrator.useraccount.username" />
+					</form:label>
+					<form:input path="userAccount.username" />
+					<form:errors path="userAccount.username" cssClass="error" />
+				</div>
+
+				<div>
+					<form:label path="userAccount.password">
+						<spring:message code="administrator.useraccount.password" />
+					</form:label>
+					<form:password path="userAccount.password" />
+					<form:errors path="userAccount.password" cssClass="error" />
+				</div>
+			</fieldset>
+		</jstl:if>
 
 
 
@@ -97,7 +118,7 @@
 
 	</form:form>
 
-	
+
 
 
 </div>
