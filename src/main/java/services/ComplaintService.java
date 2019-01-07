@@ -17,7 +17,7 @@ import domain.Referee;
 @Service
 @Transactional
 public class ComplaintService {
-	
+
 	//Managed Repository
 
 	@Autowired
@@ -26,7 +26,7 @@ public class ComplaintService {
 	@Autowired
 	private TicketableService	ticketableService;
 	@Autowired
-	private FixupTaskService fixupTaskService;
+	private FixupTaskService	fixupTaskService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
 
@@ -71,28 +71,28 @@ public class ComplaintService {
 	public Collection<Complaint> findAllComplaintsWithoutReferee() {
 		return this.complaintRepository.SearchComplaintWithoutReferee();
 	}
-	
-	public Collection<Complaint> findByFixupTask(FixupTask fixupTask) {
+
+	public Collection<Complaint> findByFixupTask(final FixupTask fixupTask) {
 		Assert.notNull(fixupTask);
 		Assert.isTrue(fixupTask.getId() > 0);
 		Assert.notNull(this.fixupTaskService.findOne(fixupTask.getId()));
 		return this.complaintRepository.findByFixupTaskId(fixupTask.getId());
 	}
 
-	public Collection<Complaint> findAll(FixupTask dependency) {
+	public Collection<Complaint> findAll(final FixupTask dependency) {
 		return this.findByFixupTask(dependency);
 	}
 
-	public Complaint create(FixupTask dependency) {
+	public Complaint create(final FixupTask dependency) {
 		Assert.notNull(dependency);
 		Assert.isTrue(dependency.getId() > 0);
 		Assert.notNull(this.fixupTaskService.findOne(dependency.getId()));
-		Complaint res = this.create();
+		final Complaint res = this.create();
 		res.setFixuptask(dependency);
 		return res;
 	}
 
-	public void delete(Complaint object) {
+	public void delete(final Complaint object) {
 		throw new IllegalArgumentException("Unallowed method");
 	}
 }

@@ -71,7 +71,6 @@ public class AdministratorService {
 
 		//Si el admin que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
 		if (administrator.getId() == 0) {
-			administrator.getUserAccount().setBanned(false);
 			this.folderService.createSystemFolders(administrator);
 			administrator.setSuspicious(false);
 
@@ -79,7 +78,6 @@ public class AdministratorService {
 			//this.serviceUtils.checkNoActor();
 
 		} else {
-			administrator.getUserAccount().setBanned(adminDB.getUserAccount().getBanned());
 			administrator.setSuspicious(adminDB.getSuspicious());
 			administrator.setUserAccount(adminDB.getUserAccount());
 
