@@ -32,11 +32,29 @@ public class ActorController extends AbstractController {
 		Assert.notNull(actorId);
 		final Actor actor = this.actorService.findOne(actorId);
 		final UserAccount ua = actor.getUserAccount();
+		//
+		//		if (ua.getBanned() == true || ua.isEnabled() == false)
+		//			ua.setBanned(false);
+		//		if (ua.getBanned() == false)
+		ua.setBanned(true);
 
-		if (ua.getBanned() == true)
-			ua.setBanned(false);
-		if (ua.getBanned() == false)
-			ua.setBanned(true);
+		result = this.createEditModelAndView2(actor);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/unBan", method = RequestMethod.GET)
+	public ModelAndView unBan(@RequestParam final int actorId) {
+		ModelAndView result;
+		Assert.notNull(actorId);
+		final Actor actor = this.actorService.findOne(actorId);
+		final UserAccount ua = actor.getUserAccount();
+
+		//		if (ua.getBanned() == true || ua.isEnabled() == false)
+		ua.setBanned(false);
+		//		if (ua.getBanned() == false)
+		//			ua.setBanned(true);
 
 		result = this.createEditModelAndView2(actor);
 

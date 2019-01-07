@@ -59,6 +59,8 @@
 								code="master.page.handyWorker.application.list" /></a></li>
 					<li><a href="curriculum/handyWorker/display.do"><spring:message
 								code="master.page.handyWorker.curriculum" /></a></li>
+					<li><a href="workplan/handyWorker/list.do"><spring:message
+								code="master.page.handyWorker.workPlan" /></a></li>
 				</ul></li>
 		</security:authorize>
 
