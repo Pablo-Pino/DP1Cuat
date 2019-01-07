@@ -44,7 +44,7 @@
 		
 		<jstl:if test="${actor.suspicious eq true}">
 			<jstl:if test="${actor.userAccount.banned eq true}">
-					<a href="actor/ban.do?actorId=${actor.id}"><spring:message
+					<a href="actor/unBan.do?actorId=${actor.id}"><spring:message
 					code="actor.unBan"></spring:message></a></jstl:if>
 			<jstl:if test="${actor.userAccount.banned eq false && actor.suspicious eq true}">
 					<a href="actor/ban.do?actorId=${actor.id}"><spring:message
