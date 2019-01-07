@@ -74,9 +74,7 @@
 		<security:intercept-url access="hasRole('ADMIN')" pattern="/category/administrator/create.do"/>
 		<security:intercept-url access="hasRole('ADMIN')" pattern="/category/administrator/edit.do"/>
 		<security:intercept-url access="hasRole('ADMIN')" pattern="/category/administrator/delete.do"/>
-		
-		<security:intercept-url pattern="/administrator/**" access="hasRole('ADMIN')" /> 
-		
+				
 		<security:intercept-url pattern="/application/list.do" access="hasAnyRole('HANDYWORKER' , 'CUSTOMER')" /> 
 		<security:intercept-url pattern="/application/display.do" access="hasAnyRole('HANDYWORKER' , 'CUSTOMER')" /> 
 		<security:intercept-url pattern="/application/edit.do" access="hasAnyRole('HANDYWORKER' , 'CUSTOMER')" /> 
@@ -101,7 +99,11 @@
 		
 		<security:intercept-url pattern="/complaint/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/actor/**" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/administrator/**" access="hasRole('ADMIN')" />
+		
+		<security:intercept-url pattern="/none/customer/create.do" access="isAnonymous()" />
+		
+		
+		
 		
 		
 			
