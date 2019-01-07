@@ -10,13 +10,17 @@
 
 <tiles-definitions>
 
-	<definition name="professionalRecord/create" extends="master.page">
-		<put-attribute name="title" value="Crear crónica profesional" />
-		<put-attribute name="body" value="/views/professionalRecord/create.jsp" />
-	</definition>
 	<definition name="professionalRecord/display" extends="master.page">
 		<put-attribute name="title" value="Mostrar crónica profesional" />
 		<put-attribute name="body" value="/views/professionalRecord/display.jsp" />
 	</definition>
-
+		<definition name="professionalRecord/edit" extends="master.page">
+		<put-attribute name="title" value="Editar crónica profesional" />
+		<put-attribute name="body" value="/views/professionalRecord/edit.jsp" />
+	</definition>
+	<definition name="professionalRecord/list" extends="master.page">
+		<put-attribute name="title" value="Listar crónicas profesionales" />
+		<put-attribute name="body" value="/views/professionalRecord/list.jsp" />
+	</definition>
+	
 </tiles-definitions>

@@ -14,10 +14,10 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 
 	@Query("select a from Application a where a.handyWorker.id = ?1")
 	Collection<Application> findApplicationsByHandyWorker(int handyWorkerId);
-	
+
 	@Query("select a from Application a where a.fixupTask.id = ?1")
 	Collection<Application> findApplicationsByFixupTask(int fixupTaskId);
-	
+
 	//---------------------Query C4------------------------------
 	//The average, the minimum, the maximum, and the standard deviation of the
 	//price offered in the applications
@@ -46,7 +46,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 	//------------------------Query C8----------------------------------------
 	//The ratio of pending applications that cannot change its status because their time period elapsed.
 
-	@Query("select 100*(count(app)/(select count(ap) from Application ap))from Application app where app.status='PENDING' and app.fixupTask.end > CURRENT_TIMESTAMP ")
+	@Query("select 100*(count(app)/(select count(ap) from Application ap))from Application app where app.status='PENDING' and app.fixupTask.end < CURRENT_TIMESTAMP ")
 	Double lateApplicationsRatio();
 
 }

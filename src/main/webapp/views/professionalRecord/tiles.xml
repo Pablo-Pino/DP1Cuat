@@ -9,14 +9,17 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
-	<definition name="professionalRecord/create" extends="master.page">
-		<put-attribute name="title" value="Create professional record" />
-		<put-attribute name="body" value="/views/professionalRecord/create.jsp" />
-	</definition>
 	
 	<definition name="professionalRecord/display" extends="master.page">
 		<put-attribute name="title" value="Display professional record" />
 		<put-attribute name="body" value="/views/professionalRecord/display.jsp" />
 	</definition>
-
+	<definition name="professionalRecord/edit" extends="master.page">
+		<put-attribute name="title" value="Edit professional record" />
+		<put-attribute name="body" value="/views/professionalRecord/edit.jsp" />
+	</definition>
+	<definition name="professionalRecord/list" extends="master.page">
+		<put-attribute name="title" value="List professional record" />
+		<put-attribute name="body" value="/views/professionalRecord/list.jsp" />
+	</definition>
 </tiles-definitions>

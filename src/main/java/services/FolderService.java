@@ -71,13 +71,12 @@ public class FolderService {
 		if (folder.getId() == 0) {
 			if (folder.getParentFolder() == null)
 				folder.setParentFolder(folder);
-			folder.setActor(this.actorService.findPrincipal());
 		} else {
 			Assert.isTrue(!folder.getSystem());
 			folder.setParentFolder(object.getParentFolder());
 			folder.setName(object.getName());
+			this.serviceUtils.checkActor(folder.getActor());
 		}
-		this.serviceUtils.checkActor(folder.getActor());
 		return this.repository.save(folder);
 	}
 
@@ -113,15 +112,19 @@ public class FolderService {
 		};
 		for (final String name : names) {
 			final Folder newFolder = this.create(actor);
+			System.out.println(newFolder.getActor());
 			newFolder.setName(name);
 			newFolder.setSystem(true);
 			newFolder.setParentFolder(newFolder);
 			final Folder newFolderSaved = this.save(newFolder);
 			resFolders.add(newFolderSaved);
 		}
+		for (final Folder f : resFolders) {
+			System.out.println(f.getId());
+			System.out.println(f.getActor());
+		}
 		return resFolders;
 	}
-
 	public Collection<Folder> findByParent(final Folder parent) {
 		Assert.notNull(parent);
 		Assert.isTrue(parent.getId() > 0);
