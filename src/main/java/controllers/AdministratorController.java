@@ -93,10 +93,10 @@ public class AdministratorController extends AbstractController {
 	}
 	//---------------------------DashBoard-------------------------------------
 
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView list() {
+	@RequestMapping(value = "/administrator/dashboard", method = RequestMethod.GET)
+	public ModelAndView dashboard() {
 
-		final ModelAndView result = new ModelAndView("administrator/display");
+		final ModelAndView result = new ModelAndView("administrator/dashboard");
 
 		//----------------------------------
 
@@ -184,7 +184,9 @@ public class AdministratorController extends AbstractController {
 		result.addObject("ratioFixupTasksWithComplaints", ratioFixupTasksWithComplaints);
 
 		result.addObject("top3CustomersWithMoreComplaints", top3CustomersWithMoreComplaints);
-		result.addObject("top3HandyWorkersWithMoreComplaints", top3HandyWorkersWithMoreComplaints);
+		result.addObject("top3HandyWorkerWithMoreComplaints", top3HandyWorkersWithMoreComplaints);
+
+		result.addObject("requestURI", "administrator/administrator/dashboard.do");
 
 		//---------------------------------
 

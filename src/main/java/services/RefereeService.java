@@ -62,6 +62,9 @@ public class RefereeService {
 	public Referee create() {
 		final Referee res = new Referee();
 		res.setUserAccount(new UserAccount()); //Create new account for a new referee
+		final Authority authority = new Authority();
+		authority.setAuthority(Authority.REFEREE);
+		res.getUserAccount().addAuthority(authority);
 		res.getUserAccount().setBanned(false);
 		res.setSuspicious(false);
 		return res;

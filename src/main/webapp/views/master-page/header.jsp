@@ -36,6 +36,8 @@
 								code="master.page.createreferee" /></a></li>
 					<li><a href="category/administrator/list.do"><spring:message
 								code="category.list"></spring:message></a>
+					<li><a href="administrator/administrator/dashboard.do"><spring:message
+								code="master.page.dashboard" /></a></li>
 				</ul></li>
 		</security:authorize>
 
