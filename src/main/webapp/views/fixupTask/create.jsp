@@ -30,9 +30,15 @@
 
 			<!-- Atributos hidden-->
 
-			<form:hidden path="id" />
-			<form:hidden path="version" />
-			<form:hidden path="moment" />
+				<form:hidden path="id" />
+				<form:hidden path="version" />
+				<form:hidden path="moment" />
+				<form:hidden path="category" />
+				<form:hidden path="warranty" />
+				<form:hidden path="customer" />
+				<form:hidden path="application" />
+				<form:hidden path="workplan" />
+				<form:hidden path="complaints" />
 			
 
 			<fieldset>
