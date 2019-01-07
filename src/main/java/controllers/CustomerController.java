@@ -13,6 +13,7 @@ package controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,7 @@ import security.UserAccount;
 import services.ActorService;
 import services.CustomerService;
 import services.SocialProfileService;
+import services.UserAccountService;
 import domain.Customer;
 
 @Controller
@@ -49,6 +51,9 @@ public class CustomerController extends AbstractController {
 
 	@Autowired
 	SocialProfileService	socialProfileService;
+
+	@Autowired
+	UserAccountService		userAccountService;
 
 
 	// Action-1 ---------------------------------------------------------------		
@@ -103,23 +108,86 @@ public class CustomerController extends AbstractController {
 
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Customer customer, final BindingResult binding) {
+	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	//	public ModelAndView save(@Valid final Customer customer, final BindingResult binding) {
+	//		ModelAndView result;
+	//
+	//		if (binding.hasErrors())
+	//			result = this.createEditModelAndView(customer);
+	//		else
+	//
+	//			try {
+	//				this.customerService.save(customer);
+	//				result = new ModelAndView("redirect:display.do");
+	//			} catch (final Throwable oops) {
+	//				result = this.createEditModelAndView(customer, "customer.commit.error");
+	//			}
+	//
+	//		return result;
+	//	}
+
+	//---------------------------create------------------------------------------------------
+	// Creation
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
 		ModelAndView result;
+		final Customer customer;
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(customer);
-		else
+		customer = this.customerService.create();
 
-			try {
-				this.customerService.save(customer);
-				result = new ModelAndView("redirect:display.do");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(customer, "customer.commit.error");
-			}
-
+		result = new ModelAndView("customer/create");
+		result.addObject("customer", customer);
 		return result;
 	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Customer customer, final BindingResult br) {
+		ModelAndView result;
+		Customer a = new Customer();
+		try {
+			a = (Customer) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+		} catch (final org.springframework.dao.DataIntegrityViolationException e) {
+
+		}
+		if (a != null)
+			try {
+				//					final UserAccount uA = this.userAccountService.save(customer.getUserAccount());
+				//					customer.setUserAccount(uA);
+				this.customerService.save(customer);
+				result = new ModelAndView("redirect:display.do");
+			} catch (final Throwable ops) {
+				result = new ModelAndView("customer/create");
+				result.addObject("customer", customer);
+				result.addObject("message", "customer.commit.error");
+			}
+		//			result = new ModelAndView("customer/create");
+		//			result.addObject("customer", customer);
+		//			result.addObject("message", "customer.commit.error");
+		else {
+			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			customer.getUserAccount().setPassword(encoder.encodePassword(customer.getUserAccount().getPassword(), null));
+			if (br.hasErrors()) {
+				result = this.createEditModelAndView(customer);
+				result.addObject("customer", customer);
+			} else
+				try {
+					//					final UserAccount uA = this.userAccountService.save(customer.getUserAccount());
+					//					customer.setUserAccount(uA);
+					this.customerService.save(customer);
+					result = new ModelAndView("redirect:display.do");
+				} catch (final Throwable ops) {
+					result = new ModelAndView("customer/create");
+					result.addObject("customer", customer);
+					result.addObject("message", "customer.commit.error");
+				}
+
+		}
+
+		return result;
+
+	}
+
+	//---------------------------------------------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Customer customer) {
 		ModelAndView result;

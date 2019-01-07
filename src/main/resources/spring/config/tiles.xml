@@ -46,12 +46,17 @@
 		<value>/views/application/tiles.xml</value>
 		<value>/views/complaint/tiles.xml</value>
 		<value>/views/actor/tiles.xml</value>
+		<value>/views/sponsor/tiles.xml</value>
+		<value>/views/sponsorship/tiles.xml</value>
+		<value>/views/warranty/tiles.xml</value>
+		<value>/views/workplan/tiles.xml</value>
 		
 		
 		
 		
 		
 		<value>/views/educationRecord/tiles.xml</value>
+		<value>/views/professionalRecord/tiles.xml</value>
 		<value>/views/endorsement/tiles.xml</value>
  		<value>/views/curriculum/tiles.xml</value>
  		<value>/views/endorserRecord/tiles.xml</value>

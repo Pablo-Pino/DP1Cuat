@@ -35,23 +35,18 @@
 	</security:authorize>
 	
 	<!-- Attributos -->
-	
-	<spring:message code="workplan.ticker" var="ticker" />
-	<display:column property="ticker" title="${ticker}" sortable="true" />
 
-	<spring:message code="workplan.moment" var="moment" />
-	<display:column property="moment" title="${moment}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
-
-	<spring:message code="workplan.summary" var="summary" />
-	<display:column property="summary" title="${summary}" sortable="false" />
+	<spring:message code="workplan.fixupTask" var="fixupTask" />
+	<display:column title="${fixupTask}" property="fixupTask.ticker" >
+		
+	</display:column>
+	<spring:message code="workplan.handyWorker" var="handyWorker" />
+	<display:column property="handyWorker.name" title="${handyWorker}" sortable="false" />
 	
-	<spring:message code="workplan.pictures" var="pictures" />
-	<display:column property="pictures" title="${pictures}" sortable="false" />
-	
-	<spring:message code="workplan.sections" var="tutsec" />
-	<display:column title="${tutsec}">
-		<jstl:forEach items="${Tutorial.sections}" var="workplanSections">
-			<a href="workplan/handyworker/list.do?sectionId= ${workplanSections.id}"> <jstl:out value="workplan.section"></jstl:out></a>
+	<spring:message code="workplan.sections" var="worksec" />
+	<display:column title="${worksec}">
+		<jstl:forEach items="${Workplan.sections}" var="workplanSections">
+			<a href="section/handyworker/list.do?sectionId= ${workplanSections.id}"> <jstl:out value="workplan.section"></jstl:out></a>
 		</jstl:forEach>
 	</display:column>
 	
