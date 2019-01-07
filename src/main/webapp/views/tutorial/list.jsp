@@ -42,7 +42,9 @@
 	<!-- Attributos -->
 	
 
-
+	<spring:message code="tutorial.title" var="title" />
+	<display:column property="title" title="${title}" sortable="true"  />
+	
 	<spring:message code="tutorial.moment" var="moment" />
 	<display:column property="moment" title="${moment}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm}" />
 
@@ -62,12 +64,12 @@
 
 </display:table>
 
-<!-- Botones  -->
+<!-- Boton crear?  -->
 
-<security:authorize access="hasRole('HANDYWORKER')">
-	<div>
-		<a href="tutorial/handyWorker/create.do"> <spring:message
-				code="tutorial.create" />
-		</a>
-	</div>
-</security:authorize>
+<%-- <security:authorize access="hasRole('HANDYWORKER')"> --%>
+<!-- 	<div> -->
+<%-- 		<a href="tutorial/handyWorker/create.do"> <spring:message --%>
+<%-- 				code="tutorial.create" /> --%>
+<!-- 		</a> -->
+<!-- 	</div> -->
+<%-- </security:authorize> --%>

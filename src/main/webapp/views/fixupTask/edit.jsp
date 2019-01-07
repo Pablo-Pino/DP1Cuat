@@ -30,6 +30,9 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
+	<form:hidden path="category" />
+	<form:hidden path="warranty" />
+	<form:hidden path="customer" />
 
 	<form:label path="ticker"> <spring:message code="fixupTask.ticker" />:</form:label>
 	<form:input path="ticker" /><form:errors cssClass="error" path="ticker" /><br />

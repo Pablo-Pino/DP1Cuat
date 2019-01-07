@@ -46,11 +46,16 @@
 		<value>/views/application/messages</value>
 		<value>/views/complaint/messages</value>
 		<value>/views/actor/messages</value>
+		<value>/views/sponsor/tiles.xml</value>
+		<value>/views/sponsorship/tiles.xml</value>
+		<value>/views/warranty/tiles.xml</value>
+		<value>/views/workPlan/tiles.xml</value>
 		
 		
 		
 		
 		<value>/views/educationRecord/messages</value>
+		<value>/views/professionalRecord/messages</value>
 		<value>/views/curriculum/messages</value>
 		<value>/views/endorserRecord/messages</value>
 		<!-- <value>/views/endorsement/messages</value>
