@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ApplicationRepository;
+import security.LoginService;
 import domain.Application;
 import domain.Customer;
 import domain.FixupTask;
@@ -38,6 +39,9 @@ public class ApplicationService {
 	@Autowired
 	private FixupTaskService		fixupTaskService;
 
+	@Autowired
+	private ActorService			actorService;
+
 
 	// Constructors
 	public ApplicationService() {
@@ -48,6 +52,13 @@ public class ApplicationService {
 
 	public Application create() {
 		final Application a = new Application();
+		HandyWorker hw;
+		hw = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+		a.setHandyWorker(hw);
+		a.setStatus("PENDING");
+
+		//a.setMoment(new Date(System.currentTimeMillis() - 1000));
+
 		return a;
 	}
 
@@ -60,14 +71,22 @@ public class ApplicationService {
 	}
 
 	public Application save(final Application app) {
-		Assert.notNull(app);
+		System.out.println("Entra en el save");
+		//Assert.notNull(app);
+		System.out.println("Sale del not null");
+
 		Application res;
 		//compruebo si esa fixuptask tiene una app accepted si no la tiene lo guardo
 		final FixupTask f = app.getFixupTask();
-		if (this.getTieneYaACCEPTED(f) == false)
+		if (this.getTieneYaACCEPTED(f) == false) {
+			System.out.println("Entra en el 1º if");
+
 			throw new IllegalArgumentException("Only one application among all the applications for a fixup task can be accepted");
-		//
+			//
+		}
 		if (app.getStatus().equals("ACCEPTED")) {
+			System.out.println("Entra en el 2º if");
+
 			//cuando cambia a accepted una creditcard valida se debe dar
 			//si se ha cambiado a accepted manda un mensaje al handyworker y al customer avisandoles
 			Assert.notNull(app.getHandyWorker());
@@ -75,8 +94,10 @@ public class ApplicationService {
 			this.NotificationMessage(app.getHandyWorker(), app.getFixupTask().getCustomer());
 
 		}
-
+		System.out.println("Se dispone a guardar ");
 		res = this.applicationRepository.save(app);
+		System.out.println("sale del save");
+
 		return res;
 	}
 	private boolean getTieneYaACCEPTED(final FixupTask f) {

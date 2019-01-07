@@ -19,8 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="application.display" />
-</p>
+
 
 	<spring:message code="application.price"></spring:message> <jstl:out value="${application.price}"></jstl:out>
 	<br />
@@ -37,13 +36,23 @@
 	<spring:message code="application.customerComments"></spring:message> <jstl:out value="${application.customerComments}"></jstl:out>
 	<br />
 	
-	<spring:message code="application.creditCard"></spring:message> <jstl:out value="${application.creditCard.brandName}"></jstl:out>
+	
+	<jstl:if test="${empty application.creditCard  }">
+	<spring:message code="application.creditCard"></spring:message> <jstl:out value="${application.creditCard.brandName}" ></jstl:out>:  NOT ASSIGNED YET
+	</jstl:if>
+	
+	
+	<jstl:if test="${not empty application.creditCard  }">
+	<spring:message code="application.creditCard"></spring:message> <jstl:out value="${application.creditCard.brandName}" ></jstl:out>
+	</jstl:if>
+	
 	<br />
 	
 <%-- 	<spring:message code="application.customer"></spring:message> <jstl:out value="${application.customer.name}"></jstl:out>
 	<br /> --%>
 	
 	<spring:message code="application.handyWorker"></spring:message> <jstl:out value="${application.handyWorker.name}"></jstl:out>
+	<br />
 	<br />
 
 
