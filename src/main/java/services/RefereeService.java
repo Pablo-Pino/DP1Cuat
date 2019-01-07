@@ -73,13 +73,15 @@ public class RefereeService {
 	public Referee save(final Referee object) {
 		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		final Referee referee = (Referee) this.serviceUtils.checkObjectSave(object);
+		Boolean isCreating = null;
 		if (object.getId() == 0) {
+			isCreating = true;
 			object.getUserAccount().setBanned(false);
 			object.getUserAccount().setPassword(encoder.encodePassword(object.getUserAccount().getPassword(), null));
-			this.folderService.createSystemFolders(object);
 			object.setSuspicious(false);
 			this.serviceUtils.checkAuthority(Authority.ADMIN);
 		} else {
+			isCreating = false;
 			referee.setAddress(object.getAddress());
 			referee.setEmail(object.getEmail());
 			referee.setMiddleName(object.getMiddleName());
@@ -93,6 +95,9 @@ public class RefereeService {
 			this.serviceUtils.checkAuthority(Authority.REFEREE);
 		}
 		final Referee res = this.repository.save(object);
+		this.flush();
+		if (isCreating)
+			this.folderService.createSystemFolders(res);
 		return res;
 	}
 	// Other methods
