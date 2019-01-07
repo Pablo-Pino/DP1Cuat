@@ -33,6 +33,13 @@
 	<form:hidden path="category" />
 	<form:hidden path="warranty" />
 	<form:hidden path="customer" />
+	<form:hidden path="applications" />
+	
+<%-- 	<form:hidden path="workplan" />  --%>
+<!-- No le falta la relacion de workplan?? En el domain no esta -->
+
+	<form:hidden path="complaints" />
+
 
 	<form:label path="ticker"> <spring:message code="fixupTask.ticker" />:</form:label>
 	<form:input path="ticker" /><form:errors cssClass="error" path="ticker" /><br />
@@ -55,7 +62,7 @@
 	<form:label path="maximumPrice">
 		<spring:message code="fixupTask.maximumPrice" >:</spring:message>
 	</form:label>
-	<form:input path="description" />
+	<form:input path="maximumPrice" />
 	<form:errors cssClass="error" path="maximumPrice" ></form:errors>
 	<br />
 	
@@ -73,6 +80,7 @@
 	<form:errors cssClass="error" path="end" /> 
 	<br />
 	
+
 
 
 <!--  Botones -->
