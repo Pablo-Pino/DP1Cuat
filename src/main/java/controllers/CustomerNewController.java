@@ -16,12 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
 import services.CustomerService;
@@ -56,17 +54,17 @@ public class CustomerNewController extends AbstractController {
 
 
 	//display creado para mostrar al customer logueado
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display() {
-		ModelAndView result;
-		Customer customer;
-
-		customer = (Customer) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
-		result = new ModelAndView("none/customer/display");
-		result.addObject("customer", customer);
-
-		return result;
-	}
+	//	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	//	public ModelAndView display() {
+	//		ModelAndView result;
+	//		Customer customer;
+	//
+	//		customer = (Customer) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+	//		result = new ModelAndView("none/customer/display");
+	//		result.addObject("customer", customer);
+	//
+	//		return result;
+	//	}
 
 	//------------------Edit---------------------------------------------
 
@@ -120,20 +118,15 @@ public class CustomerNewController extends AbstractController {
 
 		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		customer.getUserAccount().setPassword(encoder.encodePassword(customer.getUserAccount().getPassword(), null));
-		System.out.println("1111111111111111111111111111");
 		if (binding.hasErrors()) {
-			for (final ObjectError error : binding.getAllErrors())
-				System.out.println(error.getDefaultMessage());
 			result = this.createEditModelAndView(customer);
 			result.addObject("customer", customer);
 			result.addObject("message", "customer.commit.error");
 		} else
 			try {
-				System.out.println("holaaaaaaaaaaaaaaa");
 				this.customerService.save(customer);
-				result = new ModelAndView("redirect:display.do");
+				result = new ModelAndView("redirect:/customer/display.do");
 			} catch (final Throwable ops) {
-				System.out.println("MAAAAAAAAAAAAAAAAAAAAAAAAAAAL");
 
 				result = new ModelAndView("none/customer/create");
 				result.addObject("customer", customer);

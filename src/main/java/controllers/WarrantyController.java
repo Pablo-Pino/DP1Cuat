@@ -17,11 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.HandyWorkerService;
 import services.WarrantyService;
-import domain.HandyWorker;
 import domain.Warranty;
 
 @Controller
-@RequestMapping("warranty")
+@RequestMapping("warranty/administrator")
 public class WarrantyController extends AbstractController {
 
 	//Services
@@ -35,12 +34,12 @@ public class WarrantyController extends AbstractController {
 	//create
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int handyWorkerId) {
+	public ModelAndView create() {
 		ModelAndView res;
-		Warranty profRec;
-		profRec = this.warrantyService.create();
+		Warranty warranty;
+		warranty = this.warrantyService.create();
 
-		res = this.createEditModelAndView(profRec);
+		res = this.createEditModelAndView(warranty);
 
 		return res;
 	}
@@ -48,47 +47,47 @@ public class WarrantyController extends AbstractController {
 	//Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int sponsorId) {
+	public ModelAndView edit(@RequestParam final int warrantyId) {
 		ModelAndView res;
-		Warranty sponsor;
+		Warranty warranty;
 
-		sponsor = this.warrantyService.findOne(sponsorId);
-		Assert.notNull(sponsor);
-		res = this.createEditModelAndView(sponsor);
+		warranty = this.warrantyService.findOne(warrantyId);
+		Assert.notNull(warranty);
+		res = this.createEditModelAndView(warranty);
 
 		return res;
 
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Warranty sponsor, final BindingResult binding) {
+	public ModelAndView save(@Valid final Warranty warranty, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(sponsor);
+			result = this.createEditModelAndView(warranty);
 		else
 			try {
-				final Warranty aud = this.warrantyService.save(sponsor);
-				result = new ModelAndView("redirect:display.do?sponsorId=" + aud.getId());
+				final Warranty aud = this.warrantyService.save(warranty);
+				result = new ModelAndView("redirect:display.do?warrantyId=" + aud.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(sponsor, "sponsor.commit.error");
+				result = this.createEditModelAndView(warranty, "warranty.commit.error");
 			}
 
 		return result;
 	}
 
 	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	//	public ModelAndView save(@Valid final Warranty sponsor, final BindingResult binding) {
+	//	public ModelAndView save(@Valid final Warranty warranty, final BindingResult binding) {
 	//		ModelAndView res;
 	//
 	//		if (binding.hasErrors())
-	//			res = this.createEditModelAndView(sponsor);
+	//			res = this.createEditModelAndView(warranty);
 	//		else
 	//			try {
-	//				this.handyWorkerService.save(sponsor);
+	//				this.handyWorkerService.save(warranty);
 	//				res = new ModelAndView("redirect:list.do");
 	//			} catch (final Throwable oops) {
-	//				res = this.createEditModelAndView(sponsor, "sponsor.commit.error");
+	//				res = this.createEditModelAndView(warranty, "warranty.commit.error");
 	//
 	//			}
 	//		return res;
@@ -96,13 +95,13 @@ public class WarrantyController extends AbstractController {
 	//display
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int sponsorId) {
+	public ModelAndView display(@RequestParam final int warrantyId) {
 		final ModelAndView result;
-		Warranty sponsor;
+		Warranty warranty;
 
-		sponsor = this.warrantyService.findOne(sponsorId);
-		result = new ModelAndView("sponsor/display");
-		result.addObject("sponsor", sponsor);
+		warranty = this.warrantyService.findOne(warrantyId);
+		result = new ModelAndView("warranty/display");
+		result.addObject("warranty", warranty);
 
 		return result;
 	}
@@ -112,38 +111,38 @@ public class WarrantyController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView res;
-		Collection<HandyWorker> profRecs = new ArrayList<>();
+		Collection<Warranty> warranties = new ArrayList<>();
 
-		res = new ModelAndView("sponsor/list");
-		profRecs = this.handyWorkerService.findAll(); //TODO probar con el servicio que da directamente los sponsors del warranty
+		res = new ModelAndView("warranty/list");
+		warranties = this.warrantyService.findAll(); //TODO probar con el servicio que da directamente los warranties del warranty
 
-		res.addObject("sponsors", profRecs);
-		res.addObject("requestURI", "sponsor/warranty/list.do");
+		res.addObject("warranties", warranties);
+		res.addObject("requestURI", "warranty/administrator/list.do");
 
 		return res;
 	}
 
 	//Ancillary methods
 
-	private ModelAndView createEditModelAndView(final Warranty sponsor) {
+	private ModelAndView createEditModelAndView(final Warranty warranty) {
 		final ModelAndView res;
 
-		res = this.createEditModelAndView(sponsor, null);
+		res = this.createEditModelAndView(warranty, null);
 
 		return res;
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Warranty sponsor, final String message) {
+	protected ModelAndView createEditModelAndView(final Warranty warranty, final String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("sponsor/edit");
-		result.addObject("sponsor", sponsor);
+		result = new ModelAndView("warranty/edit");
+		result.addObject("warranty", warranty);
 
 		return result;
 	}
 
-	//	private ModelAndView createEditModelAndView(final Warranty sponsor, final String string) {
+	//	private ModelAndView createEditModelAndView(final Warranty warranty, final String string) {
 	//		final Date date = new SimpleDateFormat("MM/dd/yyyy").getCalendar().getTime();
 	//		ModelAndView res;
 	//		final Warranty warranty;
@@ -153,24 +152,24 @@ public class WarrantyController extends AbstractController {
 	//		String description;
 	//		Collection<URL> attachments;
 	//
-	//		if (sponsor.getWarranty() == null) {
+	//		if (warranty.getWarranty() == null) {
 	//
 	//			momentOfCreate = null;
 	//			title = null;
 	//			description = null;
 	//			attachments = null;
 	//
-	//			res = new ModelAndView("sponsor/edit");
+	//			res = new ModelAndView("warranty/edit");
 	//
 	//		} else {
-	//			momentOfCreate = sponsor.getMomentOfCreate();
-	//			title = sponsor.getTitle();
-	//			description = sponsor.getDescription();
-	//			attachments = sponsor.getAttachments();
+	//			momentOfCreate = warranty.getMomentOfCreate();
+	//			title = warranty.getTitle();
+	//			description = warranty.getDescription();
+	//			attachments = warranty.getAttachments();
 	//
-	//			res = new ModelAndView("sponsor/edit");
+	//			res = new ModelAndView("warranty/edit");
 	//		}
-	//		res.addObject("sponsor", sponsor);
+	//		res.addObject("warranty", warranty);
 
 	//		res.addObject("momentOfCreate", momentOfCreate);
 	//		res.addObject("title", title);

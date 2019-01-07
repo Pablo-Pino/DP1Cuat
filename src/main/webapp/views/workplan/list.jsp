@@ -24,16 +24,6 @@
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="workplans" requestURI="${requestURI}" id="row">
 	
-	<!-- Action links -->
-
-	<security:authorize access="hasRole('HANDYWORKER')">
-		<display:column>
-			<a href="workplan/handyWorker/edit.do?workplanId=${row.id}">
-				<spring:message	code="workplan.edit" />
-			</a>
-		</display:column>		
-	</security:authorize>
-	
 	<!-- Attributos -->
 
 	<spring:message code="workplan.fixupTask" var="fixupTask" />

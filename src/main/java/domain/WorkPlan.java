@@ -13,8 +13,6 @@ import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class WorkPlan extends DomainEntity {
@@ -23,7 +21,7 @@ public class WorkPlan extends DomainEntity {
 
 	private FixupTask			fixupTask;
 	private HandyWorker			handyWorker;
-	private Collection<Phase> phases; 
+	private Collection<Phase>	phases;
 
 
 	//----------Getters y Setters-----
@@ -50,13 +48,12 @@ public class WorkPlan extends DomainEntity {
 
 	@Valid
 	@OneToMany(mappedBy = "workPlan", cascade = CascadeType.ALL)
-	@NotEmpty
 	@NotNull
 	public Collection<Phase> getPhases() {
-		return phases;
+		return this.phases;
 	}
 
-	public void setPhases(Collection<Phase> phases) {
+	public void setPhases(final Collection<Phase> phases) {
 		this.phases = phases;
 	}
 

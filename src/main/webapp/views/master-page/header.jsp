@@ -34,6 +34,8 @@
 								code="master.page.editsettings" /></a></li>
 					<li><a href="referee/administrator/create.do"><spring:message
 								code="master.page.createreferee" /></a></li>
+					<li><a href="warranty/administrator/list.do"><spring:message
+								code="master.page.warranty.list" /></a></li>
 					<li><a href="category/administrator/list.do"><spring:message
 								code="category.list"></spring:message></a>
 					<li><a href="administrator/administrator/dashboard.do"><spring:message
