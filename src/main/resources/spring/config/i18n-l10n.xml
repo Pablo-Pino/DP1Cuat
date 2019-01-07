@@ -46,6 +46,10 @@
 		<value>/views/application/messages</value>
 		<value>/views/complaint/messages</value>
 		<value>/views/actor/messages</value>
+		<value>/views/sponsor/tiles.xml</value>
+		<value>/views/sponsorship/tiles.xml</value>
+		<value>/views/warranty/tiles.xml</value>
+		<value>/views/workplan/tiles.xml</value>
 		
 		
 		
