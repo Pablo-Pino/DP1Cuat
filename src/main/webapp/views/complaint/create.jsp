@@ -18,6 +18,22 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+
+<!-- ------------------------------PARA FECHAS------------------------------------------------ -->
+<!-- Hay que crear uno por cada input de fecha: datepicker1,datepicker2.... -->
+<!-- LUEGO HAY QUE PONER EN EL form:imput id="datepicker1"..... -->
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$(function() {
+		$("#datepicker1").datepicker();
+	});
+</script>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
 <security:authorize access="hasRole('CUSTOMER')">
 	<div>
 
@@ -35,7 +51,7 @@
 				<!-- Form -->
 				
 				<form:label path="moment"><spring:message code="complaint.moment"></spring:message></form:label>
-				<form:input path="moment" id="moment" name="moment" />
+				<form:input path="moment" id="datepicker1" />
 				<form:errors cssClass="error" path="moment" />
 				<br>
 				

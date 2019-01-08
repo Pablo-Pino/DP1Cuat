@@ -97,7 +97,8 @@ public class CategoryService {
 		}
 		if (this.tieneHijas(cat) == true) {
 			for (final Category hija : this.findByParent(cat))
-				this.delete(hija);
+				//this.delete(hija);
+				this.heredaAbuelo(hija);
 			this.changeFixupTaskCategory(cat);
 			this.categoryRepository.delete(cat);
 		}
@@ -108,6 +109,14 @@ public class CategoryService {
 		}
 
 	}
+
+	public void heredaAbuelo(final Category c) {
+		final Category padre = c.getParentCategory();
+		final Category abuelo = padre.getParentCategory();
+
+		c.setParentCategory(abuelo);
+	}
+
 	public Collection<Category> findByParent(final Category parent) {
 		Assert.notNull(parent);
 		Assert.isTrue(parent.getId() > 0);

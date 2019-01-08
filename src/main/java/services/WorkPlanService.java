@@ -35,7 +35,8 @@ public class WorkPlanService {
 	// Simple CRUD methods
 
 	public WorkPlan create() {
-		final WorkPlan s = new WorkPlan();
+		WorkPlan s;
+		s = new WorkPlan();
 		Assert.notNull(s);
 		return s;
 	}

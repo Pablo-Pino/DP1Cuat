@@ -50,6 +50,8 @@
 		<value>/views/sponsorship/tiles.xml</value>
 		<value>/views/warranty/tiles.xml</value>
 		<value>/views/workplan/tiles.xml</value>
+		<value>/views/phase/tiles.xml</value>
+		
 		
 		
 		

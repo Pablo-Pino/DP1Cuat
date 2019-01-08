@@ -25,7 +25,7 @@
 <security:authorize access="hasRole('CUSTOMER')">
 	<div>
 
-		<form:form action="fixupTask/customer/create.do" method="POST"
+		<form:form action="fixupTask/endorsable/create.do" method="POST"
 			id="formCreate" name="formCreate" modelAttribute="fixupTask">
 
 			<!-- Atributos hidden-->
@@ -39,6 +39,7 @@
 				<form:hidden path="application" />
 				<form:hidden path="workplan" />
 				<form:hidden path="complaints" />
+				<form:hidden path="ticker" />
 			
 
 			<fieldset>
@@ -53,24 +54,7 @@
 					<br />
 				</div>
 				
-				<div>
-					<form:label path="applications">
-						<spring:message code="fixupTask.applications"></spring:message>
-					</form:label>
-					<form:input path="applications" id="applications" name="applications" />
-					<form:errors cssClass="error" path="applications" />
-					<br />
-				</div>
-				
-				<div>
-					<form:label path="complaints">
-						<spring:message code="fixupTask.complaints"></spring:message>
-					</form:label>
-					<form:input path="complaints" id="complaints" name="complaints" />
-					<form:errors cssClass="error" path="complaints" />
-					<br />
-				</div>
-				
+		
 				<div>
 					<form:label path="address">
 						<spring:message code="fixupTask.address"></spring:message>
@@ -86,6 +70,24 @@
 					</form:label>
 					<form:input path="description" id="description" name="description" />
 					<form:errors cssClass="error" path="description" />
+					<br />
+				</div>
+				
+				<div>
+					<form:label path="start">
+						<spring:message code="fixupTask.start"></spring:message>
+					</form:label>
+					<form:input path="start" id="start" name="start" />
+					<form:errors cssClass="error" path="start" />
+					<br />
+				</div>
+				
+					<div>
+					<form:label path="end">
+						<spring:message code="fixupTask.end"></spring:message>
+					</form:label>
+					<form:input path="end" id="end" name="end" />
+					<form:errors cssClass="error" path="end" />
 					<br />
 				</div>
 

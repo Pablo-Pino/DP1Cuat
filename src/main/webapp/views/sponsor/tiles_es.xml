@@ -26,4 +26,8 @@
 		<put-attribute name="body" value="/views/sponsor/edit.jsp" />
 	</definition>
 	
+	<definition name="none/sponsor/create" extends="master.page">	
+		<put-attribute name="title" value="Sponsor: Crear" />
+		<put-attribute name="body" value="/views/sponsor/create.jsp" />
+	</definition>
 </tiles-definitions>
