@@ -35,6 +35,8 @@ public class FixupTaskService {
 	@Autowired
 	private WarrantyService		warrantyService;
 	@Autowired
+	private TicketableService	ticketableService;
+	@Autowired
 	private ServiceUtils		serviceUtils;
 
 
@@ -48,9 +50,19 @@ public class FixupTaskService {
 	public FixupTask create() {
 		FixupTask ft;
 		Warranty w;
+		Category c;
+		Customer ct;
+		String t;
 		w = this.warrantyService.create();
+		c = this.categoryService.create();
+		ct = this.customerService.create();
+		t = this.ticketableService.createTicker().toString();
 		ft = new FixupTask();
 		ft.setWarranty(w);
+		ft.setCategory(c);
+		ft.setCustomer(ct);
+		ft.setTicker(t);
+
 		return ft;
 	}
 
@@ -67,18 +79,51 @@ public class FixupTaskService {
 
 	}
 
+	//	public FixupTask save(final FixupTask f) {
+	//
+	//		Assert.notNull(f);
+	//		System.out.println("a");
+	//		this.fixupTaskRepository.save(f);
+	//		System.out.println("b");
+	//		System.out.println(f.getWarranty());
+	//		System.out.println("c");
+	//
+	//		return f;
+	//	}
+
 	public FixupTask save(final FixupTask f) {
-
+		//comprobamos que el customer que nos pasan no sea nulo
 		Assert.notNull(f);
-		System.out.println("a");
-		this.fixupTaskRepository.save(f);
-		System.out.println("b");
-		System.out.println(f.getWarranty());
-		System.out.println("c");
+		Boolean isCreating = null;
 
-		return f;
+		isCreating = false;
+		//comprobamos que su id no sea negativa por motivos de seguridad
+		this.serviceUtils.checkIdSave(f);
+
+		//este customer será el que está en la base de datos para usarlo si estamos ante un customer que ya existe
+		FixupTask fBD;
+		Assert.isTrue(f.getId() > 0);
+
+		//cogemos el customer de la base de datos
+		fBD = this.fixupTaskRepository.findOne(f.getId());
+
+		//Si el customer que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
+
+		f.setCategory(fBD.getCategory());
+		f.setWarranty(fBD.getWarranty());
+		f.setCustomer(fBD.getCustomer());
+
+		FixupTask res;
+		res = this.fixupTaskRepository.save(f);
+		this.flush();
+		if (isCreating)
+			this.customerService.getAllFixupTasks().add(res);
+		return res;
 	}
 
+	public void flush() {
+		this.fixupTaskRepository.flush();
+	}
 	public void delete(final FixupTask f) {
 		Assert.notNull(f);
 		//Assert.isTrue(p.getId() != 0);

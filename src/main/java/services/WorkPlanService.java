@@ -29,7 +29,8 @@ public class WorkPlanService {
 	@Autowired
 	private FixupTaskService	fixupTaskService;
 	@Autowired
-	private ApplicationService applicationService;
+	private ApplicationService	applicationService;
+
 
 	// Simple CRUD methods
 
@@ -49,7 +50,6 @@ public class WorkPlanService {
 
 	public WorkPlan save(final WorkPlan w) {
 		Assert.notNull(w);
-		Assert.isTrue(this.checkStatusApplicationAccepted(w));
 		return this.workPlanRepository.save(w);
 	}
 
@@ -74,15 +74,15 @@ public class WorkPlanService {
 			}
 		return res;
 	}
-	
-	public Collection<WorkPlan> findWorkPlanByHandyWorker(HandyWorker h) {
+
+	public Collection<WorkPlan> findWorkPlanByHandyWorker(final HandyWorker h) {
 		Assert.notNull(h);
 		Assert.isTrue(h.getId() > 0);
 		Assert.notNull(this.handyWorkerService.findOne(h.getId()));
 		return this.workPlanRepository.findWorkPlanByHandyWorker(h.getId());
 	}
-	
-	public Collection<WorkPlan> findWorkPlanByFixupTask(FixupTask f) {
+
+	public Collection<WorkPlan> findWorkPlanByFixupTask(final FixupTask f) {
 		Assert.notNull(f);
 		Assert.isTrue(f.getId() > 0);
 		Assert.notNull(this.handyWorkerService.findOne(f.getId()));

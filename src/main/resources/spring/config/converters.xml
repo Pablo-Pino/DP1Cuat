@@ -92,6 +92,9 @@
 		<bean class = "converters.CurriculumToStringConverter"></bean>
 		<bean class = "converters.StringToCurriculumConverter"></bean>
 		
+		<bean class = "converters.PhaseToStringConverter"></bean>
+		<bean class = "converters.StringToPhaseConverter"></bean>
+		
 		<bean class = "converters.SponsorToStringConverter"></bean>
 		<bean class = "converters.StringToSponsorConverter"></bean>
 		
@@ -100,7 +103,7 @@
 		
 		<bean class = "converters.WarrantyToStringConverter"></bean>
 		<bean class = "converters.StringToWarrantyConverter"></bean>
-		
+	
 		<bean class = "converters.CustomerToStringConverter"></bean>
 		<bean class = "converters.StringToCustomerConverter"></bean>
 		
