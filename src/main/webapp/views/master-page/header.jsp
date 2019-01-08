@@ -80,6 +80,7 @@
 				</ul></li>
 		</security:authorize>
 
+<!-- ---------------------------------------SI NO ESTÁ LOGUEADO------------------------------------------------------------------------ -->
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
@@ -88,7 +89,7 @@
 						code="master.page.signup" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="referee/referee/profile.do"><spring:message
+					<li><a href="none/handyWorker/create.do"><spring:message
 								code="master.page.AsHandyWorker" /></a></li>
 					<li><a href="none/customer/create.do"><spring:message
 								code="master.page.AsCustomer" /></a></li>
@@ -98,6 +99,9 @@
 								code="master.page.AsReferee" /></a></li>
 				</ul></li>
 		</security:authorize>
+		
+		
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv"> <spring:message
