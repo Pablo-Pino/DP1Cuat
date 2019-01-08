@@ -53,6 +53,7 @@
 		
 		
 		
+		<value>/views/phase/messages</value>
 		
 		<value>/views/educationRecord/messages</value>
 		<value>/views/professionalRecord/messages</value>

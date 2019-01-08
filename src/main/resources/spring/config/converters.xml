@@ -119,6 +119,9 @@
 		<bean class = "converters.FinderToStringConverter"></bean>
 		<bean class = "converters.StringToFinderConverter"></bean>
 		
+		<bean class = "converters.PhaseToStringConverter"></bean>
+		<bean class = "converters.StringToPhaseConverter"></bean>
+		
 	</util:list>
 	
 </beans>
