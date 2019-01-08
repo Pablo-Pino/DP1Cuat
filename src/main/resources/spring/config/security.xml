@@ -104,6 +104,7 @@
 		<security:intercept-url pattern="/actor/**" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/none/customer/create.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/none/sponsor/create.do" access="isAnonymous()" />
 		
 		
 		

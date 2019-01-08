@@ -90,6 +90,8 @@
 								code="master.page.AsHandyWorker" /></a></li>
 					<li><a href="none/customer/create.do"><spring:message
 								code="master.page.AsCustomer" /></a></li>
+					<li><a href="none/sponsor/create.do"><spring:message
+								code="master.page.AsSponsor" /></a></li>
 					<li><a href="curriculum/handyWorker/display.do"><spring:message
 								code="master.page.AsReferee" /></a></li>
 				</ul></li>
