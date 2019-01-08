@@ -1,26 +1,21 @@
 
 package controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
 import security.LoginService;
 import services.ActorService;
 import services.CurriculumService;
 import services.EndorsementService;
-import domain.Endorsable;
 import domain.Endorsement;
 
 @Controller
@@ -80,31 +75,29 @@ public class EndorsementController extends AbstractController {
 
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int endorsementId) {
-		ModelAndView result;
-		Endorsement er;
-		final Collection<Endorsable> recievers = new ArrayList<>();
-
-		er = this.endorsementService.findOne(endorsementId);
-		Assert.notNull(er);
-
-		final Authority hw = new Authority();
-		hw.setAuthority(Authority.HANDYWORKER);
-
-		final Authority c = new Authority();
-		c.setAuthority(Authority.CUSTOMER);
-
-		if (er.getSender().getUserAccount().getAuthorities().contains(hw)) {
-
-		}
-
-		result = this.createEditModelAndView(er);
-
-		return result;
-
-	}
-
+	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	//	public ModelAndView edit(@RequestParam final int endorsementId) {
+	//		ModelAndView result;
+	//		Endorsement er;
+	//		final Collection<Customer> recieversC = new ArrayList<>();
+	//
+	//		er = this.endorsementService.findOne(endorsementId);
+	//		Assert.notNull(er);
+	//
+	//		final Authority hw = new Authority();
+	//		hw.setAuthority(Authority.HANDYWORKER);
+	//
+	//		final Authority c = new Authority();
+	//		c.setAuthority(Authority.CUSTOMER);
+	//
+	//		if (er.getSender().getUserAccount().getAuthorities().contains(hw))
+	//			recievers = this.endorsementService.GiveCustomersByHandyWorker((HandyWorker) er.getSender())
+	//
+	//		result = this.createEditModelAndView(er);
+	//
+	//		return result;
+	//
+	//	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Endorsement endorsement, final BindingResult binding) {
 		ModelAndView result;

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
+import security.Authority;
 import security.UserAccount;
 import domain.Application;
 import domain.Complaint;
@@ -52,6 +53,9 @@ public class HandyWorkerService {
 	@Autowired
 	private WorkPlanService			workPlanService;
 
+	@Autowired
+	FolderService					folderService;
+
 
 	//constructor
 
@@ -62,11 +66,19 @@ public class HandyWorkerService {
 	// Simple CRUD methods
 
 	public HandyWorker create() {
-		final HandyWorker hw = new HandyWorker();
-
-		hw.setUserAccount(new UserAccount());
-
-		return hw;
+		HandyWorker result;
+		result = new HandyWorker();
+		//establezco ya su tipo de userAccount porque no va a cambiar
+		result.setUserAccount(new UserAccount());
+		final Authority authority = new Authority();
+		authority.setAuthority(Authority.HANDYWORKER);
+		result.getUserAccount().addAuthority(authority);
+		//los atributos que no pueden estar vacíos
+		final String make = "initialMake";
+		result.setMake(make);
+		result.getUserAccount().setBanned(false);
+		result.setSuspicious(false);
+		return result;
 	}
 
 	public Collection<HandyWorker> findAll() {
@@ -88,36 +100,37 @@ public class HandyWorkerService {
 	}
 
 	public HandyWorker save(final HandyWorker hw) {
-		//	final HandyWorker nuevo = this.checkObjectSave(hw);
-		//		if (hw.getId() == 0) {
-		//			hw.setApplications(new ArrayList<Application>());
-		//			hw.setWorkPlans(new ArrayList<WorkPlan>());
-		//			hw.setTutorials(new ArrayList<Tutorial>());
-		//			hw.setReceivedEndorsements(new ArrayList<Endorsement>());
-		//			hw.setSendedEndorsements(new ArrayList<Endorsement>());
-		//			hw.setSocialProfiles(new ArrayList<SocialProfile>());
-		//			hw.setFolders(new ArrayList<Folder>());
-		//			hw.setReceivedMessages(new ArrayList<Message>());
-		//			hw.setSendedMessages(new ArrayList<Message>());
-		//			hw.setUserAccount(new UserAccount());
-
-		//			
-		//		} else {
-		//			hw.setApplications(nuevo.getApplications());
-		//			hw.setWorkPlans(nuevo.getWorkPlans());
-		//			hw.setTutorials(nuevo.getTutorials());
-		//			hw.setReceivedEndorsements(nuevo.getReceivedEndorsements());
-		//			hw.setSendedEndorsements(nuevo.getSendedEndorsements());
-		//			hw.setSocialProfiles(nuevo.getSocialProfiles());
-		//			hw.setFolders(nuevo.getFolders());
-		//			hw.setReceivedMessages(nuevo.getReceivedMessages());
-		//			hw.setSendedMessages(nuevo.getSendedMessages());
-		//			hw.setUserAccount(new UserAccount());
-
-		//		}
+		//comprobamos que el handy que nos pasan no sea nulo
 		Assert.notNull(hw);
-		;
-		return this.handyWorkerRepository.save(hw);
+
+		Boolean isCreating = null;
+
+		//si es nuevo
+		if (hw.getId() == 0) {
+			isCreating = true;
+			hw.setSuspicious(false);
+		} else {
+			isCreating = false;
+			//compruebo que esté guardado
+			this.serviceUtils.checkIdSave(hw);
+			//este es el de la base de datos
+			final HandyWorker handyWorkerBD;
+			Assert.isTrue(hw.getId() > 0);
+
+			handyWorkerBD = this.handyWorkerRepository.findOne(hw.getId());
+
+			hw.setSuspicious(handyWorkerBD.getSuspicious());
+			hw.setUserAccount(handyWorkerBD.getUserAccount());
+
+			this.serviceUtils.checkAuthority("HANDYWORKER");
+			this.serviceUtils.checkActor(hw);
+		}
+		HandyWorker res;
+		res = this.handyWorkerRepository.save(hw);
+		this.flush();
+		if (isCreating)
+			this.folderService.createSystemFolders(res);
+		return res;
 	}
 
 	public void delete(final HandyWorker hw) {
@@ -215,6 +228,10 @@ public class HandyWorkerService {
 					break;
 				}
 		return res;
+	}
+
+	public void flush() {
+		this.handyWorkerRepository.flush();
 	}
 
 }

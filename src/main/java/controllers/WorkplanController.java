@@ -15,11 +15,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import security.UserAccount;
+import services.ActorService;
 import services.FixupTaskService;
 import services.HandyWorkerService;
 import services.PhaseService;
 import services.WorkPlanService;
 import domain.FixupTask;
+import domain.HandyWorker;
+import domain.Phase;
 import domain.WorkPlan;
 
 @Controller
@@ -39,6 +44,9 @@ public class WorkplanController extends AbstractController {
 	@Autowired
 	PhaseService		phaseService;
 
+	@Autowired
+	ActorService		actorService;
+
 
 	//create
 
@@ -46,8 +54,13 @@ public class WorkplanController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView res;
 		WorkPlan workplan;
+		HandyWorker handyWorker;
+		final UserAccount uA = LoginService.getPrincipal();
+		handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(uA);
+		final Collection<Phase> phases = new ArrayList<Phase>();
 		workplan = this.workplanService.create();
-
+		workplan.setPhases(phases);
+		workplan.setHandyWorker(handyWorker);
 		res = this.createEditModelAndView(workplan);
 
 		return res;
@@ -71,7 +84,8 @@ public class WorkplanController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final WorkPlan workplan, final BindingResult binding) {
 		ModelAndView result;
-
+		final FixupTask f = workplan.getFixupTask();
+		this.fixupTaskService.save(f);
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(workplan);
 		else
@@ -84,7 +98,6 @@ public class WorkplanController extends AbstractController {
 
 		return result;
 	}
-
 	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	//	public ModelAndView save(@Valid final WorkPlan workplan, final BindingResult binding) {
 	//		ModelAndView res;
@@ -160,7 +173,6 @@ public class WorkplanController extends AbstractController {
 		final ModelAndView result;
 		Collection<FixupTask> fixUp;
 		fixUp = this.fixupTaskService.findAcceptedFixupTasks();
-
 		result = new ModelAndView("workplan/edit");
 		result.addObject("workplan", workplan);
 		result.addObject("fixUp", fixUp);

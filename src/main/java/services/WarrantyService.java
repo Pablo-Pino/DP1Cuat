@@ -54,6 +54,13 @@ public class WarrantyService {
 		return this.warrantyRepository.save(object);
 	}
 
+	public Warranty saveDraft(final Warranty object) {
+		final Warranty warranty = object;
+		if (warranty.getDraft() == true && object.getId() != 0)
+			Assert.isTrue(this.fixupTaskService.findByWarranty(object).isEmpty());
+		return this.warrantyRepository.save(object);
+	}
+
 	public void delete(final Warranty object) {
 		final Warranty warranty = object;
 		Assert.isTrue(warranty.getDraft());
