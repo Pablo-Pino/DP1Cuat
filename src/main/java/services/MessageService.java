@@ -71,15 +71,16 @@ public class MessageService {
 			message.setFolder(object.getFolder());
 		final Message res = this.repository.save(message);
 		this.serviceUtils.checkPermisionActor(message.getFolder().getActor(), null);
-		if (message.getId() == 0)
+		if (message.getId() == 0) {
 			message1 = message;
-		message1.setId(0);
-		message1.setVersion(0);
-		if (this.containsSpam(message1))
-			message1.setFolder(this.folderService.findFolderByActorAndName(message1.getReceiver(), "spamBox"));
-		else
-			message1.setFolder(this.folderService.findFolderByActorAndName(message1.getReceiver(), "inBox"));
-		this.repository.save(message1);
+			message1.setId(0);
+			message1.setVersion(0);
+			if (this.containsSpam(message1))
+				message1.setFolder(this.folderService.findFolderByActorAndName(message1.getReceiver(), "spamBox"));
+			else
+				message1.setFolder(this.folderService.findFolderByActorAndName(message1.getReceiver(), "inBox"));
+			this.repository.save(message1);
+		}
 		return res;
 	}
 
