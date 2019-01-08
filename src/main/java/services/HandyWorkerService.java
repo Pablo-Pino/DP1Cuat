@@ -74,6 +74,8 @@ public class HandyWorkerService {
 		authority.setAuthority(Authority.HANDYWORKER);
 		result.getUserAccount().addAuthority(authority);
 		//los atributos que no pueden estar vacíos
+		final String make = "initialMake";
+		result.setMake(make);
 		result.getUserAccount().setBanned(false);
 		result.setSuspicious(false);
 		return result;

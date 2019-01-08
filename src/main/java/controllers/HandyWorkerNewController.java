@@ -127,8 +127,9 @@ public class HandyWorkerNewController extends AbstractController {
 			result.addObject("message", "handyWorker.commit.error");
 		} else
 			try {
-				final String make = handyWorker.getName() + handyWorker.getMiddleName() + handyWorker.getSurname();
+				final String make = handyWorker.getName() + " " + handyWorker.getMiddleName() + " " + handyWorker.getSurname();
 				handyWorker.setMake(make);
+				System.out.println(make);
 				this.handyWorkerService.save(handyWorker);
 				result = new ModelAndView("redirect:/handyWorker/display.do");
 			} catch (final Throwable ops) {
