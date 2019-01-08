@@ -109,15 +109,21 @@ public class FixupTaskController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final FixupTask fixupTask, final BindingResult binding) {
 		ModelAndView result;
+		final Exception dateErr = new Exception("fechas MAL");
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(fixupTask);
 		else
 			try {
+				if (!fixupTask.getStart().before(fixupTask.getEnd()))
+					throw dateErr;
 				this.fixupTaskService.save(fixupTask);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(fixupTask, "fixupTask.commit.error");
+				if (oops.equals(dateErr))
+					result = this.createEditModelAndView(fixupTask, "date.Error");
+				else
+					result = this.createEditModelAndView(fixupTask, "fixupTask.commit.error");
 			}
 		return result;
 	}
