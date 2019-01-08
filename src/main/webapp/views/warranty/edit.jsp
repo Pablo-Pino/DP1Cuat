@@ -41,10 +41,12 @@
 	<form:errors cssClass="error" path="laws" />
 	<br />
 	
-	<form:label path="draft">
-		<spring:message code="warranty.draft" />:
-	</form:label>
-	<form:input path="draft" />
+	<form:label path="draft"> <spring:message code="warranty.draft"></spring:message></form:label>
+	<form:select id="draft" path="draft">
+		<form:option value="${warranty.draft}" label="------"></form:option>
+		<form:option value="true" label="true"/>
+		<form:option value="false" label="false"/>
+		</form:select>
 	<form:errors cssClass="error" path="draft" />
 	<br />
 

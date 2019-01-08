@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import antlr.debug.NewLineListener;
+
 import services.HandyWorkerService;
 import services.WarrantyService;
 import domain.Warranty;
@@ -23,6 +25,7 @@ import domain.Warranty;
 @RequestMapping("warranty/administrator")
 public class WarrantyController extends AbstractController {
 
+	Boolean				draft	= false;
 	//Services
 	@Autowired
 	HandyWorkerService	handyWorkerService;
@@ -53,6 +56,7 @@ public class WarrantyController extends AbstractController {
 
 		warranty = this.warrantyService.findOne(warrantyId);
 		Assert.notNull(warranty);
+		draft=warranty.getDraft();
 		res = this.createEditModelAndView(warranty);
 
 		return res;
@@ -66,11 +70,14 @@ public class WarrantyController extends AbstractController {
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(warranty);
 		else
-			try {
-				final Warranty aud = this.warrantyService.save(warranty);
+			try {if(draft){
+				final Warranty aud = this.warrantyService.saveDraft(warranty);
+			}else{
+				throw new Exception("cannot.commit.error");}
+				draft=false;
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(warranty, "warranty.commit.error");
+				result = this.createEditModelAndView(warranty, "cannot.commit.error");
 			}
 
 		return result;

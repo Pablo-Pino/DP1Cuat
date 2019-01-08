@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -48,7 +47,6 @@ public class WorkPlan extends DomainEntity {
 
 	@Valid
 	@OneToMany(mappedBy = "workPlan", cascade = CascadeType.ALL)
-	@NotNull
 	public Collection<Phase> getPhases() {
 		return this.phases;
 	}
