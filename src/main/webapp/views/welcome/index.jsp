@@ -16,6 +16,30 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
+<%
+
+String languageMessage = "en";
+
+Cookie[] cookies = request.getCookies();
+Cookie languageCookie = null;
+for(Cookie c : cookies) {
+	if(c.getName().equals("language")) {
+		languageCookie = c;
+	}
+}
+	
+if(request.getParameter("language") != null) {
+	languageMessage = request.getParameter("language");
+} else {
+	languageMessage = languageCookie.getValue();
+}   
+	
+%>
+
+	<% if(languageMessage.equals("en")) { %>
+		<p>${englishWelcome}</p>
+	<% } if(languageMessage.equals("es")) { %>
+		<p>${spanishWelcome}</p>
+	<% } %>
 
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
