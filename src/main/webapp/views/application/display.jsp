@@ -38,7 +38,7 @@
 	
 	
 	<jstl:if test="${empty application.creditCard  }">
-	<spring:message code="application.creditCard"></spring:message> <jstl:out value="${application.creditCard.brandName}" ></jstl:out>:  NOT ASSIGNED YET
+	<spring:message code="application.creditCard"></spring:message> <jstl:out value="${application.creditCard.brandName}" ></jstl:out>:  NOT ASSIGNED YET / NO AÑADIDA
 	</jstl:if>
 	
 	
