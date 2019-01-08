@@ -18,29 +18,21 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="application.edit" />
-</p>
 
 <!--  Primero pongo la autoridad ya que solo un admin maneja las categorias -->
 <security:authorize access="hasAnyRole('CUSTOMER' , 'HANDYWORKER')">
 
 	<div>
-		<form:form action="application/edit.do" method="post" id="formCreate"
-			name="formCreate" modelAttribute="application"></form:form>
-
+		<form:form action="application/edit.do" method="post" id="formCreate" name="formCreate" modelAttribute="application">
 
 	<!-- No me acuerdo exactamente para que hacia falta  -->
 			<form:hidden path="id" />
 			<form:hidden path="version" />
-			<form:hidden path="customer" />
 			<form:hidden path="creditCard"/>
 			<form:hidden path="handyWorker" />
-
+			<form:hidden path="customerComments" />
 			
 			
-		
-
 
 	<security:authorize access="hasRole('HANDYWORKER')">
 		
@@ -71,15 +63,15 @@
 
 		
 			<security:authorize access="hasRole('HANDYWORKER')">
-			<form:label path="workerMoments"> <spring:message code="application.workerMoments" /></form:label>
-			<form:input path="workerMoments" /><form:errors cssClass="error" path="workerMoments" /><br />
-			</security:authorize> --%>
+			<form:label path="workerComments"> <spring:message code="application.workerComments" /></form:label>
+			<form:input path="workerComments" /><form:errors cssClass="error" path="workerComments" /><br />
+			</security:authorize> 
 			
-			<security:authorize access="hasRole('CUSTOMER')">
+<%-- 			<security:authorize access="hasRole('CUSTOMER')">
 			
-			<form:label path="customerMoments"> <spring:message code="application.customerMoments" /></form:label>
-			<form:input path="customerMoments" /><form:errors cssClass="error" path="customerMoments" /><br />
-			</security:authorize> --%>
+			<form:label path="customerComments"> <spring:message code="application.customerComments" /></form:label>
+			<form:input path="customerComments" /><form:errors cssClass="error" path="customerComments" /><br />
+			</security:authorize>  --%>
 			
 			
 		
@@ -87,17 +79,21 @@
 		
 			<form:select id="fixupTask" path="fixupTask">
 			<form:option value="${application.fixupTask}" label="------"></form:option>
-			<form:options items="${fixupTasks}" itemLabel="name" itemValue="id" />
+			<form:options items="${fixupTasks}" itemLabel="ticker" itemValue="id" />
 			</form:select>
 			<form:errors cssClass="error" path="fixupTask" />
 			<br />
-		
-		
-	</div> 
-	<!--  Los botones de crear y cancelar -->
+			
+			
+				<!--  Los botones de crear y cancelar -->
+			<br />
 
 		<input type="submit" name="save" value="<spring:message code="application.save"></spring:message>" />	
-		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('application/list.do')" />	
+		<button type="button" onclick="javascript: relativeRedir('application/list.do')" ><spring:message code="application.return" /></button>
+		
+		</form:form>
+		
+	</div> 
 
 </security:authorize>
 

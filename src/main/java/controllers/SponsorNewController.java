@@ -1,5 +1,5 @@
 /*
- * CustomerController.java
+ * SponsorController.java
  * 
  * Copyright (C) 2018 Universidad de Sevilla
  * 
@@ -22,18 +22,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
 import services.ActorService;
-import services.CustomerService;
 import services.SocialProfileService;
+import services.SponsorService;
 import services.UserAccountService;
-import domain.Customer;
+import domain.Sponsor;
 
 @Controller
-@RequestMapping("/none/customer")
-public class CustomerNewController extends AbstractController {
+@RequestMapping("/none/sponsor")
+public class SponsorNewController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public CustomerNewController() {
+	public SponsorNewController() {
 		super();
 	}
 
@@ -41,7 +41,7 @@ public class CustomerNewController extends AbstractController {
 	//-----------------Services-------------------------
 
 	@Autowired
-	CustomerService			customerService;
+	SponsorService			sponsorService;
 
 	@Autowired
 	ActorService			actorService;
@@ -53,15 +53,15 @@ public class CustomerNewController extends AbstractController {
 	UserAccountService		userAccountService;
 
 
-	//display creado para mostrar al customer logueado
+	//display creado para mostrar al sponsor logueado
 	//	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	//	public ModelAndView display() {
 	//		ModelAndView result;
-	//		Customer customer;
+	//		Sponsor sponsor;
 	//
-	//		customer = (Customer) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
-	//		result = new ModelAndView("none/customer/display");
-	//		result.addObject("customer", customer);
+	//		sponsor = (Sponsor) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+	//		result = new ModelAndView("none/sponsor/display");
+	//		result.addObject("sponsor", sponsor);
 	//
 	//		return result;
 	//	}
@@ -69,31 +69,31 @@ public class CustomerNewController extends AbstractController {
 	//------------------Edit---------------------------------------------
 
 	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	//	public ModelAndView edit(@RequestParam final int customerId) {
+	//	public ModelAndView edit(@RequestParam final int sponsorId) {
 	//		ModelAndView result;
-	//		Customer customer;
+	//		Sponsor sponsor;
 	//
-	//		customer = this.customerService.findOne(customerId);
-	//		Assert.notNull(customer);
-	//		result = this.createEditModelAndView(customer);
+	//		sponsor = this.sponsorService.findOne(sponsorId);
+	//		Assert.notNull(sponsor);
+	//		result = this.createEditModelAndView(sponsor);
 	//
 	//		return result;
 	//
 	//	}
 
 	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	//	public ModelAndView save(@Valid final Customer customer, final BindingResult binding) {
+	//	public ModelAndView save(@Valid final Sponsor sponsor, final BindingResult binding) {
 	//		ModelAndView result;
 	//
 	//		if (binding.hasErrors())
-	//			result = this.createEditModelAndView(customer);
+	//			result = this.createEditModelAndView(sponsor);
 	//		else
 	//
 	//			try {
-	//				this.customerService.save(customer);
+	//				this.sponsorService.save(sponsor);
 	//				result = new ModelAndView("redirect:display.do");
 	//			} catch (final Throwable oops) {
-	//				result = this.createEditModelAndView(customer, "customer.commit.error");
+	//				result = this.createEditModelAndView(sponsor, "sponsor.commit.error");
 	//			}
 	//
 	//		return result;
@@ -104,33 +104,33 @@ public class CustomerNewController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		final Customer customer;
+		final Sponsor sponsor;
 
-		customer = this.customerService.create();
-		result = new ModelAndView("none/customer/create");
-		result.addObject("customer", customer);
+		sponsor = this.sponsorService.create();
+		result = new ModelAndView("none/sponsor/create");
+		result.addObject("sponsor", sponsor);
 		return result;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Customer customer, final BindingResult binding) {
+	public ModelAndView save(@Valid final Sponsor sponsor, final BindingResult binding) {
 		ModelAndView result;
 
 		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		customer.getUserAccount().setPassword(encoder.encodePassword(customer.getUserAccount().getPassword(), null));
+		sponsor.getUserAccount().setPassword(encoder.encodePassword(sponsor.getUserAccount().getPassword(), null));
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(customer);
-			result.addObject("customer", customer);
-			result.addObject("message", "customer.commit.error");
+			result = this.createEditModelAndView(sponsor);
+			result.addObject("sponsor", sponsor);
+			result.addObject("message", "sponsor.commit.error");
 		} else
 			try {
-				this.customerService.save(customer);
-				result = new ModelAndView("redirect:/customer/display.do");
+				this.sponsorService.save(sponsor);
+				result = new ModelAndView("redirect:/sponsor/display.do");
 			} catch (final Throwable ops) {
 
-				result = new ModelAndView("none/customer/create");
-				result.addObject("customer", customer);
-				result.addObject("message", "customer.commit.error");
+				result = new ModelAndView("none/sponsor/create");
+				result.addObject("sponsor", sponsor);
+				result.addObject("message", "sponsor.commit.error");
 			}
 
 		return result;
@@ -139,21 +139,21 @@ public class CustomerNewController extends AbstractController {
 
 	//---------------------------------------------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final Customer customer) {
+	protected ModelAndView createEditModelAndView(final Sponsor sponsor) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(customer, null);
+		result = this.createEditModelAndView(sponsor, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Customer customer, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Sponsor sponsor, final String messageCode) {
 		final ModelAndView result;
 		UserAccount userAccount = new UserAccount();
-		userAccount = customer.getUserAccount();
+		userAccount = sponsor.getUserAccount();
 
-		result = new ModelAndView("none/customer/create");
-		result.addObject("customer", customer);
+		result = new ModelAndView("none/sponsor/create");
+		result.addObject("sponsor", sponsor);
 		result.addObject("userAccount", userAccount);
 		result.addObject("message", messageCode);
 

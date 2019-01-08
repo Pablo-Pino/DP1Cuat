@@ -34,6 +34,8 @@
 								code="master.page.editsettings" /></a></li>
 					<li><a href="referee/administrator/create.do"><spring:message
 								code="master.page.createreferee" /></a></li>
+					<li><a href="warranty/administrator/list.do"><spring:message
+								code="master.page.warranty.list" /></a></li>
 					<li><a href="category/administrator/list.do"><spring:message
 								code="category.list"></spring:message></a>
 					<li><a href="administrator/administrator/dashboard.do"><spring:message
@@ -90,6 +92,8 @@
 								code="master.page.AsHandyWorker" /></a></li>
 					<li><a href="none/customer/create.do"><spring:message
 								code="master.page.AsCustomer" /></a></li>
+					<li><a href="none/sponsor/create.do"><spring:message
+								code="master.page.AsSponsor" /></a></li>
 					<li><a href="curriculum/handyWorker/display.do"><spring:message
 								code="master.page.AsReferee" /></a></li>
 				</ul></li>

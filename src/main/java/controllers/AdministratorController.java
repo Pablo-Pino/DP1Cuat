@@ -15,6 +15,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -204,7 +205,19 @@ public class AdministratorController extends AbstractController {
 		Administrator admin;
 
 		admin = (Administrator) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
-		result = new ModelAndView("administrator/edit");
+		result = new ModelAndView("administrator/display");
+		result.addObject("administrator", admin);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int administratorId) {
+		ModelAndView result;
+		Administrator admin;
+
+		admin = this.administratorService.findOne(administratorId);
+		result = new ModelAndView("administrator/display");
 		result.addObject("administrator", admin);
 
 		return result;
@@ -229,18 +242,26 @@ public class AdministratorController extends AbstractController {
 	public ModelAndView save(@Valid final Administrator admin, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(admin);
-		else
+			result.addObject("administrator", admin);
+			result.addObject("message", "administrator.commit.error");
+		} else {
+			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			admin.getUserAccount().setPassword(encoder.encodePassword(admin.getUserAccount().getPassword(), null));
 			try {
-				this.administratorService.save(admin);
-				result = new ModelAndView("redirect:display2.do");
+				final Administrator r = this.administratorService.save(admin);
+				if (admin.getId() == 0)
+					result = new ModelAndView("redirect:display.do?administratorId=" + r.getId());
+				else
+					result = new ModelAndView("redirect:display2.do");
+
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(admin, "administrator.commit.error");
 			}
+		}
 		return result;
 	}
-
 	protected ModelAndView createEditModelAndView(final Administrator admin) {
 		ModelAndView result;
 
@@ -274,6 +295,18 @@ public class AdministratorController extends AbstractController {
 		result.addObject("requestURI", "administrator/list.do");
 		result.addObject("actors", actors);
 
+		return result;
+	}
+
+	// Creation
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		final Administrator administrator;
+
+		administrator = this.administratorService.create();
+		result = new ModelAndView("administrator/create");
+		result.addObject("administrator", administrator);
 		return result;
 	}
 

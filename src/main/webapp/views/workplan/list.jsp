@@ -24,18 +24,15 @@
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="workplans" requestURI="${requestURI}" id="row">
 	
-	<!-- Action links -->
-
+	<!-- Attributos -->
 	<security:authorize access="hasRole('HANDYWORKER')">
-		<display:column>
+	<spring:message code="workplan.edit" var="work" />
+		<display:column title="${work}">
 			<a href="workplan/handyWorker/edit.do?workplanId=${row.id}">
 				<spring:message	code="workplan.edit" />
 			</a>
 		</display:column>		
 	</security:authorize>
-	
-	<!-- Attributos -->
-
 	<spring:message code="workplan.fixupTask" var="fixupTask" />
 	<display:column title="${fixupTask}" property="fixupTask.ticker" >
 		
@@ -43,12 +40,13 @@
 	<spring:message code="workplan.handyWorker" var="handyWorker" />
 	<display:column property="handyWorker.name" title="${handyWorker}" sortable="false" />
 	
-	<spring:message code="workplan.sections" var="worksec" />
-	<display:column title="${worksec}">
-		<jstl:forEach items="${Workplan.sections}" var="workplanSections">
-			<a href="section/handyworker/list.do?sectionId= ${workplanSections.id}"> <jstl:out value="workplan.section"></jstl:out></a>
-		</jstl:forEach>
-	</display:column>
+	
+	<spring:message code="workplan.phases" var="workpha" />
+	<display:column title="${workpha}">
+			<a href="phase/handyWorker/list.do?workplanId=${row.id}">
+				<spring:message	code="workplan.list" />
+			</a>
+	</display:column>	
 	
 
 </display:table>

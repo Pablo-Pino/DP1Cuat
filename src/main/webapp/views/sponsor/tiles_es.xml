@@ -13,22 +13,17 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-       
+      
 <tiles-definitions>
 
+	<definition name="sponsor/profile" extends="master.page">	
+		<put-attribute name="title" value="Perfil de patrocinador" />
+		<put-attribute name="body" value="/views/sponsor/profile.jsp" />
+	</definition>
+	
 	<definition name="sponsor/edit" extends="master.page">	
-		<put-attribute name="title" value="Editar patrocinador" />
+		<put-attribute name="title" value="Edición de patrocinador" />
 		<put-attribute name="body" value="/views/sponsor/edit.jsp" />
-	</definition>
-	
-	<definition name="sponsor/list" extends="master.page">	
-		<put-attribute name="title" value="Listar patrocinadores" />
-		<put-attribute name="body" value="/views/sponsor/list.jsp" />
-	</definition>
-	
-	<definition name="sponsor/display" extends="master.page">	
-		<put-attribute name="title" value="Mostrar patrocinador" />
-		<put-attribute name="body" value="/views/sponsor/display.jsp" />
 	</definition>
 	
 </tiles-definitions>

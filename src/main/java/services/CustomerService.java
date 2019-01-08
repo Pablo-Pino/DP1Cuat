@@ -84,16 +84,17 @@ public class CustomerService {
 	public Customer save(final Customer customer) {
 		//comprobamos que el customer que nos pasan no sea nulo
 		Assert.notNull(customer);
+		Boolean isCreating = null;
 
 		if (customer.getId() == 0) {
-			this.folderService.createSystemFolders(customer);
+			isCreating = true;
 			customer.setSuspicious(false);
 
 			//comprobamos que ningún actor resté autenticado (ya que ningun actor puede crear los customers)
 			//this.serviceUtils.checkNoActor();
 
 		} else {
-
+			isCreating = false;
 			//comprobamos que su id no sea negativa por motivos de seguridad
 			this.serviceUtils.checkIdSave(customer);
 
@@ -118,6 +119,9 @@ public class CustomerService {
 		Customer res;
 		//le meto al resultado final el customer que he ido modificando anteriormente
 		res = this.customerRepository.save(customer);
+		this.flush();
+		if (isCreating)
+			this.folderService.createSystemFolders(res);
 		return res;
 	}
 
@@ -172,6 +176,10 @@ public class CustomerService {
 		a.getUserAccount().setBanned(false);
 		this.customerRepository.save(a);
 
+	}
+
+	public void flush() {
+		this.customerRepository.flush();
 	}
 
 }

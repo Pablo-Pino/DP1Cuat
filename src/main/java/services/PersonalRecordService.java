@@ -64,6 +64,21 @@ public class PersonalRecordService {
 		this.personalRecordRepository.delete(p);
 	}
 
+	public void delete(final Collection<PersonalRecord> pr) {
+
+		for (final PersonalRecord i : pr) {
+			Assert.notNull(i);
+			this.personalRecordRepository.delete(i);
+		}
+	}
+
+	public PersonalRecord findOne(final Curriculum dependency) {
+		Assert.notNull(dependency);
+		Assert.isTrue(dependency.getId() > 0);
+		Assert.notNull(this.curriculumService.findOne(dependency.getId()));
+		return dependency.getPersonalRecord();
+	}
+
 	public PersonalRecord create(final Curriculum dependency) {
 		Assert.notNull(dependency);
 		Assert.isTrue(dependency.getId() > 0);

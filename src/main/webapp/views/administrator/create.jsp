@@ -28,12 +28,7 @@
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="userAccount" />
-			<form:hidden path="banned" />
 			<form:hidden path="suspicious" />
-			<form:hidden path="senderMessages" />
-			<form:hidden path="recipientMessages" />
-			<form:hidden path="folders" />
-			<form:hidden path="finder" />
 
 			<fieldset>
 				<!-------------------Form ------------------------------------>

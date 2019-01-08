@@ -14,14 +14,17 @@ import org.springframework.util.Assert;
 import repositories.EndorsementRepository;
 import security.Authority;
 import domain.Actor;
+import domain.Application;
 import domain.Customer;
 import domain.Endorsable;
 import domain.Endorsement;
+import domain.FixupTask;
 import domain.HandyWorker;
 
 @Service
 @Transactional
 public class EndorsementService {
+
 	// Managed repository --------------------------------------
 	@Autowired
 	private EndorsementRepository	endorsementRepository;
@@ -33,6 +36,15 @@ public class EndorsementService {
 
 	@Autowired
 	private EndorsableService		endorsableService;
+
+	@Autowired
+	private FixupTaskService		fixUpTaskService;
+
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
+
+	@Autowired
+	private ApplicationService		applicationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -93,39 +105,61 @@ public class EndorsementService {
 		Assert.notNull(endorsement);
 		this.endorsementRepository.delete(endorsement);
 	}
-	
-	public Collection<Endorsement> findBySender(Endorsable sender) {
+
+	public Collection<Endorsement> findBySender(final Endorsable sender) {
 		Assert.notNull(sender);
 		Assert.isTrue(sender.getId() > 0);
 		Assert.notNull(this.endorsableService.findOne(sender.getId()));
 		return this.endorsementRepository.getBySenderId(sender.getId());
 	}
-	
-	public Collection<Endorsement> findByReceiver(Endorsable receiver) {
+
+	public Collection<Endorsement> findByReceiver(final Endorsable receiver) {
 		Assert.notNull(receiver);
 		Assert.isTrue(receiver.getId() > 0);
 		Assert.notNull(this.endorsableService.findOne(receiver.getId()));
 		return this.endorsementRepository.getByReceiverId(receiver.getId());
 	}
 
-	public Collection<Endorsement> findAllByActor(Actor a) {
+	public Collection<Endorsement> findAllByActor(final Actor a) {
 		Assert.notNull(a);
 		Assert.isTrue(a.getId() > 0);
 		Assert.notNull(this.endorsableService.findOne(a.getId()));
-		Collection<Endorsement> res = new ArrayList<Endorsement>();
+		final Collection<Endorsement> res = new ArrayList<Endorsement>();
 		res.addAll(this.findByReceiver((Endorsable) a));
 		res.addAll(this.findBySender((Endorsable) a));
 		return res;
 	}
 
-	public Endorsement create(Actor a) {
+	public Endorsement create(final Actor a) {
 		Assert.notNull(a);
 		Assert.isTrue(a.getId() > 0);
 		Assert.notNull(this.endorsableService.findOne(a.getId()));
-		Endorsement res = this.create();
+		final Endorsement res = this.create();
 		Assert.isTrue(a instanceof HandyWorker || a instanceof Customer);
 		res.setSender((Endorsable) a);
 		return res;
-	}	
+	}
 
+	public Collection<HandyWorker> GiveHandyWorkerByCustomer(final Customer c) {
+		final Collection<FixupTask> res = this.fixUpTaskService.findByCustomer(c);
+		final Collection<HandyWorker> hws = new ArrayList<>();
+		for (final FixupTask f : res)
+			for (final Application app : f.getApplications())
+				if (app.getStatus().equals("ACCEPTED"))
+					hws.add(app.getHandyWorker());
+
+		return hws;
+
+	}
+
+	public Collection<Customer> GiveCustomerByHandyWorker(final HandyWorker h) {
+		final Collection<Customer> customers = new ArrayList<>();
+		final Collection<Application> res = this.applicationService.findApplicationsByHandyWorker(h);
+		for (final Application a : res)
+			if (a.getStatus().equals("ACCEPTED") && a.getHandyWorker().equals(h))
+				customers.add(a.getFixupTask().getCustomer());
+
+		return customers;
+
+	}
 }

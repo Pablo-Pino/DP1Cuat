@@ -25,16 +25,16 @@ public class FixupTaskService {
 	@Autowired
 	private FixupTaskRepository	fixupTaskRepository;
 
-
 	// Supporting Service
 
 	@Autowired
-	private CategoryService categoryService;
+	private CategoryService		categoryService;
 	@Autowired
-	private CustomerService customerService;
+	private CustomerService		customerService;
 	@Autowired
-	private WarrantyService warrantyService;
-	
+	private WarrantyService		warrantyService;
+
+
 	//
 
 	public FixupTaskService() {
@@ -44,7 +44,10 @@ public class FixupTaskService {
 
 	public FixupTask create() {
 		FixupTask ft;
+		Warranty w;
+		w = this.warrantyService.create();
 		ft = new FixupTask();
+		ft.setWarranty(w);
 		return ft;
 	}
 
@@ -64,7 +67,11 @@ public class FixupTaskService {
 	public FixupTask save(final FixupTask f) {
 
 		Assert.notNull(f);
+		System.out.println("a");
 		this.fixupTaskRepository.save(f);
+		System.out.println("b");
+		System.out.println(f.getWarranty());
+		System.out.println("c");
 
 		return f;
 	}
@@ -121,25 +128,30 @@ public class FixupTaskService {
 
 	}
 
-	public Collection<FixupTask> findByCategory(Category category) {
+	public Collection<FixupTask> findByCategory(final Category category) {
 		Assert.notNull(category);
 		Assert.isTrue(category.getId() > 0);
 		Assert.notNull(this.categoryService.findOne(category.getId()));
 		return this.fixupTaskRepository.findByCategoryId(category.getId());
 	}
-	
-	public Collection<FixupTask> findByCustomer(Customer customer) {
+
+	public Collection<FixupTask> findByCustomer(final Customer customer) {
 		Assert.notNull(customer);
 		Assert.isTrue(customer.getId() > 0);
 		Assert.notNull(this.customerService.findOne(customer.getId()));
 		return this.fixupTaskRepository.findByCustomerId(customer.getId());
 	}
-	
-	public Collection<FixupTask> findByWarranty(Warranty warranty) {
+
+	public Collection<FixupTask> findByWarranty(final Warranty warranty) {
 		Assert.notNull(warranty);
 		Assert.isTrue(warranty.getId() > 0);
 		Assert.notNull(this.warrantyService.findOne(warranty.getId()));
 		return this.fixupTaskRepository.findByWarrantyId(warranty.getId());
 	}
-	
+
+	public Collection<FixupTask> findAcceptedFixupTasks() {
+		// TODO Auto-generated method stub
+		return this.fixupTaskRepository.findAcceptedFixupTasks();
+	}
+
 }

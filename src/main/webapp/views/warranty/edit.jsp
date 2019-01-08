@@ -19,42 +19,46 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="warranty/customer/edit.do" modelAttribute="warranty">
+<form:form action="warranty/administrator/edit.do" modelAttribute="warranty">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="handyWorker" />
-	<form:hidden path="sections" />
-	<form:hidden path="sponsorships" />
 
 	<form:label path="title"> <spring:message code="warranty.title" />:</form:label>
 	<form:input path="title" /><form:errors cssClass="error" path="title" /><br />
 
-	<form:label path="summary">
-		<spring:message code="warranty.summary" />:
+	<form:label path="terms">
+		<spring:message code="warranty.terms" />:
 	</form:label>
-	<form:input path="summary" />
-	<form:errors cssClass="error" path="summary" />
+	<form:input path="terms" />
+	<form:errors cssClass="error" path="terms" />
 	<br />
 	
-	<form:label path="pictures">
-		<spring:message code="warranty.pictures" />:
+	<form:label path="laws">
+		<spring:message code="warranty.laws" />:
 	</form:label>
-	<form:input path="pictures" />
-	<form:errors cssClass="error" path="pictures" />
+	<form:input path="laws" />
+	<form:errors cssClass="error" path="laws" />
 	<br />
 	
+	<form:label path="draft">
+		<spring:message code="warranty.draft" />:
+	</form:label>
+	<form:input path="draft" />
+	<form:errors cssClass="error" path="draft" />
+	<br />
 
 	<input type="submit" name="save"
-		value="<spring:message code="warranty" />" />&nbsp; 
+		value="<spring:message code="warranty.save" />" />&nbsp; 
 	<jstl:if test="${warranty.id != 0}">
 		<input type="submit" name="delete"
 			value="<spring:message code="warranty.delete" />"
-			onclick="return confirm('<spring:message code="warranty.confirm.delete" />')" />&nbsp;
+	onclick="return confirm('<spring:message code="warranty.confirm.delete" />')" />&nbsp;
+	
 	</jstl:if>
 	<input type="button" name="cancel"
 		value="<spring:message code="warranty.cancel" />"
-		onclick="javascript: relativeRedir('warranty/handyWorker/list.do');" />
+		onclick="javascript: relativeRedir('warranty/administrator/list.do');" />
 	<br />
 
 </form:form>

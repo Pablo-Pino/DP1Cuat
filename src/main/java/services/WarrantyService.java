@@ -22,12 +22,12 @@ public class WarrantyService {
 	@Autowired
 	private WarrantyRepository	warrantyRepository;
 
-
 	// Supporting Service
 
 	@Autowired
-	private FixupTaskService fixupTaskService;
-	
+	private FixupTaskService	fixupTaskService;
+
+
 	public Warranty findOne(final Integer id) {
 		return this.warrantyRepository.findOne(id);
 	}
@@ -49,7 +49,7 @@ public class WarrantyService {
 	public Warranty save(final Warranty object) {
 		final Warranty warranty = object;
 		Assert.isTrue(warranty.getDraft());
-		if (object.getDraft() == true)
+		if (warranty.getDraft() == true && object.getId() != 0)
 			Assert.isTrue(this.fixupTaskService.findByWarranty(object).isEmpty());
 		return this.warrantyRepository.save(object);
 	}

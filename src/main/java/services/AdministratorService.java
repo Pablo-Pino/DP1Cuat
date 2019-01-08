@@ -58,26 +58,28 @@ public class AdministratorService {
 	public Administrator save(final Administrator administrator) {
 		//comprobamos que el customer que nos pasan no sea nulo
 		Assert.notNull(administrator);
-
-		//comprobamos que su id no sea negativa por motivos de seguridad
-		this.serviceUtils.checkIdSave(administrator);
-
-		//este admin será el que está en la base de datos para usarlo si estamos ante un admin que ya existe
-		Administrator adminDB;
-		Assert.isTrue(administrator.getId() > 0);
-
-		//cogemos el admin de la base de datos
-		adminDB = this.administratorRepository.findOne(administrator.getId());
+		Boolean isCreating = null;
 
 		//Si el admin que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
 		if (administrator.getId() == 0) {
-			this.folderService.createSystemFolders(administrator);
+			isCreating = true;
 			administrator.setSuspicious(false);
 
 			//comprobamos que ningún actor resté autenticado (ya que ningun actor puede crear los customers)
 			//this.serviceUtils.checkNoActor();
 
 		} else {
+			isCreating = false;
+			//comprobamos que su id no sea negativa por motivos de seguridad
+			this.serviceUtils.checkIdSave(administrator);
+
+			//este admin será el que está en la base de datos para usarlo si estamos ante un admin que ya existe
+			Administrator adminDB;
+			Assert.isTrue(administrator.getId() > 0);
+
+			//cogemos el admin de la base de datos
+			adminDB = this.administratorRepository.findOne(administrator.getId());
+
 			administrator.setSuspicious(adminDB.getSuspicious());
 			administrator.setUserAccount(adminDB.getUserAccount());
 
@@ -90,6 +92,9 @@ public class AdministratorService {
 		Administrator res;
 		//le meto al resultado final el admin que he ido modificando anteriormente
 		res = this.administratorRepository.save(administrator);
+		this.flush();
+		if (isCreating)
+			this.folderService.createSystemFolders(res);
 		return res;
 	}
 
@@ -108,6 +113,10 @@ public class AdministratorService {
 	}
 
 	// -------------------------Other business methods ------------------------------
+
+	public void flush() {
+		this.administratorRepository.flush();
+	}
 
 	public void banActor(final Administrator a) {
 		Assert.notNull(a);
