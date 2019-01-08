@@ -61,7 +61,7 @@
 						code="master.page.handyWorker" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="referee/referee/profile.do"><spring:message
+					<li><a href="application/list.do"><spring:message
 								code="master.page.handyWorker.application.list" /></a></li>
 					<li><a href="curriculum/handyWorker/display.do"><spring:message
 								code="master.page.handyWorker.curriculum" /></a></li>
@@ -118,6 +118,13 @@
 						<li><a href="customer/display.do"><spring:message
 									code="master.page.customer.profile" /></a></li>
 					</security:authorize>
+					
+					<security:authorize access="hasRole('HANDYWORKER')">
+						<li><a href="handyWorker/display.do"><spring:message
+									code="master.page.customer.profile" /></a></li>
+					</security:authorize>
+					
+					
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="administrator/display2.do"><spring:message
 									code="master.page.administrator.edit" /></a></li>

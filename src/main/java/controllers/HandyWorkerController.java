@@ -11,9 +11,10 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.ActorService;
 import services.ApplicationService;
 import services.CurriculumService;
 import services.FinderService;
@@ -28,7 +29,7 @@ import domain.Tutorial;
 import domain.WorkPlan;
 
 @Controller
-@RequestMapping("/handyworker")
+@RequestMapping("/handyWorker")
 public class HandyWorkerController extends AbstractController {
 
 	@Autowired
@@ -49,6 +50,24 @@ public class HandyWorkerController extends AbstractController {
 	@Autowired
 	CurriculumService	curriculumService;
 
+	@Autowired
+	ActorService		actorService;
+
+
+	//-----------------Display-------------------------
+
+	//display creado para mostrar al customer logueado
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display() {
+		ModelAndView result;
+		HandyWorker handyWorker;
+
+		handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+		result = new ModelAndView("handyWorker/display");
+		result.addObject("handyWorker", handyWorker);
+
+		return result;
+	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
@@ -64,11 +83,11 @@ public class HandyWorkerController extends AbstractController {
 	//Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int handyWorkerId) {
+	public ModelAndView edit() {
 		ModelAndView result;
 		HandyWorker handyWorker;
 
-		handyWorker = this.handyWorkerService.findOne(handyWorkerId);
+		handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
 		Assert.notNull(handyWorker);
 		result = this.createEditModelAndView(handyWorker);
 
@@ -85,7 +104,7 @@ public class HandyWorkerController extends AbstractController {
 		else
 			try {
 				this.handyWorkerService.save(handyWorker);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:display.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(handyWorker, "handyWorker.commit.error");
 			}
