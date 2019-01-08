@@ -19,11 +19,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-
+<spring:message code="confirm.phone" var="confirmPhoneMessage" />
 
 <div>
 	<form:form action="customer/edit.do" method="post" id="formCreate"
-		name="formCreate" modelAttribute="customer">
+		name="formCreate" modelAttribute="customer" >
 
 		<form:hidden path="id" />
 		<form:hidden path="version" />
@@ -91,7 +91,8 @@
 		<!--  Botones -->
 
 		<input type="submit" name="save"
-			value="<spring:message code="customer.save"></spring:message>" />
+			value="<spring:message code="customer.save"></spring:message>"
+			onclick="return patternPhone(document.getElementById('phone').value, '${confirmPhoneMessage}');" />
 
 		<input type="button" name="cancel"
 			value="<spring:message code="customer.cancel"></spring:message>"
