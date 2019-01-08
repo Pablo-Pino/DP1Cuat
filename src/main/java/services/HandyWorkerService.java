@@ -157,4 +157,9 @@ public class HandyWorkerService {
 		this.handyWorkerRepository.save(hw);
 	}
 
+	public HandyWorker findByAssignedFixupTask(final FixupTask f) {
+		final FixupTask fixupTask = (FixupTask) this.serviceUtils.checkObject(f);
+		return this.handyWorkerRepository.findByAssignedFixupTask(fixupTask.getId());
+	}
+
 }

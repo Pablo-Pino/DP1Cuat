@@ -38,6 +38,8 @@
 								code="category.list"></spring:message></a>
 					<li><a href="administrator/administrator/dashboard.do"><spring:message
 								code="master.page.dashboard" /></a></li>
+					<li><a href="message/actor/create.do?isBroadcast=true"><spring:message
+								code="master.page.broadcast" /></a></li>
 				</ul></li>
 		</security:authorize>
 
