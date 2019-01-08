@@ -82,15 +82,17 @@ public class WorkplanController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final WorkPlan workplan, final BindingResult binding) {
+	public ModelAndView save(@Valid WorkPlan workplan, final BindingResult binding) {
 		ModelAndView result;
-		final FixupTask f = workplan.getFixupTask();
-		this.fixupTaskService.save(f);
+		FixupTask f;
+		f = workplan.getFixupTask();
+		f.setWorkPlan(workplan);
+		//this.fixupTaskService.save(f);
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(workplan);
 		else
 			try {
-				final WorkPlan aud = this.workplanService.save(workplan);
+				workplan = this.workplanService.save(workplan);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(workplan, "workplan.commit.error");

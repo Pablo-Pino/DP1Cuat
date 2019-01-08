@@ -28,8 +28,6 @@
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="suspicious" />
-		<form:hidden path="fixupTasks" />
-		<form:hidden path="score" />
 		<form:hidden path="userAccount.authorities" />
 	
 
