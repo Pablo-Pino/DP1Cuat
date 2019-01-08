@@ -12,9 +12,16 @@ import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
 import security.UserAccount;
+import domain.Application;
+import domain.Complaint;
 import domain.Customer;
 import domain.FixupTask;
 import domain.HandyWorker;
+import domain.Note;
+import domain.Phase;
+import domain.Report;
+import domain.Url;
+import domain.WorkPlan;
 
 @Service
 @Transactional
@@ -32,6 +39,18 @@ public class HandyWorkerService {
 
 	@Autowired
 	private ServiceUtils			serviceUtils;
+
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private ApplicationService		applicationService;
+
+	@Autowired
+	private ReportService			reportService;
+
+	@Autowired
+	private WorkPlanService			workPlanService;
 
 
 	//constructor
@@ -160,6 +179,42 @@ public class HandyWorkerService {
 	public HandyWorker findByAssignedFixupTask(final FixupTask f) {
 		final FixupTask fixupTask = (FixupTask) this.serviceUtils.checkObject(f);
 		return this.handyWorkerRepository.findByAssignedFixupTask(fixupTask.getId());
+	}
+
+	public boolean isSuspicious(final HandyWorker h) {
+		final HandyWorker handyWorker = (HandyWorker) this.serviceUtils.checkObject(h);
+		Boolean res = false;
+		for (final Application a : this.applicationService.findApplicationsByHandyWorker(handyWorker))
+			if (this.actorService.containsSpam(a.getWorkerComments())) {
+				res = true;
+				break;
+			}
+		for (final FixupTask f : this.fixupTaskService.findAcceptedFixupTasksByHandyWorker(handyWorker))
+			for (final Complaint com : f.getComplaints()) {
+				for (final Url u : com.getAttachments())
+					if (this.actorService.containsSpam(u.getUrl())) {
+						res = true;
+						break;
+					}
+				if (this.actorService.containsSpam(com.getDescription())) {
+					res = true;
+					break;
+				}
+				final Report report = this.reportService.findByComplaint(com);
+				for (final Note n : report.getNotes())
+					for (final String comment : n.getComments())
+						if (this.actorService.containsSpam(comment)) {
+							res = true;
+							break;
+						}
+			}
+		for (final WorkPlan w : this.workPlanService.findWorkPlanByHandyWorker(handyWorker))
+			for (final Phase p : w.getPhases())
+				if (this.actorService.containsSpam(p.getDescription()) || this.actorService.containsSpam(p.getTitle())) {
+					res = true;
+					break;
+				}
+		return res;
 	}
 
 }

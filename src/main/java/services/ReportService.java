@@ -39,6 +39,8 @@ public class ReportService {
 	private ServiceUtils		serviceUtils;
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
+	@Autowired
+	private ApplicationService	applicationService;
 
 
 	// CRUD methods
