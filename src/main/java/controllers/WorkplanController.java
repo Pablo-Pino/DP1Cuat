@@ -20,6 +20,7 @@ import services.HandyWorkerService;
 import services.PhaseService;
 import services.WorkPlanService;
 import domain.FixupTask;
+import domain.Phase;
 import domain.WorkPlan;
 
 @Controller
@@ -46,8 +47,9 @@ public class WorkplanController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView res;
 		WorkPlan workplan;
+		final Collection<Phase> phases = new ArrayList<Phase>();
 		workplan = this.workplanService.create();
-
+		workplan.setPhases(phases);
 		res = this.createEditModelAndView(workplan);
 
 		return res;
@@ -160,7 +162,6 @@ public class WorkplanController extends AbstractController {
 		final ModelAndView result;
 		Collection<FixupTask> fixUp;
 		fixUp = this.fixupTaskService.findAcceptedFixupTasks();
-
 		result = new ModelAndView("workplan/edit");
 		result.addObject("workplan", workplan);
 		result.addObject("fixUp", fixUp);
