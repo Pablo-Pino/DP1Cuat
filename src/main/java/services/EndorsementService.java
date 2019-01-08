@@ -140,22 +140,22 @@ public class EndorsementService {
 		return res;
 	}
 
-	public Collection<HandyWorker> GiveHandyWorkerByCustomer(final Customer c) {
-		final Collection<FixupTask> res = this.fixUpTaskService.findByCustomer(c);
-		final Collection<HandyWorker> hws = new ArrayList<>();
-		for (final FixupTask f : res)
+	public Collection<HandyWorker> GiveHandyWorkersByCustomer(final Customer c) {
+		final Collection<FixupTask> fixUpTasks = this.fixUpTaskService.findByCustomer(c);
+		final Collection<HandyWorker> handyWorkers = new ArrayList<>();
+		for (final FixupTask f : fixUpTasks)
 			for (final Application app : f.getApplications())
 				if (app.getStatus().equals("ACCEPTED"))
-					hws.add(app.getHandyWorker());
+					handyWorkers.add(app.getHandyWorker());
 
-		return hws;
+		return handyWorkers;
 
 	}
 
-	public Collection<Customer> GiveCustomerByHandyWorker(final HandyWorker h) {
+	public Collection<Customer> GiveCustomersByHandyWorker(final HandyWorker h) {
 		final Collection<Customer> customers = new ArrayList<>();
-		final Collection<Application> res = this.applicationService.findApplicationsByHandyWorker(h);
-		for (final Application a : res)
+		final Collection<Application> applications = this.applicationService.findApplicationsByHandyWorker(h);
+		for (final Application a : applications)
 			if (a.getStatus().equals("ACCEPTED") && a.getHandyWorker().equals(h))
 				customers.add(a.getFixupTask().getCustomer());
 
