@@ -30,7 +30,7 @@ import domain.Warranty;
 import domain.WorkPlan;
 
 @Controller
-@RequestMapping("/fixupTask/customer")
+@RequestMapping("fixupTask/endorsable")
 public class FixupTaskController extends AbstractController {
 
 	@Autowired
@@ -64,7 +64,7 @@ public class FixupTaskController extends AbstractController {
 
 		result = new ModelAndView("fixupTask/list");
 		result.addObject("fixupTasks", fixupTasks);
-		result.addObject("requestURI", "fixupTask/customer/list.do");
+		result.addObject("requestURI", "fixupTask/endorsable/list.do");
 
 		return result;
 	}

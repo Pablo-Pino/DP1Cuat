@@ -24,7 +24,7 @@
 </p>
 
 <security:authorize access="hasRole('CUSTOMER')">
-<form:form action="fixupTask/customer/edit.do" method="post" id="formCreate" 
+<form:form action="fixupTask/endorsable/edit.do" method="post" id="formCreate" 
 		name="formCreate" modelAttribute="fixupTask">
 
 	<form:hidden path="id" />
