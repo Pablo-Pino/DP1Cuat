@@ -14,9 +14,17 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+
+<sql:setDataSource driver="com.mysql.jdbc.Driver" user="acme-user" password="ACME-Us3r-P@ssw0rd" 
+	url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
+
+<sql:query var="banner" dataSource="${datasource}">
+	SELECT banner FROM settings;
+</sql:query>
 
 <div>
-	<a href="#"><img src="images/logoHandyWorker.png"
+	<a href="#"><img height="15%" width="35%" src="${banner.rows[0].banner}"
 		alt="Acme-Handy-Worker Co., Inc." /></a>
 </div>
 

@@ -24,7 +24,8 @@ public class Settings extends DomainEntity {
 
 	private String				systemName;
 	private String				banner;
-	private String				welcomeMessage;
+	private String				welcomeMessageEnglish;
+	private String				welcomeMessageSpanish;
 	private List<String>		spamWords;
 	private int					vat;
 	private String				countryCode;
@@ -60,12 +61,22 @@ public class Settings extends DomainEntity {
 
 	@NotBlank
 	@NotNull
-	public String getWelcomeMessage() {
-		return this.welcomeMessage;
+	public String getWelcomeMessageEnglish() {
+		return this.welcomeMessageEnglish;
 	}
 
-	public void setWelcomeMessage(final String welcomeMessage) {
-		this.welcomeMessage = welcomeMessage;
+	public void setWelcomeMessageEnglish(final String welcomeMessageEnglish) {
+		this.welcomeMessageEnglish = welcomeMessageEnglish;
+	}
+
+	@NotBlank
+	@NotNull
+	public String getWelcomeMessageSpanish() {
+		return this.welcomeMessageSpanish;
+	}
+
+	public void setWelcomeMessageSpanish(final String welcomeMessageSpanish) {
+		this.welcomeMessageSpanish = welcomeMessageSpanish;
 	}
 
 	@NotNull

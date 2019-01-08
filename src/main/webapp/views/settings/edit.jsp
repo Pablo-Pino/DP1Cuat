@@ -38,11 +38,19 @@
 	</div>
 	
 	<div class="form-group">
-		<form:label path="welcomeMessage">
-			<spring:message code="settings.welcomemessage" />
+		<form:label path="welcomeMessageEnglish">
+			<spring:message code="settings.welcomemessageenglish" />
 		</form:label>	
-		<form:textarea path="welcomeMessage" />	
-		<form:errors path="welcomeMessage" cssClass="error" />
+		<form:textarea path="welcomeMessageEnglish" />	
+		<form:errors path="welcomeMessageEnglish" cssClass="error" />
+	</div>
+	
+	<div class="form-group">
+		<form:label path="welcomeMessageSpanish">
+			<spring:message code="settings.welcomemessagespanish" />
+		</form:label>	
+		<form:textarea path="welcomeMessageSpanish" />	
+		<form:errors path="welcomeMessageSpanish" cssClass="error" />
 	</div>
 	
 <fieldset><legend><spring:message code="settings.spamwords" /></legend>
