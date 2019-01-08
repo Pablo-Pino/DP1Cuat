@@ -18,9 +18,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="endorsement.edit" />
-</p>
 
 
 <div>

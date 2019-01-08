@@ -18,38 +18,46 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="endorsement.list" />
-</p>
+
 
 <%-- TODO (Juan) tengo que mirar como poner la sección de pasar de pagina y demas --%>
 
 
 <security:authorize access="hasAnyRole('HANDYWORKER','CUSTOMER')">
-	<display:table name="endorsements" id="endorsement" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
+	<jstl:out value="${username }"></jstl:out>
+	
+	<display:table name="endorsements" id="endorsement"
+		requestURI="${requestURI}" pagesize="5" class="displaytag">
 		
-		<display:column>
-			<a href="endorsement/edit.do?endorsementId=${endorsement.id}">
-			<spring:message code="endorsement.edit"></spring:message></a>
-		</display:column>
 		
+		<security:authentication property="principal.username" var="username" />
+		<jstl:if test='${endorsement.sender.userAccount.username == username}'>
+			<display:column>
+				<a href="endorsement/edit.do?endorsementId=${endorsement.id}"> <spring:message
+						code="endorsement.edit"></spring:message></a>
+			</display:column>
+		</jstl:if>
+
 		<spring:message code="endorsement.sender" var="sender"></spring:message>
-		<display:column property="sender" title="${sender}" sortable="true" />
-		
+		<display:column property="sender.name" title="${sender}"
+			sortable="true" />
+
 		<spring:message code="endorsement.receiver" var="receiver"></spring:message>
-		<display:column property="receiver" title="${receiver}" sortable="true" />
-		
+		<display:column property="receiver.name" title="${receiver}"
+			sortable="true" />
+
 		<spring:message code="endorsement.moment" var="moment"></spring:message>
 		<display:column property="moment" title="${moment}" sortable="true" />
-		
+
 		<spring:message code="endorsement.comments" var="comments"></spring:message>
-		<display:column property="comments" title="${comments}" sortable="true" />
-		
-		
-		
-		
+		<display:column property="comments" title="${comments}"
+			sortable="true" />
+
+
+
+
 	</display:table>
-	
-	
+
+
 </security:authorize>
