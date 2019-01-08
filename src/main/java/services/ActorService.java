@@ -342,6 +342,11 @@ public class ActorService {
 			}
 		if (!res)
 			res = this.containsSpam(actor.getUserAccount().getUsername());
+		if (!res)
+			if (actor instanceof Customer)
+				res = res || this.customerService.isSuspicious((Customer) actor);
+			else if (actor instanceof HandyWorker)
+				res = res || this.handyWorkerService.isSuspicious((HandyWorker) actor);
 		return res;
 	}
 

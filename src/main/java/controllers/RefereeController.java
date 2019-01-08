@@ -70,14 +70,15 @@ public class RefereeController extends AbstractController {
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(referee);
 		else
-			//try {
-			this.refereeService.save(referee);
-		res = new ModelAndView("redirect:/");
-		//} catch (final Throwable t) {
-		res = this.createEditModelAndView(referee, "cannot.commit.error");
-		//}
+			try {
+				this.refereeService.save(referee);
+				res = new ModelAndView("redirect:/");
+			} catch (final Throwable t) {
+				res = this.createEditModelAndView(referee, "cannot.commit.error");
+			}
 		return res;
 	}
+
 	// Ancillary methods
 
 	private ModelAndView createEditModelAndView(final Referee referee) {

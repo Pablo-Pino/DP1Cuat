@@ -13,8 +13,13 @@ import org.springframework.util.Assert;
 import repositories.CustomerRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Application;
+import domain.Complaint;
 import domain.Customer;
 import domain.FixupTask;
+import domain.Note;
+import domain.Report;
+import domain.Url;
 
 @Service
 @Transactional
@@ -31,13 +36,16 @@ public class CustomerService {
 	private FolderService		folderService;
 
 	@Autowired
-	private UserAccountService	userAccountService;
-
-	@Autowired
 	private ServiceUtils		serviceUtils;
 
 	@Autowired
 	private FixupTaskService	fixupTaskService;
+
+	@Autowired
+	private ActorService		actorService;
+
+	@Autowired
+	private ReportService		reportService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -182,4 +190,38 @@ public class CustomerService {
 		this.customerRepository.flush();
 	}
 
+	public boolean isSuspicious(final Customer c) {
+		final Customer customer = (Customer) this.serviceUtils.checkObject(c);
+		Boolean res = false;
+		for (final FixupTask f : customer.getFixupTasks()) {
+			if (this.actorService.containsSpam(f.getDescription())) {
+				res = true;
+				break;
+			}
+			for (final Application a : f.getApplications())
+				if (this.actorService.containsSpam(a.getCustomerComments()) || this.actorService.containsSpam(a.getCreditCard().getBrandName()) || this.actorService.containsSpam(a.getCreditCard().getHolderName())) {
+					res = true;
+					break;
+				}
+			for (final Complaint com : f.getComplaints()) {
+				for (final Url u : com.getAttachments())
+					if (this.actorService.containsSpam(u.getUrl())) {
+						res = true;
+						break;
+					}
+				if (this.actorService.containsSpam(com.getDescription())) {
+					res = true;
+					break;
+				}
+				final Report report = this.reportService.findByComplaint(com);
+				for (final Note n : report.getNotes())
+					for (final String comment : n.getComments())
+						if (this.actorService.containsSpam(comment)) {
+							res = true;
+							break;
+						}
+			}
+		}
+		return res;
+	}
 }

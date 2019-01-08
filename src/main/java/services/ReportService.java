@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 
 import repositories.ReportRepository;
 import security.Authority;
+import domain.Actor;
 import domain.Complaint;
 import domain.Note;
 import domain.Report;
@@ -36,6 +37,10 @@ public class ReportService {
 	private ComplaintService	complaintService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+	@Autowired
+	private ApplicationService	applicationService;
 
 
 	// CRUD methods
@@ -104,6 +109,14 @@ public class ReportService {
 		this.repository.delete(report);
 	}
 
+	public Report profile(final Report r) {
+		final Report report = (Report) this.serviceUtils.checkObject(r);
+		this.serviceUtils.checkAnyActor(new Actor[] {
+			r.getComplaint().getReferee(), r.getComplaint().getFixuptask().getCustomer(),
+
+		});
+		return report;
+	}
 	// Other methods
 
 	public void flush() {

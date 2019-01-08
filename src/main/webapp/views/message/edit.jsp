@@ -108,8 +108,16 @@
 				
 			</jstl:if>
 
-			<input type="submit" name="save"
-				value="<spring:message code="message.save"></spring:message>" />
+			<jstl:choose>
+				<jstl:when test="${isBroadcast}">
+					<input type="submit" name="broadcast"
+						value="<spring:message code="message.broadcast"></spring:message>" />
+				</jstl:when>
+				<jstl:otherwise>
+					<input type="submit" name="save"
+						value="<spring:message code="message.save"></spring:message>" />
+				</jstl:otherwise>
+			</jstl:choose>
 			<jstl:if test="${messageObject.id > 0}">
 				<input type="submit" name="delete"
 					value="<spring:message code="message.delete"></spring:message>" />

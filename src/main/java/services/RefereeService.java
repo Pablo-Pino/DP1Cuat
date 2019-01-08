@@ -102,10 +102,7 @@ public class RefereeService {
 	}
 	// Other methods
 	public void changeBanned(final Referee referee) {
-		this.serviceUtils.checkId(referee);
-		Referee ref = referee;
-		if (referee.getId() > 0)
-			ref = this.repository.findOne(referee.getId());
+		final Referee ref = (Referee) this.serviceUtils.checkObject(referee);
 		if (this.isSuspicious(ref) && !ref.getUserAccount().getBanned())
 			ref.getUserAccount().setBanned(true);
 		else

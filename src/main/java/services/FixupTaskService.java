@@ -14,6 +14,7 @@ import repositories.FixupTaskRepository;
 import domain.Category;
 import domain.Customer;
 import domain.FixupTask;
+import domain.HandyWorker;
 import domain.Warranty;
 
 @Service
@@ -33,6 +34,8 @@ public class FixupTaskService {
 	private CustomerService		customerService;
 	@Autowired
 	private WarrantyService		warrantyService;
+	@Autowired
+	private ServiceUtils		serviceUtils;
 
 
 	//
@@ -154,4 +157,9 @@ public class FixupTaskService {
 		return this.fixupTaskRepository.findAcceptedFixupTasks();
 	}
 
+	public Collection<FixupTask> findAcceptedFixupTasksByHandyWorker(final HandyWorker h) {
+		final HandyWorker handyWorker = (HandyWorker) this.serviceUtils.checkObject(h);
+		// TODO Auto-generated method stub
+		return this.fixupTaskRepository.findAcceptedFixupTasksByHandyWorker(handyWorker.getId());
+	}
 }
