@@ -25,7 +25,7 @@
 <security:authorize access="hasRole('CUSTOMER')">
 	<div>
 
-		<form:form action="fixupTask/customer/create.do" method="POST"
+		<form:form action="fixupTask/endorsable/create.do" method="POST"
 			id="formCreate" name="formCreate" modelAttribute="fixupTask">
 
 			<!-- Atributos hidden-->

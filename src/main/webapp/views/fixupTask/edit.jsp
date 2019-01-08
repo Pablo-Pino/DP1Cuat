@@ -46,6 +46,7 @@
 
 
 <security:authorize access="hasRole('CUSTOMER')">
+
 	<form:form action="fixupTask/customer/edit.do" method="post"
 		id="formCreate" name="formCreate" modelAttribute="fixupTask">
 
@@ -109,5 +110,6 @@
 			onclick="javascript:relativeRedir('fixupTask/customer/list.do')" />
 
 	</form:form>
+
 
 </security:authorize>

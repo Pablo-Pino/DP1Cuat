@@ -56,7 +56,7 @@ public class FixupTaskService {
 		w = this.warrantyService.create();
 		c = this.categoryService.create();
 		ct = this.customerService.create();
-		t = this.ticketableService.createTicker().toString();
+		t = this.ticketableService.createTicker();
 		ft = new FixupTask();
 		ft.setWarranty(w);
 		ft.setCategory(c);

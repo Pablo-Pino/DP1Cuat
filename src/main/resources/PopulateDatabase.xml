@@ -1748,7 +1748,8 @@
 		<bean id="settings1" class="domain.Settings"> 
 			<property name="systemName" value="Acme Handy Worker"></property> 
 			<property name="banner" value="https://tinyurl.com/acme-handy-worker-logo"></property> 
-			<property name="welcomeMessage" value="spring.messages.welcomeHandyWorker"></property> 
+			<property name="welcomeMessageEnglish" value="Welcome to Acme Handy Worker! Price, quality, and trust in a single place"></property> 
+			<property name="welcomeMessageSpanish" value="¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el mismo sitio"></property>
 			<property name="spamWords">
 				<list>
 					<value>sex</value>

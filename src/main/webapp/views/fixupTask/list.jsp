@@ -42,6 +42,14 @@
 			</a> --%>
 		</display:column>
 	</security:authorize>
+	
+	<security:authorize access="hasRole('HANDYWORKER')">
+		<display:column>
+			<a href="/customer/display.do?customerId=${row.customer.id}"> <spring:message
+					code="customer.display" />
+			</a>
+		</display:column>
+	</security:authorize>
 
 	<!-- Attributos -->
 
@@ -60,10 +68,10 @@
 	<display:column property="maximumPrice"
 		titleKey="fixupTask.maximumPrice" sortable="false" />
 
-	<display:column property="category" titleKey="fixupTask.category"
+	<display:column property="category.name" titleKey="fixupTask.category"
 		sortable="false" />
 
-	<display:column property="warranty" titleKey="fixupTask.warranty"
+	<display:column property="warranty.title" titleKey="fixupTask.warranty"
 		sortable="false" />
 
 	<display:column property="start" titleKey="fixupTask.start"
