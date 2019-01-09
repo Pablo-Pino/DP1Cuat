@@ -89,9 +89,16 @@ public class FixupTaskController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		FixupTask fixupTask;
+		Collection<Category> categories = new ArrayList<>();
+		Collection<Warranty> warranties = new ArrayList<>();
+
+		warranties = this.warrantyService.findAll();
+		categories = this.categoryService.findAll();
 
 		fixupTask = this.fixupTaskService.create();
 		result = this.createEditModelAndView(fixupTask);
+		result.addObject("categories", categories);
+		result.addObject("warranties", warranties);
 
 		return result;
 	}
@@ -142,7 +149,6 @@ public class FixupTaskController extends AbstractController {
 				if (!fixupTask.getStart().before(fixupTask.getEnd()))
 					throw dateErr;
 				this.fixupTaskService.save(fixupTask);
-				//ARREGLAR EL REDIRECT
 				result = new ModelAndView("redirect:/fixupTask/endorsable/list.do");
 			} catch (final Throwable oops) {
 				if (oops.equals(dateErr))
