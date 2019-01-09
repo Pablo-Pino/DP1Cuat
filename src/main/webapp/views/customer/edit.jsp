@@ -30,10 +30,31 @@
 		<form:hidden path="suspicious" />
 		<form:hidden path="fixupTasks" />
 		<form:hidden path="score"/>
+		<%-- <form:hidden path="userAccount.authorities" /> --%>
+		
 		
 
 
-		
+		<%-- <fieldset>
+			<legend>
+				<spring:message code="customer.useraccount" />
+			</legend>
+			<div>
+				<form:label path="userAccount.username">
+					<spring:message code="customer.useraccount.username" />
+				</form:label>
+				<form:input path="userAccount.username" />
+				<form:errors path="userAccount.username" cssClass="error" />
+			</div>
+
+			<div>
+				<form:label path="userAccount.password">
+					<spring:message code="customer.useraccount.password" />
+				</form:label>
+				<form:password path="userAccount.password" />
+				<form:errors path="userAccount.password" cssClass="error" />
+			</div>
+		</fieldset>  --%>
 
 
 
@@ -86,7 +107,8 @@
 		<form:input path="address" />
 		<form:errors cssClass="error" path="address" />
 		<br />
-
+	
+		
 
 		<!--  Botones -->
 

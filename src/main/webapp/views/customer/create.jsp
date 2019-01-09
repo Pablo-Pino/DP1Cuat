@@ -56,11 +56,6 @@
 		</fieldset> 
 
 
-
-
-
-
-
 		<form:label path="name">
 			<spring:message code="customer.name" />
 		</form:label>
