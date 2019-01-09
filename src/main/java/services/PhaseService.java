@@ -19,19 +19,20 @@ import domain.WorkPlan;
 public class PhaseService {
 
 	// Repository
-	
+
 	@Autowired
 	private PhaseRepository	repository;
 
 	// Services
-	
+
 	@Autowired
 	private WorkPlanService	workPlanService;
 	@Autowired
 	private ServiceUtils	serviceUtils;
 
+
 	// CRUD methods
-	
+
 	public Phase findOne(final Integer id) {
 		this.serviceUtils.checkId(id);
 		return this.repository.findOne(id);
@@ -45,7 +46,7 @@ public class PhaseService {
 	public Collection<Phase> findAll() {
 		return this.repository.findAll();
 	}
-	
+
 	public Collection<Phase> findAll(final WorkPlan dependency) {
 		this.serviceUtils.checkId(dependency);
 		Assert.notNull(this.workPlanService.findOne(dependency.getId()));
@@ -60,10 +61,15 @@ public class PhaseService {
 		return res;
 	}
 
+	public Phase create2() {
+		final Phase res = new Phase();
+		return res;
+	}
+
 	public Phase save(final Phase object) {
 		final Phase phase = (Phase) this.serviceUtils.checkObjectSave(object);
 		if (object.getId() > 0) {
-			Phase old = this.findOne(phase.getId());
+			final Phase old = this.findOne(phase.getId());
 			old.setDescription(phase.getDescription());
 			old.setEnd(phase.getEnd());
 			old.setStart(phase.getStart());
@@ -86,7 +92,7 @@ public class PhaseService {
 	}
 
 	// Other methods
-	
+
 	public void flush() {
 		this.repository.flush();
 	}

@@ -3,8 +3,12 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +43,82 @@ public class PhaseController extends AbstractController {
 		result = new ModelAndView("phase/list");
 		result.addObject("requestURI", "phase/handyworker/list.do");
 		result.addObject("phases", phases);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Phase pr;
+
+		pr = this.phaseService.create2();
+		result = this.createEditModelAndView(pr);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int phase) {
+		ModelAndView result;
+		Phase phaseP;
+
+		phaseP = this.phaseService.findOne(phase);
+		Assert.notNull(phaseP);
+		result = this.createEditModelAndView(phaseP);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Phase phase, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(phase);
+		else
+			try {
+				this.phaseService.save(phase);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(phase, "phase.commit.error");
+			}
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Phase phase, final BindingResult binding) {
+		ModelAndView result;
+		try {
+			this.phaseService.delete(phase);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(phase, "phase.commit.error");
+
+		}
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Phase phase) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(phase, null);
+
+		return result;
+	}
+	protected ModelAndView createEditModelAndView(final Phase phase, final String messageCode) {
+		final ModelAndView result;
+
+		Collection<WorkPlan> workPlans;
+
+		workPlans = this.workPlanService.findAll();
+
+		result = new ModelAndView("phase/edit");
+		result.addObject("phase", phase);
+		result.addObject("workPlans", workPlans);
+		result.addObject("message", messageCode);
 
 		return result;
 	}
