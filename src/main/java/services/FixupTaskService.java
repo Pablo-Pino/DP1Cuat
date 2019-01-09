@@ -214,5 +214,4 @@ public class FixupTaskService {
 		final HandyWorker handyWorker = (HandyWorker) this.serviceUtils.checkObject(h);
 		return this.fixupTaskRepository.findFixupTasksNotAppliedByHandyWorker(handyWorker.getId());
 	}
-
 }

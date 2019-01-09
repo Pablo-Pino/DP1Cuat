@@ -58,8 +58,6 @@ public class WorkPlanService {
 		Assert.notNull(w);
 		final HandyWorker hw = w.getHandyWorker();
 		this.handyWorkerService.save(hw);
-		final FixupTask ft = w.getFixupTask();
-		this.fixupTaskService.save(ft);
 		this.workPlanRepository.delete(w);
 	}
 
