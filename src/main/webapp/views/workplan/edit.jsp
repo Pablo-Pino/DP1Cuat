@@ -19,6 +19,9 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<security:authentication property="principal.username" var="username" />
+<jstl:if test='${workplan.handyWorker.userAccount.username == username || workPlan.id == 0}'>
+
 <form:form action="workplan/handyWorker/edit.do" modelAttribute="workplan">
 
 	<form:hidden path="id" />
@@ -48,3 +51,11 @@
 	<br />
 
 </form:form>
+
+</jstl:if>
+
+<jstl:if test='${workplan.handyWorker.userAccount.username != username && workPlan.id != 0}'>
+	<h1>
+		<b><spring:message code="workplan.permissions"></spring:message></b>
+	</h1>
+</jstl:if>
