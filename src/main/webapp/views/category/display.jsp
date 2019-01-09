@@ -19,16 +19,38 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
+<%
 
+Cookie[] cookies = request.getCookies();
+Cookie languageCookie = null;
+for(Cookie c : cookies) {
+	if(c.getName().equals("language")) {
+		languageCookie = c;
+	}
+}
+
+String languageValue = languageCookie.getValue();
+
+%>
 
 <security:authorize access="hasRole('ADMIN')">
 	<spring:message code="category.name"></spring:message>:
-	<jstl:out value="${category.name}"></jstl:out>
+	<% if(languageValue.equals("en")) { %>
+		<jstl:out value="${category.nameEnglish}" />
+	<% } else if (languageValue.equals("es")) { %>
+		<jstl:out value="${category.nameSpanish}" />
+	<% } %>
 	<br />
 
 
 	<spring:message code="category.parentCategory"></spring:message>:
-	<a href="category/administrator/display.do?categoryId=${category.parentCategory.id}"><jstl:out value="${category.parentCategory.name}"></jstl:out></a>
+	<a href="category/administrator/display.do?categoryId=${category.parentCategory.id}">
+		<% if(languageValue.equals("en")) { %>
+			<jstl:out value="${category.parentCategory.nameEnglish}" />
+		<% } else if (languageValue.equals("es")) { %>
+			<jstl:out value="${category.parentCategory.nameSpanish}" />
+		<% } %>
+	</a>
 	<br />
 <%-- 	<fieldset>
 		<legend>
@@ -61,9 +83,6 @@
 		
 	<spring:message code="category.edit" var="edit"></spring:message>
 	<input type="button" name="edit" value="${edit}" onclick="javascript:relativeRedir('category/administrator/edit.do?categoryId=${category.id}')" />
-	
-		<spring:message code="category.delete" var="delete"></spring:message>
-	<input type="button" name="delete" value="${delete}" onclick="javascript:relativeRedir('category/administrator/delete.do?categoryId=${category.id}')" />
 	
 	<button type="button" onclick="javascript: relativeRedir('category/administrator/list.do')" ><spring:message code="category.return" />
 	</button>

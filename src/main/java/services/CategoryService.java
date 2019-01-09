@@ -59,7 +59,7 @@ public class CategoryService {
 		System.out.println("Entra en el save");
 		final Category padre = category.getParentCategory();
 		//final comprueba que no final hago bucles,que mi final hijo no es final un padre  o final un abuelo final etc etc
-		if (!category.getName().equals("CATEGORY")) {
+		if (!category.getNameEnglish().equals("CATEGORY")) {
 			System.out.println("Entra en el if");
 
 			return this.categoryRepository.save(category);
@@ -82,7 +82,6 @@ public class CategoryService {
 			if (f.getCategory().equals(cat)) {
 				final Category padre = cat.getParentCategory();
 				f.setCategory(padre);
-				this.save(padre);
 				this.fixUpTaskService.save(f);
 			}
 	}
@@ -90,7 +89,7 @@ public class CategoryService {
 	public void delete(final Category cat) {
 		Assert.notNull(cat);
 		Assert.isTrue(this.categoryRepository.exists(cat.getId()));
-		if (cat.getName().equals("CATEGORY")) {
+		if (cat.getNameEnglish().equals("CATEGORY")) {
 			System.out.println("Pasa por el primer if del delete");
 			throw new IllegalArgumentException("NO SE PUEDE BORRAR LA CATEGORIA RAIZ");
 

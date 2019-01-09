@@ -18,6 +18,20 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<%
+
+Cookie[] cookies = request.getCookies();
+Cookie languageCookie = null;
+for(Cookie c : cookies) {
+	if(c.getName().equals("language")) {
+		languageCookie = c;
+	}
+}
+
+String languageValue = languageCookie.getValue();
+
+%>
+
 <p>
 	<spring:message code="category.list" />
 </p>
@@ -49,12 +63,23 @@
 		</display:column>
 
 		<spring:message code="category.name" var="categoryName"></spring:message>
-		<display:column property="name" title="${categoryName}"
-			sortable="true" />
-
+		<display:column title="${categoryName}" sortable="true" >
+			<% if(languageValue.equals("en")) { %>
+				<jstl:out value="${Category.nameEnglish}" />
+			<% } else if (languageValue.equals("es")) { %>
+				<jstl:out value="${Category.nameSpanish}" />
+			<% } %>
+		</display:column>
+		
 		<spring:message code="category.parentCategory" var="ParentCategory"></spring:message>
-		<display:column property="parentCategory.name"
-			title="${ParentCategory}" sortable="true" />
+		<display:column title="${ParentCategory}" sortable="true" >
+			<% if(languageValue.equals("en")) { %>
+				<jstl:out value="${Category.parentCategory.nameEnglish}" />
+			<% } else if (languageValue.equals("es")) { %>
+				<jstl:out value="${Category.parentCategory.nameSpanish}" />
+			<% } %>
+		</display:column>
+		 
 
 
 		<%-- 	<spring:message code="category.childsCategories" var="catId" />

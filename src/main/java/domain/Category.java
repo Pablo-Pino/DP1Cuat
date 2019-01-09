@@ -1,7 +1,6 @@
 
 package domain;
 
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
@@ -17,36 +16,49 @@ import org.hibernate.validator.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 @Table(uniqueConstraints = {
 	@UniqueConstraint(columnNames = {
-		"name", "parent_category"
+		"nameEnglish", "parent_category"
+	}), @UniqueConstraint(columnNames = {
+		"nameSpanish", "parent_category"
 	})
 })
 public class Category extends DomainEntity {
 
 	//--------Atributos-------------
 
-	private String					name;
+	private String		nameEnglish;
+	private String		nameSpanish;
 
 	//------------Relaciones-------------
 
-	private Category				parentCategory;
+	private Category	parentCategory;
 
 
 	//--------Getters y Setters-------
-
-	@NotBlank
-	@NotNull
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(final String name) {
-		this.name = name;
-	}
 
 	@Valid
 	@ManyToOne(optional = false)
 	public Category getParentCategory() {
 		return this.parentCategory;
+	}
+
+	@NotBlank
+	@NotNull
+	public String getNameEnglish() {
+		return this.nameEnglish;
+	}
+
+	public void setNameEnglish(final String nameEnglish) {
+		this.nameEnglish = nameEnglish;
+	}
+
+	@NotBlank
+	@NotNull
+	public String getNameSpanish() {
+		return this.nameSpanish;
+	}
+
+	public void setNameSpanish(final String nameSpanish) {
+		this.nameSpanish = nameSpanish;
 	}
 
 	public void setParentCategory(final Category parentCategory) {

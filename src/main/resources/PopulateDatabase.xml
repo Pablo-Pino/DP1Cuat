@@ -399,112 +399,134 @@
 	<!-- Categories -->
 
 	<bean id="categoryRoot" class="domain.Category">
-		<property name="name" value="CATEGORY" />
+		<property name="nameEnglish" value="CATEGORY" />
+		<property name="nameSpanish" value="CATEGORÍA" />
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
 	<bean id="categoryCarpentry" class="domain.Category">
-		<property name="name" value="Carpentry" />
+		<property name="nameEnglish" value="Carpentry" />
+		<property name="nameSpanish" value="Carpintería" />
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
 	<bean id="categoryCeilingRepair" class="domain.Category">
-		<property name="name" value="CeilingRepair" />
+		<property name="nameEnglish" value="CeilingRepair" />
+		<property name="nameSpanish" value="Reparación de techos" />
 		<property name="parentCategory" ref="categoryConcreteWork" />
 	</bean>
 
 	<bean id="categoryCleaning" class="domain.Category">
-		<property name="name" value="Cleaning" />
+		<property name="nameEnglish" value="Cleaning" />
+		<property name="nameSpanish" value="Limpieza" />
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
 	<bean id="categoryConcreteWork" class="domain.Category">
-		<property name="name" value="ConcreteWork" />
+		<property name="nameEnglish" value="ConcreteWork" />
+		<property name="nameSpanish" value="Trabajos con hormigón" />
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
 	<bean id="categoryDoors" class="domain.Category">
-		<property name="name" value="Carpentry" />
+		<property name="nameEnglish" value="Doors" />
+		<property name="nameSpanish" value="Puertas" />
 		<property name="parentCategory" ref="categoryCarpentry" />
 	</bean>
 
 	<bean id="categoryElectricalWiring" class="domain.Category">
-		<property name="name" value="ElectricalWiring" />
+		<property name="nameEnglish" value="ElectricalWiring" />
+		<property name="nameSpanish" value="Cableado Eléctrico" />
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
 	<bean id="categoryFanInstallation" class="domain.Category">
-		<property name="name" value="FanInstallation" />
+		<property name="nameEnglish" value="FanInstallation" />
+		<property name="nameSpanish" value="Instalación de ventiladores" />
 		<property name="parentCategory" ref="categoryElectricalWiring" />
 	</bean>
 
 	<bean id="categoryFenceFixing" class="domain.Category">
-		<property name="name" value="FenceFixing" />
+		<property name="nameEnglish" value="FenceFixing" />
+		<property name="nameSpanish" value="Reparación de vallas" />
 		<property name="parentCategory" ref="categoryHomeSecuritySystems" />
 	</bean>
 
 	<bean id="categoryHomeSecuritySystems" class="domain.Category">
-		<property name="name" value="HomeSecuritySystems" />
+		<property name="nameEnglish" value="HomeSecuritySystems" />
+		<property name="nameSpanish" value="Sistemas de seguridad para el hogar" />
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
 	<bean id="categoryInsulationInstallation" class="domain.Category">
-		<property name="name" value="InsulationInstallation" />
+		<property name="nameEnglish" value="InsulationInstallation" />
+		<property name="nameSpanish" value="Instalación de aislamiento" />
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
 	<bean id="categoryLampRepairs" class="domain.Category">
-		<property name="name" value="LampRepairs" />
+		<property name="nameEnglish" value="LampRepairs" />
+		<property name="nameSpanish" value="Reparación de lámparas" />
 		<property name="parentCategory" ref="categoryElectricalWiring" />
 	</bean>
 
 	<bean id="categoryMoving" class="domain.Category">
-		<property name="name" value="Moving" />
+		<property name="nameEnglish" value="Moving" />
+		<property name="nameSpanish" value="Mudanzas" />
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
 	<bean id="categoryPainting" class="domain.Category">
-		<property name="name" value="Painting" />
+		<property name="nameEnglish" value="Painting" />
+		<property name="nameSpanish" value="Pintado" />
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
 	<bean id="categoryPestControl" class="domain.Category">
-		<property name="name" value="PestControl" />
+		<property name="nameEnglish" value="PestControl" />
+		<property name="nameSpanish" value="Control de plagas" />
 		<property name="parentCategory" ref="categoryCleaning" />
 	</bean>
 
 	<bean id="categoryPlumbingRepairs" class="domain.Category">
-		<property name="name" value="SolarPanels" />
+		<property name="nameEnglish" value="PlumbingRepairs" />
+		<property name="nameSpanish" value="Reparación de tuberías" />
 		<property name="parentCategory" ref="categoryRoot" />
 	</bean>
 
 	<bean id="categoryRoofing" class="domain.Category">
-		<property name="name" value="Roofing" />
+		<property name="nameEnglish" value="Roofing" />
+		<property name="nameSpanish" value="Techado" />
 		<property name="parentCategory" ref="categoryConcreteWork" />
 	</bean>
 
 	<bean id="categoryShelfInstallation" class="domain.Category">
-		<property name="name" value="ShelfInstallation" />
+		<property name="nameEnglish" value="ShelfInstallation" />
+		<property name="nameSpanish" value="Instalación de estanterías" />
 		<property name="parentCategory" ref="categoryCarpentry" />
 	</bean>
 
 	<bean id="categorySolarPanels" class="domain.Category">
-		<property name="name" value="SolarPanels" />
+		<property name="nameEnglish" value="SolarPanels" />
+		<property name="nameSpanish" value="Paneles Solares" />
 		<property name="parentCategory" ref="categoryElectricalWiring" />
 	</bean>
 
 	<bean id="categorySoundProofing" class="domain.Category">
-		<property name="name" value="SoundProofing" />
+		<property name="nameEnglish" value="SoundProofing" />
+		<property name="nameSpanish" value="Amortiguación de sonido" />
 		<property name="parentCategory" ref="categoryInsulationInstallation" />
 	</bean>
 
 	<bean id="categorySprinklerRepair" class="domain.Category">
-		<property name="name" value="SprinklerRepair" />
+		<property name="nameEnglish" value="SprinklerRepair" />
+		<property name="nameSpanish" value="Reparación de aspersores" />
 		<property name="parentCategory" ref="categoryElectricalWiring" />
 	</bean>
 
 	<bean id="categoryWindowRepair" class="domain.Category">
-		<property name="name" value="WindowRepair" />
+		<property name="nameEnglish" value="WindowRepair" />
+		<property name="nameSpanish" value="Reparación de ventanas" />
 		<property name="parentCategory" ref="categoryCarpentry" />
 	</bean>
 

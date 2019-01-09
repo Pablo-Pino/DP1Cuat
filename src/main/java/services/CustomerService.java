@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -19,6 +20,7 @@ import domain.Customer;
 import domain.FixupTask;
 import domain.Note;
 import domain.Report;
+import domain.Settings;
 import domain.Url;
 
 @Service
@@ -46,6 +48,9 @@ public class CustomerService {
 
 	@Autowired
 	private ReportService		reportService;
+
+	@Autowired
+	private SettingsService		settingsService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -123,6 +128,10 @@ public class CustomerService {
 			//esto es para ver si el actor que está logueado es el mismo que se está editando
 			this.serviceUtils.checkActor(customer);
 
+		}
+		if ((!customer.getPhone().startsWith("+")) && StringUtils.isNumeric(customer.getPhone()) && customer.getPhone().length() > 3) {
+			final Settings settings = this.settingsService.findSettings();
+			customer.setPhone(settings.getCountryCode() + customer.getPhone());
 		}
 		Customer res;
 		//le meto al resultado final el customer que he ido modificando anteriormente

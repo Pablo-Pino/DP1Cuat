@@ -86,7 +86,7 @@ public class WorkplanController extends AbstractController {
 		ModelAndView result;
 		FixupTask f;
 		f = workplan.getFixupTask();
-		f.setWorkPlan(workplan);
+		//f.setWorkPlan(workplan);
 		//this.fixupTaskService.save(f);
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(workplan);

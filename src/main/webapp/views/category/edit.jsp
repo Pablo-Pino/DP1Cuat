@@ -22,6 +22,20 @@
 	<spring:message code="category.edit" />
 </p> --%>
 
+<%
+
+Cookie[] cookies = request.getCookies();
+Cookie languageCookie = null;
+for(Cookie c : cookies) {
+	if(c.getName().equals("language")) {
+		languageCookie = c;
+	}
+}
+
+String languageValue = languageCookie.getValue();
+
+%>
+
 <!--  Primero pongo la autoridad ya que solo un * maneja las categorias -->
 <security:authorize access="hasRole('ADMIN')">
 
@@ -34,16 +48,26 @@
 
 
 <!-- El atributo nombre -->
-			<form:label path="name"><spring:message code="category.name"></spring:message></form:label>
-			<form:input path="name" id="name" name="name" />
-			<form:errors cssClass="error" path="name" />
+			<form:label path="nameEnglish"><spring:message code="category.nameEnglish"></spring:message></form:label>
+			<form:input path="nameEnglish" id="nameEnglish" name="nameEnglish" />
+			<form:errors cssClass="error" path="nameEnglish" />
 			<br>
+			
+			<form:label path="nameSpanish"><spring:message code="category.nameSpanish"></spring:message></form:label>
+			<form:input path="nameSpanish" id="nameSpanish" name="nameSpanish" />
+			<form:errors cssClass="error" path="nameSpanish" />
+			<br>
+			
 <!--  Categoria padre (desplegable) -->
 		<form:label path="parentCategory"> <spring:message code="category.parentCategory"></spring:message></form:label>
 		
 		<form:select id="parentCategory" path="parentCategory">
 		<form:option value="${category.parentCategory}" label="------"></form:option>
-		<form:options items="${categories}" itemLabel="name" itemValue="id" />
+		<% if(languageValue.equals("en")) { %>	
+			<form:options items="${categories}" itemLabel="nameEnglish" itemValue="id" />
+		<% } else if(languageValue.equals("es")) { %>
+			<form:options items="${categories}" itemLabel="nameSpanish" itemValue="id" />
+		<% } %>
 		</form:select>
 		<form:errors cssClass="error" path="parentCategory" />
 		<br />
