@@ -28,9 +28,11 @@
 
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
+		<jstl:if test='${row.draft==true}'>
 			<a href="warranty/administrator/edit.do?warrantyId=${row.id}">
 				<spring:message	code="warranty.edit" />
 			</a>
+			</jstl:if>
 		</display:column>		
 	</security:authorize>
 	
