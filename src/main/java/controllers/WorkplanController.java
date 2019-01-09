@@ -137,8 +137,10 @@ public class WorkplanController extends AbstractController {
 		ModelAndView res;
 		Collection<WorkPlan> workplans = new ArrayList<>();
 
+		final UserAccount uA = LoginService.getPrincipal();
+		final HandyWorker handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(uA);
 		res = new ModelAndView("workplan/list");
-		workplans = this.workplanService.findAll(); //TODO probar con el servicio que da directamente los workplans del workplan
+		workplans = this.workplanService.findWorkPlanByHandyWorker(handyWorker); //TODO probar con el servicio que da directamente los workplans del workplan
 
 		res.addObject("workplans", workplans);
 		res.addObject("requestURI", "workplan/handyWorker/list.do");

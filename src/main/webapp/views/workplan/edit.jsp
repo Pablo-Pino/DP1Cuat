@@ -26,15 +26,17 @@
 	<form:hidden path="handyWorker" />
 	<form:hidden path="phases" />
 	
+	
 	<form:select id="fixupTask" path="fixupTask">
 			<form:option value="0" label="------"></form:option>
 			<form:options items="${fixUp}" itemLabel="ticker" itemValue="id" />
 			</form:select>
 			<form:errors cssClass="error" path="fixupTask" />
 	<br/>
-
+	
 	<input type="submit" name="save"
 		value="<spring:message code="workplan.save" />" />&nbsp; 
+	
 	<jstl:if test="${workplan.id != 0}">
 		<input type="submit" name="delete"
 			value="<spring:message code="workplan.delete" />"
