@@ -1062,16 +1062,10 @@
 		<property name="description" value="Coger el telefono antes de hacer algo" />
 		<property name="start" value="February 15, 2017 09:30"></property>
 		<property name="end" value="February 18, 2017 09:30"></property>
-		<property name="workPlan" ref="workPlan5"></property>
-	</bean>
-	
-	<bean id="phase6" class="domain.Phase">
-		<property name="title" value="phase6" />
-		<property name="description" value="Coger el telefono antes de hacer cosas" />
-		<property name="start" value="February 15, 2017 09:30"></property>
-		<property name="end" value="February 18, 2017 09:30"></property>
 		<property name="workPlan" ref="workPlan4"></property>
 	</bean>
+	
+	
 
 	<!-- WorkPlan -->
 
@@ -1107,17 +1101,9 @@
 		</property>
 	</bean>
 	
-	<bean id="workPlan4" class="domain.WorkPlan">
-		<property name="fixupTask" ref="fixupTask4" />
-		<property name="handyWorker" ref="handyWorker3" />
-		<property name="phases">
-			<list>
-				<ref bean="phase6" />
-			</list>
-		</property>
-	</bean>
 	
-	<bean id="workPlan5" class="domain.WorkPlan">
+	
+	<bean id="workPlan4" class="domain.WorkPlan">
 		<property name="fixupTask" ref="fixupTask5" />
 		<property name="handyWorker" ref="handyWorker4" />
 		<property name="phases">

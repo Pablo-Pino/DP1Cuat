@@ -178,6 +178,7 @@ public class WorkplanController extends AbstractController {
 		result = new ModelAndView("workplan/edit");
 		result.addObject("workplan", workplan);
 		result.addObject("fixUp", fixUp);
+		result.addObject("message", message);
 
 		return result;
 	}
