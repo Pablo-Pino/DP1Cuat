@@ -57,13 +57,11 @@ String languageValue = languageCookie.getValue();
 		</display:column>
 	</security:authorize>
 	
-	<security:authorize access="hasRole('HANDYWORKER')">
 		<display:column>
 			<a href="fixupTask/endorsable/display.do?fixupTaskId=${row.id}"> <spring:message
 					code="customer.display" />
 			</a>
 		</display:column>
-	</security:authorize>
 
 	<!-- Attributos -->
 

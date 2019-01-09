@@ -19,17 +19,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%
-
-Cookie[] cookies = request.getCookies();
-Cookie languageCookie = null;
-for(Cookie c : cookies) {
-	if(c.getName().equals("language")) {
-		languageCookie = c;
+	Cookie[] cookies = request.getCookies();
+	Cookie languageCookie = null;
+	for (Cookie c : cookies) {
+		if (c.getName().equals("language")) {
+			languageCookie = c;
+		}
 	}
-}
 
-String languageValue = languageCookie.getValue();
-
+	String languageValue = languageCookie.getValue();
 %>
 
 <b><spring:message code="fixupTask.moment"></spring:message>:</b>
@@ -61,11 +59,17 @@ String languageValue = languageCookie.getValue();
 <br />
 
 <b><spring:message code="fixupTask.category"></spring:message>:</b>
-<% if(languageValue.equals("en")) { %>
-	<jstl:out value="${fixupTask.category.nameEnglish}"></jstl:out>
-<% } else if(languageValue.equals("es")) { %>
-	<jstl:out value="${ffixupTask.category.nameSpanish}" />
-<% } %>
+<%
+	if (languageValue.equals("en")) {
+%>
+<jstl:out value="${fixupTask.category.nameEnglish}"></jstl:out>
+<%
+	} else if (languageValue.equals("es")) {
+%>
+<jstl:out value="${ffixupTask.category.nameSpanish}" />
+<%
+	}
+%>
 <br />
 
 <b><spring:message code="fixupTask.warranty"></spring:message>:</b>
@@ -76,48 +80,51 @@ String languageValue = languageCookie.getValue();
 	<legend>
 		<b><spring:message code="fixupTask.applicationsLegend"></spring:message></b>
 	</legend>
-	<display:table name="apps" id="app"
-				pagesize="5" class="displaytag">
+	<display:table name="apps" id="app" pagesize="5" class="displaytag">
 
-				<spring:message code="fixupTask.application.price" var="price"></spring:message>
-				<display:column property="price" title="${price}"
-					sortable="true" />
-					
-				<spring:message code="fixupTask.application.handyWorker" var="handyWorkerName"></spring:message>
-				<display:column property="handyWorker.name" title="${handyWorkerName}"
-					sortable="true" />
-				
-				<spring:message code="fixupTask.application.status" var="status"></spring:message>
-				<display:column property="status" title="${status}"
-					sortable="true" />
+		<spring:message code="fixupTask.application.price" var="price"></spring:message>
+		<display:column property="price" title="${price}" sortable="true" />
 
-			</display:table>
+		<spring:message code="fixupTask.application.handyWorker"
+			var="handyWorkerName"></spring:message>
+		<display:column property="handyWorker.name" title="${handyWorkerName}"
+			sortable="true" />
+
+		<spring:message code="fixupTask.application.status" var="status"></spring:message>
+		<display:column property="status" title="${status}" sortable="true" />
+
+	</display:table>
 </fieldset>
 
 <fieldset>
 	<legend>
 		<b><spring:message code="fixupTask.complaintsLegend"></spring:message></b>
 	</legend>
-	<display:table name="compls" id="compl"
-				pagesize="5" class="displaytag">
+	<display:table name="compls" id="compl" pagesize="5" class="displaytag">
 
-				<spring:message code="fixupTask.complaint.description" var="description"></spring:message>
-				<display:column property="description" title="${description}"
-					sortable="true" />
-					
-				<spring:message code="fixupTask.complaint.referee" var="refereeName"></spring:message>
-				<display:column property="referee.name" title="${refereeName}"
-					sortable="true" />
-			</display:table>
+		<spring:message code="fixupTask.complaint.description"
+			var="description"></spring:message>
+		<display:column property="description" title="${description}"
+			sortable="true" />
+
+		<spring:message code="fixupTask.complaint.referee" var="refereeName"></spring:message>
+		<display:column property="referee.name" title="${refereeName}"
+			sortable="true" />
+	</display:table>
 </fieldset>
 
 
 
 
 <!-- POR HACER (JUAN) -->
-<%-- <input type="button" name="edit"
-	value="<spring:message code="fixupTask.edit"></spring:message>"
-	onclick="javascript:relativeRedir('fixupTask/handyWorker/edit.do?fixupTaskId=${fixupTask.id}')" /> --%>
+
+<security:authorize access="hasRole('CUSTOMER')">
+	<input type="button" name="edit"
+		value="<spring:message code="fixupTask.edit"></spring:message>"
+		onclick="javascript:relativeRedir('fixupTask/customer/edit.do?fixupTaskId=${fixupTask.id}')" />
+
+</security:authorize>
+
 <input type="button" name="cancel"
 	value="<spring:message code="fixupTask.cancel"></spring:message>"
 	onclick="javascript:relativeRedir('fixupTask/endorsable/list.do')" />
