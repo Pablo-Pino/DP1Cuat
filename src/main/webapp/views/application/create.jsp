@@ -23,7 +23,7 @@
 <security:authorize access="hasRole('HANDYWORKER')">
 
 	<div>
-		<form:form action="application/edit.do" method="post" id="formCreate"
+		<form:form action="application/endorsable/edit.do" method="post" id="formCreate"
 			name="formCreate" modelAttribute="application">
 
 			<!-- No me acuerdo exactamente para que hacia falta  -->
@@ -88,10 +88,18 @@
 
 			<input type="submit" name="save"
 				value="<spring:message code="application.save"></spring:message>" />
-			<button type="button"
-				onclick="javascript: relativeRedir('application/list.do')">
-				<spring:message code="application.return" />
-			</button>
+			<security:authorize access="hasRole('HANDYWORKER')">	
+				<button type="button"
+					onclick="javascript: relativeRedir('application/handyworker/list.do')">
+					<spring:message code="application.return" />
+				</button>
+			</security:authorize>
+			<security:authorize access="hasRole('CUSTOMER')">
+				<button type="button"
+					onclick="javascript: relativeRedir('application/customer/list.do')">
+					<spring:message code="application.return" />
+				</button>
+			</security:authorize>
 
 		</form:form>
 

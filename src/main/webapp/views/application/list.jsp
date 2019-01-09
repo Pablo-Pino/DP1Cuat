@@ -20,18 +20,18 @@
 
 
 
-<display:table name="applications" id="app" requestURI="application/list.do" pagesize="5" class="displaytag">
+<display:table name="applications" id="app" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
 
 <security:authorize access="hasAnyRole('CUSTOMER','HANDYWORKER')">
 
 	<display:column>
-		<a href="application/edit.do?applicationId=${app.id}"><spring:message code="application.edit"></spring:message></a>
+		<a href="application/endorsable/edit.do?applicationId=${app.id}"><spring:message code="application.edit"></spring:message></a>
 	</display:column>
 </security:authorize>
 
 		<display:column>
-		<a href="application/display.do?applicationId=${app.id}"><spring:message code="application.display"></spring:message></a>
+		<a href="application/endorsable/display.do?applicationId=${app.id}"><spring:message code="application.display"></spring:message></a>
 		</display:column>
 		
 
@@ -72,7 +72,7 @@
 		<display:column property="handyWorker.name" title="${applicationHandyworker}" sortable="true" /> 
 		
 		<display:column >
-			<a href="fixupTask/display.do?fixupTaskId=${applicationFixupTask.id}">
+			<a href="fixupTask/endorsable/display.do?fixupTaskId=${app.fixupTask.id}">
 			<spring:message code="application.fixupTask"></spring:message></a>
 		</display:column>
 		
@@ -81,7 +81,7 @@
 	</display:table>
 	
 	<security:authorize access="hasRole('HANDYWORKER')">
-            <a href="application/create.do"><spring:message code="application.create"></spring:message></a>
+            <a href="application/handyworker/create.do"><spring:message code="application.create"></spring:message></a>
             
             
 	</security:authorize>

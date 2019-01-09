@@ -77,12 +77,17 @@
 		<security:intercept-url access="hasRole('ADMIN')" pattern="/category/administrator/create.do"/>
 		<security:intercept-url access="hasRole('ADMIN')" pattern="/category/administrator/edit.do"/>
 		<security:intercept-url access="hasRole('ADMIN')" pattern="/category/administrator/delete.do"/>
-				
+<!-- 				
 		<security:intercept-url pattern="/application/list.do" access="hasAnyRole('HANDYWORKER' , 'CUSTOMER')" /> 
 		<security:intercept-url pattern="/application/display.do" access="hasAnyRole('HANDYWORKER' , 'CUSTOMER')" /> 
 		<security:intercept-url pattern="/application/edit.do" access="hasAnyRole('HANDYWORKER' , 'CUSTOMER')" /> 
 		<security:intercept-url pattern="/application/create.do" access="hasRole('HANDYWORKER')" /> 
-		
+-->
+	
+		<security:intercept-url pattern="/application/endorsable/**" access="hasAnyRole('HANDYWORKER' , 'CUSTOMER')" /> 
+		<security:intercept-url pattern="/application/handyworker/**" access="hasRole('HANDYWORKER')" /> 
+		<security:intercept-url pattern="/application/customer/**" access="hasRole('CUSTOMER')" /> 
+
 		<security:intercept-url pattern="/referee/referee/**" access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/referee/referee-administrator/**" access="hasAnyRole('REFEREE', 'ADMIN')" />
 		<security:intercept-url pattern="/referee/administrator/**" access="hasRole('ADMIN')" />

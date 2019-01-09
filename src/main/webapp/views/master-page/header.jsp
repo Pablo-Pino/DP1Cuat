@@ -70,7 +70,7 @@
 						code="master.page.handyWorker" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="application/list.do"><spring:message
+					<li><a href="application/handyworker/list.do"><spring:message
 								code="master.page.handyWorker.application.list" /></a></li>
 					<li><a href="curriculum/handyWorker/display.do"><spring:message
 								code="master.page.handyWorker.curriculum" /></a></li>

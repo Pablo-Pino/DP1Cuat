@@ -17,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.ApplicationService;
 import services.FixupTaskService;
+import domain.Actor;
 import domain.Application;
+import domain.Customer;
 import domain.FixupTask;
 import domain.HandyWorker;
 
@@ -38,8 +40,8 @@ public class ApplicationController extends AbstractController {
 
 	//-----------------List----------------------------
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	@RequestMapping(value = "handyworker/list", method = RequestMethod.GET)
+	public ModelAndView listHandyWorker() {
 		ModelAndView result;
 		Collection<Application> applications;
 
@@ -47,7 +49,22 @@ public class ApplicationController extends AbstractController {
 		applications = this.applicationService.findApplicationsByHandyWorker(h);
 
 		result = new ModelAndView("application/list");
-		result.addObject("requestURI", "application/list.do");
+		result.addObject("requestURI", "application/handyworker/list.do");
+		result.addObject("applications", applications);
+
+		return result;
+	}
+
+	@RequestMapping(value = "customer/list", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam(required = true) final Integer fixupTaskId) {
+		ModelAndView result;
+		Collection<Application> applications;
+
+		final FixupTask f = this.fixupTaskService.findOne(fixupTaskId);
+		applications = f.getApplications();
+
+		result = new ModelAndView("application/list");
+		result.addObject("requestURI", "application/customer/list.do?fixupTaskId=" + fixupTaskId.toString());
 		result.addObject("applications", applications);
 
 		return result;
@@ -55,7 +72,7 @@ public class ApplicationController extends AbstractController {
 
 	//	//-----------------Display-------------------------
 
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	@RequestMapping(value = "endorsable/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int applicationId) {
 		ModelAndView result;
 		Application c;
@@ -66,7 +83,7 @@ public class ApplicationController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "handyworker/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
 		Application c;
@@ -78,7 +95,7 @@ public class ApplicationController extends AbstractController {
 
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "endorsable/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int applicationId) {
 		ModelAndView result;
 		Application c;
@@ -111,7 +128,7 @@ public class ApplicationController extends AbstractController {
 
 		return result;
 	}
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "endorsable/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Application a, final BindingResult binding) {
 		ModelAndView result;
 		System.out.println("entra en el save");
@@ -119,12 +136,18 @@ public class ApplicationController extends AbstractController {
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(a);
 		else
-			//try {
-			this.applicationService.save(a);
-		result = new ModelAndView("redirect:list.do");
-		//} catch (final Throwable oops) {
-		result = this.createEditModelAndView(a, "cannot.commit.error");
-		//}
+			try {
+				this.applicationService.save(a);
+				final Actor principal = this.actorService.findPrincipal();
+				if (principal instanceof HandyWorker)
+					result = new ModelAndView("redirect:/application/handyworker/list.do");
+				else if (principal instanceof Customer)
+					result = new ModelAndView("redirect:/application/customer/list.do");
+				else
+					result = new ModelAndView("redirect:/");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(a, "cannot.commit.error");
+			}
 		return result;
 	}
 
