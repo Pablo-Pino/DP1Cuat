@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.FixupTaskRepository;
+import security.LoginService;
+import domain.Application;
 import domain.Category;
+import domain.Complaint;
 import domain.Customer;
 import domain.FixupTask;
 import domain.HandyWorker;
@@ -38,6 +43,8 @@ public class FixupTaskService {
 	private TicketableService	ticketableService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
+	@Autowired
+	private ActorService		actorService;
 
 
 	//
@@ -48,22 +55,15 @@ public class FixupTaskService {
 	// Simple CRUD methods
 
 	public FixupTask create() {
-		FixupTask ft;
-		Warranty w;
-		Category c;
-		Customer ct;
-		String t;
-		w = this.warrantyService.create();
-		c = this.categoryService.create();
-		ct = this.customerService.create();
-		t = this.ticketableService.createTicker();
-		ft = new FixupTask();
-		ft.setWarranty(w);
-		ft.setCategory(c);
-		ft.setCustomer(ct);
-		ft.setTicker(t);
+		final FixupTask fixupTask = new FixupTask();
 
-		return ft;
+		final Collection<Application> applications = new ArrayList<>();
+		final Collection<Complaint> complaints = new ArrayList<>();
+
+		fixupTask.setApplications(applications);
+		fixupTask.setComplaints(complaints);
+
+		return fixupTask;
 	}
 
 	public Collection<FixupTask> findAll() {
@@ -91,11 +91,16 @@ public class FixupTaskService {
 	//		return f;
 	//	}
 
-	public FixupTask save(final FixupTask f) {
+	public FixupTask save(final FixupTask fixupTask) {
 		//comprobamos que el customer que nos pasan no sea nulo
-		Assert.notNull(f);
+		Assert.notNull(fixupTask);
 		Boolean isCreating = null;
 
+		if (fixupTask.getId() == 0) {
+			isCreating = true;
+			fixupTask.setMoment(new Date(System.currentTimeMillis() - 1000));
+			fixupTask.setCustomer((Customer) this.actorService.findOneByUserAccount(LoginService.getPrincipal()));
+		}
 		isCreating = false;
 		//comprobamos que su id no sea negativa por motivos de seguridad
 		this.serviceUtils.checkIdSave(f);
@@ -120,7 +125,6 @@ public class FixupTaskService {
 			this.customerService.getAllFixupTasks().add(res);
 		return res;
 	}
-
 	public void flush() {
 		this.fixupTaskRepository.flush();
 	}
