@@ -226,16 +226,15 @@ public class AdministratorController extends AbstractController {
 	//------------------Edit---------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int adminId) {
+	public ModelAndView edit() {
 		ModelAndView result;
-		Administrator admin;
+		Administrator administrator;
 
-		admin = this.administratorService.findOne(adminId);
-		Assert.notNull(admin);
-		result = this.createEditModelAndView(admin);
+		administrator = (Administrator) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+		Assert.notNull(administrator);
+		result = this.createEditModelAndView(administrator);
 
 		return result;
-
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")

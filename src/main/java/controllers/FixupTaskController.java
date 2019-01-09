@@ -89,9 +89,16 @@ public class FixupTaskController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		FixupTask fixupTask;
+		Collection<Category> categories = new ArrayList<>();
+		Collection<Warranty> warranties = new ArrayList<>();
+
+		warranties = this.warrantyService.findAll();
+		categories = this.categoryService.findAll();
 
 		fixupTask = this.fixupTaskService.create();
 		result = this.createEditModelAndView(fixupTask);
+		result.addObject("categories", categories);
+		result.addObject("warranties", warranties);
 
 		return result;
 	}
@@ -135,14 +142,14 @@ public class FixupTaskController extends AbstractController {
 		ModelAndView result;
 		final Exception dateErr = new Exception("fechas MAL");
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(fixupTask);
-		else
+			System.out.println(binding.getAllErrors());
+		} else
 			try {
 				if (!fixupTask.getStart().before(fixupTask.getEnd()))
 					throw dateErr;
 				this.fixupTaskService.save(fixupTask);
-				//ARREGLAR EL REDIRECT
 				result = new ModelAndView("redirect:/fixupTask/endorsable/list.do");
 			} catch (final Throwable oops) {
 				if (oops.equals(dateErr))

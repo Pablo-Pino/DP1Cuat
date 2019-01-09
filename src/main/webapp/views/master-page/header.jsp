@@ -138,9 +138,11 @@
 					
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="administrator/display2.do"><spring:message
-									code="master.page.administrator.edit" /></a></li>
+									code="master.page.administrator.profile" /></a></li>
 						<li><a href="administrator/list.do"><spring:message
 									code="master.page.administrator.listActors" /></a></li>
+						<li><a href="administrator/create.do"><spring:message
+									code="master.page.administrator.create" /></a></li>
 					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>

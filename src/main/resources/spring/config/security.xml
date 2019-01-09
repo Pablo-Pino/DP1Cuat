@@ -115,6 +115,9 @@
 		
 		<security:intercept-url pattern="/endorsement/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
 		
+		<security:intercept-url pattern="/phase/**" access="hasRole('HANDYWORKER')" />
+		
+		
 		
 		
 		

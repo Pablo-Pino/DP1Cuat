@@ -143,7 +143,7 @@ public class HandyWorkerService {
 	//Other methods
 
 	public Map<String, Collection<HandyWorker>> fixupTasksTop3() {
-		final Collection<HandyWorker> collection = this.handyWorkerRepository.getTop3HandyWorkerWithMoreComplaints();
+		final Collection<HandyWorker> collection = this.handyWorkerRepository.findTop3HandyWorkerWithMoreComplaints();
 		final Map<String, Collection<HandyWorker>> res = new HashMap<>();
 
 		res.put("Collection", collection);
@@ -153,7 +153,7 @@ public class HandyWorkerService {
 	}
 
 	public Collection<HandyWorker> getTop3HandyWorkerWithMoreComplaints() {
-		final Collection<HandyWorker> ratio = this.handyWorkerRepository.getTop3HandyWorkerWithMoreComplaints();
+		final Collection<HandyWorker> ratio = this.handyWorkerRepository.findTop3HandyWorkerWithMoreComplaints();
 		return ratio;
 	}
 

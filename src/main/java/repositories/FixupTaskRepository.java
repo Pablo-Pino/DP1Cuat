@@ -21,7 +21,7 @@ public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 	@Query("select f from FixupTask f where f.warranty.id = ?1")
 	Collection<FixupTask> findByWarrantyId(int warrantyId);
 
-	@Query("select DISTINCT f from FixupTask f join f.applications a where a.status = 'ACCEPTED'")
+	@Query("select distinct f from Application a join a.fixupTask f where a.status = 'ACCEPTED' and (select  w from WorkPlan w where w.fixupTask.id = f.id) = null")
 	Collection<FixupTask> findAcceptedFixupTasks();
 
 	@Query("select DISTINCT f from FixupTask f join f.applications a where a.status = 'ACCEPTED' and a.handyWorker.id = ?1")

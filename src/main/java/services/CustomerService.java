@@ -120,6 +120,12 @@ public class CustomerService {
 
 			//Si el customer que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
 
+			//			customer.setUserAccount(new UserAccount());
+			//			final Authority authority = new Authority();
+			//			authority.setAuthority(Authority.CUSTOMER);
+			//			customer.getUserAccount().addAuthority(authority);
+			//los atributos que no pueden estar vacíos
+
 			customer.setSuspicious(customerBD.getSuspicious());
 			customer.setUserAccount(customerBD.getUserAccount());
 

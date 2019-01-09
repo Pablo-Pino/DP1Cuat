@@ -112,7 +112,8 @@
 		<!--  Botones -->
 
 		<input type="submit" name="save"
-			value="<spring:message code="administrator.save"></spring:message>" />
+			value="<spring:message code="administrator.save"></spring:message>" 
+			onclick="javascript:relativeRedir('administrator/display.do')" />
 
 		<jstl:if test="${administrator.id == 0 }">
 			<input type="button" name="cancel"
