@@ -18,14 +18,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="phases" id="phase" requestURI="phase/handyworker/list.do" pagesize="5" class="displaytag">
+<display:table name="phases" id="phase" requestURI="phase/handyWorker/list.do" pagesize="5" class="displaytag">
 
 	<%--  Primero compruebo que es un admin --%>
 	<security:authorize access="hasRole('HANDYWORKER')">
 
 
 		<display:column>
-			<a href="phase/handyworker/edit.do?phase=${phase.id}"><spring:message
+			<a href="phase/handyWorker/edit.do?phase=${phase.id}"><spring:message
 						code="phase.edit"></spring:message></a>
 		</display:column>
 
@@ -51,7 +51,7 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-<a href="phase/handyworker/create.do"><spring:message code="phase.create"></spring:message></a>
+<a href="phase/handyWorker/create.do"><spring:message code="phase.create"></spring:message></a>
 
 </security:authorize>
 

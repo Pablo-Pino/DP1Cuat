@@ -20,7 +20,7 @@ import domain.Phase;
 import domain.WorkPlan;
 
 @Controller
-@RequestMapping("phase/handyworker")
+@RequestMapping("phase/handyWorker")
 public class PhaseController extends AbstractController {
 
 	//----------------Services------------------------
@@ -41,7 +41,7 @@ public class PhaseController extends AbstractController {
 		phases = w.getPhases();
 
 		result = new ModelAndView("phase/list");
-		result.addObject("requestURI", "phase/handyworker/list.do");
+		result.addObject("requestURI", "phase/handyWorker/list.do");
 		result.addObject("phases", phases);
 
 		return result;
@@ -81,7 +81,7 @@ public class PhaseController extends AbstractController {
 		else
 			try {
 				this.phaseService.save(phase);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do?=" + phase.getWorkPlan().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(phase, "phase.commit.error");
 			}
@@ -91,9 +91,10 @@ public class PhaseController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Phase phase, final BindingResult binding) {
 		ModelAndView result;
+		final int aux = phase.getWorkPlan().getId();
 		try {
 			this.phaseService.delete(phase);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list.do?=" + aux);
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(phase, "phase.commit.error");
 
