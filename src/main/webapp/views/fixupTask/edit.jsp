@@ -20,7 +20,19 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<%
 
+Cookie[] cookies = request.getCookies();
+Cookie languageCookie = null;
+for(Cookie c : cookies) {
+	if(c.getName().equals("language")) {
+		languageCookie = c;
+	}
+}
+
+String languageValue = languageCookie.getValue();
+
+%>
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -101,8 +113,39 @@
 			<form:errors cssClass="error" path="end" />
 			<br />
 			
+			<jstl:if test="${fixupTask.id!=0}">
+			
+			<form:label path="warranty"><b><spring:message code="fixupTask.warranty"></spring:message>:</b></form:label>
+				<form:select id="warranty" path="warranty">
+				<form:option value="${warranties}" label="------"></form:option>
+				
+				<form:options items="${warranties}" itemLabel="title" itemValue="id" />
+				
+				
+				</form:select>
+				<form:errors cssClass="error" path="warranty" />
+				<br />
+			
+			</jstl:if>
+			
+			
+			
 			<jstl:if test="${fixupTask.id==0}">
-			METER AQUI LAS CATEGORIAS
+			
+			<form:label path="category"><b><spring:message code="fixupTask.category"></spring:message>:</b></form:label>
+				<form:select id="category" path="category">
+				<form:option value="${categories}" label="------"></form:option>
+				
+				<% if(languageValue.equals("en")) { %>
+				<form:options items="${categories}" itemLabel="nameEnglish" itemValue="id" />
+			<% } else if (languageValue.equals("es")) { %>
+				<form:options items="${categories}" itemLabel="nameSpanish" itemValue="id" />
+			<% } %>
+				
+				
+				</form:select>
+				<form:errors cssClass="error" path="category" />
+				<br />
 			</jstl:if>
 
 

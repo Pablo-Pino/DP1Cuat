@@ -90,12 +90,15 @@ public class FixupTaskController extends AbstractController {
 		ModelAndView result;
 		FixupTask fixupTask;
 		Collection<Category> categories = new ArrayList<>();
+		Collection<Warranty> warranties = new ArrayList<>();
 
+		warranties = this.warrantyService.findAll();
 		categories = this.categoryService.findAll();
 
 		fixupTask = this.fixupTaskService.create();
 		result = this.createEditModelAndView(fixupTask);
 		result.addObject("categories", categories);
+		result.addObject("warranties", warranties);
 
 		return result;
 	}
