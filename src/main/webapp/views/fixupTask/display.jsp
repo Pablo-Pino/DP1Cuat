@@ -56,6 +56,14 @@
 
 <b><spring:message code="fixupTask.customer"></spring:message>:</b>
 <jstl:out value="${fixupTask.customer.name}"></jstl:out>
+
+<security:authorize access="hasRole('HANDYWORKER')">
+	<input type="button" name="edit"
+		value="<spring:message code="fixupTask.showCustomer"></spring:message>"
+		onclick="javascript:relativeRedir('customer/display.do?customerId=${fixupTask.customer.id}')" />
+
+</security:authorize>
+
 <br />
 
 <b><spring:message code="fixupTask.category"></spring:message>:</b>

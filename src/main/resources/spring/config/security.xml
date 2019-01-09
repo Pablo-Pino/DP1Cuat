@@ -103,6 +103,8 @@
 		
 		<security:intercept-url pattern="/curriculum/**" access="hasRole('HANDYWORKER')" />
 		
+		<security:intercept-url pattern="/customer/display.do" access="hasRole('HANDYWORKER')" />
+		
 		<security:intercept-url pattern="/customer/**" access="hasRole('CUSTOMER')" />
 		
 		
@@ -116,6 +118,8 @@
 		<security:intercept-url pattern="/endorsement/**" access="hasAnyRole('HANDYWORKER','CUSTOMER')" />
 		
 		<security:intercept-url pattern="/phase/**" access="hasRole('HANDYWORKER')" />
+	
+		
 		
 		
 		
