@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="phase" id="phaseId" requestURI="phase/list.do" pagesize="5" class="displaytag">
+<display:table name="phases" id="phaseId" requestURI="phase/handyworker/list.do" pagesize="5" class="displaytag">
 
 	<%--  Primero compruebo que es un admin --%>
 	<security:authorize access="hasRole('HANDYWORKER)">
