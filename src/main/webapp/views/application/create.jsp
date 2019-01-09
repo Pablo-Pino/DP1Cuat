@@ -29,7 +29,9 @@
 			<!-- No me acuerdo exactamente para que hacia falta  -->
 			<form:hidden path="id" />
 			<form:hidden path="version" />
+			
 			<form:hidden path="creditCard" />
+			
 			<form:hidden path="status" />
 			<form:hidden path="handyWorker" />
 			<form:hidden path="customerComments" />

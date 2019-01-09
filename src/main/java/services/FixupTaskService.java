@@ -198,13 +198,17 @@ public class FixupTaskService {
 	}
 
 	public Collection<FixupTask> findAcceptedFixupTasks() {
-		// TODO Auto-generated method stub
 		return this.fixupTaskRepository.findAcceptedFixupTasks();
 	}
 
 	public Collection<FixupTask> findAcceptedFixupTasksByHandyWorker(final HandyWorker h) {
 		final HandyWorker handyWorker = (HandyWorker) this.serviceUtils.checkObject(h);
-		// TODO Auto-generated method stub
 		return this.fixupTaskRepository.findAcceptedFixupTasksByHandyWorker(handyWorker.getId());
 	}
+
+	public Collection<FixupTask> findFixupTasksNotAppliedByHandyWorker(final HandyWorker h) {
+		final HandyWorker handyWorker = (HandyWorker) this.serviceUtils.checkObject(h);
+		return this.fixupTaskRepository.findFixupTasksNotAppliedByHandyWorker(handyWorker.getId());
+	}
+
 }

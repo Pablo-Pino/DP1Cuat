@@ -22,17 +22,26 @@ String languageMessage = "en";
 
 Cookie[] cookies = request.getCookies();
 Cookie languageCookie = null;
-for(Cookie c : cookies) {
-	if(c.getName().equals("language")) {
-		languageCookie = c;
+
+try {
+	for(Cookie c : cookies) {
+		if(c.getName().equals("language")) {
+			languageCookie = c;
+		}
 	}
-}
+} catch (NullPointerException e) {
 	
+}
+
+request.getParameter("language");
+
 if(request.getParameter("language") != null) {
 	languageMessage = request.getParameter("language");
-} else {
+} else if(languageCookie != null) {
 	languageMessage = languageCookie.getValue();
-}   
+} else {
+	languageMessage = "en";
+}
 	
 %>
 

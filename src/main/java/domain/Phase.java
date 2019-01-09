@@ -72,7 +72,7 @@ public class Phase extends DomainEntity {
 	}
 
 	@Valid
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = false)
 	public WorkPlan getWorkPlan() {
 		return this.workPlan;
 	}

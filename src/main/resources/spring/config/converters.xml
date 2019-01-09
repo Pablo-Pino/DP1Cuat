@@ -122,6 +122,9 @@
 		<bean class = "converters.PhaseToStringConverter"></bean>
 		<bean class = "converters.StringToPhaseConverter"></bean>
 		
+		<bean class = "converters.CreditCardToStringConverter"></bean>
+		<bean class = "converters.StringToCreditCardConverter"></bean>
+		
 	</util:list>
 	
 </beans>

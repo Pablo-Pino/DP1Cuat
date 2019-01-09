@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,9 +57,7 @@ public class ApplicationService {
 		hw = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
 		a.setHandyWorker(hw);
 		a.setStatus("PENDING");
-
-		//a.setMoment(new Date(System.currentTimeMillis() - 1000));
-
+		a.setMoment(new Date(System.currentTimeMillis() - 1000));
 		return a;
 	}
 
@@ -78,7 +77,7 @@ public class ApplicationService {
 		Application res;
 		//compruebo si esa fixuptask tiene una app accepted si no la tiene lo guardo
 		final FixupTask f = app.getFixupTask();
-		if (this.getTieneYaACCEPTED(f) == false) {
+		if (this.getTieneYaACCEPTED(f)) {
 			System.out.println("Entra en el 1º if");
 
 			throw new IllegalArgumentException("Only one application among all the applications for a fixup task can be accepted");

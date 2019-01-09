@@ -59,4 +59,7 @@ public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 
 	@Query("select (count(f)*1.0)/(select count(f1)*1.0 from FixupTask f1) from FixupTask f where not exists(select c from Complaint c where c.fixuptask.id = f.id))")
 	Double ratiofixupComplaint();
+
+	@Query("select distinct f from FixupTask f where f not in (select distinct f1 from FixupTask f1 join f1.applications a where a.handyWorker.id = ?1)")
+	Collection<FixupTask> findFixupTasksNotAppliedByHandyWorker(Integer handyWorkerId);
 }
