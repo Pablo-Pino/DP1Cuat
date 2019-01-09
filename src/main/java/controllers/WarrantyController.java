@@ -25,7 +25,7 @@ import domain.Warranty;
 @RequestMapping("warranty/administrator")
 public class WarrantyController extends AbstractController {
 
-	Boolean				draft	= false;
+	Boolean				draft	= true;
 	//Services
 	@Autowired
 	HandyWorkerService	handyWorkerService;
@@ -41,7 +41,7 @@ public class WarrantyController extends AbstractController {
 		ModelAndView res;
 		Warranty warranty;
 		warranty = this.warrantyService.create();
-
+		draft=true;
 		res = this.createEditModelAndView(warranty);
 
 		return res;
@@ -70,7 +70,7 @@ public class WarrantyController extends AbstractController {
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(warranty);
 		else
-			try {if(draft){
+			try {if(this.draft==true){
 				final Warranty aud = this.warrantyService.saveDraft(warranty);
 			}else{
 				throw new Exception("cannot.commit.error");}
