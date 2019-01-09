@@ -142,7 +142,8 @@ public class FixupTaskController extends AbstractController {
 				if (!fixupTask.getStart().before(fixupTask.getEnd()))
 					throw dateErr;
 				this.fixupTaskService.save(fixupTask);
-				result = new ModelAndView("redirect:list.do");
+				//ARREGLAR EL REDIRECT
+				result = new ModelAndView("redirect:endorsable/list.do");
 			} catch (final Throwable oops) {
 				if (oops.equals(dateErr))
 					result = this.createEditModelAndView(fixupTask, "date.Error");

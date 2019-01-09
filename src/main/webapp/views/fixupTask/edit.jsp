@@ -20,9 +20,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="fixupTask.edit" />
-</p>
+
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -64,35 +62,35 @@
 
 
 		<form:label path="description">
-			<spring:message code="fixupTask.description"></spring:message>
+			<b><spring:message code="fixupTask.description"></spring:message>:</b>
 		</form:label>
-		<form:input path="description" />
+		<form:textarea path="description" />
 		<form:errors cssClass="error" path="description"></form:errors>
 		<br />
 
 		<form:label path="address">
-			<spring:message code="fixupTask.address"></spring:message>
+			<b><spring:message code="fixupTask.address"></spring:message>:</b>
 		</form:label>
 		<form:input path="address" />
 		<form:errors cssClass="error" path="address"></form:errors>
 		<br />
 
 		<form:label path="maximumPrice">
-			<spring:message code="fixupTask.maximumPrice">:</spring:message>
+			<b><spring:message code="fixupTask.maximumPrice"></spring:message>:</b>
 		</form:label>
 		<form:input path="maximumPrice" />
 		<form:errors cssClass="error" path="maximumPrice"></form:errors>
 		<br />
 
 		<form:label path="start">
-			<spring:message code="fixupTask.start">: </spring:message>
+			<b><spring:message code="fixupTask.start"></spring:message>:</b>
 		</form:label>
 		<form:input id="datepicker1" path="start" />
 		<form:errors cssClass="error" path="start"></form:errors>
 		<br />
 
 		<form:label path="end">
-			<spring:message code="fixupTask.end">:</spring:message>
+			<b><spring:message code="fixupTask.end"></spring:message>:</b>
 		</form:label>
 		<form:input id="datepicker2" path="end" />
 		<form:errors cssClass="error" path="end" />
@@ -107,7 +105,7 @@
 			value="<spring:message code="fixupTask.save"></spring:message>" />
 		<spring:message code="fixupTask.cancel" var="cancel"></spring:message>
 		<input type="button" name="cancel" value="${cancel}"
-			onclick="javascript:relativeRedir('fixupTask/customer/list.do')" />
+			onclick="javascript:relativeRedir('fixupTask/endorsable/list.do')" />
 
 	</form:form>
 
