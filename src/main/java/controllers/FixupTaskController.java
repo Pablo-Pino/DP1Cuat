@@ -99,10 +99,18 @@ public class FixupTaskController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int fixupTaskId) {
 		ModelAndView result;
-		FixupTask f;
-		f = this.fixupTaskService.findOne(fixupTaskId);
+		FixupTask fixupTask;
+		Collection<Application> apps = new ArrayList<>();
+		Collection<Complaint> compls = new ArrayList<>();
+
+		fixupTask = this.fixupTaskService.findOne(fixupTaskId);
+		apps = fixupTask.getApplications();
+		compls = fixupTask.getComplaints();
+
 		result = new ModelAndView("fixupTask/display");
-		result.addObject("fixupTask", f);
+		result.addObject("fixupTask", fixupTask);
+		result.addObject("apps", apps);
+		result.addObject("compls", compls);
 
 		return result;
 	}
