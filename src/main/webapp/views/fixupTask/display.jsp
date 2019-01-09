@@ -76,11 +76,38 @@
 <jstl:out value="${fixupTask.warranty.title}"></jstl:out>
 <br />
 
+
 <fieldset>
 	<legend>
 		<b><spring:message code="fixupTask.applicationsLegend"></spring:message></b>
 	</legend>
+	
+	
 	<display:table name="apps" id="app" pagesize="5" class="displaytag">
+	
+	
+	
+		<%-- <jstl:if test="${status == 'PENDING'}">
+		<display:column>
+				<a href="application/endorsable/edit.do?applicationId=${app.id}"> <spring:message
+						code="fixupTask.edit" />
+				</a>
+		</display:column>
+		</jstl:if>
+			<display:column property="status" sortable="true">
+			<jstl:if test='${status == PENDING}'>
+				
+			</jstl:if>
+			</display:column> --%>
+			
+		
+		
+	
+		<display:column>
+			<a href="application/endorsable/display.do?applicationId=${app.id}"> <spring:message
+					code="fixupTask.display" />
+			</a>
+		</display:column>
 
 		<spring:message code="fixupTask.application.price" var="price"></spring:message>
 		<display:column property="price" title="${price}" sortable="true" />
@@ -92,7 +119,10 @@
 
 		<spring:message code="fixupTask.application.status" var="status"></spring:message>
 		<display:column property="status" title="${status}" sortable="true" />
-
+		
+		
+		
+		
 	</display:table>
 </fieldset>
 
@@ -101,6 +131,12 @@
 		<b><spring:message code="fixupTask.complaintsLegend"></spring:message></b>
 	</legend>
 	<display:table name="compls" id="compl" pagesize="5" class="displaytag">
+	
+	<display:column>
+			<a href="complaint/display.do?complaintId=${compl.id}"> <spring:message
+					code="fixupTask.display" />
+			</a>
+		</display:column>
 
 		<spring:message code="fixupTask.complaint.description"
 			var="description"></spring:message>
@@ -116,7 +152,6 @@
 
 
 
-<!-- POR HACER (JUAN) -->
 
 <security:authorize access="hasRole('CUSTOMER')">
 	<input type="button" name="edit"

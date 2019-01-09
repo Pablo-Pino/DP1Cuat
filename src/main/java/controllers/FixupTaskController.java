@@ -142,9 +142,10 @@ public class FixupTaskController extends AbstractController {
 		ModelAndView result;
 		final Exception dateErr = new Exception("fechas MAL");
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(fixupTask);
-		else
+			System.out.println(binding.getAllErrors());
+		} else
 			try {
 				if (!fixupTask.getStart().before(fixupTask.getEnd()))
 					throw dateErr;

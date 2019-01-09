@@ -40,11 +40,11 @@ public class FixupTaskService {
 	@Autowired
 	private WarrantyService		warrantyService;
 	@Autowired
-	private TicketableService	ticketableService;
-	@Autowired
 	private ServiceUtils		serviceUtils;
 	@Autowired
 	private ActorService		actorService;
+	@Autowired
+	TicketableService			ticketableService;
 
 
 	//
@@ -62,6 +62,10 @@ public class FixupTaskService {
 
 		fixupTask.setApplications(applications);
 		fixupTask.setComplaints(complaints);
+		fixupTask.setMoment(new Date(System.currentTimeMillis() - 1000));
+		fixupTask.setCustomer((Customer) this.actorService.findOneByUserAccount(LoginService.getPrincipal()));
+		fixupTask.setTicker(this.ticketableService.createTicker());
+		fixupTask.setWarranty(new Warranty());
 
 		return fixupTask;
 	}
@@ -94,35 +98,22 @@ public class FixupTaskService {
 	public FixupTask save(final FixupTask fixupTask) {
 		//comprobamos que el customer que nos pasan no sea nulo
 		Assert.notNull(fixupTask);
-		Boolean isCreating = null;
 
 		if (fixupTask.getId() == 0) {
-			isCreating = true;
-			fixupTask.setMoment(new Date(System.currentTimeMillis() - 1000));
-			fixupTask.setCustomer((Customer) this.actorService.findOneByUserAccount(LoginService.getPrincipal()));
+		} else {
+			this.serviceUtils.checkIdSave(fixupTask);
+			final FixupTask fBD;
+			Assert.isTrue(fixupTask.getId() > 0);
+			//cogemos el f de la base de datos
+			fBD = this.fixupTaskRepository.findOne(fixupTask.getId());
+
+			//Si el f que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
+
+			fixupTask.setCustomer(fBD.getCustomer());
 		}
-		isCreating = false;
-		//comprobamos que su id no sea negativa por motivos de seguridad
-		this.serviceUtils.checkIdSave(f);
-
-		//este customer será el que está en la base de datos para usarlo si estamos ante un customer que ya existe
-		FixupTask fBD;
-		Assert.isTrue(f.getId() > 0);
-
-		//cogemos el customer de la base de datos
-		fBD = this.fixupTaskRepository.findOne(f.getId());
-
-		//Si el customer que estamos guardando es nuevo (no está en la base de datos) le ponemos todos sus atributos vacíos
-
-		f.setCategory(fBD.getCategory());
-		f.setWarranty(fBD.getWarranty());
-		f.setCustomer(fBD.getCustomer());
 
 		FixupTask res;
-		res = this.fixupTaskRepository.save(f);
-		this.flush();
-		if (isCreating)
-			this.customerService.getAllFixupTasks().add(res);
+		res = this.fixupTaskRepository.save(fixupTask);
 		return res;
 	}
 	public void flush() {
