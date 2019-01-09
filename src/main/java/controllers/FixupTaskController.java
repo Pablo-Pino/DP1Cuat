@@ -35,7 +35,7 @@ import domain.Warranty;
 import domain.WorkPlan;
 
 @Controller
-@RequestMapping("fixupTask/endorsable")
+@RequestMapping("fixupTask")
 public class FixupTaskController extends AbstractController {
 
 	@Autowired
@@ -63,7 +63,7 @@ public class FixupTaskController extends AbstractController {
 	ActorService		actorService;
 
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "endorsable/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<FixupTask> fixupTasks = new ArrayList<>();
@@ -85,7 +85,7 @@ public class FixupTaskController extends AbstractController {
 
 		return result;
 	}
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "customer/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
 		FixupTask fixupTask;
@@ -96,7 +96,7 @@ public class FixupTaskController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	@RequestMapping(value = "endorsable/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int fixupTaskId) {
 		ModelAndView result;
 		FixupTask fixupTask;
@@ -117,7 +117,7 @@ public class FixupTaskController extends AbstractController {
 
 	//Edit
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "customer/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int fixupTaskId) {
 		ModelAndView result;
 		FixupTask fixupTask;
@@ -130,7 +130,7 @@ public class FixupTaskController extends AbstractController {
 	}
 	//Save
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "customer/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final FixupTask fixupTask, final BindingResult binding) {
 		ModelAndView result;
 		final Exception dateErr = new Exception("fechas MAL");
@@ -154,17 +154,17 @@ public class FixupTaskController extends AbstractController {
 
 	//delete
 
-	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	//	public ModelAndView delete(final FixupTask fixupTask, final BindingResult binding) {
-	//		ModelAndView result;
-	//		try {
-	//			this.fixupTaskService.delete(fixupTask);
-	//			result = new ModelAndView("redirect:list.do");
-	//		} catch (final Throwable oops) {
-	//			result = this.createEditModelAndView(fixupTask, "fixupTask.commit.error");
-	//		}
-	//		return result;
-	//	}
+	@RequestMapping(value = "customer/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final FixupTask fixupTask, final BindingResult binding) {
+		ModelAndView result;
+		try {
+			this.fixupTaskService.delete(fixupTask);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(fixupTask, "fixupTask.commit.error");
+		}
+		return result;
+	}
 
 	protected ModelAndView createEditModelAndView(final FixupTask fixupTask) {
 		ModelAndView result;
