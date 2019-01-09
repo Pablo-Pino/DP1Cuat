@@ -42,11 +42,7 @@
 	<br />
 	
 	<form:label path="draft"> <spring:message code="warranty.draft"></spring:message></form:label>
-	<form:select id="draft" path="draft">
-		<form:option value="${warranty.draft}" label="------"></form:option>
-		<form:option value="true" label="true"/>
-		<form:option value="false" label="false"/>
-		</form:select>
+	<form:checkbox path="draft" />	
 	<form:errors cssClass="error" path="draft" />
 	<br />
 
