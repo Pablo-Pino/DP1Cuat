@@ -45,7 +45,7 @@
 	
 	<security:authorize access="hasRole('HANDYWORKER')">
 		<display:column>
-			<a href="/customer/display.do?customerId=${row.customer.id}"> <spring:message
+			<a href="fixupTask/endorsable/display.do?fixupTaskId=${row.id}"> <spring:message
 					code="customer.display" />
 			</a>
 		</display:column>

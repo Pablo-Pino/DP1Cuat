@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
+import security.LoginService;
+import services.ActorService;
 import services.ApplicationService;
 import services.CategoryService;
 import services.ComplaintService;
@@ -21,6 +25,7 @@ import services.CustomerService;
 import services.FixupTaskService;
 import services.WarrantyService;
 import services.WorkPlanService;
+import domain.Actor;
 import domain.Application;
 import domain.Category;
 import domain.Complaint;
@@ -54,13 +59,25 @@ public class FixupTaskController extends AbstractController {
 	@Autowired
 	ApplicationService	applicationService;
 
+	@Autowired
+	ActorService		actorService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<FixupTask> fixupTasks;
+		Collection<FixupTask> fixupTasks = new ArrayList<>();
+		Actor actor;
+		actor = this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+		final Authority hw = new Authority();
+		hw.setAuthority("HANDYWORKER");
+		final Authority c = new Authority();
+		c.setAuthority("CUSTOMER");
 
-		fixupTasks = this.fixupTaskService.findAll();
+		if (actor.getUserAccount().getAuthorities().contains(hw))
+			fixupTasks = this.fixupTaskService.findAll();
+		else if (actor.getUserAccount().getAuthorities().contains(c))
+			fixupTasks = this.fixupTaskService.findByCustomer((Customer) actor);
 
 		result = new ModelAndView("fixupTask/list");
 		result.addObject("fixupTasks", fixupTasks);
@@ -68,7 +85,6 @@ public class FixupTaskController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
@@ -83,10 +99,18 @@ public class FixupTaskController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int fixupTaskId) {
 		ModelAndView result;
-		FixupTask f;
-		f = this.fixupTaskService.findOne(fixupTaskId);
+		FixupTask fixupTask;
+		Collection<Application> apps = new ArrayList<>();
+		Collection<Complaint> compls = new ArrayList<>();
+
+		fixupTask = this.fixupTaskService.findOne(fixupTaskId);
+		apps = fixupTask.getApplications();
+		compls = fixupTask.getComplaints();
+
 		result = new ModelAndView("fixupTask/display");
-		result.addObject("fixupTask", f);
+		result.addObject("fixupTask", fixupTask);
+		result.addObject("apps", apps);
+		result.addObject("compls", compls);
 
 		return result;
 	}
