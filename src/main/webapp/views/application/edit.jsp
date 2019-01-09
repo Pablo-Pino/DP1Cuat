@@ -23,13 +23,12 @@
 <security:authorize access="hasAnyRole('CUSTOMER' , 'HANDYWORKER')">
 
 	<div>
-		<form:form action="application/endorsable/edit.do" method="post" id="formCreate" name="formCreate" modelAttribute="application">
+		<form:form action="application/endorsable/edit.do" method="post" modelAttribute="application">
 
 	<!-- No me acuerdo exactamente para que hacia falta  -->
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="handyWorker" />
-			<form:hidden path="customerComments" />
 			<form:hidden path="moment" />
 		
 
@@ -37,6 +36,7 @@
 		
 			<form:hidden path="status" />
 			<form:hidden path="creditCard" />
+			<form:hidden path="customerComments" />
 			
 			<form:label path="price"> <spring:message code="application.price" /></form:label>
 			<form:input path="price" /><form:errors cssClass="error" path="price" /><br />
@@ -55,29 +55,50 @@
 			
 			
 		<%-- Status--%>
-		<security:authorize access="hasRole('CUSTOMER')">7
+		<security:authorize access="hasRole('CUSTOMER')">
+		
+			<form:hidden path="fixupTask" />
+			<form:hidden path="workerComments" />
 		
 			<fieldset><legend><spring:message code="application.creditCard" /></legend>
-				<form:label path="creditCard.holderName"> <spring:message code="creditCard.holderName" /></form:label>
-				<form:input path="creditCard.holderName" /><form:errors cssClass="error" path="creditCard.holderName" /><br />
+			<jstl:choose>
+				<jstl:when test="${useCreditCard}">
 				
-				<form:label path="creditCard.brandName"> <spring:message code="creditCard.brandName" /></form:label>
-				<form:input path="creditCard.brandName" /><form:errors cssClass="error" path="creditCard.brandName" /><br />
+					<form:label path="creditCard.holderName"> <spring:message code="creditCard.holderName" /></form:label>
+					<form:input path="creditCard.holderName" /><form:errors cssClass="error" path="creditCard.holderName" /><br />
+					
+					<form:label path="creditCard.brandName"> <spring:message code="creditCard.brandName" /></form:label>
+					<form:input path="creditCard.brandName" /><form:errors cssClass="error" path="creditCard.brandName" /><br />
+					
+					<form:label path="creditCard.number"> <spring:message code="creditCard.number" /></form:label>
+					<form:input path="creditCard.number" /><form:errors cssClass="error" path="creditCard.number" /><br />
+					
+					<form:label path="creditCard.expirationDate"> <spring:message code="creditCard.expirationDate" /></form:label>
+					<form:input path="creditCard.expirationDate" /><form:errors cssClass="error" path="creditCard.expirationDate" /><br />
+	
+					<form:label path="creditCard.cvvCode"> <spring:message code="creditCard.cvv" /></form:label>
+					<form:input path="creditCard.cvvCode" /><form:errors cssClass="error" path="creditCard.cvvCode" /><br />
 				
-				<form:label path="creditCard.number"> <spring:message code="creditCard.number" /></form:label>
-				<form:input path="creditCard.number" /><form:errors cssClass="error" path="creditCard.number" /><br />
+					<jstl:if test="${not (application.status eq 'ACCEPTED')}">
+						<input type="submit" name="removeCreditCard" value="<spring:message code="creditCard.notuse"></spring:message>" />
+					</jstl:if>
 				
-				<form:label path="creditCard.expirationDate"> <spring:message code="creditCard.expirationDate" /></form:label>
-				<form:input path="creditCard.expirationDate" /><form:errors cssClass="error" path="creditCard.expirationDate" /><br />
-
-				<form:label path="creditCard.cvvCode"> <spring:message code="creditCard.cvvCode" /></form:label>
-				<form:input path="creditCard.cvvCode" /><form:errors cssClass="error" path="creditCard.cvvCode" /><br />
+				</jstl:when>
+				<jstl:otherwise>
+				
+					<form:hidden path="creditCard" />
+					
+					<input type="submit" name="addCreditCard" value="<spring:message code="creditCard.use"></spring:message>" />
+				
+				</jstl:otherwise>
+			</jstl:choose>
 			</fieldset>
 			
 			<form:label path="status"><spring:message code="application.status"></spring:message></form:label>
 			<form:select id="status" path="status">
-			<form:option value="${STATUS}" label="PENDING"></form:option>
-			<form:options items="${status}" itemLabel="name" itemValue="id" />
+			<form:option value="PENDING" label="PENDING"></form:option>
+			<form:option value="ACCEPTED" label="ACCEPTED"></form:option>
+			<form:option value="REJECTED" label="REJECTED"></form:option>
 			</form:select>
 			<form:errors cssClass="error" path="status" />
 		
@@ -98,7 +119,7 @@
 			</security:authorize>
 			<security:authorize access="hasRole('CUSTOMER')">
 				<button type="button"
-					onclick="javascript: relativeRedir('application/customer/list.do')">
+					onclick="javascript: relativeRedir('application/customer/list.do?fixupTaskId=${application.fixupTask.id}')">
 					<spring:message code="application.return" />
 				</button>
 			</security:authorize>

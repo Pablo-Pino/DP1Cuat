@@ -59,5 +59,15 @@
 <!-- Boton return -->
 
 			
-	<button type="button" onclick="javascript: relativeRedir('application/list.do')" ><spring:message code="application.return" />
-	</button>
+	<security:authorize access="hasRole('HANDYWORKER')">	
+				<button type="button"
+					onclick="javascript: relativeRedir('application/handyworker/list.do')">
+					<spring:message code="application.return" />
+				</button>
+			</security:authorize>
+			<security:authorize access="hasRole('CUSTOMER')">
+				<button type="button"
+					onclick="javascript: relativeRedir('application/customer/list.do?fixupTaskId=${application.fixupTask.id}')">
+					<spring:message code="application.return" />
+				</button>
+			</security:authorize>

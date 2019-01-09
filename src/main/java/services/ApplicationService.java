@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +14,8 @@ import org.springframework.util.Assert;
 
 import repositories.ApplicationRepository;
 import security.LoginService;
+import security.UserAccount;
+import domain.Administrator;
 import domain.Application;
 import domain.Customer;
 import domain.FixupTask;
@@ -32,13 +35,15 @@ public class ApplicationService {
 	// Supporting Service
 
 	@Autowired
-	private FolderService			folderService;
-	@Autowired
 	private MessageService			messageService;
 	@Autowired
 	private HandyWorkerService		handyWorkerService;
 	@Autowired
 	private FixupTaskService		fixupTaskService;
+	@Autowired
+	private ServiceUtils			serviceUtils;
+	@Autowired
+	private LoginService			loginService;
 
 	@Autowired
 	private ActorService			actorService;
@@ -70,32 +75,28 @@ public class ApplicationService {
 	}
 
 	public Application save(final Application app) {
-		System.out.println("Entra en el save");
-		//Assert.notNull(app);
-		System.out.println("Sale del not null");
-
+		final Application application = (Application) this.serviceUtils.checkObjectSave(app);
+		final String applicationStatus = application.getStatus();
+		if (!applicationStatus.equals("PENDING"))
+			app.setStatus(applicationStatus);
 		Application res;
 		//compruebo si esa fixuptask tiene una app accepted si no la tiene lo guardo
 		final FixupTask f = app.getFixupTask();
-		if (this.getTieneYaACCEPTED(f)) {
-			System.out.println("Entra en el 1º if");
-
+		if (this.getTieneYaACCEPTED(f))
 			throw new IllegalArgumentException("Only one application among all the applications for a fixup task can be accepted");
-			//
-		}
-		if (app.getStatus().equals("ACCEPTED")) {
-			System.out.println("Entra en el 2º if");
-
+		//
+		if (app.getStatus().equals("ACCEPTED"))
 			//cuando cambia a accepted una creditcard valida se debe dar
+			Assert.notNull(app.getCreditCard());
+		if (!app.getStatus().equals(applicationStatus)) {
+
 			//si se ha cambiado a accepted manda un mensaje al handyworker y al customer avisandoles
 			Assert.notNull(app.getHandyWorker());
 			Assert.notNull(app.getFixupTask().getCustomer());
-			this.NotificationMessage(app.getHandyWorker(), app.getFixupTask().getCustomer());
 
 		}
-		System.out.println("Se dispone a guardar ");
 		res = this.applicationRepository.save(app);
-		System.out.println("sale del save");
+		this.NotificationMessage(app);
 
 		return res;
 	}
@@ -168,43 +169,58 @@ public class ApplicationService {
 		this.save(a);
 		return a;
 	}
+	/*
+	 * public void NotificationMessage(final HandyWorker hw, final Customer c) {
+	 * Folder res = null;
+	 * for (final Folder f : this.folderService.findAllByActor(hw))
+	 * if (f.getName().equals("inBox"))
+	 * res = f;
+	 * final Message m1 = this.messageService.create(res);
+	 * m1.setReceiver(hw);
+	 * 
+	 * m1.setSender(c);
+	 * m1.setBody("Este es un mensaje de notificación");
+	 * m1.setSubject("Cambio en Application");
+	 * m1.setPriority("HIGH");
+	 * 
+	 * this.messageService.save(m1);
+	 * for (final Folder f : this.folderService.findAllByActor(c))
+	 * if (f.getName().equals("inBox"))
+	 * res = f;
+	 * final Message m2 = this.messageService.create(res);
+	 * 
+	 * m2.setReceiver(c);
+	 * 
+	 * m2.setSender(hw);
+	 * m2.setBody("Este es un mensaje de notificación");
+	 * m2.setSubject("Cambio en Application");
+	 * m2.setPriority("HIGH");
+	 * this.messageService.save(m2);
+	 * }
+	 */
 
-	public void NotificationMessage(final HandyWorker hw, final Customer c) {
-		Folder res = null;
-		for (final Folder f : this.folderService.findAllByActor(hw))
-			if (f.getName().equals("inBox"))
-				res = f;
-		final Message m1 = this.messageService.create(res);
-		m1.setReceiver(hw);
-
-		m1.setSender(c);
-		m1.setBody("Este es un mensaje de notificación");
-		m1.setSubject("Cambio en Application");
-		m1.setPriority("HIGH");
-
-		this.messageService.save(m1);
-		//res.getMessages().add(m1);
-		//hw.getReceivedMessages().add(m1);
-		//c.getSendedMessages().add(m1);
-		//this.folderService.save(res);
-		for (final Folder f : this.folderService.findAllByActor(c))
-			if (f.getName().equals("inBox"))
-				res = f;
-		final Message m2 = this.messageService.create(res);
-
-		m2.setReceiver(c);
-
-		m2.setSender(hw);
-		m2.setBody("Este es un mensaje de notificación");
-		m2.setSubject("Cambio en Application");
-		m2.setPriority("HIGH");
-		this.messageService.save(m2);
-		//res.getMessages().add(m2);
-		//c.getReceivedMessages().add(m2);
-		//hw.getSendedMessages().add(m2);
-		//	this.handyWorkerService.save(hw);
-		//	this.customerService.save(c);
-		//this.folderService.save(res);
+	public void NotificationMessage(final Application a) {
+		final Administrator system = (Administrator) this.actorService.findOneByUserAccount((UserAccount) this.loginService.loadUserByUsername("system"));
+		final Customer customer = a.getFixupTask().getCustomer();
+		final HandyWorker handyWorker = a.getHandyWorker();
+		final Message messageHW = this.messageService.create(new Folder());
+		messageHW.setPriority("NEUTRAL");
+		messageHW.setReceiver(handyWorker);
+		messageHW.setSender(system);
+		messageHW.setBody("The status of your application for the fixup task " + a.getFixupTask().getTicker() + " has changed to " + a.getStatus() + "\n\n" + "El estado de tu solicitud para la tarea " + a.getFixupTask().getTicker() + "ha cambiado a "
+			+ a.getStatus());
+		messageHW.setSubject("An application's status has changed");
+		messageHW.setTags(new ArrayList<String>());
+		final Message messageC = this.messageService.create(new Folder());
+		messageC.setPriority("NEUTRAL");
+		messageC.setReceiver(customer);
+		messageC.setSender(system);
+		messageC.setBody("The status of the application for your fixup task " + a.getFixupTask().getTicker() + " from the handy worker " + a.getHandyWorker().getMake() + " has changed to " + a.getStatus() + "\n\n"
+			+ "El estado de la solicitud para tu tarea " + a.getFixupTask().getTicker() + " del trabajador " + a.getHandyWorker().getMake() + " ha cambiado a " + a.getStatus());
+		messageC.setSubject("An application's status has changed");
+		messageC.setTags(new ArrayList<String>());
+		this.messageService.save(messageC);
+		this.messageService.save(messageHW);
 	}
 
 	public void flush() {

@@ -13,7 +13,10 @@ import org.springframework.util.Assert;
 
 import repositories.MessageRepository;
 import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
+import domain.Administrator;
 import domain.Folder;
 import domain.Message;
 
@@ -31,6 +34,8 @@ public class MessageService {
 	private SettingsService		settingsService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
+	@Autowired
+	private LoginService		loginService;
 
 
 	public Message findOne(final Integer id) {
@@ -63,6 +68,7 @@ public class MessageService {
 
 	public Message save(final Message object) {
 		final Message message = (Message) this.serviceUtils.checkObjectSave(object);
+		final Administrator system = (Administrator) this.actorService.findOneByUserAccount((UserAccount) this.loginService.loadUserByUsername("system"));
 		Message message1 = null;
 		if (message.getId() == 0) {
 			message.setMoment(new Date(System.currentTimeMillis() - 1000));
@@ -70,7 +76,8 @@ public class MessageService {
 		} else
 			message.setFolder(object.getFolder());
 		final Message res = this.repository.save(message);
-		this.serviceUtils.checkPermisionActor(message.getFolder().getActor(), null);
+		if (!message.getFolder().getActor().equals(system))
+			this.serviceUtils.checkPermisionActor(message.getFolder().getActor(), null);
 		if (message.getId() == 0) {
 			message1 = message;
 			message1.setId(0);
@@ -83,7 +90,6 @@ public class MessageService {
 		}
 		return res;
 	}
-
 	public void delete(final Message object) {
 		final Message message = (Message) this.serviceUtils.checkObject(object);
 		final Actor principal = this.actorService.findPrincipal();

@@ -30,6 +30,21 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- La contraseña de system es intencional, no se puede acceder a esta cuenta -->
+	
+	<bean id="userAccountSystem" class="security.UserAccount">
+		<property name="username" value="system" />
+		<property name="password" value="system" />
+		<property name="banned" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 	<bean id="userAccount15" class="security.UserAccount">
 		<property name="username" value="admin2" />
@@ -52,19 +67,6 @@
 			<list>
 				<bean class="security.Authority">
 					<property name="authority" value="CUSTOMER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="system" />
-		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
-		<property name="banned" value="false" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
 				</bean>
 			</list>
 		</property>
@@ -240,6 +242,16 @@
 		<property name="address" value="C/Calle, 32" />
 		<property name="suspicious" value="true" />
 		<property name="userAccount" ref="userAccount1" />
+	</bean>
+	
+	<bean id="system" class="domain.Administrator">
+		<property name="name" value="System" />
+		<property name="middleName" value="System" />
+		<property name="surname" value="System" />
+		<property name="email" value="system@system.sys" />
+		<property name="address" value="C/System, 32" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccountSystem" />
 	</bean>
 
 	<bean id="administrator2" class="domain.Administrator">
@@ -1259,6 +1271,40 @@
 	</bean>
 
 	<!-- __________________________________ FOLDER _________________________________ -->
+
+	<!-- Folders del sistema -->
+	
+	<!--folders del customer1 -->
+
+	<bean id="inboxSystem" class="domain.Folder">
+		<property name="name" value="inBox" />
+		<property name="system" value="true" />
+		<property name="parentFolder" ref="inboxSystem" />
+		<property name="actor" ref="system" />
+	</bean>
+
+	<bean id="outboxSystem" class="domain.Folder">
+		<property name="name" value="outBox" />
+		<property name="system" value="true" />
+		<property name="parentFolder" ref="outboxSystem" />
+		<property name="actor" ref="system" />
+	</bean>
+
+
+	<bean id="trashboxSystem" class="domain.Folder">
+		<property name="name" value="trashBox" />
+		<property name="system" value="true" />
+		<property name="parentFolder" ref="trashboxSystem" />
+		<property name="actor" ref="system" />
+	</bean>
+
+
+	<bean id="spamboxSystem" class="domain.Folder">
+		<property name="name" value="spamBox" />
+		<property name="system" value="true" />
+		<property name="parentFolder" ref="spamboxSystem" />
+		<property name="actor" ref="system" />
+	</bean>
 
 	<!--folders del customer1 -->
 

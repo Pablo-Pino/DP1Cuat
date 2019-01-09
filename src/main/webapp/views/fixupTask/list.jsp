@@ -62,6 +62,12 @@ String languageValue = languageCookie.getValue();
 					code="customer.display" />
 			</a>
 		</display:column>
+		
+		<display:column>
+			<a href="application/customer/list.do?fixupTaskId=${row.id}"> <spring:message
+					code="application.list" />
+			</a>
+		</display:column>
 
 	<!-- Attributos -->
 

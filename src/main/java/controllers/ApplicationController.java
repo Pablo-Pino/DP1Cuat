@@ -118,36 +118,63 @@ public class ApplicationController extends AbstractController {
 	//
 	protected ModelAndView createEditModelAndView(final Application app, final String messageCode) {
 		final ModelAndView result;
-		final HandyWorker hw = (HandyWorker) this.actorService.findPrincipal();
-		final Collection<FixupTask> fixs = this.fixupTaskService.findFixupTasksNotAppliedByHandyWorker(hw);
-
 		result = new ModelAndView("application/edit");
+		final Actor principal = this.actorService.findPrincipal();
+
+		if (principal instanceof HandyWorker) {
+			final HandyWorker hw = (HandyWorker) principal;
+			final Collection<FixupTask> fixs = this.fixupTaskService.findFixupTasksNotAppliedByHandyWorker(hw);
+			result.addObject("fixupTasks", fixs);
+		} else if (principal instanceof Customer) {
+			final Customer c = (Customer) principal;
+			final Collection<FixupTask> fixs = this.fixupTaskService.findByCustomer(c);
+			result.addObject("fixupTasks", fixs);
+		}
+		if (app.getCreditCard() == null)
+			result.addObject("useCreditCard", false);
+		else
+			result.addObject("useCreditCard", true);
 		result.addObject("application", app);
-		result.addObject("fixupTasks", fixs);
 		result.addObject("message", messageCode);
 
 		return result;
 	}
+
 	@RequestMapping(value = "endorsable/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Application a, final BindingResult binding) {
 		ModelAndView result;
-		System.out.println("entra en el save");
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(a);
 		else
-			try {
-				this.applicationService.save(a);
-				final Actor principal = this.actorService.findPrincipal();
-				if (principal instanceof HandyWorker)
-					result = new ModelAndView("redirect:/application/handyworker/list.do");
-				else if (principal instanceof Customer)
-					result = new ModelAndView("redirect:/application/customer/list.do");
-				else
-					result = new ModelAndView("redirect:/");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(a, "cannot.commit.error");
-			}
+			//try {
+			this.applicationService.save(a);
+		final Actor principal = this.actorService.findPrincipal();
+		if (principal instanceof HandyWorker)
+			result = new ModelAndView("redirect:/application/handyworker/list.do");
+		else if (principal instanceof Customer)
+			result = new ModelAndView("redirect:/application/customer/list.do");
+		else
+			result = new ModelAndView("redirect:/");
+		//} catch (final Throwable oops) {
+		result = this.createEditModelAndView(a, "cannot.commit.error");
+		//}
+		return result;
+	}
+
+	@RequestMapping(value = "endorsable/edit", method = RequestMethod.POST, params = "addCreditCard")
+	public ModelAndView addCreditCard(final Application a, final BindingResult binding) {
+		ModelAndView result;
+		result = this.createEditModelAndView(a);
+		result.addObject("useCreditCard", true);
+		return result;
+	}
+
+	@RequestMapping(value = "endorsable/edit", method = RequestMethod.POST, params = "removeCreditCard")
+	public ModelAndView removeCreditCard(final Application a, final BindingResult binding) {
+		ModelAndView result;
+		result = this.createEditModelAndView(a);
+		result.addObject("useCreditCard", false);
 		return result;
 	}
 
