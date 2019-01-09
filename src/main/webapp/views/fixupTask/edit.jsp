@@ -100,6 +100,10 @@
 			<form:input id="datepicker2" path="end" />
 			<form:errors cssClass="error" path="end" />
 			<br />
+			
+			<jstl:if test="${fixupTask.id==0}">
+			METER AQUI LAS CATEGORIAS
+			</jstl:if>
 
 
 
