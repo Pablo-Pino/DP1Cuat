@@ -18,10 +18,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="phase.list" />
-</p>
-
 
 <display:table name="phase" id="phaseId" requestURI="phase/list.do" pagesize="5" class="displaytag">
 

@@ -16,7 +16,7 @@ public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Intege
 	//Collection<HandyWorker> getTop3HandyWorkerWithMoreComplaints();
 
 	@Query("select h from Complaint c join c.fixuptask f join f.applications a join a.handyWorker h where a.status='ACCEPTED' group by h order by count(c) desc")
-	Collection<HandyWorker> getTop3HandyWorkerWithMoreComplaints();
+	Collection<HandyWorker> findTop3HandyWorkerWithMoreComplaints();
 
 	/*
 	 * @Query("select h from HandyWorker h, Complaint c group by h " +
