@@ -18,6 +18,19 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<%
+
+Cookie[] cookies = request.getCookies();
+Cookie languageCookie = null;
+for(Cookie c : cookies) {
+	if(c.getName().equals("language")) {
+		languageCookie = c;
+	}
+}
+
+String languageValue = languageCookie.getValue();
+
+%>
 
 <b><spring:message code="fixupTask.moment"></spring:message>:</b>
 <jstl:out value="${fixupTask.moment}"></jstl:out>
@@ -48,7 +61,11 @@
 <br />
 
 <b><spring:message code="fixupTask.category"></spring:message>:</b>
-<jstl:out value="${fixupTask.category.name}"></jstl:out>
+<% if(languageValue.equals("en")) { %>
+	<jstl:out value="${fixupTask.category.nameEnglish}"></jstl:out>
+<% } else if(languageValue.equals("es")) { %>
+	<jstl:out value="${ffixupTask.category.nameSpanish}" />
+<% } %>
 <br />
 
 <b><spring:message code="fixupTask.warranty"></spring:message>:</b>

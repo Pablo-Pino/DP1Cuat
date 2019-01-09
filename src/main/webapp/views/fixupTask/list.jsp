@@ -22,6 +22,20 @@
 
 <!-- Listing grid -->
 
+<%
+
+Cookie[] cookies = request.getCookies();
+Cookie languageCookie = null;
+for(Cookie c : cookies) {
+	if(c.getName().equals("language")) {
+		languageCookie = c;
+	}
+}
+
+String languageValue = languageCookie.getValue();
+
+%>
+
 <p>
 	<spring:message code="fixupTask.list" />
 </p>
@@ -68,8 +82,13 @@
 	<display:column property="maximumPrice"
 		titleKey="fixupTask.maximumPrice" sortable="false" />
 
-	<display:column property="category.name" titleKey="fixupTask.category"
-		sortable="false" />
+	<display:column  titleKey="fixupTask.category" sortable="false" >
+		<% if(languageValue.equals("en")) { %>
+			<jstl:out value="${row.category.nameEnglish}" />
+		<% } else if(languageValue.equals("es")) { %>
+			<jstl:out value="${row.category.nameSpanish}" />
+		<% } %>
+	</display:column>
 
 	<display:column property="warranty.title" titleKey="fixupTask.warranty"
 		sortable="false" />

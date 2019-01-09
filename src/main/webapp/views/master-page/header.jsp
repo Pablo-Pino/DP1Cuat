@@ -60,7 +60,8 @@
 					<li class="arrow"></li>
 					<li><a href="customer/action-1.do"><spring:message
 								code="master.page.customer.action.1" /></a></li>
-
+					<li><a href="fixupTask/endorsable/list.do"><spring:message 
+								code="master.page.listfixuptasks"></spring:message></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -75,6 +76,8 @@
 								code="master.page.handyWorker.curriculum" /></a></li>
 					<li><a href="workplan/handyWorker/list.do"><spring:message
 								code="master.page.handyWorker.workPlan" /></a></li>
+					<li><a href="fixupTask/endorsable/list.do"><spring:message 
+								code="master.page.listfixuptasks"></spring:message></a></li>
 				</ul></li>
 		</security:authorize>
 
