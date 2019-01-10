@@ -94,6 +94,7 @@ public class RefereeService {
 			this.serviceUtils.checkActor(referee);
 			this.serviceUtils.checkAuthority(Authority.REFEREE);
 		}
+		Assert.isTrue(!(object.getEmail().endsWith("@") || object.getEmail().endsWith("@>")));
 		final Referee res = this.repository.save(object);
 		this.flush();
 		if (isCreating)

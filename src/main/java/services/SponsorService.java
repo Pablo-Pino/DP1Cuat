@@ -99,6 +99,7 @@ public class SponsorService {
 			this.serviceUtils.checkActor(sponsor);
 
 		}
+		Assert.isTrue(!(sponsor.getEmail().endsWith("@") || sponsor.getEmail().endsWith("@>")));
 		Sponsor res;
 		//le meto al resultado final el sponsor que he ido modificando anteriormente
 		res = this.sponsorRepository.save(sponsor);

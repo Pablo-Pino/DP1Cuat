@@ -103,6 +103,8 @@ public class HandyWorkerService {
 		//comprobamos que el handy que nos pasan no sea nulo
 		Assert.notNull(hw);
 
+		Assert.isTrue(!(hw.getEmail().endsWith("@") || hw.getEmail().endsWith("@>")));
+
 		Boolean isCreating = null;
 
 		//si es nuevo
