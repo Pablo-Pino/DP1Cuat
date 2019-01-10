@@ -59,12 +59,9 @@ public class CategoryController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		Category c;
-		System.out.println("Pasa por aqui");
 		c = this.categoryService.create();
-		System.out.println("Pasa por aqui tb");
 
 		result = this.createEditModelAndView(c);
-		System.out.println("Pasa por aqui tb tb");
 
 		return result;
 

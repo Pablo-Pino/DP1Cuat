@@ -125,6 +125,8 @@
 								code="master.page.listfolders" /> </a></li>
 					<li><a href="message/actor/create.do"><spring:message
 								code="master.page.writemessage" /> </a></li>
+					<li><a href="socialprofile/actor/list.do"><spring:message
+								code="master.page.socialProfiles" /> </a></li>
 					<security:authorize access="hasRole('CUSTOMER')">
 						<li><a href="customer/display.do"><spring:message
 									code="master.page.customer.profile" /></a></li>

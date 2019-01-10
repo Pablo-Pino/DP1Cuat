@@ -111,12 +111,10 @@ public class CustomerController extends AbstractController {
 	public ModelAndView save(@Valid final Customer customer, final BindingResult binding) {
 		ModelAndView result;
 
-		//		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		//		customer.getUserAccount().setPassword(encoder.encodePassword(customer.getUserAccount().getPassword(), null));
-
 		if (binding.hasErrors()) {
 			System.out.println(binding.getAllErrors());
 			result = this.createEditModelAndView(customer);
+			result.addObject("message", "customer.commit.error");
 		} else
 
 			try {
