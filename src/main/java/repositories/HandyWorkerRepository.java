@@ -2,6 +2,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +17,7 @@ public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Intege
 	//Collection<HandyWorker> getTop3HandyWorkerWithMoreComplaints();
 
 	@Query("select h from Complaint c join c.fixuptask f join f.applications a join a.handyWorker h where a.status='ACCEPTED' group by h order by count(c) desc")
-	Collection<HandyWorker> findTop3HandyWorkerWithMoreComplaints();
+	List<HandyWorker> findTop3HandyWorkerWithMoreComplaints();
 
 	/*
 	 * @Query("select h from HandyWorker h, Complaint c group by h " +

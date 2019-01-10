@@ -178,7 +178,8 @@ public class ApplicationController extends AbstractController {
 		ModelAndView result;
 		Collection<FixupTask> allFixupTasks = new ArrayList<>();
 		allFixupTasks = this.fixupTaskService.findAll();
-
+		final FixupTask f = a.getFixupTask();
+		final int aux = f.getId();
 		if (binding.hasErrors()) {
 
 			result = this.createEditModelAndView(a);
@@ -190,7 +191,7 @@ public class ApplicationController extends AbstractController {
 				if (principal instanceof HandyWorker)
 					result = new ModelAndView("redirect:/application/handyworker/list.do");
 				else if (principal instanceof Customer)
-					result = new ModelAndView("redirect:/application/customer/list.do");
+					result = new ModelAndView("redirect:/application/customer/list.do?fixupTaskId=" + aux);
 				else
 					result = new ModelAndView("redirect:/");
 			} catch (final Throwable oops) {

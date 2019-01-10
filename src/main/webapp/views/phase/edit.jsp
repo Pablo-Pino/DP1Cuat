@@ -17,7 +17,17 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<script>
+	$(function() {
+		$("#datepicker1").datepicker({dateFormat: 'dd/mm/yy'});
+	});
+	$(function() {
+		$("#datepicker2").datepicker({dateFormat: 'dd/mm/yy'});
+	});
+</script>
 <security:authorize access="hasRole('HANDYWORKER')">
 	<div>
 
@@ -47,7 +57,7 @@
 					<form:label path="start">
 						<spring:message code="phase.start"></spring:message>
 					</form:label>
-					<form:input path="start" id="start" name="start" />
+					<form:input path="start" id="datepicker1" name="start" />
 					<form:errors cssClass="error" path="start" />
 					<br />
 				</div>
@@ -56,7 +66,7 @@
 					<form:label path="end">
 						<spring:message code="phase.end"></spring:message>
 					</form:label>
-					<form:input path="end" id="end" name="end" />
+					<form:input path="end" id="datepicker2" name="end" />
 					<form:errors cssClass="error" path="end" />
 					<br />
 				</div>

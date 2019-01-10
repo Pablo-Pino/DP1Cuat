@@ -74,6 +74,7 @@
 	</div>
 	<!--  Los botones de crear y cancelar -->
 		<input type="submit" name="save" value="<spring:message code="application.save"></spring:message>" />
+		
 		<input type="button" name="cancel" value="${cancel}" onclick="javascript:relativeRedir('application/list.do')" />	
 
 </security:authorize>

@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
@@ -137,6 +138,15 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		Assert.notNull(res);
 		Assert.notEmpty(res);
 
+	}
+
+	@Test
+	public void testgetTop3HandyWorkerWithMoreComplaints() {
+		List<HandyWorker> res;
+		res = this.handyworkerService.getTop3HandyWorkerWithMoreComplaints();
+		Assert.isTrue(res.size() == 3);
+
+		Assert.notNull(res);
 	}
 
 }

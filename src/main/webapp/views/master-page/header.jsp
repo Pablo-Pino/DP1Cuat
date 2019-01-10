@@ -58,8 +58,6 @@
 						code="master.page.customer" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message
-								code="master.page.customer.action.1" /></a></li>
 					<li><a href="fixupTask/endorsable/list.do"><spring:message 
 								code="master.page.listfixuptasks"></spring:message></a></li>
 				</ul></li>
@@ -125,6 +123,8 @@
 								code="master.page.listfolders" /> </a></li>
 					<li><a href="message/actor/create.do"><spring:message
 								code="master.page.writemessage" /> </a></li>
+					<li><a href="socialprofile/actor/list.do"><spring:message
+								code="master.page.socialProfiles" /> </a></li>
 					<security:authorize access="hasRole('CUSTOMER')">
 						<li><a href="customer/display.do"><spring:message
 									code="master.page.customer.profile" /></a></li>
