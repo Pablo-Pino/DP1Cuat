@@ -315,7 +315,7 @@
 				<constructor-arg value="31/10/2018 00:00:00" />
 			</bean>
 		</property>
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="PENDING" />
 		<property name="workerComments" value="I work very hard" />
 		<property name="customerComments" value="OK" />
 		<property name="creditCard">
@@ -1114,7 +1114,7 @@
 	
 	
 	<bean id="workPlan4" class="domain.WorkPlan">
-		<property name="fixupTask" ref="fixupTask5" />
+		<property name="fixupTask" ref="fixupTask4" />
 		<property name="handyWorker" ref="handyWorker4" />
 		<property name="phases">
 			<list>
