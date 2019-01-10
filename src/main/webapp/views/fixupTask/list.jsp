@@ -36,9 +36,7 @@ String languageValue = languageCookie.getValue();
 
 %>
 
-<p>
-	<spring:message code="fixupTask.list" />
-</p>
+
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="fixupTasks" requestURI="${requestURI}" id="row">
