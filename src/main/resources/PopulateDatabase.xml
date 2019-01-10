@@ -1320,6 +1320,20 @@
 		<property name="laws" value="Leyes,muchas leyes 4" />
 		<property name="draft" value="true" />
 	</bean>
+	
+	<bean id="warranty5" class="domain.Warranty">
+		<property name="title" value="La Constitución Española" />
+		<property name="terms" value="Algo de España y los españoles" />
+		<property name="laws" value="Las hicieron en el 78" />
+		<property name="draft" value="false" />
+	</bean>
+	
+	<bean id="warranty6" class="domain.Warranty">
+		<property name="title" value="La selección natural" />
+		<property name="terms" value="Los seres evolucionan" />
+		<property name="laws" value="La del mejor adaptado" />
+		<property name="draft" value="true" />
+	</bean>
 
 	<!-- __________________________________ FOLDER _________________________________ -->
 
