@@ -79,12 +79,14 @@ public class PhaseService {
 		Assert.isTrue(object.getEnd().after(phase.getWorkPlan().getFixupTask().getStart()));
 		Assert.isTrue(object.getStart().before(phase.getWorkPlan().getFixupTask().getEnd()));
 		Assert.isTrue(object.getStart().after(phase.getWorkPlan().getFixupTask().getStart()));
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
 		final Phase res = this.repository.save(object);
 		return res;
 	}
 
 	public void delete(final Phase object) {
 		final Phase phase = (Phase) this.serviceUtils.checkObject(object);
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
 		this.repository.delete(phase);
 	}
 

@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.Application;
 import domain.WorkPlan;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -81,6 +80,7 @@ public class WorkPlanServiceTest extends AbstractTest {
 	@Test
 	public void testDelete() {
 		WorkPlan workPlan;
+		this.authenticate("handyWorker1");
 		workPlan = this.workPlanService.findOne(super.getEntityId("workPlan1"));
 		this.workPlanService.delete(workPlan);
 		Assert.isNull(this.workPlanService.findOne(workPlan.getId()));
@@ -90,13 +90,6 @@ public class WorkPlanServiceTest extends AbstractTest {
 	public void checkStatusApplicationAccepted() {
 		WorkPlan w;
 		w = this.workPlanService.findOne(super.getEntityId("workPlan1"));
-		Assert.isTrue(this.workPlanService.checkStatusApplicationAccepted(w));
-	}
-	@Test(expected = IllegalArgumentException.class)
-	public void checkStatusApplicationAcceptedIncorrecto() {
-		WorkPlan w;
-		w = this.workPlanService.findOne(super.getEntityId("workPlan1"));
-		final Application a = this.applicationService.findOne(this.getEntityId("application1"));
 		Assert.isTrue(this.workPlanService.checkStatusApplicationAccepted(w));
 	}
 }

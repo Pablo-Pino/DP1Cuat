@@ -69,6 +69,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void saveTestCorrecto() {
 		HandyWorker hw, saved;
+		this.authenticate("handyWorker1");
 		final int mrId = this.getEntityId("handyWorker1");
 		hw = this.handyworkerService.findOne(mrId);
 		Assert.notNull(hw);
