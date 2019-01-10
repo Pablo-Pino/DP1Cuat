@@ -16,6 +16,8 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="confirm.phone" var="confirmPhoneMessage" />
+
 <form:form action="sponsor/sponsor-administrator/edit.do" modelAttribute="sponsor" method="post">
 	
 	<form:hidden path="id" />
@@ -99,9 +101,9 @@
 	</div>
 
 <jstl:if test="${isPrincipalAuthorizedEdit}">	
-	<button type="submit" name="save" class="btn btn-primary">
-		<spring:message code="sponsor.save" />
-	</button>
+	<input type="submit" name="save"
+			value="<spring:message code="sponsor.save"></spring:message>" 
+			onclick="return patternPhone(document.getElementById('phone').value, '${confirmPhoneMessage}');" />
 </jstl:if>
 	
 </form:form>
