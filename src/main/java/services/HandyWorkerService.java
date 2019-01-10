@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import domain.HandyWorker;
 import domain.Note;
 import domain.Phase;
 import domain.Report;
+import domain.Settings;
 import domain.Url;
 import domain.WorkPlan;
 
@@ -55,6 +57,9 @@ public class HandyWorkerService {
 
 	@Autowired
 	FolderService					folderService;
+
+	@Autowired
+	private SettingsService			settingsService;
 
 
 	//constructor
@@ -126,6 +131,10 @@ public class HandyWorkerService {
 
 			this.serviceUtils.checkAuthority("HANDYWORKER");
 			this.serviceUtils.checkActor(hw);
+		}
+		if ((!hw.getPhone().startsWith("+")) && StringUtils.isNumeric(hw.getPhone()) && hw.getPhone().length() > 3) {
+			final Settings settings = this.settingsService.findSettings();
+			hw.setPhone(settings.getCountryCode() + hw.getPhone());
 		}
 		HandyWorker res;
 		res = this.handyWorkerRepository.save(hw);

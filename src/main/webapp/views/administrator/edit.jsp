@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-
+<spring:message code="confirm.phone" var="confirmPhoneMessage" />
 
 <div>
 	<form:form action="administrator/edit.do" method="post" id="formCreate"
@@ -113,7 +113,7 @@
 
 		<input type="submit" name="save"
 			value="<spring:message code="administrator.save"></spring:message>" 
-			onclick="javascript:relativeRedir('administrator/display.do')" />
+			onclick="return patternPhone(document.getElementById('phone').value, '${confirmPhoneMessage}');" />
 
 		<jstl:if test="${administrator.id == 0 }">
 			<input type="button" name="cancel"
