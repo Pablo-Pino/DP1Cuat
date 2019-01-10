@@ -92,9 +92,35 @@ public class ApplicationController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		Application c;
+		final Boolean fromFixup = false;
+
+		Collection<FixupTask> allFixupTasks = new ArrayList<>();
+		allFixupTasks = this.fixupTaskService.findAll();
 		c = this.applicationService.create();
 
 		result = this.createEditModelAndView(c);
+		result.addObject("allFixupTasks", allFixupTasks);
+		result.addObject("fromFixup", fromFixup);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "handyworker/create2", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int fixupTaskId) {
+		ModelAndView result;
+		Application c;
+		Collection<FixupTask> allFixupTasks = new ArrayList<>();
+		allFixupTasks = this.fixupTaskService.findAll();
+		final Boolean fromFixup = true;
+		FixupTask fixupTask = new FixupTask();
+		fixupTask = this.fixupTaskService.findOne(fixupTaskId);
+		c = this.applicationService.create();
+
+		result = this.createEditModelAndView(c);
+		result.addObject("fromFixup", fromFixup);
+		result.addObject("fixupTask", fixupTask);
+		result.addObject("allFixupTasks", allFixupTasks);
 
 		return result;
 
@@ -150,10 +176,14 @@ public class ApplicationController extends AbstractController {
 	@RequestMapping(value = "endorsable/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Application a, final BindingResult binding) {
 		ModelAndView result;
+		Collection<FixupTask> allFixupTasks = new ArrayList<>();
+		allFixupTasks = this.fixupTaskService.findAll();
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
+
 			result = this.createEditModelAndView(a);
-		else
+			result.addObject("allFixupTasks", allFixupTasks);
+		} else
 			try {
 				this.applicationService.save(a);
 				final Actor principal = this.actorService.findPrincipal();
@@ -165,10 +195,11 @@ public class ApplicationController extends AbstractController {
 					result = new ModelAndView("redirect:/");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(a, "cannot.commit.error");
+				result.addObject("allFixupTasks", allFixupTasks);
+
 			}
 		return result;
 	}
-
 	@RequestMapping(value = "endorsable/edit", method = RequestMethod.POST, params = "addCreditCard")
 	public ModelAndView addCreditCard(final Application a, final BindingResult binding) {
 		ModelAndView result;

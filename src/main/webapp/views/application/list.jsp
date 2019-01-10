@@ -30,9 +30,13 @@
 <security:authorize access="hasAnyRole('CUSTOMER','HANDYWORKER')">
 
 	<display:column>
+	<jstl:if test="${app.status == 'REJECTED'||app.status == 'PENDING'}">
 		<a href="application/endorsable/edit.do?applicationId=${app.id}"><spring:message code="application.edit"></spring:message></a>
+		</jstl:if>
 	</display:column>
+
 </security:authorize>
+
 
 		<display:column>
 		<a href="application/endorsable/display.do?applicationId=${app.id}"><spring:message code="application.display"></spring:message></a>
