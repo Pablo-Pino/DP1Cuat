@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -210,7 +211,14 @@ public class FixupTaskService {
 	public Collection<FixupTask> search(final String keyword, final Category category, final Warranty warranty, final Double minPrice, final Double maxPrice, final Date minDate, final Date maxDate) {
 		final Collection<FixupTask> res = this.findAll();
 		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
-		if (keyword != null) {
+		System.out.println(keyword);
+		System.out.println(category);
+		System.out.println(warranty);
+		System.out.println(minDate);
+		System.out.println(maxDate);
+		System.out.println(minPrice);
+		System.out.println(maxPrice);
+		if (!StringUtils.isEmpty(keyword)) {
 			final Collection<FixupTask> keywordRes = this.fixupTaskRepository.findByKeyword(keyword);
 			res.retainAll(keywordRes);
 		}
@@ -240,6 +248,7 @@ public class FixupTaskService {
 			final Collection<FixupTask> maxDateRes = this.fixupTaskRepository.findByBeforeMaxDate(maxDate);
 			res.retainAll(maxDateRes);
 		}
+		System.out.println(res);
 		return res;
 	}
 }

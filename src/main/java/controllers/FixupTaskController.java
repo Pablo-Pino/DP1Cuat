@@ -75,27 +75,29 @@ public class FixupTaskController extends AbstractController {
 		Category category = null;
 		Warranty warranty = null;
 		try {
-			if (categoryId != null) {
+			if (categoryId != null && categoryId != 0) {
 				category = this.categoryService.findOne(categoryId);
+				System.out.println(categoryId);
 				Assert.notNull(category);
 			}
-			if (warrantyId != null) {
+			if (warrantyId != null && warrantyId != 0) {
 				warranty = this.warrantyService.findOne(warrantyId);
+				System.out.println(warrantyId);
 				Assert.notNull(warranty);
 			}
-			if (minDate != null) {
+			if (!StringUtils.isEmpty(minDate)) {
 				final String[] splitMinDate = minDate.split("-");
 				final Calendar minCalendar = Calendar.getInstance();
 				minCalendar.set(new Integer(splitMinDate[0]), new Integer(splitMinDate[1]), new Integer(splitMinDate[2]));
 				minimumDate = minCalendar.getTime();
 			}
-			if (maxDate != null) {
+			if (!StringUtils.isEmpty(maxDate)) {
 				final String[] splitMaxDate = maxDate.split("-");
 				final Calendar maxCalendar = Calendar.getInstance();
 				maxCalendar.set(new Integer(splitMaxDate[0]), new Integer(splitMaxDate[1]), new Integer(splitMaxDate[2]));
 				maximumDate = maxCalendar.getTime();
 			}
-			this.fixupTaskService.search(keyword, category, warranty, minPrice, maxPrice, minimumDate, maximumDate);
+			res.addObject("fixupTasks", this.fixupTaskService.search(keyword, category, warranty, minPrice, maxPrice, minimumDate, maximumDate));
 		} catch (final Throwable oops) {
 			res.addObject("message", "cannot.commit.error");
 			res.addObject("fixupTasks", this.fixupTaskService.findAll());
