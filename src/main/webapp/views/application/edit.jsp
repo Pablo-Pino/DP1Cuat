@@ -134,9 +134,10 @@
 			
 				<!--  Los botones de crear y cancelar -->
 			<br />
+<input type="submit" name="save" value="<spring:message code="application.save"></spring:message>" />	
 <jstl:if test='${application.handyWorker.userAccount.username == username || application.id == 0}'>
 
-		<input type="submit" name="save" value="<spring:message code="application.save"></spring:message>" />	
+		
 		<security:authorize access="hasRole('HANDYWORKER')">	
 				<button type="button"
 					onclick="javascript: relativeRedir('application/handyworker/list.do')">

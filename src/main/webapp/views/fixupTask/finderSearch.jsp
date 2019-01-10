@@ -17,6 +17,17 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+	$(function() {
+		$("#datepicker1").datepicker({dateFormat: 'dd/mm/yy'});
+	});
+	$(function() {
+		$("#datepicker2").datepicker({dateFormat: 'dd/mm/yy'});
+	});
+</script>
 
 <form:form action="finder/explorer/edit.do" method="post" id="formCreate"
 	name="formCreate" modelAttribute="finder">
@@ -48,12 +59,13 @@
 		<form:label path="minimumDate">
 			<spring:message code="finder.minimumDate"></spring:message>
 		</form:label>
-		<form:input path="minimumDate" />
+		<form:input id="datepicker1" path="minimumDate" />
 
 		<form:label path="maximumDate">
 			<spring:message code="finder.maximumDate"></spring:message>
 		</form:label>
-		<form:input path="maximumDate"/>
+			<form:input id="datepicker2" path="maximumDate" />
+
 	</fieldset>
 
 	<spring:message code="finder.save" var="save"></spring:message>
