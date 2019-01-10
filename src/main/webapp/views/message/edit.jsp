@@ -19,6 +19,9 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <jstl:if test="${isPrincipalAuthorizedEdit}">
+<security:authentication property="principal.username" var="username" />
+<jstl:if test='${messageObject.folder.actor.userAccount.username == username || message.id == 0}'>
+
 
 	<div>
 		<form:form action="message/actor/edit.do" method="post" id="formCreate"
@@ -131,4 +134,10 @@
 
 <spring:message code="message.cancel" var="cancel"></spring:message>
 <button name="cancel" value="${cancel}" onclick="javascript:relativeRedir('message/actor/list.do?folderId=${messageObject.folder.id}')" >${cancel}</button>
+</jstl:if>
 
+<jstl:if test='${messageObject.folder.actor.userAccount.username != username && message.id != 0}'>
+	<h1>
+		<b><spring:message code="message.permissions"></spring:message></b>
+	</h1>
+</jstl:if>

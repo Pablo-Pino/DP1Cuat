@@ -9,7 +9,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
 <form:form action="folder/actor/edit.do" modelAttribute="folder">
+<security:authentication property="principal.username" var="username" />
+<jstl:if test='${folder.actor.userAccount.username == username || folder.id == 0}'>
 	
 	<jstl:if test="${isPrincipalAuthorizedEdit}">
 		
@@ -49,7 +52,7 @@
 		</div>
 	</jstl:if>
 	
-	
+	</jstl:if>
 	
 </form:form>
 
@@ -57,3 +60,9 @@
 	<spring:message code="folder.cancel" var="cancelHeader"></spring:message>
 	<button name="cancel" value="${cancelHeader}" onClick="javascript:relativeRedir('folder/actor/list.do');" >${cancelHeader}</button>
 </div>
+
+<jstl:if test='${folder.actor.userAccount.username != username && folder.id != 0}'>
+	<h1>
+		<b><spring:message code="folder.permissions"></spring:message></b>
+	</h1>
+</jstl:if>
