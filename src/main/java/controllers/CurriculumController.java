@@ -42,23 +42,36 @@ public class CurriculumController extends AbstractController {
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display() {
-		ModelAndView result;
-		Curriculum curriculum;
-		HandyWorker handyWorker;
+		ModelAndView result = new ModelAndView();
 		final Collection<EducationRecord> educationRecords = new ArrayList<>();
 		final Collection<ProfessionalRecord> professionalRecords = new ArrayList<>();
 		final Collection<EndorserRecord> endorserRecords = new ArrayList<>();
 		final Collection<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>();
 
-		handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
-		curriculum = this.curriculumService.findByHandyWorker(handyWorker);
-		educationRecords.addAll(curriculum.getEducationRecords());
-		professionalRecords.addAll(curriculum.getProfessionalRecords());
-		endorserRecords.addAll(curriculum.getEndorserRecords());
-		miscellaneousRecords.addAll(curriculum.getMiscellaneousRecords());
+		HandyWorker handyWorker;
 
-		result = new ModelAndView("curriculum/display");
-		result.addObject("curriculum", curriculum);
+		handyWorker = (HandyWorker) this.actorService.findOneByUserAccount(LoginService.getPrincipal());
+
+		try {
+			Curriculum curriculum;
+
+			curriculum = this.curriculumService.findByHandyWorker(handyWorker);
+			educationRecords.addAll(curriculum.getEducationRecords());
+			professionalRecords.addAll(curriculum.getProfessionalRecords());
+			endorserRecords.addAll(curriculum.getEndorserRecords());
+			miscellaneousRecords.addAll(curriculum.getMiscellaneousRecords());
+			result = new ModelAndView("curriculum/display");
+			result.addObject("curriculum", curriculum);
+
+		} catch (final NullPointerException e) {
+			Curriculum curriculum;
+
+			curriculum = this.curriculumService.create();
+
+			result = new ModelAndView("curriculum/display");
+			result.addObject("curriculum", curriculum);
+		}
+
 		result.addObject("handyWorker", handyWorker);
 		result.addObject("educationRecords", educationRecords);
 		result.addObject("professionalRecords", professionalRecords);
@@ -66,6 +79,7 @@ public class CurriculumController extends AbstractController {
 		result.addObject("miscellaneousRecords", miscellaneousRecords);
 
 		return result;
+
 	}
 	//------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
