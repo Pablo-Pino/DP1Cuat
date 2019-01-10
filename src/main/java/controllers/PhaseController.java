@@ -81,7 +81,7 @@ public class PhaseController extends AbstractController {
 		else
 			try {
 				this.phaseService.save(phase);
-				result = new ModelAndView("redirect:list.do?=" + phase.getWorkPlan().getId());
+				result = new ModelAndView("redirect:list.do?workplanId=" + phase.getWorkPlan().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(phase, "phase.commit.error");
 			}
@@ -94,7 +94,7 @@ public class PhaseController extends AbstractController {
 		final int aux = phase.getWorkPlan().getId();
 		try {
 			this.phaseService.delete(phase);
-			result = new ModelAndView("redirect:list.do?=" + aux);
+			result = new ModelAndView("redirect:list.do?workplanId=" + aux);
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(phase, "phase.commit.error");
 
