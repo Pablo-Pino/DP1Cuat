@@ -56,17 +56,12 @@ public class CategoryService {
 
 	public Category save(final Category category) {
 		Assert.notNull(category);
-		System.out.println("Entra en el save");
 		final Category padre = category.getParentCategory();
 		//final comprueba que no final hago bucles,que mi final hijo no es final un padre  o final un abuelo final etc etc
-		if (!category.getNameEnglish().equals("CATEGORY")) {
-			System.out.println("Entra en el if");
-
+		if (!category.getNameEnglish().equals("CATEGORY"))
 			return this.categoryRepository.save(category);
-		} else {
-			System.out.println("Entra en el else");
+		else
 			throw new IllegalArgumentException("Incompatibilidad de recursividad en el guardado");
-		}
 	}
 	public Boolean tieneHijas(final Category c) {
 		final Boolean res = true;
@@ -89,11 +84,8 @@ public class CategoryService {
 	public void delete(final Category cat) {
 		Assert.notNull(cat);
 		Assert.isTrue(this.categoryRepository.exists(cat.getId()));
-		if (cat.getNameEnglish().equals("CATEGORY")) {
-			System.out.println("Pasa por el primer if del delete");
+		if (cat.getNameEnglish().equals("CATEGORY"))
 			throw new IllegalArgumentException("NO SE PUEDE BORRAR LA CATEGORIA RAIZ");
-
-		}
 		if (this.tieneHijas(cat) == true) {
 			for (final Category hija : this.findByParent(cat))
 				//this.delete(hija);
