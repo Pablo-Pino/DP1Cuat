@@ -18,6 +18,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="confirm.phone" var="confirmPhoneMessage" />
+
 <security:authorize access="hasRole('ADMIN')">
 	<div>
 
@@ -168,7 +170,9 @@
 
 
 
-		<input type="button" name="save" value="<spring:message code="administrator.save"></spring:message>" />
+		<input type="submit" name="save"
+			value="<spring:message code="administrator.save"></spring:message>" 
+			onclick="return patternPhone(document.getElementById('phone').value, '${confirmPhoneMessage}');" />
 			
 		<input type="button" name="return" value="${cancel}" onclick="javascript:relativeRedir('welcome/index.do')"/>
 		

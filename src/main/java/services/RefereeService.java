@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import security.UserAccount;
 import domain.Complaint;
 import domain.Note;
 import domain.Referee;
+import domain.Settings;
 import domain.Url;
 
 @Service
@@ -29,6 +31,8 @@ public class RefereeService {
 
 	// Services
 
+	@Autowired
+	private SettingsService		settingsService;
 	@Autowired
 	private ActorService		actorService;
 	@Autowired
@@ -95,6 +99,10 @@ public class RefereeService {
 			this.serviceUtils.checkAuthority(Authority.REFEREE);
 		}
 		Assert.isTrue(!(object.getEmail().endsWith("@") || object.getEmail().endsWith("@>")));
+		if ((!object.getPhone().startsWith("+")) && StringUtils.isNumeric(object.getPhone()) && object.getPhone().length() > 3) {
+			final Settings settings = this.settingsService.findSettings();
+			object.setPhone(settings.getCountryCode() + object.getPhone());
+		}
 		final Referee res = this.repository.save(object);
 		this.flush();
 		if (isCreating)
