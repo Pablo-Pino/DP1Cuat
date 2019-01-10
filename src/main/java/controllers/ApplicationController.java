@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -45,12 +46,16 @@ public class ApplicationController extends AbstractController {
 		ModelAndView result;
 		Collection<Application> applications;
 
+		Collection<Application> allApplications;
+
 		final HandyWorker h = (HandyWorker) this.actorService.findPrincipal();
 		applications = this.applicationService.findApplicationsByHandyWorker(h);
+		allApplications = this.applicationService.findAll();
 
 		result = new ModelAndView("application/list");
 		result.addObject("requestURI", "application/handyworker/list.do");
 		result.addObject("applications", applications);
+		result.addObject("allApplications", allApplications);
 
 		return result;
 	}
@@ -99,10 +104,12 @@ public class ApplicationController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int applicationId) {
 		ModelAndView result;
 		Application c;
-
+		Collection<FixupTask> allFixupTasks = new ArrayList<>();
+		allFixupTasks = this.fixupTaskService.findAll();
 		c = this.applicationService.findOne(applicationId);
 		Assert.notNull(c);
 		result = this.createEditModelAndView(c);
+		result.addObject("allFixupTasks", allFixupTasks);
 
 		return result;
 

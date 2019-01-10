@@ -65,7 +65,7 @@
 
 	<spring:message code="handyWorker.edit" var="edit"></spring:message>
 	<input type="button" name="edit" value="${edit}"
-		onclick="javascript:relativeRedir('handyWorker/edit.do?handyWorkerId=${handyWorker.id}')" />
+		onclick="javascript:relativeRedir('handyWorker/edit.do')" />
 
 	<%-- <spring:message code="handyWorker.return" var="return"></spring:message>
 	<input type="button" name="return" value="${return}"
