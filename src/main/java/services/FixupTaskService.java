@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.FixupTaskRepository;
+import security.Authority;
 import security.LoginService;
 import domain.Application;
 import domain.Category;
@@ -204,5 +205,41 @@ public class FixupTaskService {
 	public Collection<FixupTask> findFixupTasksNotAppliedByHandyWorker(final HandyWorker h) {
 		final HandyWorker handyWorker = (HandyWorker) this.serviceUtils.checkObject(h);
 		return this.fixupTaskRepository.findFixupTasksNotAppliedByHandyWorker(handyWorker.getId());
+	}
+
+	public Collection<FixupTask> search(final String keyword, final Category category, final Warranty warranty, final Double minPrice, final Double maxPrice, final Date minDate, final Date maxDate) {
+		final Collection<FixupTask> res = this.findAll();
+		this.serviceUtils.checkAuthority(Authority.HANDYWORKER);
+		if (keyword != null) {
+			final Collection<FixupTask> keywordRes = this.fixupTaskRepository.findByKeyword(keyword);
+			res.retainAll(keywordRes);
+		}
+		if (category != null) {
+			this.serviceUtils.checkObject(category);
+			final Collection<FixupTask> categoryRes = this.fixupTaskRepository.findByCategoryId(category.getId());
+			res.retainAll(categoryRes);
+		}
+		if (warranty != null) {
+			this.serviceUtils.checkObject(warranty);
+			final Collection<FixupTask> warrantyRes = this.fixupTaskRepository.findByWarrantyIdAndNotDraft(warranty.getId());
+			res.retainAll(warrantyRes);
+		}
+		if (minPrice != null) {
+			final Collection<FixupTask> minPriceRes = this.fixupTaskRepository.findByMoreThanMinPrice(minPrice);
+			res.retainAll(minPriceRes);
+		}
+		if (maxPrice != null) {
+			final Collection<FixupTask> maxPriceRes = this.fixupTaskRepository.findByLessThanMaxPrice(maxPrice);
+			res.retainAll(maxPriceRes);
+		}
+		if (minDate != null) {
+			final Collection<FixupTask> minDateRes = this.fixupTaskRepository.findByAfterMinDate(minDate);
+			res.retainAll(minDateRes);
+		}
+		if (maxDate != null) {
+			final Collection<FixupTask> maxDateRes = this.fixupTaskRepository.findByBeforeMaxDate(maxDate);
+			res.retainAll(maxDateRes);
+		}
+		return res;
 	}
 }

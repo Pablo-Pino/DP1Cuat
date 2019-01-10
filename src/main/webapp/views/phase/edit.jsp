@@ -28,6 +28,7 @@
 
 			<form:hidden path="id" />
 			<form:hidden path="version" />
+			<form:hidden path="workPlan" />
 
 
 			<fieldset>
@@ -70,23 +71,6 @@
 				</div>
 
 
-				<div>
-					<form:label path="workPlan">
-						<spring:message code="phase.workplan"></spring:message>
-					</form:label>
-					<form:select path="workPlan">
-						<form:option value="0">-----</form:option>
-						<jstl:forEach items="${workPlans}" var="workPlan">
-							<form:option value="${workPlan.id}"><jstl:out value="${workPlan.id}" /></form:option>
-						</jstl:forEach>
-					</form:select>
-					<form:errors cssClass="error" path="workPlan"></form:errors>
-				</div>
-
-
-
-
-
 			</fieldset>
 
 
@@ -96,7 +80,7 @@
 				value="<spring:message code="phase.save"></spring:message>" />
 	<jstl:if test="${phase.id != 0}">
 			<button type="button"
-				onclick="javascript: relativeRedir('phase/handyworker/list.do?workplanId=${phase.workPlan.id}')">
+				onclick="javascript: relativeRedir('phase/handyWorker/list.do?workplanId=${phase.workPlan.id}')">
 				<spring:message code="phase.cancel" />
 			</button>
 

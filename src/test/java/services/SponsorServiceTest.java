@@ -81,6 +81,6 @@ public class SponsorServiceTest extends AbstractTest {
 		sponsor = this.sponsorService.findOne(super.getEntityId("sponsor1"));
 		//final int id = sponsor.getId();
 		this.sponsorService.delete(sponsor);
-		Assert.isTrue(sponsor.getBanned());
+		Assert.isTrue(!(sponsor.getUserAccount().isEnabled()));
 	}
 }

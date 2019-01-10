@@ -27,6 +27,7 @@ public class WarrantyServiceTest extends AbstractTest {
 	@Autowired
 	private WarrantyService	warrantyService;
 
+
 	@Test
 	public void testCreate() {
 		Warranty warranty;
@@ -85,7 +86,7 @@ public class WarrantyServiceTest extends AbstractTest {
 	public void testDelete() {
 		Warranty warranty;
 
-		warranty = this.warrantyService.findOne(super.getEntityId("warranty1"));
+		warranty = this.warrantyService.findOne(super.getEntityId("warranty4"));
 		this.warrantyService.delete(warranty);
 		Assert.isNull(this.warrantyService.findOne(warranty.getId()));
 	}

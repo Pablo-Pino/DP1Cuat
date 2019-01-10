@@ -70,4 +70,8 @@ public class WarrantyService {
 			throw new IllegalArgumentException("No puedes borrar una garantía que tenga tareas");
 	}
 
+	public Collection<Warranty> findWarrantyNotDraft() {
+		return this.warrantyRepository.findWarrantyNotDraft();
+	}
+
 }

@@ -154,18 +154,18 @@ public class ApplicationController extends AbstractController {
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(a);
 		else
-			//try {
-			this.applicationService.save(a);
-		final Actor principal = this.actorService.findPrincipal();
-		if (principal instanceof HandyWorker)
-			result = new ModelAndView("redirect:/application/handyworker/list.do");
-		else if (principal instanceof Customer)
-			result = new ModelAndView("redirect:/application/customer/list.do");
-		else
-			result = new ModelAndView("redirect:/");
-		//} catch (final Throwable oops) {
-		result = this.createEditModelAndView(a, "cannot.commit.error");
-		//}
+			try {
+				this.applicationService.save(a);
+				final Actor principal = this.actorService.findPrincipal();
+				if (principal instanceof HandyWorker)
+					result = new ModelAndView("redirect:/application/handyworker/list.do");
+				else if (principal instanceof Customer)
+					result = new ModelAndView("redirect:/application/customer/list.do");
+				else
+					result = new ModelAndView("redirect:/");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(a, "cannot.commit.error");
+			}
 		return result;
 	}
 
