@@ -20,7 +20,8 @@
 
 
 <%
-
+String languageValue;
+try{
 Cookie[] cookies = request.getCookies();
 Cookie languageCookie = null;
 for(Cookie c : cookies) {
@@ -28,8 +29,12 @@ for(Cookie c : cookies) {
 		languageCookie = c;
 	}
 }
+languageValue = languageCookie.getValue();}
+catch(NullPointerException e){
+	languageValue = "en";	
+}
 
-String languageValue = languageCookie.getValue();
+
 
 %>
 

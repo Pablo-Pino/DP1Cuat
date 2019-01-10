@@ -96,19 +96,21 @@ catch(NullPointerException e){
 					code="fixupTask.display" />
 			</a> --%>
 		</display:column>
-	</security:authorize>
-	
-		<display:column>
-			<a href="fixupTask/endorsable/display.do?fixupTaskId=${row.id}"> <spring:message
-					code="customer.display" />
-			</a>
-		</display:column>
+		
+		
 		
 		<display:column>
 			<a href="application/customer/list.do?fixupTaskId=${row.id}"> <spring:message
 					code="application.list" />
 			</a>
 		</display:column>
+	</security:authorize>
+	<display:column>
+			<a href="fixupTask/endorsable/display.do?fixupTaskId=${row.id}"> <spring:message
+					code="customer.display" />
+			</a>
+		</display:column>
+		
 
 	<!-- Attributos -->
 

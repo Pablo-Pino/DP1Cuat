@@ -19,15 +19,20 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%
-	Cookie[] cookies = request.getCookies();
-	Cookie languageCookie = null;
-	for (Cookie c : cookies) {
-		if (c.getName().equals("language")) {
-			languageCookie = c;
-		}
+String languageValue;
+try{
+Cookie[] cookies = request.getCookies();
+Cookie languageCookie = null;
+for(Cookie c : cookies) {
+	if(c.getName().equals("language")) {
+		languageCookie = c;
 	}
+}
 
-	String languageValue = languageCookie.getValue();
+languageValue = languageCookie.getValue();}
+catch(NullPointerException e){
+	languageValue = "en";	
+}
 %>
 
 <b><spring:message code="fixupTask.moment"></spring:message>:</b>
