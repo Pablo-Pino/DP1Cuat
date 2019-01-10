@@ -95,7 +95,7 @@ public class ApplicationController extends AbstractController {
 		final Boolean fromFixup = false;
 
 		Collection<FixupTask> allFixupTasks = new ArrayList<>();
-		allFixupTasks = this.fixupTaskService.findAll();
+		allFixupTasks = this.fixupTaskService.fixupNOTPastANDnotAccepted();
 		c = this.applicationService.create();
 
 		result = this.createEditModelAndView(c);
@@ -111,7 +111,7 @@ public class ApplicationController extends AbstractController {
 		ModelAndView result;
 		Application c;
 		Collection<FixupTask> allFixupTasks = new ArrayList<>();
-		allFixupTasks = this.fixupTaskService.findAll();
+		allFixupTasks = this.fixupTaskService.fixupNOTPastANDnotAccepted();
 		final Boolean fromFixup = true;
 		FixupTask fixupTask = new FixupTask();
 		fixupTask = this.fixupTaskService.findOne(fixupTaskId);
@@ -131,7 +131,7 @@ public class ApplicationController extends AbstractController {
 		ModelAndView result;
 		Application c;
 		Collection<FixupTask> allFixupTasks = new ArrayList<>();
-		allFixupTasks = this.fixupTaskService.findAll();
+		allFixupTasks = this.fixupTaskService.fixupNOTPastANDnotAccepted();
 		c = this.applicationService.findOne(applicationId);
 		Assert.notNull(c);
 		result = this.createEditModelAndView(c);
@@ -177,7 +177,7 @@ public class ApplicationController extends AbstractController {
 	public ModelAndView save(@Valid final Application a, final BindingResult binding) {
 		ModelAndView result;
 		Collection<FixupTask> allFixupTasks = new ArrayList<>();
-		allFixupTasks = this.fixupTaskService.findAll();
+		allFixupTasks = this.fixupTaskService.fixupNOTPastANDnotAccepted();
 
 		if (binding.hasErrors()) {
 

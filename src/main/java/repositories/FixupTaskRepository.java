@@ -82,4 +82,7 @@ public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 	@Query("select f from FixupTask f where f.end <= ?1")
 	Collection<FixupTask> findByBeforeMaxDate(Date maxDate);
 
+	@Query("select f from FixupTask f where f not in (select f1 from FixupTask f1 join f1.applications a where a.status = 'ACCEPTED') and f.end > CURRENT_TIMESTAMP")
+	Collection<FixupTask> giveFixuptaskNOTPast();
+
 }
