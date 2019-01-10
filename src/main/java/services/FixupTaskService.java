@@ -251,4 +251,10 @@ public class FixupTaskService {
 		System.out.println(res);
 		return res;
 	}
+	public Collection<FixupTask> fixupNOTPastANDnotAccepted() {
+		final Collection<FixupTask> res = this.fixupTaskRepository.giveFixuptaskNOTPast();
+
+		return res;
+
+	}
 }
