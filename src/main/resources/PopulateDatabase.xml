@@ -273,6 +273,20 @@
 				<constructor-arg value="28/10/2017 23:59:59" />
 			</bean>
 		</property>
+		<property name="creditCard">
+			<bean name="creditCardApplication4" class="domain.CreditCard">
+				<property name="holderName" value="Paco Pepe Pérez" />
+				<property name="brandName" value="VISA" />
+				<property name="number" value="4556042640541332" />
+				<property name="expirationDate">
+					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat"
+						factory-method="parse">
+						<constructor-arg value="28/10/2020 23:59:59" />
+					</bean>
+				</property>
+				<property name="cvvCode" value="452" />
+			</bean>
+		</property>
 		<property name="status" value="ACCEPTED" />
 		<property name="workerComments" value="I work hard" />
 		<property name="handyWorker" ref="handyWorker1" />
@@ -342,6 +356,20 @@
 			<bean id="momentApplication3" factory-bean="completeDateFormat"
 				factory-method="parse">
 				<constructor-arg value="12/10/2017 00:00:00" />
+			</bean>
+		</property>
+		<property name="creditCard">
+			<bean name="creditCardApplication5" class="domain.CreditCard">
+				<property name="holderName" value="Paco Pepe Pérez" />
+				<property name="brandName" value="VISA" />
+				<property name="number" value="4556042640541332" />
+				<property name="expirationDate">
+					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat"
+						factory-method="parse">
+						<constructor-arg value="28/10/2020 23:59:59" />
+					</bean>
+				</property>
+				<property name="cvvCode" value="452" />
 			</bean>
 		</property>
 		<property name="status" value="ACCEPTED" />
@@ -1148,6 +1176,24 @@
 		</property>
 	</bean>
 
+	<bean id="fixupTask6" class="domain.FixupTask">
+		<property name="moment" value="February 16, 2017 09:30"></property>
+		<property name="description" value="Hay que arreglar la pata de la silla 5"></property>
+		<property name="address" value="C/ Mani Manitas N3"></property>
+		<property name="maximumPrice" value="132424.12"></property>
+		<property name="start" value="February 17, 2018 09:30"></property>
+		<property name="end" value="February 18, 2019 09:30"></property>
+		<property name="ticker" value="181103-RTIB56" />
+		<property name="customer" ref="customer1"></property>
+		<property name="category" ref="categoryCarpentry"></property>
+		<property name="warranty" ref="warranty1" />
+		<property name="applications">
+			<list />
+		</property>
+		<property name="complaints">
+			<list />
+		</property>
+	</bean>
 
 	<bean id="fixupTask2" class="domain.FixupTask">
 		<property name="moment" value="October 11, 2017 09:30"></property>
@@ -1272,6 +1318,20 @@
 		<property name="title" value="El titulo de Warranty 4" />
 		<property name="terms" value="Terminos, muchos terminos 4" />
 		<property name="laws" value="Leyes,muchas leyes 4" />
+		<property name="draft" value="true" />
+	</bean>
+	
+	<bean id="warranty5" class="domain.Warranty">
+		<property name="title" value="La Constitución Española" />
+		<property name="terms" value="Algo de España y los españoles" />
+		<property name="laws" value="Las hicieron en el 78" />
+		<property name="draft" value="false" />
+	</bean>
+	
+	<bean id="warranty6" class="domain.Warranty">
+		<property name="title" value="La selección natural" />
+		<property name="terms" value="Los seres evolucionan" />
+		<property name="laws" value="La del mejor adaptado" />
 		<property name="draft" value="true" />
 	</bean>
 
