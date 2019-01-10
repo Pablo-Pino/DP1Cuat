@@ -3,6 +3,7 @@ package services;
 
 import java.util.Collection;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.AdministratorRepository;
 import domain.Administrator;
+import domain.Settings;
 
 @Service
 @Transactional
@@ -33,6 +35,9 @@ public class AdministratorService {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private SettingsService			settingsService;
 
 
 	// --------------------------Constructor-----------------------
@@ -88,6 +93,10 @@ public class AdministratorService {
 			//esto es para ver si el actor que está logueado es el mismo que se está editando
 			this.serviceUtils.checkActor(administrator);
 
+		}
+		if ((!administrator.getPhone().startsWith("+")) && StringUtils.isNumeric(administrator.getPhone()) && administrator.getPhone().length() > 3) {
+			final Settings settings = this.settingsService.findSettings();
+			administrator.setPhone(settings.getCountryCode() + administrator.getPhone());
 		}
 		Administrator res;
 		//le meto al resultado final el admin que he ido modificando anteriormente

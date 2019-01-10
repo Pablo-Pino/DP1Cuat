@@ -127,7 +127,8 @@
 		<!--  Botones -->
 
 		<input type="submit" name="save"
-			value="<spring:message code="sponsor.save"></spring:message>" />
+			value="<spring:message code="sponsor.save"></spring:message>" 
+			onclick="return patternPhone(document.getElementById('phone').value, '${confirmPhoneMessage}');" />
 
 		<input type="button" name="cancel"
 			value="<spring:message code="sponsor.cancel"></spring:message>"

@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-
+<spring:message code="confirm.phone" var="confirmPhoneMessage" />
 
 <div>
 	<form:form action="none/handyWorker/create.do" method="post"
@@ -120,9 +120,10 @@
 
 
 		<!--  Botones -->
-
+			
 		<input type="submit" name="save"
-			value="<spring:message code="handyWorker.save"></spring:message>" />
+			value="<spring:message code="handyWorker.save"></spring:message>" 
+			onclick="return patternPhone(document.getElementById('phone').value, '${confirmPhoneMessage}');" />
 
 		<input type="button" name="cancel"
 			value="<spring:message code="handyWorker.cancel"></spring:message>"

@@ -3,6 +3,7 @@ package services;
 
 import java.util.Collection;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.SponsorRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Settings;
 import domain.Sponsor;
 
 @Service
@@ -29,6 +31,8 @@ public class SponsorService {
 	private UserAccountService	uAService;
 	@Autowired
 	private ServiceUtils		serviceUtils;
+	@Autowired
+	private SettingsService		settingsService;
 
 
 	// Simple CRUD methods
@@ -100,6 +104,10 @@ public class SponsorService {
 
 		}
 		Assert.isTrue(!(sponsor.getEmail().endsWith("@") || sponsor.getEmail().endsWith("@>")));
+		if ((!sponsor.getPhone().startsWith("+")) && StringUtils.isNumeric(sponsor.getPhone()) && sponsor.getPhone().length() > 3) {
+			final Settings settings = this.settingsService.findSettings();
+			sponsor.setPhone(settings.getCountryCode() + sponsor.getPhone());
+		}
 		Sponsor res;
 		//le meto al resultado final el sponsor que he ido modificando anteriormente
 		res = this.sponsorRepository.save(sponsor);

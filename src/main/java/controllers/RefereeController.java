@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import security.UserAccount;
 import services.ActorService;
 import services.RefereeService;
 import domain.Actor;
@@ -33,9 +35,11 @@ public class RefereeController extends AbstractController {
 	// List
 
 	@RequestMapping("/referee/profile")
-	public ModelAndView profile(@RequestParam(required = true) final Integer refereeId) {
+	public ModelAndView profile() {
 		final ModelAndView res = new ModelAndView("referee/profile");
-		final Referee referee = this.refereeService.findOne(refereeId);
+		final UserAccount uA = LoginService.getPrincipal();
+		final Referee r = (Referee) this.actorService.findOneByUserAccount(uA);
+		final Referee referee = this.refereeService.findOne(r.getId());
 		res.addObject("referee", referee);
 		res.addObject("requestURI", "referee/profile.do");
 		this.isPrincipalAuthorizedEdit(res, referee);
