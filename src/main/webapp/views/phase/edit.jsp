@@ -116,7 +116,7 @@
 
 <jstl:if test='${phase.workPlan.handyWorker.userAccount.username != username && phase.id != 0}'>
 	<h1>
-		<b><spring:message code="workplan.permissions"></spring:message></b>
+		<b><spring:message code="phase.permissions"></spring:message></b>
 	</h1>
 </jstl:if>
 

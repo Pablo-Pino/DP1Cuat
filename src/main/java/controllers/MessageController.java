@@ -83,7 +83,9 @@ public class MessageController extends AbstractController {
 		else
 			try {
 				this.messageService.save(message);
-				res = new ModelAndView("redirect:list.do?folderId=" + String.valueOf(message.getFolder().getId()));
+				System.out.println(message.getFolder().getName());
+				System.out.println(message.getFolder().getId());
+				res = new ModelAndView("redirect:/folder/actor/list.do");
 			} catch (final Throwable t) {
 				res = this.createEditModelAndView(message, "cannot.commit.error", false);
 			}
