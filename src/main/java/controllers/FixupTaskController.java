@@ -2,10 +2,13 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -63,6 +66,62 @@ public class FixupTaskController extends AbstractController {
 	ActorService		actorService;
 
 
+	@RequestMapping(value = "handyworker/search", method = RequestMethod.GET)
+	public ModelAndView search(@RequestParam(required = false) final String keyword, @RequestParam(required = false) final Integer categoryId, @RequestParam(required = false) final Integer warrantyId, @RequestParam(required = false) final Double minPrice,
+		@RequestParam(required = false) final Double maxPrice, @RequestParam(required = false) final String minDate, @RequestParam(required = false) final String maxDate) {
+		final ModelAndView res = new ModelAndView("fixupTask/list");
+		Date minimumDate = null;
+		Date maximumDate = null;
+		Category category = null;
+		Warranty warranty = null;
+		try {
+			if (categoryId != null) {
+				category = this.categoryService.findOne(categoryId);
+				Assert.notNull(category);
+			}
+			if (warrantyId != null) {
+				warranty = this.warrantyService.findOne(warrantyId);
+				Assert.notNull(warranty);
+			}
+			if (minDate != null) {
+				final String[] splitMinDate = minDate.split("-");
+				final Calendar minCalendar = Calendar.getInstance();
+				minCalendar.set(new Integer(splitMinDate[0]), new Integer(splitMinDate[1]), new Integer(splitMinDate[2]));
+				minimumDate = minCalendar.getTime();
+			}
+			if (maxDate != null) {
+				final String[] splitMaxDate = maxDate.split("-");
+				final Calendar maxCalendar = Calendar.getInstance();
+				maxCalendar.set(new Integer(splitMaxDate[0]), new Integer(splitMaxDate[1]), new Integer(splitMaxDate[2]));
+				maximumDate = maxCalendar.getTime();
+			}
+			this.fixupTaskService.search(keyword, category, warranty, minPrice, maxPrice, minimumDate, maximumDate);
+		} catch (final Throwable oops) {
+			res.addObject("message", "cannot.commit.error");
+			res.addObject("fixupTasks", this.fixupTaskService.findAll());
+		}
+
+		String requestURI = "fixupTask/handyworker/search.do?";
+		if (!StringUtils.isEmpty(keyword))
+			requestURI += "keyword=" + keyword + "&";
+		if (categoryId != null)
+			requestURI += "categoryId=" + categoryId.toString() + "&";
+		if (warrantyId != null)
+			requestURI += "warrantyId=" + warrantyId.toString() + "&";
+		if (minPrice != null)
+			requestURI += "minPrice=" + minPrice.toString() + "&";
+		if (maxPrice != null)
+			requestURI += "maxPrice=" + maxPrice.toString() + "&";
+		if (minDate != null)
+			requestURI += "minDate" + minDate.toString() + "&";
+		if (maxDate != null)
+			requestURI += "minDate" + minDate.toString() + "&";
+		requestURI = requestURI.substring(0, requestURI.length() - 2);
+		res.addObject("categories", this.categoryService.findAll());
+		res.addObject("warranties", this.warrantyService.findWarrantyNotDraft());
+		res.addObject("requestURI", requestURI);
+		return res;
+	}
 	@RequestMapping(value = "endorsable/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
@@ -81,6 +140,8 @@ public class FixupTaskController extends AbstractController {
 
 		result = new ModelAndView("fixupTask/list");
 		result.addObject("fixupTasks", fixupTasks);
+		result.addObject("categories", this.categoryService.findAll());
+		result.addObject("warranties", this.warrantyService.findWarrantyNotDraft());
 		result.addObject("requestURI", "fixupTask/endorsable/list.do");
 
 		return result;

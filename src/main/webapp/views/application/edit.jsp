@@ -46,8 +46,8 @@
 			
 			<form:label path="fixupTask"> <spring:message code="application.fixupTask"></spring:message></form:label>
 			<form:select id="fixupTask" path="fixupTask">
-			<form:option value="${application.fixupTask}" label="------"></form:option>
-			<form:options items="${fixupTasks}" itemLabel="ticker" itemValue="id" />
+			<form:option value="${application.fixupTask}" label="-----"></form:option>
+			<form:options items="${allFixupTasks}" itemLabel="ticker" itemValue="id" />
 			</form:select>
 			<form:errors cssClass="error" path="fixupTask" />
 			<br />

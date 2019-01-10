@@ -2,6 +2,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -62,4 +63,23 @@ public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 
 	@Query("select distinct f from FixupTask f where f not in (select distinct f1 from FixupTask f1 join f1.applications a where a.handyWorker.id = ?1)")
 	Collection<FixupTask> findFixupTasksNotAppliedByHandyWorker(Integer handyWorkerId);
+
+	@Query("select f from FixupTask f where f.ticker like concat(concat('%' , ?1) , '%') or f.description like concat(concat('%' , ?1) , '%') or f.address like concat(concat('%' , ?1) , '%')")
+	Collection<FixupTask> findByKeyword(String keyword);
+
+	@Query("select f from FixupTask f where f.warranty.id = ?1 and f.warranty.draft = false")
+	Collection<FixupTask> findByWarrantyIdAndNotDraft(Integer warrantyId);
+
+	@Query("select f from FixupTask f where f.maximumPrice >= ?1")
+	Collection<FixupTask> findByMoreThanMinPrice(Double minPrice);
+
+	@Query("select f from FixupTask f where f.maximumPrice <= ?1")
+	Collection<FixupTask> findByLessThanMaxPrice(Double maxPrice);
+
+	@Query("select f from FixupTask f where f.start >= ?1")
+	Collection<FixupTask> findByAfterMinDate(Date minDate);
+
+	@Query("select f from FixupTask f where f.end <= ?1")
+	Collection<FixupTask> findByBeforeMaxDate(Date maxDate);
+
 }

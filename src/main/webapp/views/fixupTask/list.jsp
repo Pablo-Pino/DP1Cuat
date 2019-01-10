@@ -24,6 +24,8 @@
 
 <%
 
+String languageValue;
+try{
 Cookie[] cookies = request.getCookies();
 Cookie languageCookie = null;
 for(Cookie c : cookies) {
@@ -32,11 +34,52 @@ for(Cookie c : cookies) {
 	}
 }
 
-String languageValue = languageCookie.getValue();
+languageValue = languageCookie.getValue();}
+catch(NullPointerException e){
+	languageValue = "en";	
+}
+
 
 %>
 
 
+
+<security:authorize access="hasRole('HANDYWORKER')">
+<fieldset><legend><spring:message code="fixuptask.search" /></legend>
+
+	<form action="fixuptask/endorsable/search.do" method="get">
+		<label for="keyword"><spring:message code="search.keyword" /></label>
+		<input type="text" id="keyword" name="keyword" />
+		<label for="categoryId"><spring:message code="search.category" /></label>
+		<select id="categoryId" name="categoryId">
+			<option value="0">-----</option>
+			<jstl:forEach items="${categories}" var="category">
+				<% if(languageValue.equals("en")) { %>
+					<option value="${category.id}"><jstl:out value="${category.nameEnglish}" /></option>
+				<% } else if(languageValue.equals("es")) { %>
+					<option value="${category.id}"><jstl:out value="${category.nameSpanish}" /></option>
+				<% } %>
+			</jstl:forEach>
+		</select>
+		<label for="warrantyId"><spring:message code="search.warranty" /></label>
+		<select id="warrantyId" name="warrantyId">
+			<option value="0">-----</option>
+			<jstl:forEach items="${warranties}" var="warranty">
+				<option value="${warranty.id}"><jstl:out value="${warranty.title}" /></option>
+			</jstl:forEach>
+		</select>
+		<label for="minPrice"><spring:message code="search.minprice" /></label>
+		<input type="number" id="minPrice" name="minPrice" min="0" />
+		<label for="maxPrice"><spring:message code="search.maxprice" /></label>
+		<input type="number" id="maxPrice" name="maxPrice" min="0" />
+		<label for="minDate"><spring:message code="search.mindate" /></label>
+		<input type="date" id="minDate" name="minDate" placeholder="YYYY-MM-DD" />
+		<label for="maxDate"><spring:message code="search.maxdate" /></label>
+		<input type="date" id="maxDate" name="maxDate" placeholder="YYYY-MM-DD" />
+	</form>
+	
+</fieldset>
+</security:authorize>
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="fixupTasks" requestURI="${requestURI}" id="row">
