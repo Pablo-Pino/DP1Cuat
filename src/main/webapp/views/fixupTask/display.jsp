@@ -63,10 +63,36 @@ catch(NullPointerException e){
 <jstl:out value="${fixupTask.customer.name}"></jstl:out>
 
 <security:authorize access="hasRole('HANDYWORKER')">
+
+<jstl:set var="contains" value="no" />
+<jstl:forEach var="fixupTaskCC" items="${nonAcceptedAndNonPass}">
+  <jstl:if test="${fixupTaskCC.ticker == fixupTask.ticker}">
+    <jstl:set var="contains" value="si" />
+  </jstl:if>
+</jstl:forEach>
+
+
+
+
+
+
+
+
+
+
+
 	<input type="button" name="edit"
 		value="<spring:message code="fixupTask.showCustomer"></spring:message>"
 		onclick="javascript:relativeRedir('endorsable/customer/display.do?customerId=${fixupTask.customer.id}')" />
 
+<jstl:out value="${contains}"></jstl:out>
+
+<jstl:set var="asi" value="si" />
+
+
+<jstl:if test="${contains eq asi} ">
+<jstl:out value="eoooooooooooooooooooooooooooooo"></jstl:out>
+</jstl:if>
 </security:authorize>
 
 <br />

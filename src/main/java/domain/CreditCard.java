@@ -59,7 +59,7 @@ public class CreditCard {
 	}
 
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "MM/yyyy")
 	public Date getExpirationDate() {
 		return this.expirationDate;
 	}

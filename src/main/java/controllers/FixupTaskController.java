@@ -172,7 +172,8 @@ public class FixupTaskController extends AbstractController {
 		FixupTask fixupTask;
 		Collection<Application> apps = new ArrayList<>();
 		Collection<Complaint> compls = new ArrayList<>();
-
+		Collection<FixupTask> nonAcceptedAndNonPass = new ArrayList<>();
+		nonAcceptedAndNonPass = this.fixupTaskService.fixupNOTPastANDnotAccepted();
 		fixupTask = this.fixupTaskService.findOne(fixupTaskId);
 		apps = fixupTask.getApplications();
 		compls = fixupTask.getComplaints();
@@ -181,6 +182,7 @@ public class FixupTaskController extends AbstractController {
 		result.addObject("fixupTask", fixupTask);
 		result.addObject("apps", apps);
 		result.addObject("compls", compls);
+		result.addObject("nonAcceptedAndNonPass", nonAcceptedAndNonPass);
 
 		return result;
 	}
