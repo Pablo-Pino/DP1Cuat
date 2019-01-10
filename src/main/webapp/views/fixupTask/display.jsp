@@ -144,13 +144,13 @@ catch(NullPointerException e){
 		<b><spring:message code="fixupTask.complaintsLegend"></spring:message></b>
 	</legend>
 	<display:table name="compls" id="compl" pagesize="5" class="displaytag">
-	
+	<security:authorize access="hasRole('CUSTOMER')">
 	<display:column>
 			<a href="complaint/display.do?complaintId=${compl.id}"> <spring:message
 					code="fixupTask.display" />
 			</a>
 		</display:column>
-
+</security:authorize>
 		<spring:message code="fixupTask.complaint.description"
 			var="description"></spring:message>
 		<display:column property="description" title="${description}"
