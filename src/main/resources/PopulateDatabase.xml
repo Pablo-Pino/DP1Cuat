@@ -273,6 +273,20 @@
 				<constructor-arg value="28/10/2017 23:59:59" />
 			</bean>
 		</property>
+		<property name="creditCard">
+			<bean name="creditCardApplication4" class="domain.CreditCard">
+				<property name="holderName" value="Paco Pepe Pérez" />
+				<property name="brandName" value="VISA" />
+				<property name="number" value="4556042640541332" />
+				<property name="expirationDate">
+					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat"
+						factory-method="parse">
+						<constructor-arg value="28/10/2020 23:59:59" />
+					</bean>
+				</property>
+				<property name="cvvCode" value="452" />
+			</bean>
+		</property>
 		<property name="status" value="ACCEPTED" />
 		<property name="workerComments" value="I work hard" />
 		<property name="handyWorker" ref="handyWorker1" />
@@ -342,6 +356,20 @@
 			<bean id="momentApplication3" factory-bean="completeDateFormat"
 				factory-method="parse">
 				<constructor-arg value="12/10/2017 00:00:00" />
+			</bean>
+		</property>
+		<property name="creditCard">
+			<bean name="creditCardApplication5" class="domain.CreditCard">
+				<property name="holderName" value="Paco Pepe Pérez" />
+				<property name="brandName" value="VISA" />
+				<property name="number" value="4556042640541332" />
+				<property name="expirationDate">
+					<bean id="expirationDateCreditCard2" factory-bean="completeDateFormat"
+						factory-method="parse">
+						<constructor-arg value="28/10/2020 23:59:59" />
+					</bean>
+				</property>
+				<property name="cvvCode" value="452" />
 			</bean>
 		</property>
 		<property name="status" value="ACCEPTED" />
