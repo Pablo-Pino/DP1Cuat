@@ -791,8 +791,8 @@
 
 	<bean id="finder2" class="domain.Finder">
 		<property name="keyword" value="salon"></property>
-		<property name="minimumDate" value="May 1, 2019 12:00"></property>
-		<property name="maximumDate" value="June 25, 2019 21:00"></property>
+		<property name="start" value="May 1, 2019 12:00"></property>
+		<property name="end" value="June 25, 2019 21:00"></property>
 		<property name="handyWorker" ref="handyWorker2"></property>
 	</bean>
 
@@ -800,8 +800,6 @@
 		<property name="keyword" value="azulejo"></property>
 		<property name="maxPrice" value="200.0"></property>
 		<property name="minPrice" value="800.0"></property>
-		<property name="minimumDate" value="February 12, 2019 12:00"></property>
-		<property name="maximumDate" value="June 25, 2019 21:00"></property>
 		<property name="handyWorker" ref="handyWorker3"></property>
 	</bean>
 
