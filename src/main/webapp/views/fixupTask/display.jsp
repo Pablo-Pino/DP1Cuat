@@ -64,35 +64,14 @@ catch(NullPointerException e){
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-<jstl:set var="contains" value="no" />
-<jstl:forEach var="fixupTaskCC" items="${nonAcceptedAndNonPass}">
-  <jstl:if test="${fixupTaskCC.ticker == fixupTask.ticker}">
-    <jstl:set var="contains" value="si" />
-  </jstl:if>
-</jstl:forEach>
-
-
-
-
-
-
-
-
-
 
 
 	<input type="button" name="edit"
 		value="<spring:message code="fixupTask.showCustomer"></spring:message>"
 		onclick="javascript:relativeRedir('endorsable/customer/display.do?customerId=${fixupTask.customer.id}')" />
 
-<jstl:out value="${contains}"></jstl:out>
-
-<jstl:set var="asi" value="si" />
 
 
-<jstl:if test="${contains eq asi} ">
-<jstl:out value="eoooooooooooooooooooooooooooooo"></jstl:out>
-</jstl:if>
 </security:authorize>
 
 <br />
@@ -101,11 +80,11 @@ catch(NullPointerException e){
 <%
 	if (languageValue.equals("en")) {
 %>
-<jstl:out value="${fixupTask.category.nameEnglish}"></jstl:out>
+	<jstl:out value="${fixupTask.category.nameEnglish}"></jstl:out>
 <%
 	} else if (languageValue.equals("es")) {
 %>
-<jstl:out value="${ffixupTask.category.nameSpanish}" />
+	<jstl:out value="${fixupTask.category.nameSpanish}" />
 <%
 	}
 %>
@@ -163,6 +142,29 @@ catch(NullPointerException e){
 		
 		
 	</display:table>
+	
+	
+	<security:authorize access="hasRole('HANDYWORKER')">
+
+
+<jstl:set var="contains" value="false" />
+<jstl:forEach var="fixupTaskCC" items="${nonAcceptedAndNonPass}">
+  <jstl:if test="${fixupTaskCC.ticker == fixupTask.ticker}">
+    <jstl:set var="contains" value="true" />
+  </jstl:if>
+</jstl:forEach>
+
+
+
+
+
+<jstl:if test="${contains}">
+	<input type="button" name="edit"
+    value="<spring:message code="fixupTask.apply"></spring:message>"
+    onclick="javascript:relativeRedir('application/handyworker/create2.do?fixupTaskId=${fixupTask.id}')" />
+</jstl:if>
+
+</security:authorize>
 </fieldset>
 
 <fieldset>
@@ -198,6 +200,9 @@ catch(NullPointerException e){
 		onclick="javascript:relativeRedir('fixupTask/customer/edit.do?fixupTaskId=${fixupTask.id}')" />
 
 </security:authorize>
+
+
+
 
 <input type="button" name="cancel"
 	value="<spring:message code="fixupTask.cancel"></spring:message>"
