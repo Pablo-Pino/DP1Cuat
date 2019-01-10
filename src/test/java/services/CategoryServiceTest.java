@@ -66,9 +66,9 @@ public class CategoryServiceTest extends AbstractTest {
 		Category cat;
 		cat = this.categoryService.findOne(this.getEntityId("categoryWindowRepair"));
 		Assert.notNull(cat);
-		cat.setName("Tuercas y tornillos");
+		cat.setNameSpanish("Tuercas y tornillos");
 		cat = this.categoryService.save(cat);
-		Assert.isTrue(cat.getName().equals("Tuercas y tornillos"));
+		Assert.isTrue(cat.getNameSpanish().equals("Tuercas y tornillos"));
 
 	}
 
@@ -77,9 +77,9 @@ public class CategoryServiceTest extends AbstractTest {
 		Category cat;
 		cat = this.categoryService.findOne(this.getEntityId("categorySprinklerRepair"));
 		Assert.notNull(cat);
-		cat.setName("Tuercas y tornillos");
+		cat.setNameSpanish("Tuercas y tornillos");
 		cat = this.categoryService.save(cat);
-		Assert.isTrue(cat.getName().equals("INCORRECTO"));
+		Assert.isTrue(cat.getNameSpanish().equals("INCORRECTO"));
 
 	}
 

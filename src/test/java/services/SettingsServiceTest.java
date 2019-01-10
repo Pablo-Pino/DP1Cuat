@@ -3,6 +3,7 @@ package services;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -68,7 +69,7 @@ public class SettingsServiceTest extends AbstractTest {
 	}
 
 	public void saveSettings(final String username, final String banner, final String countryCode, final Collection<String> creditCardMakes, final int finderCacheHours, final int maxCacheResults, final Collection<String> negativeWords,
-		final Collection<String> positiveWords, final Collection<String> spamWords, final String systemName, final int vat, final String welcomeMessage, final Integer settingsId, final Class<?> expected) {
+		final Collection<String> positiveWords, final Collection<String> spamWords, final String systemName, final int vat, final String welcomeMessageEN, final String welcomeMessageES, final Integer settingsId, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			this.authenticate(username);
@@ -79,12 +80,13 @@ public class SettingsServiceTest extends AbstractTest {
 			settings.setCreditCardMakes(creditCardMakes);
 			settings.setFinderCacheHours(finderCacheHours);
 			settings.setMaxCacheResults(maxCacheResults);
-			settings.setNegativeWords(negativeWords);
-			settings.setPositiveWords(positiveWords);
-			settings.setSpamWords(spamWords);
+			settings.setNegativeWords((List<String>) negativeWords);
+			settings.setPositiveWords((List<String>) positiveWords);
+			settings.setSpamWords((List<String>) spamWords);
 			settings.setSystemName(systemName);
 			settings.setVat(vat);
-			settings.setWelcomeMessage(welcomeMessage);
+			settings.setWelcomeMessageEnglish(welcomeMessageEN);
+			settings.setWelcomeMessageSpanish(welcomeMessageES);
 			final Settings savedSettings = this.settingsService.save(settings);
 			this.settingsService.flush();
 			Assert.isTrue(savedSettings.getBanner().equals(banner));
@@ -97,7 +99,8 @@ public class SettingsServiceTest extends AbstractTest {
 			Assert.isTrue(savedSettings.getSpamWords().equals(spamWords));
 			Assert.isTrue(savedSettings.getSystemName().equals(systemName));
 			Assert.isTrue(savedSettings.getVat() == vat);
-			Assert.isTrue(savedSettings.getWelcomeMessage().equals(welcomeMessage));
+			Assert.isTrue(savedSettings.getWelcomeMessageEnglish().equals(welcomeMessageEN));
+			Assert.isTrue(savedSettings.getWelcomeMessageSpanish().equals(welcomeMessageES));
 			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -135,19 +138,21 @@ public class SettingsServiceTest extends AbstractTest {
 	@Test
 	public void testSaveSettings() {
 		final Settings settings = this.settingsService.findOne(this.getEntityId("settings1"));
-		this.saveSettings("admin1", "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", null, IllegalArgumentException.class);
+		this.saveSettings("admin1", "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hi", "Hola", null,
+			IllegalArgumentException.class);
 	}
 
 	@Test
 	public void testUpdateSettings() {
 		final Settings settings = this.settingsService.findOne(this.getEntityId("settings1"));
-		this.saveSettings("admin1", "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", this.getEntityId("settings1"), null);
+		this.saveSettings("admin1", "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hi", "Hola", this.getEntityId("settings1"),
+			null);
 	}
 
 	@Test
 	public void testUpdateSettingsUnauthenticated() {
 		final Settings settings = this.settingsService.findOne(this.getEntityId("settings1"));
-		this.saveSettings(null, "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hola", this.getEntityId("settings1"),
+		this.saveSettings(null, "http://banner", "+34", settings.getCreditCardMakes(), 24, 10, settings.getNegativeWords(), settings.getPositiveWords(), settings.getSpamWords(), "Acme-Handy-Worker", 21, "Hi", "Hola", this.getEntityId("settings1"),
 			IllegalArgumentException.class);
 	}
 

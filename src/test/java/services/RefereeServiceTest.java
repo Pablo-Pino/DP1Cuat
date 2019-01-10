@@ -31,15 +31,16 @@ public class RefereeServiceTest extends AbstractTest {
 	// Services
 
 	@Autowired
-	private RefereeService	refereeService;
+	private RefereeService			refereeService;
 	@Autowired
-	private FolderService	folderService;
+	private FolderService			folderService;
 	@Autowired
-	private ComplaintService complaintService;
+	private ComplaintService		complaintService;
 	@Autowired
-	private MessageService messageService;
+	private MessageService			messageService;
 	@Autowired
-	private SocialProfileService socialProfileService;
+	private SocialProfileService	socialProfileService;
+
 
 	// Tests
 
@@ -80,7 +81,7 @@ public class RefereeServiceTest extends AbstractTest {
 			final Referee referee = this.refereeService.create();
 			Assert.notNull(referee);
 			Assert.notNull(referee.getUserAccount());
-			Assert.isTrue(!(referee.getBanned() || referee.getSuspicious()));
+			Assert.isTrue(!(!(referee.getUserAccount().isEnabled()) || referee.getSuspicious()));
 			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -108,7 +109,7 @@ public class RefereeServiceTest extends AbstractTest {
 				userAccount.setAuthorities(newAuthorities);
 			}
 			referee.setAddress(address);
-			referee.setBanned(banned);
+			referee.getUserAccount().setBanned(banned);
 			referee.setEmail(email);
 			referee.setMiddleName(middleName);
 			referee.setName(name);
@@ -127,7 +128,7 @@ public class RefereeServiceTest extends AbstractTest {
 			Assert.isTrue(savedReferee.getPhoto().equals(photo));
 			Assert.isTrue(savedReferee.getSurname().equals(surname));
 			if (refereeId == null) {
-				Assert.isTrue(!savedReferee.getBanned());
+				Assert.isTrue(savedReferee.getUserAccount().isEnabled());
 				Assert.isTrue(!savedReferee.getSuspicious());
 				Assert.isTrue(this.complaintService.findAllComplaintsByReferee(savedReferee).isEmpty());
 				Assert.isTrue(this.messageService.findReceivedMessages(savedReferee).isEmpty());
@@ -147,7 +148,7 @@ public class RefereeServiceTest extends AbstractTest {
 					Assert.notNull(this.folderService.findOne(f.getId()));
 				}
 			} else {
-				Assert.isTrue(savedReferee.getBanned() == oldReferee.getBanned());
+				Assert.isTrue(savedReferee.getUserAccount().isEnabled() == oldReferee.getUserAccount().isEnabled());
 				Assert.isTrue(savedReferee.getSuspicious() == oldReferee.getSuspicious());
 				Assert.isTrue(this.complaintService.findAllComplaintsByReferee(savedReferee).equals(this.complaintService.findAllComplaintsByReferee(oldReferee)));
 				Assert.isTrue(this.messageService.findReceivedMessages(savedReferee).equals(this.messageService.findReceivedMessages(oldReferee)));
@@ -161,7 +162,6 @@ public class RefereeServiceTest extends AbstractTest {
 		}
 		this.checkExceptions(expected, caught);
 	}
-	
 	@Test
 	public void testFindOneReferee() {
 		this.findOneReferee(super.getEntityId("referee1"), null);
