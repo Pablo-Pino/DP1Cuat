@@ -104,6 +104,8 @@
 		<security:intercept-url pattern="/curriculum/**" access="hasRole('HANDYWORKER')" />
 		
 		
+		<security:intercept-url pattern="/endorsable/customer/**" access="hasAnyRole('CUSTOMER','HANDYWORKER')" />
+		
 		<security:intercept-url pattern="/customer/**" access="hasRole('CUSTOMER')" />
 		
 		

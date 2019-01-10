@@ -60,7 +60,7 @@
 <security:authorize access="hasRole('HANDYWORKER')">
 	<input type="button" name="edit"
 		value="<spring:message code="fixupTask.showCustomer"></spring:message>"
-		onclick="javascript:relativeRedir('customer/display.do?customerId=${fixupTask.customer.id}')" />
+		onclick="javascript:relativeRedir('endorsable/customer/display.do?customerId=${fixupTask.customer.id}')" />
 
 </security:authorize>
 
