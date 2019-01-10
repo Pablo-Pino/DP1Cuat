@@ -3,6 +3,7 @@ package services;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,8 +153,8 @@ public class HandyWorkerService {
 
 	}
 
-	public Collection<HandyWorker> getTop3HandyWorkerWithMoreComplaints() {
-		final Collection<HandyWorker> ratio = this.handyWorkerRepository.findTop3HandyWorkerWithMoreComplaints();
+	public List<HandyWorker> getTop3HandyWorkerWithMoreComplaints() {
+		final List<HandyWorker> ratio = this.handyWorkerRepository.findTop3HandyWorkerWithMoreComplaints().subList(0, 3);
 		return ratio;
 	}
 
