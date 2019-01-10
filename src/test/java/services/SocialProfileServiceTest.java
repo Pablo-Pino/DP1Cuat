@@ -54,7 +54,7 @@ public class SocialProfileServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void findAllSocialProfileByActor(Actor actor, final Class<?> expected) {
+	public void findAllSocialProfileByActor(final Actor actor, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			this.socialProfileService.findAllByActor(actor);
@@ -63,7 +63,7 @@ public class SocialProfileServiceTest extends AbstractTest {
 		}
 		super.checkExceptions(expected, caught);
 	}
-	
+
 	public void findAllSocialProfile(final Class<?> expected) {
 		Class<?> caught = null;
 		try {
@@ -175,7 +175,7 @@ public class SocialProfileServiceTest extends AbstractTest {
 
 	@Test
 	public void testSaveSocialProfile() {
-		this.saveSocialProfile("handywoker1", "feisbuk", "handywok", "http://feisbuk/prof", this.getEntityId("handyWorker1"), null, null);
+		this.saveSocialProfile("handyWorker1", "feisbuk", "handywok", "http://feisbuk/prof", this.getEntityId("handyWorker1"), null, null);
 	}
 
 	@Test
@@ -185,7 +185,7 @@ public class SocialProfileServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdateSocialProfile() {
-		this.saveSocialProfile("handywoker1", "feisbuk", "handywok", "http://feisbuk/prof", this.getEntityId("handyWorker1"), this.getEntityId("socialProfile1"), null);
+		this.saveSocialProfile("handyWorker1", "feisbuk", "handywok", "http://feisbuk/prof", this.getEntityId("handyWorker1"), this.getEntityId("socialProfile1"), null);
 	}
 
 	@Test
@@ -195,12 +195,12 @@ public class SocialProfileServiceTest extends AbstractTest {
 
 	@Test
 	public void testDeleteSocialProfile() {
-		this.deleteSocialProfile("handywoker1", super.getEntityId("socialProfile1"), null);
+		this.deleteSocialProfile("handyWorker1", super.getEntityId("socialProfile1"), null);
 	}
 
 	@Test
 	public void testDeleteSocialProfileUnauthenticated() {
 		this.deleteSocialProfile(null, super.getEntityId("socialProfile1"), IllegalArgumentException.class);
 	}
-	
+
 }

@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -13,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-
 import domain.FixupTask;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,7 +21,8 @@ import domain.FixupTask;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class FixupTaskServiceTest extends AbstractTest{ 
+public class FixupTaskServiceTest extends AbstractTest {
+
 	//Service under test ----------------------------------------
 
 	@Autowired
@@ -32,6 +33,7 @@ public class FixupTaskServiceTest extends AbstractTest{
 
 	@Test
 	public void testCreate() {
+		this.authenticate("customer1");
 		final FixupTask ft = this.fixupTaskService.create();
 		Assert.notNull(ft);
 	}
@@ -85,7 +87,7 @@ public class FixupTaskServiceTest extends AbstractTest{
 		saved = this.fixupTaskService.save(ft);
 		Assert.isNull(saved);
 	}
-	
+
 	@Test
 	public void deleteTestCorrecto() {
 		FixupTask ft;
@@ -107,9 +109,9 @@ public class FixupTaskServiceTest extends AbstractTest{
 		this.fixupTaskService.delete(ft);
 		Assert.isNull(ft = this.fixupTaskService.findOne(ftId));
 	}
-	
+
 	//Other methods
-	
+
 	@Test
 	public void testAppStats() {
 		this.authenticate("admin1");
@@ -117,7 +119,7 @@ public class FixupTaskServiceTest extends AbstractTest{
 		System.out.println("Las caracteristicas de las fiuptask son:" + result);
 
 	}
-	
+
 	@Test
 	public void testRatioFixupTasksWithComplaints() {
 		this.authenticate("admin1");
@@ -125,7 +127,7 @@ public class FixupTaskServiceTest extends AbstractTest{
 		System.out.println("El ratio de las fiuptask con mas complaints:" + result);
 
 	}
-	
+
 	@Test
 	public void testmaxFixupStaskStats() {
 		this.authenticate("admin1");
@@ -133,7 +135,7 @@ public class FixupTaskServiceTest extends AbstractTest{
 		System.out.println("Caracteristicas fixup max:" + result);
 
 	}
-	
+
 	@Test
 	public void testfixupComplaintsStats() {
 		this.authenticate("admin1");

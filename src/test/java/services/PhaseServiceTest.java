@@ -189,7 +189,7 @@ public class PhaseServiceTest extends AbstractTest {
 	public void testSavePhase() {
 		final Integer workPlanId = super.getEntityId("workPlan1");
 		final FixupTask fixupTask = this.fixupTaskService.findOne(super.getEntityId("fixupTask1"));
-		this.savePhase("handywoker1", "A phase", "A nice phase", new Date(fixupTask.getStart().getTime() + 1000), new Date(fixupTask.getEnd().getTime() - 1000), null, workPlanId, null);
+		this.savePhase("handyWorker1", "A phase", "A nice phase", new Date(fixupTask.getStart().getTime() + 1000), new Date(fixupTask.getEnd().getTime() - 1000), null, workPlanId, null);
 	}
 
 	@Test
@@ -203,7 +203,7 @@ public class PhaseServiceTest extends AbstractTest {
 	public void testUpdatePhase() {
 		final Integer workPlanId = super.getEntityId("workPlan1");
 		final FixupTask fixupTask = this.fixupTaskService.findOne(super.getEntityId("fixupTask1"));
-		this.savePhase("handywoker1", "A phase", "A nice phase", new Date(fixupTask.getStart().getTime() + 1000), new Date(fixupTask.getEnd().getTime() - 1000), super.getEntityId("phase1"), workPlanId, null);
+		this.savePhase("handyWorker1", "A phase", "A nice phase", new Date(fixupTask.getStart().getTime() + 1000), new Date(fixupTask.getEnd().getTime() - 1000), super.getEntityId("phase1"), workPlanId, null);
 	}
 
 	@Test
@@ -215,7 +215,7 @@ public class PhaseServiceTest extends AbstractTest {
 
 	@Test
 	public void testDeletePhase() {
-		this.deletePhase("handywoker1", super.getEntityId("phase1"), null);
+		this.deletePhase("handyWorker1", super.getEntityId("phase1"), null);
 	}
 
 	@Test
