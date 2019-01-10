@@ -29,16 +29,18 @@ public class ApplicationServiceTest extends AbstractTest {
 
 	@Autowired
 	private ApplicationService	applicationService;
-	
+
 	//------------------------------------------------------------
 
-	@Autowired 
-	private FolderService folderService;
 	@Autowired
-	private MessageService messageService;
-	
+	private FolderService		folderService;
+	@Autowired
+	private MessageService		messageService;
+
+
 	@Test
 	public void testCreate() {
+		this.authenticate("handyWorker1");
 		final Application a = this.applicationService.create();
 		Assert.notNull(a);
 	}
@@ -72,7 +74,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	@Test
 	public void testSaveApplicationCorrecto() {
 		Application app;
-		app = this.applicationService.findOne(this.getEntityId("application1"));
+		app = this.applicationService.findOne(this.getEntityId("application2"));
 		this.authenticate(app.getHandyWorker().getUserAccount().getUsername());
 		Assert.notNull(app);
 		app.setPrice(14.55);
@@ -144,7 +146,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	public void testChangeStatusBien() {
 		Application app;
 		final String status = "ACCEPTED";
-		app = this.applicationService.findOne(this.getEntityId("application7"));
+		app = this.applicationService.findOne(this.getEntityId("application2"));
 		this.authenticate(app.getHandyWorker().getUserAccount().getUsername());
 		this.applicationService.changeStatus(app, status);
 		app = this.applicationService.save(app);

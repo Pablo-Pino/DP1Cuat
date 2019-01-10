@@ -103,17 +103,18 @@ public class MessageServiceTest extends AbstractTest {
 		Message m;
 		Actor a;
 
-		this.authenticate("handyWorker1");
-		a = this.actorService.findPrincipal();
 		final int mId = this.getEntityId("message1");
 		m = this.messageService.findOne(mId);
+		a = m.getFolder().getActor();
+		this.authenticate(a.getUserAccount().getUsername());
+		a = this.actorService.findPrincipal();
 		Assert.notNull(m);
 
 		this.messageService.delete(m);
 		System.out.println(m);
 		//Assert.isNull(this.messageService.findOne(mId));
 		//Comprobar si esta en la papelera
-		Assert.isTrue(!(this.messageService.findByFolder(this.folderService.findFolderByActorAndName(a, "trashbox")).contains(m)));
+		Assert.isTrue((this.messageService.findByFolder(this.folderService.findFolderByActorAndName(a, "trashbox")).contains(m)));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

@@ -4,6 +4,7 @@ package services;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -79,7 +80,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		Assert.isTrue(saved.getName().equals("Antonio"));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = ConstraintViolationException.class)
 	public void saveTestIncorrecto() {
 		HandyWorker hw;
 		HandyWorker saved;
