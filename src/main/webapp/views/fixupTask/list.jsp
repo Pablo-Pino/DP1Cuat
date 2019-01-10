@@ -39,7 +39,6 @@ catch(NullPointerException e){
 	languageValue = "en";	
 }
 
-
 %>
 
 
@@ -47,9 +46,9 @@ catch(NullPointerException e){
 <security:authorize access="hasRole('HANDYWORKER')">
 <fieldset><legend><spring:message code="fixuptask.search" /></legend>
 
-	<form action="fixuptask/endorsable/search.do" method="get">
+	<form action="fixupTask/handyworker/search.do" method="get">
 		<label for="keyword"><spring:message code="search.keyword" /></label>
-		<input type="text" id="keyword" name="keyword" />
+		<input type="text" id="keyword" name="keyword" /><br>
 		<label for="categoryId"><spring:message code="search.category" /></label>
 		<select id="categoryId" name="categoryId">
 			<option value="0">-----</option>
@@ -60,23 +59,28 @@ catch(NullPointerException e){
 					<option value="${category.id}"><jstl:out value="${category.nameSpanish}" /></option>
 				<% } %>
 			</jstl:forEach>
-		</select>
+		</select><br>
 		<label for="warrantyId"><spring:message code="search.warranty" /></label>
 		<select id="warrantyId" name="warrantyId">
 			<option value="0">-----</option>
 			<jstl:forEach items="${warranties}" var="warranty">
 				<option value="${warranty.id}"><jstl:out value="${warranty.title}" /></option>
 			</jstl:forEach>
-		</select>
+		</select><br>
 		<label for="minPrice"><spring:message code="search.minprice" /></label>
-		<input type="number" id="minPrice" name="minPrice" min="0" />
+		<input type="number" id="minPrice" name="minPrice" min="0" /><br>
 		<label for="maxPrice"><spring:message code="search.maxprice" /></label>
-		<input type="number" id="maxPrice" name="maxPrice" min="0" />
+		<input type="number" id="maxPrice" name="maxPrice" min="0" /><br>
 		<label for="minDate"><spring:message code="search.mindate" /></label>
-		<input type="date" id="minDate" name="minDate" placeholder="YYYY-MM-DD" />
+		<input type="date" id="minDate" name="minDate" placeholder="YYYY-MM-DD" /><br>
 		<label for="maxDate"><spring:message code="search.maxdate" /></label>
-		<input type="date" id="maxDate" name="maxDate" placeholder="YYYY-MM-DD" />
+		<input type="date" id="maxDate" name="maxDate" placeholder="YYYY-MM-DD" /><br>
+		
+		<input type="submit" value="<spring:message code="search.search" />" />
+		
 	</form>
+	
+	
 	
 </fieldset>
 </security:authorize>

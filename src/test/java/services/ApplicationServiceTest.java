@@ -15,8 +15,6 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Application;
-import domain.Folder;
-import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -80,14 +78,16 @@ public class ApplicationServiceTest extends AbstractTest {
 		app.setPrice(14.55);
 		app.setWorkerComments("WABBADALABALUPLUP");
 		app = this.applicationService.save(app);
-		this.applicationService.flush();
+		//this.applicationService.flush();
 		// Quitar esto de mostrar en consola antes de entregar
-		for (final Folder f : this.folderService.findAllByActor(app.getHandyWorker()))
-			for (final Message m : this.messageService.findByFolder(f))
-				System.out.println(m.getBody());
-		for (final Folder f : this.folderService.findAllByActor(app.getFixupTask().getCustomer()))
-			for (final Message m : this.messageService.findByFolder(f))
-				System.out.println(m.getBody());
+		/*
+		 * for (final Folder f : this.folderService.findAllByActor(app.getHandyWorker()))
+		 * for (final Message m : this.messageService.findByFolder(f))
+		 * System.out.println(m.getBody());
+		 * for (final Folder f : this.folderService.findAllByActor(app.getFixupTask().getCustomer()))
+		 * for (final Message m : this.messageService.findByFolder(f))
+		 * System.out.println(m.getBody());
+		 */
 		Assert.isTrue(app.getPrice() == (14.55));
 		Assert.isTrue(app.getWorkerComments().equals("WABBADALABALUPLUP"));
 		this.unauthenticate();
