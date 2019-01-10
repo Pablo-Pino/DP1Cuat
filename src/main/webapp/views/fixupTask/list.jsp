@@ -33,10 +33,12 @@ for(Cookie c : cookies) {
 		languageCookie = c;
 	}
 }
-languageValue = languageCookie.getValue();
-} catch(NullPointerException e) {
-	languageValue = "en";
+
+languageValue = languageCookie.getValue();}
+catch(NullPointerException e){
+	languageValue = "en";	
 }
+
 %>
 
 

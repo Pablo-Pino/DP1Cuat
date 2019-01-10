@@ -191,7 +191,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 	@Test
 	public void testSaveProfessionalRecord() {
 		final Integer curriculumId = super.getEntityId("curriculum1");
-		this.saveProfessionalRecord("handywoker1", "http://coso", "muy bueno", "la del anillo", "hobbit", new Date(System.currentTimeMillis() - 1000), new Date(System.currentTimeMillis() + 1000), null, curriculumId, null);
+		this.saveProfessionalRecord("handyWorker1", "http://coso", "muy bueno", "la del anillo", "hobbit", new Date(System.currentTimeMillis() - 1000), new Date(System.currentTimeMillis() + 1000), null, curriculumId, null);
 	}
 
 	@Test
@@ -203,7 +203,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 	@Test
 	public void testUpdateProfessionalRecord() {
 		final Integer curriculumId = super.getEntityId("curriculum1");
-		this.saveProfessionalRecord("handywoker1", "http://coso", "muy bueno", "la del anillo", "hobbit", new Date(System.currentTimeMillis() - 1000), new Date(System.currentTimeMillis() + 1000), super.getEntityId("professionalRecord1"), curriculumId,
+		this.saveProfessionalRecord("handyWorker1", "http://coso", "muy bueno", "la del anillo", "hobbit", new Date(System.currentTimeMillis() - 1000), new Date(System.currentTimeMillis() + 1000), super.getEntityId("professionalRecord1"), curriculumId,
 			null);
 	}
 
@@ -216,7 +216,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testDeleteProfessionalRecord() {
-		this.deleteProfessionalRecord("handywoker1", super.getEntityId("professionalRecord1"), null);
+		this.deleteProfessionalRecord("handyWorker1", super.getEntityId("professionalRecord1"), null);
 	}
 
 	@Test

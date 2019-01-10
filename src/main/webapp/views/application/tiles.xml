@@ -31,10 +31,6 @@
 		<put-attribute name="body" value="/views/application/edit.jsp" />
 	</definition>
 	
-	<definition name="application/create" extends="master.page">	
-		<put-attribute name="title" value="Create application " />
-		<put-attribute name="body" value="/views/application/create.jsp" />
-	</definition>
 	
 	<definition name="application/list" extends="master.page">	
 		<put-attribute name="title" value="list applications " />
@@ -45,6 +41,12 @@
 		<put-attribute name="title" value="Application:Creation" />
 		<put-attribute name="body" value="/views/application/edit.jsp" />
 	</definition>
+	
+	<definition name="application/create2" extends="master.page">	
+		<put-attribute name="title" value="Application:Creation" />
+		<put-attribute name="body" value="/views/application/edit.jsp" />
+	</definition>
+	
 	
 	
 	

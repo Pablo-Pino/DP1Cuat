@@ -4,6 +4,7 @@ package services;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -69,6 +70,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void saveTestCorrecto() {
 		HandyWorker hw, saved;
+		this.authenticate("handyWorker1");
 		final int mrId = this.getEntityId("handyWorker1");
 		hw = this.handyworkerService.findOne(mrId);
 		Assert.notNull(hw);
@@ -78,7 +80,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		Assert.isTrue(saved.getName().equals("Antonio"));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = ConstraintViolationException.class)
 	public void saveTestIncorrecto() {
 		HandyWorker hw;
 		HandyWorker saved;

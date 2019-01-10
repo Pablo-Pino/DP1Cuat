@@ -25,33 +25,56 @@
 	<div>
 		<form:form action="application/endorsable/edit.do" method="post" modelAttribute="application">
 
-	<!-- No me acuerdo exactamente para que hacia falta  -->
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="handyWorker" />
 			<form:hidden path="moment" />
 		
 
-		<%--  --%><security:authorize access="hasRole('HANDYWORKER')">
+		<security:authorize access="hasRole('HANDYWORKER')">
+		
+		
 		
 			<form:hidden path="status" />
 			<form:hidden path="creditCard" />
 			<form:hidden path="customerComments" />
 			
-			<form:label path="price"> <spring:message code="application.price" /></form:label>
+			<form:label path="price"> <b><spring:message code="application.price" />:</b></form:label>
 			<form:input path="price" /><form:errors cssClass="error" path="price" /><br />
 			
-			<form:label path="workerComments"> <spring:message code="application.workerComments" /></form:label>
+			<form:label path="workerComments"> <b><spring:message code="application.workerComments" />:</b></form:label>
 			<form:input path="workerComments" /><form:errors cssClass="error" path="workerComments" /><br />
 			
-			<form:label path="fixupTask"> <spring:message code="application.fixupTask"></spring:message></form:label>
+			
+				
+			<form:label path="fixupTask">
+				<b><spring:message code="application.fixupTask"></spring:message>:</b>
+			</form:label>
+
+			
 			<form:select id="fixupTask" path="fixupTask">
 			<form:option value="${application.fixupTask}" label="------"></form:option>
-			<form:options items="${fixupTasks}" itemLabel="ticker" itemValue="id" />
+			<form:options items="${allFixupTasks}" itemLabel="ticker"
+					itemValue="id" />
 			</form:select>
 			<form:errors cssClass="error" path="fixupTask" />
+			<jstl:if test="${fromFixup eq true }">
+			<spring:message code="appication.fromFixupTask" />: 
+			<b><jstl:out value="${fixupTask.ticker}"></jstl:out></b>
+			
+			 </jstl:if>
 			<br />
-		<%--  --%></security:authorize>
+			
+			
+			
+			<%-- form:label path="fixupTask"> <spring:message code="application.fixupTask"></spring:message></form:label>
+			<form:select id="fixupTask" path="fixupTask">
+			<form:option value="${application.fixupTask}" label="-----"></form:option>
+			<form:options items="${allFixupTasks}" itemLabel="ticker" itemValue="id" />
+			</form:select>
+			<form:errors cssClass="error" path="fixupTask" />
+			<br /> --%>
+		</security:authorize>
 			
 			
 		<%-- Status--%>

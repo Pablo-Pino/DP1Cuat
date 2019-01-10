@@ -53,7 +53,7 @@ public class Endorsement extends DomainEntity {
 
 	@Past
 	@NotNull
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getMoment() {
 		return this.moment;
 	}

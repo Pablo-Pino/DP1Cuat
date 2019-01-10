@@ -1,6 +1,8 @@
+
 package services;
 
 import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -15,33 +17,31 @@ import domain.Actor;
 import domain.Folder;
 import domain.Message;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
+public class MessageServiceTest extends AbstractTest {
 
-public class MessageServiceTest extends AbstractTest{
-	
 	//Service under test ----------------------------------------
 
 	@Autowired
 	private MessageService	messageService;
-	
+
 	//Supporting Service
-	
+
 	@Autowired
 	private FolderService	folderService;
 	@Autowired
-	private ActorService actorService;
+	private ActorService	actorService;
 
 
 	//------------------------------------------------------------
 
 	@Test
 	public void testCreate() {
-		final Folder f =this.folderService.findOne(this.getEntityId("folder1Customer1"));
+		final Folder f = this.folderService.findOne(this.getEntityId("folder1Customer1"));
 		this.authenticate("customer1");
 		final Message m = this.messageService.create(f);
 		Assert.notNull(m);
@@ -97,23 +97,24 @@ public class MessageServiceTest extends AbstractTest{
 		saved = this.messageService.save(m);
 		Assert.isNull(saved);
 	}
-	
+
 	@Test
 	public void deleteTestCorrecto() {
 		Message m;
 		Actor a;
 
-		this.authenticate("handywoker1");
-		a = actorService.findPrincipal();
 		final int mId = this.getEntityId("message1");
 		m = this.messageService.findOne(mId);
+		a = m.getFolder().getActor();
+		this.authenticate(a.getUserAccount().getUsername());
+		a = this.actorService.findPrincipal();
 		Assert.notNull(m);
 
 		this.messageService.delete(m);
 		System.out.println(m);
 		//Assert.isNull(this.messageService.findOne(mId));
 		//Comprobar si esta en la papelera
-		Assert.isTrue(!(this.messageService.findByFolder(this.folderService.findFolderByActorAndName(a, "trashbox")).contains(m)));
+		Assert.isTrue((this.messageService.findByFolder(this.folderService.findFolderByActorAndName(a, "trashbox")).contains(m)));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
