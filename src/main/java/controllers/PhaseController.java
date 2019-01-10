@@ -23,6 +23,7 @@ import domain.WorkPlan;
 @RequestMapping("phase/handyWorker")
 public class PhaseController extends AbstractController {
 
+	WorkPlan				w;
 	//----------------Services------------------------
 	@Autowired
 	private PhaseService	phaseService;
@@ -36,9 +37,9 @@ public class PhaseController extends AbstractController {
 	public ModelAndView list(@RequestParam final int workplanId) {
 		ModelAndView result;
 		Collection<Phase> phases;
-		WorkPlan w;
-		w = this.workPlanService.findOne(workplanId);
-		phases = w.getPhases();
+
+		this.w = this.workPlanService.findOne(workplanId);
+		phases = this.w.getPhases();
 
 		result = new ModelAndView("phase/list");
 		result.addObject("requestURI", "phase/handyWorker/list.do");
@@ -53,6 +54,7 @@ public class PhaseController extends AbstractController {
 		Phase pr;
 
 		pr = this.phaseService.create2();
+		pr.setWorkPlan(this.w);
 		result = this.createEditModelAndView(pr);
 
 		return result;
@@ -112,13 +114,13 @@ public class PhaseController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Phase phase, final String messageCode) {
 		final ModelAndView result;
 
-		Collection<WorkPlan> workPlans;
+		final Collection<WorkPlan> workPlans;
 
-		workPlans = this.workPlanService.findAll();
+		//workPlans = this.workPlanService.findAll();
 
 		result = new ModelAndView("phase/edit");
 		result.addObject("phase", phase);
-		result.addObject("workPlans", workPlans);
+		//result.addObject("workPlans", workPlans);
 		result.addObject("message", messageCode);
 
 		return result;

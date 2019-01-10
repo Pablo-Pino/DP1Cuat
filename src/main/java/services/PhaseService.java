@@ -75,7 +75,10 @@ public class PhaseService {
 			old.setStart(phase.getStart());
 			old.setTitle(phase.getTitle());
 		}
-		//		Assert.isTrue(phase.getEnd().before(phase.getWorkPlan().getFixupTask().getEnd()));
+		Assert.isTrue(object.getEnd().before(phase.getWorkPlan().getFixupTask().getEnd()));
+		Assert.isTrue(object.getEnd().after(phase.getWorkPlan().getFixupTask().getStart()));
+		Assert.isTrue(object.getStart().before(phase.getWorkPlan().getFixupTask().getEnd()));
+		Assert.isTrue(object.getStart().after(phase.getWorkPlan().getFixupTask().getStart()));
 		final Phase res = this.repository.save(object);
 		return res;
 	}
