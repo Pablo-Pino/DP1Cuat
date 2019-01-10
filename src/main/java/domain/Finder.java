@@ -25,14 +25,12 @@ public class Finder extends DomainEntity {
 	private Double		maxPrice;
 	private Date		start;
 	private Date		end;
-	private Date		minimumDate;
-	private Date		maximumDate;
 
 	//--------------Relaciones--------
 
 	private Warranty	warranty;
 	private Category	category;
-	private HandyWorker handyWorker;
+	private HandyWorker	handyWorker;
 
 
 	//--------------Getters y Setters------
@@ -41,24 +39,6 @@ public class Finder extends DomainEntity {
 	@ManyToOne(optional = true)
 	public Category getCategory() {
 		return this.category;
-	}
-
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	public Date getMinimumDate() {
-		return this.minimumDate;
-	}
-
-	public void setMinimumDate(final Date minimumDate) {
-		this.minimumDate = minimumDate;
-	}
-
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	public Date getMaximumDate() {
-		return this.maximumDate;
-	}
-
-	public void setMaximumDate(final Date maximumDate) {
-		this.maximumDate = maximumDate;
 	}
 
 	public void setCategory(final Category category) {
@@ -101,7 +81,7 @@ public class Finder extends DomainEntity {
 		this.maxPrice = maxPrice;
 	}
 
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getStart() {
 		return this.start;
 	}
@@ -110,7 +90,7 @@ public class Finder extends DomainEntity {
 		this.start = start;
 	}
 
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getEnd() {
 		return this.end;
 	}
@@ -123,11 +103,11 @@ public class Finder extends DomainEntity {
 	@Valid
 	@OneToOne(optional = false)
 	public HandyWorker getHandyWorker() {
-		return handyWorker;
+		return this.handyWorker;
 	}
 
-	public void setHandyWorker(HandyWorker handyWorker) {
+	public void setHandyWorker(final HandyWorker handyWorker) {
 		this.handyWorker = handyWorker;
 	}
-	
+
 }
