@@ -21,7 +21,7 @@
 
 
 <%-- Si esto da error creo que tambien se puede poner así: access="hasRole('ADMIN') OR hasRole('CUSTOMER')" --%>
-<security:authorize access="hasAnyRole('ADMIN', 'CUSTOMER')">
+<security:authorize access="hasAnyRole('ADMIN', 'CUSTOMER','HANDYWORKER')">
 
 	<b><spring:message code="customer.name"></spring:message>:</b>
 	<jstl:out value="${customer.name}"></jstl:out>
@@ -58,6 +58,7 @@
 	</security:authorize>
 
 	
+<security:authorize access="hasRole('CUSTOMER')">
 
 	<spring:message code="customer.edit" var="edit"></spring:message>
 	<input type="button" name="edit" value="${edit}"
@@ -66,7 +67,47 @@
 	<%-- <spring:message code="customer.return" var="return"></spring:message>
 	<input type="button" name="return" value="${return}"
 		onclick="javascript:relativeRedir('customer/administrator/list.do')" /> --%>
+</security:authorize>
 
+
+<security:authorize access="hasRole('HANDYWORKER')">
+<fieldset>
+	<legend>
+		<b><spring:message code="customer.fixupTask.list"></spring:message></b>
+	</legend>
+	
+	
+	<display:table name="fixupTasks" id="fixupTask" pagesize="5" class="displaytag">
+	
+		
+		<display:column>
+			<a href="fixupTask/endorsable/display.do?fixupTaskId=${fixupTask.id}"> <spring:message
+					code="customer.display" />
+			</a>
+		</display:column>
+
+		<spring:message code="fixupTask.ticker" var="ticker"></spring:message>
+		<display:column property="ticker" title="${ticker}" sortable="true" />
+
+		<spring:message code="fixupTask.description"
+			var="description"></spring:message>
+		<display:column property="description" title="${description}"
+			sortable="true" />
+
+		
+		
+		
+	</display:table>
+	
+	
+	<spring:message code="customer.fixupTask.show" var="show"></spring:message>
+	<input type="button" name="show" value="${show}"
+		onclick="javascript:relativeRedir('fixupTask/endorsable/list.do')" />
+	
+</fieldset>
+
+	
+</security:authorize>
 
 </security:authorize>
 

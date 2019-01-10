@@ -21,6 +21,12 @@
 
 <spring:message code="confirm.phone" var="confirmPhoneMessage" />
 
+<security:authentication property="principal.username" var="username" />
+	<jstl:if
+		test='${customer.userAccount.username == username || customer.id == 0}'>
+
+
+
 <div>
 	<form:form action="customer/edit.do" method="post" id="formCreate"
 		name="formCreate" modelAttribute="customer" >
@@ -121,9 +127,22 @@
 			onclick="javascript:relativeRedir('customer/display.do')" />
 
 	</form:form>
+	
+
 
 	
 
 
 </div>
+
+	</jstl:if>
+	
+	<jstl:if
+		test='${customer.userAccount.username != username && customer.id != 0}'>
+		
+		<h1>
+			<b><spring:message code="customer.permissions"></spring:message></b>
+		</h1>
+		
+		</jstl:if>
 

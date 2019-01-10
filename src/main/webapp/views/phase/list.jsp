@@ -14,41 +14,34 @@
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="phases" id="phaseId" requestURI="phase/handyworker/list.do" pagesize="5" class="displaytag">
+<display:table name="phases" id="phase" requestURI="phase/handyWorker/list.do" pagesize="5" class="displaytag">
 
 	<%--  Primero compruebo que es un admin --%>
-	<security:authorize access="hasRole('HANDYWORKER)">
+	<security:authorize access="hasRole('HANDYWORKER')">
 
 
 		<display:column>
-			<a href="phase/edit.do?phaseId=${PhaseId.id}"><spring:message
+			<a href="phase/handyWorker/edit.do?phase=${phase.id}"><spring:message
 						code="phase.edit"></spring:message></a>
 		</display:column>
 
 
-		<spring:message code="phaseId.title" var="phaseTitle"></spring:message>
+		<spring:message code="phase.title" var="phaseTitle"></spring:message>
 		<display:column property="title" title="${phaseTitle}" sortable="true" />
 		
-		<spring:message code="phaseId.description" var="phaseDescription"></spring:message>
+		<spring:message code="phase.description" var="phaseDescription"></spring:message>
 		<display:column property="description" title="${phaseDescription}" sortable="true" />
 
-		<spring:message code="phaseId.startDate" var="phaseStarDate"></spring:message>
-		<display:column property="startDate" title="${phaseStartDate}" sortable="true" />
+		<spring:message code="phase.start" var="phaseStart"></spring:message>
+		<display:column property="start" title="${phaseStart}" sortable="true" />
 		
-		<spring:message code="phaseId.endDate" var="phaseEndDate"></spring:message>
-		<display:column property="endDate" title="${phaseEndDate}" sortable="true" />
+		<spring:message code="phase.end" var="phaseEnd"></spring:message>
+		<display:column property="end" title="${phaseEnd}" sortable="true" />
 		
-		
-		<display:column>
-		<a href="workplan/display.do?workplanId=${phase.workplan.id}"><spring:message
-		   code="phase.workPlan"></spring:message></a>
-		</display:column>
-
 
 
 
@@ -58,7 +51,7 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-<a href="phase/create.do"><spring:message code="phase.create"></spring:message></a>
+<a href="phase/handyWorker/create.do"><spring:message code="phase.create"></spring:message></a>
 
 </security:authorize>
 

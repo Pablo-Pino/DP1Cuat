@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -16,9 +17,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Complaint;
 import domain.Note;
 import domain.Report;
-import domain.Complaint;
 import domain.Url;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,9 +34,10 @@ public class ReportServiceTest extends AbstractTest {
 	@Autowired
 	private ReportService		reportService;
 	@Autowired
-	private ComplaintService		complaintService;
+	private ComplaintService	complaintService;
 	@Autowired
-	private NoteService noteService;
+	private NoteService			noteService;
+
 
 	// Tests
 
@@ -113,7 +115,7 @@ public class ReportServiceTest extends AbstractTest {
 				oldNotes = this.noteService.findByReport(report);
 			}
 			report.setDescription(description);
-			report.setAttachments(attachments);
+			report.setAttachments((List<Url>) attachments);
 			report.setComplaint(oldComplaint);
 			report.setDescription(description);
 			report.setDraft(draft);
@@ -123,7 +125,7 @@ public class ReportServiceTest extends AbstractTest {
 			this.reportService.flush();
 			Assert.isTrue(savedReport.getDescription().equals(description));
 			Assert.isTrue(savedReport.getAttachments().size() == attachments.size());
-			for(Url a : savedReport.getAttachments())
+			for (final Url a : savedReport.getAttachments())
 				Assert.isTrue(attachments.contains(a));
 			Assert.isTrue(savedReport.getDraft() == draft);
 			Assert.isTrue(savedReport.getComplaint().equals(complaint));
@@ -155,10 +157,10 @@ public class ReportServiceTest extends AbstractTest {
 			caught = oops.getClass();
 			this.checkExceptions(expected, caught);
 		}
-		
+
 	}
 
-	public void refeeReportStats(String username, Class<?> expected) {
+	public void refeeReportStats(final String username, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			this.authenticate(username);
@@ -169,7 +171,7 @@ public class ReportServiceTest extends AbstractTest {
 		}
 		this.checkExceptions(expected, caught);
 	}
-	
+
 	@Test
 	public void testFindOneReport() {
 		this.findOneReport(super.getEntityId("report1"), null);
@@ -212,32 +214,32 @@ public class ReportServiceTest extends AbstractTest {
 
 	@Test
 	public void testSaveReport() {
-		Url attachment = new Url();
+		final Url attachment = new Url();
 		attachment.setUrl("http://attach");
-		Collection<Url> attachments = Arrays.asList(attachment);
- 		this.saveReport("referee1", attachments, "desc", true, new Date(System.currentTimeMillis()), null, null, this.getEntityId("complaint3"), null);
+		final Collection<Url> attachments = Arrays.asList(attachment);
+		this.saveReport("referee1", attachments, "desc", true, new Date(System.currentTimeMillis()), null, null, this.getEntityId("complaint3"), null);
 	}
 
 	@Test
 	public void testSaveReportUnauthenticated() {
-		Report report = this.reportService.findOne(this.getEntityId("report1"));
+		final Report report = this.reportService.findOne(this.getEntityId("report1"));
 		this.saveReport(null, report.getAttachments(), "desc", true, new Date(System.currentTimeMillis()), null, null, this.getEntityId("complaint2"), IllegalArgumentException.class);
 	}
 
 	@Test
 	public void testUpdateReport() {
-		Report report = this.reportService.findOne(this.getEntityId("report1"));
-		Url attachment = new Url();
+		final Report report = this.reportService.findOne(this.getEntityId("report1"));
+		final Url attachment = new Url();
 		attachment.setUrl("http://attach");
-		Collection<Url> attachments = new ArrayList<Url>();
+		final Collection<Url> attachments = new ArrayList<Url>();
 		attachments.add(attachment);
-		Collection<Note> notes = this.noteService.findByReport(report);
+		final Collection<Note> notes = this.noteService.findByReport(report);
 		this.saveReport("referee1", attachments, "desc", true, report.getMoment(), notes, this.getEntityId("report1"), this.getEntityId("complaint1"), null);
 	}
 
 	@Test
 	public void testUpdateReportUnauthenticated() {
-		Report report = this.reportService.findOne(this.getEntityId("report1"));
+		final Report report = this.reportService.findOne(this.getEntityId("report1"));
 		this.saveReport(null, report.getAttachments(), "desc", true, new Date(System.currentTimeMillis()), null, this.getEntityId("report1"), this.getEntityId("complaint2"), IllegalArgumentException.class);
 	}
 
@@ -250,17 +252,15 @@ public class ReportServiceTest extends AbstractTest {
 	public void testDeleteReportUnauthenticated() {
 		this.deleteReport(null, super.getEntityId("report1"), IllegalArgumentException.class);
 	}
-	
+
 	@Test
 	public void testRefeeReportStats() {
 		this.refeeReportStats("admin1", null);
 	}
-	
+
 	@Test
 	public void testRefeeReportStatsUnauthenticated() {
 		this.refeeReportStats(null, IllegalArgumentException.class);
 	}
-	
-	
 
 }

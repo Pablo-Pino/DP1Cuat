@@ -43,7 +43,7 @@
 	
 	<spring:message code="workplan.phases" var="workpha" />
 	<display:column title="${workpha}">
-			<a href="phase/list.do?workplanId=${row.id}">
+			<a href="phase/handyWorker/list.do?workplanId=${row.id}">
 				<spring:message	code="workplan.list" />
 			</a>
 	</display:column>	

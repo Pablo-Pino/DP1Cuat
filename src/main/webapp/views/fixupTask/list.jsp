@@ -36,9 +36,7 @@ String languageValue = languageCookie.getValue();
 
 %>
 
-<p>
-	<spring:message code="fixupTask.list" />
-</p>
+
 
 <security:authorize access="hasRole('HANDYWORKER')">
 <fieldset><legend><spring:message code="fixuptask.search" /></legend>

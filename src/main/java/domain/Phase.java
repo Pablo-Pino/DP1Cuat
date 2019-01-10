@@ -52,7 +52,7 @@ public class Phase extends DomainEntity {
 	}
 
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getStart() {
 		return this.start;
 	}
@@ -62,7 +62,7 @@ public class Phase extends DomainEntity {
 	}
 
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getEnd() {
 		return this.end;
 	}

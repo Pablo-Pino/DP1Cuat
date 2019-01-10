@@ -95,10 +95,10 @@ public class ActorServiceTest extends AbstractTest {
 		Assert.notNull(a);
 		Assert.isTrue(this.actorService.banActor(a));
 
-		Assert.isTrue((a.getBanned()));
+		Assert.isTrue(!(a.getUserAccount().isEnabled()));
 		Assert.isTrue(this.actorService.unBanActor(a));
 
-		Assert.isTrue(!(a.getBanned()));
+		Assert.isTrue((a.getUserAccount().isEnabled()));
 
 	}
 

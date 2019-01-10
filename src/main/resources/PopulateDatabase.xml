@@ -1269,6 +1269,13 @@
 		<property name="laws" value="Leyes,muchas leyes 3" />
 		<property name="draft" value="false" />
 	</bean>
+	
+	<bean id="warranty4" class="domain.Warranty">
+		<property name="title" value="El titulo de Warranty 4" />
+		<property name="terms" value="Terminos, muchos terminos 4" />
+		<property name="laws" value="Leyes,muchas leyes 4" />
+		<property name="draft" value="true" />
+	</bean>
 
 	<!-- __________________________________ FOLDER _________________________________ -->
 

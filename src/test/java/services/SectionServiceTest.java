@@ -3,6 +3,7 @@ package services;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -93,8 +94,7 @@ public class SectionServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	public void saveSection(final String username, final int numberOrder, final Collection<Url> pictures, final String text, final String title, final Integer sectionId, final Integer tutorialId,
-		final Class<?> expected) {
+	public void saveSection(final String username, final int numberOrder, final Collection<Url> pictures, final String text, final String title, final Integer sectionId, final Integer tutorialId, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			this.authenticate(username);
@@ -110,7 +110,7 @@ public class SectionServiceTest extends AbstractTest {
 				oldSection = section;
 			}
 			section.setNumberOrder(numberOrder);
-			section.setPictures(pictures);
+			section.setPictures((List<Url>) pictures);
 			section.setText(text);
 			section.setTitle(title);
 			section.setTutorial(tutorial);
@@ -193,30 +193,30 @@ public class SectionServiceTest extends AbstractTest {
 	@Test
 	public void testSaveSection() {
 		final Integer tutorialId = super.getEntityId("tutorial1");
-		Url picture = new Url();
+		final Url picture = new Url();
 		picture.setUrl("http://photo");
-		Collection<Url> pictures = Arrays.asList(picture);
+		final Collection<Url> pictures = Arrays.asList(picture);
 		this.saveSection("handywoker1", 1, pictures, "Da text", "Da title", null, tutorialId, null);
 	}
 
 	@Test
 	public void testSaveSectionUnauthenticated() {
 		final Integer tutorialId = super.getEntityId("tutorial1");
-		Collection<Url> pictures = sectionService.findOne(super.getEntityId("section1")).getPictures();
+		final Collection<Url> pictures = this.sectionService.findOne(super.getEntityId("section1")).getPictures();
 		this.saveSection(null, 2, pictures, "Da text", "Da title", null, tutorialId, IllegalArgumentException.class);
 	}
 
 	@Test
 	public void testUpdateSection() {
 		final Integer tutorialId = super.getEntityId("tutorial1");
-		Collection<Url> pictures = sectionService.findOne(super.getEntityId("section1")).getPictures();
+		final Collection<Url> pictures = this.sectionService.findOne(super.getEntityId("section1")).getPictures();
 		this.saveSection("handywoker1", 1, pictures, "Da text", "Da title", super.getEntityId("section1"), tutorialId, null);
 	}
 
 	@Test
 	public void testUpdateSectionUnauthenticated() {
 		final Integer tutorialId = super.getEntityId("tutorial1");
-		Collection<Url> pictures = sectionService.findOne(super.getEntityId("section1")).getPictures();
+		final Collection<Url> pictures = this.sectionService.findOne(super.getEntityId("section1")).getPictures();
 		this.saveSection(null, 1, pictures, "Da text", "Da title", super.getEntityId("section1"), tutorialId, IllegalArgumentException.class);
 	}
 
@@ -229,5 +229,5 @@ public class SectionServiceTest extends AbstractTest {
 	public void testDeleteSectionUnauthenticated() {
 		this.deleteSection(null, super.getEntityId("section2"), IllegalArgumentException.class);
 	}
-	
+
 }
