@@ -46,7 +46,7 @@ public class EducationRecord extends DomainEntity {
 
 	@Past
 	@NotNull
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getStart() {
 		return this.start;
 	}
@@ -55,7 +55,7 @@ public class EducationRecord extends DomainEntity {
 		this.start = start;
 	}
 
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getEnd() {
 		return this.end;
 	}

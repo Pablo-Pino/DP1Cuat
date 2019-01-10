@@ -23,7 +23,7 @@ public class WorkPlan extends DomainEntity {
 	private Collection<Phase>	phases;
 
 
-	//----------Getters y Setters-----
+	//----------Getters y Setters------
 
 	@Valid
 	@ManyToOne(optional = false)

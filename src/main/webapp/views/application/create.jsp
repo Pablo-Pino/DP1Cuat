@@ -69,18 +69,33 @@
 			</security:authorize>  --%>
 
 
-
+			<jstl:if test="${!fromFixupTask }">
 			<form:label path="fixupTask">
 				<spring:message code="application.fixupTask"></spring:message>
 			</form:label>
 
 			<form:select id="fixupTask" path="fixupTask">
-				<form:option value="${application.fixupTask}" label="------"></form:option>
-				<form:options items="${fixupTasks}" itemLabel="ticker"
+				<form:option value="${application.fixupTask}" label="---5---"></form:option>
+				<form:options items="${allFixupTasks}" itemLabel="ticker"
 					itemValue="id" />
 			</form:select>
 			<form:errors cssClass="error" path="fixupTask" />
 			<br />
+			</jstl:if>
+			
+			<jstl:if test="${fromFixupTask }">
+			<form:label path="fixupTask">
+				<spring:message code="application.fixupTask"></spring:message>
+			</form:label>
+
+			<form:select id="fixupTask" path="fixupTask">
+				<form:option value="${fixupTask}" label="fixupTask.ticker"></form:option>
+				<form:options items="${allFixupTasks}" itemLabel="ticker"
+					itemValue="id" />
+			</form:select>
+			<form:errors cssClass="error" path="fixupTask" />
+			<br />
+			</jstl:if>
 
 
 			<!--  Los botones de crear y cancelar -->
