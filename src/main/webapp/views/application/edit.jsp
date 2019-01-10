@@ -29,8 +29,8 @@
 			<form:hidden path="version" />
 			<form:hidden path="handyWorker" />
 			<form:hidden path="moment" />
-		
-
+		<security:authentication property="principal.username" var="username" />
+	<jstl:if test='${application.handyWorker.userAccount.username == username || application.id == 0}'>
 		<security:authorize access="hasRole('HANDYWORKER')">
 		
 		
@@ -62,7 +62,8 @@
 			<spring:message code="appication.fromFixupTask" />: 
 			<b><jstl:out value="${fixupTask.ticker}"></jstl:out></b>
 			
-			 </jstl:if>
+			</jstl:if>
+	
 			<br />
 			
 			
@@ -75,7 +76,8 @@
 			<form:errors cssClass="error" path="fixupTask" />
 			<br /> --%>
 		</security:authorize>
-			
+	 </jstl:if>
+	
 			
 		<%-- Status--%>
 		<security:authorize access="hasRole('CUSTOMER')">
@@ -132,6 +134,7 @@
 			
 				<!--  Los botones de crear y cancelar -->
 			<br />
+<jstl:if test='${application.handyWorker.userAccount.username == username || application.id == 0}'>
 
 		<input type="submit" name="save" value="<spring:message code="application.save"></spring:message>" />	
 		<security:authorize access="hasRole('HANDYWORKER')">	
@@ -140,6 +143,8 @@
 					<spring:message code="application.return" />
 				</button>
 			</security:authorize>
+ </jstl:if>
+	
 			<security:authorize access="hasRole('CUSTOMER')">
 				<button type="button"
 					onclick="javascript: relativeRedir('application/customer/list.do?fixupTaskId=${application.fixupTask.id}')">
@@ -150,6 +155,16 @@
 		</form:form>
 		
 	</div> 
-
+<jstl:if test='${application.handyWorker.userAccount.username != username && application.id != 0}'>
+	<security:authorize access="hasRole('HANDYWORKER')">
+	<h1>
+		<b><spring:message code="application.permissions"></spring:message></b>
+	</h1>
+	</security:authorize>
+</jstl:if>
+	 
+ 
 </security:authorize>
 
+	
+	 

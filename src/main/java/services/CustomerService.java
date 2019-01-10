@@ -99,6 +99,8 @@ public class CustomerService {
 		Assert.notNull(customer);
 		Boolean isCreating = null;
 
+		Assert.isTrue(!(customer.getEmail().endsWith("@") || customer.getEmail().endsWith("@>")));
+
 		if (customer.getId() == 0) {
 			isCreating = true;
 			customer.setSuspicious(false);
@@ -147,7 +149,6 @@ public class CustomerService {
 			this.folderService.createSystemFolders(res);
 		return res;
 	}
-
 	//no realizamos el delete porque no se va a borrar nunca un customer
 
 	// Other business methods -------------------------------------------------
