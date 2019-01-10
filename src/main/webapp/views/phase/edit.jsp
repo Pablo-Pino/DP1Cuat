@@ -30,9 +30,12 @@
 </script>
 <security:authorize access="hasRole('HANDYWORKER')">
 	<div>
+	
 
 		<form:form action="phase/handyWorker/edit.do" method="post"
 			id="formCreate" name="formCreate" modelAttribute="phase">
+<security:authentication property="principal.username" var="username" />
+<jstl:if test='${phase.workPlan.handyWorker.userAccount.username == username || phase.id == 0}'>
 
 			<!-- Atributos hidden-->
 
@@ -104,13 +107,18 @@
 
 
 
+</jstl:if>
 
 		</form:form>
 
 	</div>
 
 
-
+<jstl:if test='${phase.workPlan.handyWorker.userAccount.username != username && phase.id != 0}'>
+	<h1>
+		<b><spring:message code="workplan.permissions"></spring:message></b>
+	</h1>
+</jstl:if>
 
 
 </security:authorize>
