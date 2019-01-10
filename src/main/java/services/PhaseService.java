@@ -75,19 +75,13 @@ public class PhaseService {
 			old.setStart(phase.getStart());
 			old.setTitle(phase.getTitle());
 		}
-		Assert.isTrue(phase.getEnd().before(phase.getWorkPlan().getFixupTask().getEnd()));
-		this.serviceUtils.checkPermisionActor(phase.getWorkPlan().getHandyWorker(), new String[] {
-			Authority.HANDYWORKER
-		});
+		//		Assert.isTrue(phase.getEnd().before(phase.getWorkPlan().getFixupTask().getEnd()));
 		final Phase res = this.repository.save(object);
 		return res;
 	}
 
 	public void delete(final Phase object) {
 		final Phase phase = (Phase) this.serviceUtils.checkObject(object);
-		this.serviceUtils.checkPermisionActor(phase.getWorkPlan().getHandyWorker(), new String[] {
-			Authority.HANDYWORKER
-		});
 		this.repository.delete(phase);
 	}
 
