@@ -16,8 +16,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 
-<sql:setDataSource driver="com.mysql.jdbc.Driver" user="acme-user" password="ACME-Us3r-P@ssw0rd" 
-	url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
+<sql:setDataSource driver="com.mysql.jdbc.Driver" user="ugfyb2tteevrpobzxkia" password="jxlOD7MEpHvk8PYeKDev" 
+	url="jdbc:mysql://bgxxehevydbhsodr6xfg-mysql.services.clever-cloud.com:3306/bgxxehevydbhsodr6xfg" var="datasource" />
 
 <sql:query var="banner" dataSource="${datasource}">
 	SELECT banner FROM settings;
