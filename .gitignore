@@ -1,8 +1,5 @@
-# Compiled class file
-*.class
-
-# Target folder
-target/
+/bin
+.classpath
 
 # Settings folder
 .settings/
@@ -16,7 +13,4 @@ src/main/java/Repositories/
 # Other
 *~*
 
-.classpath
-src/main/resources/Entities.map
-bin/
 
