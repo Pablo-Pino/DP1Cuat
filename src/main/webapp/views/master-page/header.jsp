@@ -42,12 +42,12 @@ url="jdbc:mysql://bycsmnq2qe7ve3vipbaw-mysql.services.clever-cloud.com:3306/bycs
 						code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/administrator/list-suspicious-actors.do"><spring:message
-								code="master.page.listsuspiciousactors" /></a></li>
+<%-- 					<li><a href="actor/administrator/list-suspicious-actors.do"><spring:message
+								code="master.page.listsuspiciousactors" /></a></li> --%>
 					<li><a href="settings/administrator/edit.do"><spring:message
 								code="master.page.editsettings" /></a></li>
-					<li><a href="referee/administrator/create.do"><spring:message
-								code="master.page.createreferee" /></a></li>
+<%-- 					<li><a href="referee/administrator/create.do"><spring:message
+								code="master.page.createreferee" /></a></li> --%>
 					<li><a href="warranty/administrator/list.do"><spring:message
 								code="master.page.warranty.list" /></a></li>
 					<li><a href="category/administrator/list.do"><spring:message
