@@ -21,7 +21,7 @@ public class AbstractController {
 
 	// Panic handler ----------------------------------------------------------
 
-	@ExceptionHandler(Throwable.class)
+	//@ExceptionHandler(Throwable.class)
 	public ModelAndView panic(final Throwable oops) {
 		ModelAndView result;
 
@@ -33,4 +33,12 @@ public class AbstractController {
 		return result;
 	}
 
+	@ExceptionHandler(Throwable.class)
+	public ModelAndView oops(final Throwable oops) {
+		ModelAndView result;
+
+		result = new ModelAndView("misc/403");
+
+		return result;
+	}
 }

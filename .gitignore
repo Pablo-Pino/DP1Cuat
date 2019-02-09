@@ -1,6 +1,7 @@
 /bin
 .classpath
 /target
+src/main/resources/Entities.map
 
 # Settings folder
 .settings/

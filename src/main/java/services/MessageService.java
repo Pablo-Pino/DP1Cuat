@@ -57,10 +57,26 @@ public class MessageService {
 		return this.findAll(dependency);
 	}
 
+	public Message findForEdit(final Integer messageId) {
+		final Message message = this.findOne(messageId);
+		Assert.notNull(message);
+		this.serviceUtils.checkActor(message.getFolder().getActor());
+		return message;
+	}
+
+	public Collection<Message> listById(final Integer folderId) {
+		final Folder folder = this.folderService.findOne(folderId);
+		Assert.notNull(folder);
+		this.serviceUtils.checkActor(folder.getActor());
+		final Collection<Message> messages = this.findByFolder(folder);
+		return messages;
+	}
+
 	public Message create(final Folder dependency) {
 		final Message res = new Message();
+		final Folder folder = (Folder) this.serviceUtils.checkObject(dependency);
 		res.setMoment(new Date(System.currentTimeMillis() - 1000));
-		res.setFolder(dependency);
+		res.setFolder(folder);
 		res.setSender(this.actorService.findPrincipal());
 		res.setTags(new ArrayList<String>());
 		return res;

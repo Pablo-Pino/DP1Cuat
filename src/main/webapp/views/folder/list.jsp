@@ -10,37 +10,31 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<jstl:if test="${isPrincipalAuthorizedEdit}">
-
-	<display:table name="folders" id="row" requestURI="${requestURI}"
-		pagesize="5" class="displaytag">
+<display:table name="folders" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
-		<display:column property="name" titleKey="folder.name" sortable="false"></display:column>
+	<display:column property="name" titleKey="folder.name" sortable="false"></display:column>
 	
+	<display:column>
+		<a href="folder/actor/list.do?parentId=${row.id}" >
+			<spring:message code="folder.listsubfolders" />
+		</a>	
+	</display:column>
+	
+	<display:column>
+		<a href='message/actor/list.do?folderId=${row.id}' >
+			<spring:message code="folder.listmessages" />
+		</a>
+	</display:column>
 		
-	
-		<display:column>
-			<a href="folder/actor/list.do?parentId=${row.id}" >
-				<spring:message code="folder.listsubfolders" />
-			</a>	
-		</display:column>
-	
-		
-		<display:column>
-			<a href='message/actor/list.do?folderId=${row.id}' >
-				<spring:message code="folder.listmessages" />
+	<display:column>
+		<jstl:if test="${row.system == false}">
+			<a href="folder/actor/edit.do?folderId=${row.id}">
+				<spring:message code="folder.edit" />
 			</a>
-		</display:column>
+		</jstl:if>
+	</display:column>
 		
-		<display:column>
-			<jstl:if test="${row.system == false}">
-				<a href="folder/actor/edit.do?folderId=${row.id}">
-					<spring:message code="folder.edit" />
-				</a>
-			</jstl:if>
-		</display:column>
-		
-	</display:table>
+</display:table>
 	
 	<a href="folder/actor/create.do"> <spring:message
 			code="folder.create"></spring:message></a>
@@ -56,6 +50,4 @@
 				<spring:message code="folder.back"></spring:message>
 			</a>
 		</jstl:when>
-	</jstl:choose>	
-
-</jstl:if>	
+	</jstl:choose>		

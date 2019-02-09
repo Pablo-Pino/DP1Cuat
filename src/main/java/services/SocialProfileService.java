@@ -18,20 +18,21 @@ import domain.SocialProfile;
 public class SocialProfileService {
 
 	// Repository
-	
+
 	@Autowired
 	private SocialProfileRepository	repository;
 
 	// Services
-	
+
 	@Autowired
 	private ActorService			actorService;
 	@Autowired
-	private ServiceUtils serviceUtils;
+	private ServiceUtils			serviceUtils;
+
 
 	// CRUD methods
-	
-	public SocialProfile findOne(Integer id) {
+
+	public SocialProfile findOne(final Integer id) {
 		this.serviceUtils.checkId(id);
 		return this.repository.findOne(id);
 	}
@@ -44,7 +45,7 @@ public class SocialProfileService {
 	public Collection<SocialProfile> findAll() {
 		return this.repository.findAll();
 	}
-	
+
 	public Collection<SocialProfile> findAllByActor(final Actor a) {
 		Assert.notNull(a);
 		Assert.isTrue(a.getId() > 0);
@@ -52,9 +53,24 @@ public class SocialProfileService {
 		return this.repository.findByActor(a.getId());
 	}
 
-	public SocialProfile create(final Actor a) {
+	public Collection<SocialProfile> list() {
+		final Actor principal = this.actorService.findPrincipal();
+		final Collection<SocialProfile> socialProfiles = this.findAllByActor(principal);
+		return socialProfiles;
+	}
+
+	public SocialProfile findForEdit(final Integer socialProfileId) {
+		final SocialProfile socialProfile = this.findOne(socialProfileId);
+		Assert.notNull(socialProfile);
+		this.serviceUtils.checkActor(socialProfile.getActor());
+		return socialProfile;
+	}
+
+	public SocialProfile create() {
+		final Actor principal = this.actorService.findPrincipal();
+		Assert.notNull(principal);
 		final SocialProfile res = new SocialProfile();
-		res.setActor(a);
+		res.setActor(principal);
 		return res;
 	}
 
@@ -79,7 +95,7 @@ public class SocialProfileService {
 	}
 
 	// Other methods
-	
+
 	public void flush() {
 		this.repository.flush();
 	}

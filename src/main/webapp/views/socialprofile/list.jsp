@@ -27,12 +27,10 @@
 	<spring:message code="socialprofile.profile" var="profileTitle" />
 	<display:column title="${profileTitle}" property="profile" />
 
-	<jstl:if test="${isPrincipalAuthorizedEdit}">
 		<spring:message code="socialprofile.edit" var="editTitle" />
 		<display:column>
 			<a href="socialprofile/actor/edit.do?socialProfileId=${socialProfile.id}">${editTitle}</a>
 		</display:column>
-	</jstl:if>
 
 </display:table>
 

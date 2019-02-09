@@ -9,8 +9,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jstl:if test="${isPrincipalAuthorizedEdit}">
-
 	<display:table name="messages" id="row" requestURI="${requestURI}"
 		pagesize="5" class="displaytag">
 	
@@ -39,5 +37,3 @@
 		</display:column>
 		
 	</display:table>
-
-</jstl:if>

@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,32 +35,25 @@ public class FolderController extends AbstractController {
 	@RequestMapping("list")
 	public ModelAndView list(@RequestParam(required = false) final Integer parentId) {
 		final ModelAndView res = new ModelAndView("folder/list");
-		final Actor actor = this.actorService.findPrincipal();
-		Collection<Folder> folders = null;
-		if (parentId == null) {
-			folders = this.folderService.findByActorWithoutParent(actor);
+		final Collection<Folder> folders = this.folderService.listById(parentId);
+		if (parentId == null)
 			res.addObject("showBack", false);
-			res.addObject("isPrincipalAuthorizedEdit", true);
-		} else {
+		else {
 			final Folder parent = this.folderService.findOne(parentId);
-			folders = this.folderService.findByActorAndParent(actor, parent);
 			if (!parent.getParentFolder().equals(parent))
 				res.addObject("backFolderId", parent.getParentFolder().getId());
 			res.addObject("showBack", true);
-			this.isPrincipalAuthorizedEdit(res, parent, false);
 		}
 		res.addObject("folders", folders);
 		res.addObject("requestURI", "folder/actor/list.do");
 		return res;
 	}
-
 	// Create
 
 	@SuppressWarnings("unused")
 	@RequestMapping("create")
 	private ModelAndView create() {
-		final Actor actor = this.actorService.findPrincipal();
-		final Folder folder = this.folderService.create(actor);
+		final Folder folder = this.folderService.create();
 		final ModelAndView res = this.createEditModelAndView(folder);
 		return res;
 	}
@@ -71,8 +63,7 @@ public class FolderController extends AbstractController {
 	@SuppressWarnings("unused")
 	@RequestMapping("edit")
 	private ModelAndView edit(@RequestParam(required = true) final Integer folderId) {
-		final Folder folder = this.folderService.findOne(folderId);
-		Assert.notNull(folder);
+		final Folder folder = this.folderService.findForEdit(folderId);
 		final ModelAndView res = this.createEditModelAndView(folder);
 		return res;
 	}
@@ -124,18 +115,7 @@ public class FolderController extends AbstractController {
 		res.addObject("folder", folder);
 		res.addObject("message", message);
 		res.addObject("folders", folders);
-		this.isPrincipalAuthorizedEdit(res, folder, true);
 		return res;
-	}
-
-	private void isPrincipalAuthorizedEdit(final ModelAndView modelAndView, final Folder folder, final Boolean isEdit) {
-		Boolean res = false;
-		final Actor principal = this.actorService.findPrincipal();
-		if (folder.getActor().equals(principal) && !folder.getSystem() && isEdit)
-			res = true;
-		else if (folder.getActor().equals(principal) && !isEdit)
-			res = true;
-		modelAndView.addObject("isPrincipalAuthorizedEdit", res);
 	}
 
 }

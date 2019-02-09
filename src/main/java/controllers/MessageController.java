@@ -41,12 +41,9 @@ public class MessageController extends AbstractController {
 	@RequestMapping("list")
 	public ModelAndView list(@RequestParam(required = true) final Integer folderId) {
 		final ModelAndView res = new ModelAndView("message/list");
-		final Folder folder = this.folderService.findOne(folderId);
-		final Collection<Message> messages = this.messageService.findByFolder(folder);
+		final Collection<Message> messages = this.messageService.listById(folderId);
 		res.addObject("messages", messages);
-		System.out.println(messages);
 		res.addObject("requestURI", "message/actor/list.do");
-		this.isPrincipalAuthorizedEdit(res, folder);
 		return res;
 	}
 
@@ -61,19 +58,22 @@ public class MessageController extends AbstractController {
 		Boolean broadcast = false;
 		if (isBroadcast != null)
 			broadcast = isBroadcast;
+		if (broadcast)
+			Assert.isTrue(principal instanceof Administrator);
 		final ModelAndView res = this.createEditModelAndView(message, broadcast);
 		return res;
 	}
+
 	// Edit
 
 	@SuppressWarnings("unused")
 	@RequestMapping("edit")
 	private ModelAndView edit(@RequestParam(required = true) final Integer messageId) {
-		final Message message = this.messageService.findOne(messageId);
-		Assert.notNull(message);
+		final Message message = this.messageService.findForEdit(messageId);
 		final ModelAndView res = this.createEditModelAndView(message, false);
 		return res;
 	}
+
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "save")
 	private ModelAndView save(@Valid final Message message, final BindingResult binding) {
@@ -142,6 +142,7 @@ public class MessageController extends AbstractController {
 		this.isPrincipalAuthorizedEdit(res, messageObject.getFolder());
 		return res;
 	}
+
 	private void isPrincipalAuthorizedEdit(final ModelAndView modelAndView, final Folder folder) {
 		Boolean res = false;
 		final Actor principal = this.actorService.findPrincipal();

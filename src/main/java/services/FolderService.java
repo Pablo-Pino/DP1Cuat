@@ -51,6 +51,14 @@ public class FolderService {
 		return this.repository.findAll();
 	}
 
+	public Folder findForEdit(final Integer folderId) {
+		final Folder folder = this.findOne(folderId);
+		Assert.notNull(folder);
+		this.serviceUtils.checkActor(folder.getActor());
+		Assert.isTrue(!folder.getSystem());
+		return folder;
+	}
+
 	public List<Folder> findAllByActor(final Actor actor) {
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getId() > 0);
@@ -58,9 +66,25 @@ public class FolderService {
 		return this.repository.findFoldersByActor(actor.getId());
 	}
 
-	public Folder create(final Actor a) {
+	public Collection<Folder> listById(final Integer parentId) {
+		Collection<Folder> res = new ArrayList<Folder>();
+		final Actor principal = this.actorService.findPrincipal();
+		if (parentId == null)
+			res = this.findByActorWithoutParent(principal);
+		else {
+			final Folder parent = this.findOne(parentId);
+			Assert.notNull(parent);
+			this.serviceUtils.checkActor(parent.getActor());
+			res = this.findByActorAndParent(principal, parent);
+		}
+		return res;
+	}
+
+	public Folder create() {
 		final Folder res = new Folder();
-		res.setActor(a);
+		final Actor principal = this.actorService.findPrincipal();
+		Assert.notNull(principal);
+		res.setActor(principal);
 		res.setSystem(false);
 		res.setParentFolder(res);
 		return res;
@@ -111,7 +135,7 @@ public class FolderService {
 			"inbox", "outbox", "spambox", "trashbox"
 		};
 		for (final String name : names) {
-			final Folder newFolder = this.create(actor);
+			final Folder newFolder = this.create();
 			System.out.println(newFolder.getActor());
 			newFolder.setName(name);
 			newFolder.setSystem(true);

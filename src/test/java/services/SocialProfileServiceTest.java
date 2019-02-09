@@ -78,8 +78,7 @@ public class SocialProfileServiceTest extends AbstractTest {
 		Class<?> caught = null;
 		try {
 			this.authenticate(username);
-			final Actor actor = this.actorService.findOne(actorId);
-			final SocialProfile socialProfile = this.socialProfileService.create(actor);
+			final SocialProfile socialProfile = this.socialProfileService.create();
 			Assert.notNull(socialProfile);
 			Assert.notNull(socialProfile.getActor());
 			this.unauthenticate();
@@ -96,7 +95,7 @@ public class SocialProfileServiceTest extends AbstractTest {
 			SocialProfile oldSocialProfile = null;
 			final Actor actor = this.actorService.findOne(actorId);
 			if (socialProfileId == null)
-				socialProfile = this.socialProfileService.create(actor);
+				socialProfile = this.socialProfileService.create();
 			else
 				socialProfile = this.socialProfileService.findOne(socialProfileId);
 			oldSocialProfile = socialProfile;
