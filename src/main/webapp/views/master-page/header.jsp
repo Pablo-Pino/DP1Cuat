@@ -108,10 +108,10 @@ url="jdbc:mysql://bycsmnq2qe7ve3vipbaw-mysql.services.clever-cloud.com:3306/bycs
 								code="master.page.AsHandyWorker" /></a></li>
 					<li><a href="none/customer/create.do"><spring:message
 								code="master.page.AsCustomer" /></a></li>
-					<li><a href="none/sponsor/create.do"><spring:message
-								code="master.page.AsSponsor" /></a></li>
-					<li><a href="curriculum/handyWorker/display.do"><spring:message
-								code="master.page.AsReferee" /></a></li>
+					<%-- <li><a href="none/sponsor/create.do"><spring:message
+								code="master.page.AsSponsor" /></a></li> --%>
+					<%-- <li><a href="curriculum/handyWorker/display.do"><spring:message
+								code="master.page.AsReferee" /></a></li> --%>
 				</ul></li>
 		</security:authorize>
 		
