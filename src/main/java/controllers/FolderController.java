@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,12 +49,15 @@ public class FolderController extends AbstractController {
 		res.addObject("requestURI", "folder/actor/list.do");
 		return res;
 	}
+
 	// Create
 
 	@SuppressWarnings("unused")
 	@RequestMapping("create")
 	private ModelAndView create() {
-		final Folder folder = this.folderService.create();
+		final Actor principal = this.actorService.findPrincipal();
+		Assert.notNull(principal);
+		final Folder folder = this.folderService.create(principal);
 		final ModelAndView res = this.createEditModelAndView(folder);
 		return res;
 	}

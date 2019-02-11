@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -119,6 +120,8 @@ public class CustomerNewController extends AbstractController {
 		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		customer.getUserAccount().setPassword(encoder.encodePassword(customer.getUserAccount().getPassword(), null));
 		if (binding.hasErrors()) {
+			for (final ObjectError error : binding.getAllErrors())
+				System.out.println(error);
 			result = this.createEditModelAndView(customer);
 			result.addObject("customer", customer);
 			result.addObject("message", "customer.commit.error");

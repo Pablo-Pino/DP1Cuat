@@ -38,7 +38,8 @@ public class FolderServiceTest extends AbstractTest {
 	//------------------------------------------------------------
 	@Test
 	public void testCreate() {
-		final Folder f = this.folderService.create();
+		final Actor actor = this.actorService.findOne(this.getEntityId("customer1"));
+		final Folder f = this.folderService.create(actor);
 		Assert.notNull(f);
 	}
 

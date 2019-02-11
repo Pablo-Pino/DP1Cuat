@@ -80,11 +80,9 @@ public class FolderService {
 		return res;
 	}
 
-	public Folder create() {
+	public Folder create(final Actor a) {
 		final Folder res = new Folder();
-		final Actor principal = this.actorService.findPrincipal();
-		Assert.notNull(principal);
-		res.setActor(principal);
+		res.setActor(a);
 		res.setSystem(false);
 		res.setParentFolder(res);
 		return res;
@@ -135,7 +133,7 @@ public class FolderService {
 			"inbox", "outbox", "spambox", "trashbox"
 		};
 		for (final String name : names) {
-			final Folder newFolder = this.create();
+			final Folder newFolder = this.create(actor);
 			System.out.println(newFolder.getActor());
 			newFolder.setName(name);
 			newFolder.setSystem(true);
