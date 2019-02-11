@@ -41,12 +41,12 @@ url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
 						code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/administrator/list-suspicious-actors.do"><spring:message
-								code="master.page.listsuspiciousactors" /></a></li>
+<%-- 					<li><a href="actor/administrator/list-suspicious-actors.do"><spring:message
+								code="master.page.listsuspiciousactors" /></a></li> --%>
 					<li><a href="settings/administrator/edit.do"><spring:message
 								code="master.page.editsettings" /></a></li>
-					<li><a href="referee/administrator/create.do"><spring:message
-								code="master.page.createreferee" /></a></li>
+<%-- 					<li><a href="referee/administrator/create.do"><spring:message
+								code="master.page.createreferee" /></a></li> --%>
 					<li><a href="warranty/administrator/list.do"><spring:message
 								code="master.page.warranty.list" /></a></li>
 					<li><a href="category/administrator/list.do"><spring:message
@@ -75,8 +75,8 @@ url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
 					<li class="arrow"></li>
 					<li><a href="application/handyworker/list.do"><spring:message
 								code="master.page.handyWorker.application.list" /></a></li>
-					<li><a href="curriculum/handyWorker/display.do"><spring:message
-								code="master.page.handyWorker.curriculum" /></a></li>
+<%-- 					<li><a href="curriculum/handyWorker/display.do"><spring:message
+								code="master.page.handyWorker.curriculum" /></a></li> --%>
 					<li><a href="workplan/handyWorker/list.do"><spring:message
 								code="master.page.handyWorker.workPlan" /></a></li>
 					<li><a href="fixupTask/endorsable/list.do"><spring:message 
@@ -107,10 +107,10 @@ url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
 								code="master.page.AsHandyWorker" /></a></li>
 					<li><a href="none/customer/create.do"><spring:message
 								code="master.page.AsCustomer" /></a></li>
-					<li><a href="none/sponsor/create.do"><spring:message
-								code="master.page.AsSponsor" /></a></li>
-					<li><a href="curriculum/handyWorker/display.do"><spring:message
-								code="master.page.AsReferee" /></a></li>
+					<%-- <li><a href="none/sponsor/create.do"><spring:message
+								code="master.page.AsSponsor" /></a></li> --%>
+					<%-- <li><a href="curriculum/handyWorker/display.do"><spring:message
+								code="master.page.AsReferee" /></a></li> --%>
 				</ul></li>
 		</security:authorize>
 		
