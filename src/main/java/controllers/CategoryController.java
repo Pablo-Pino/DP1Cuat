@@ -92,6 +92,7 @@ public class CategoryController extends AbstractController {
 		final ModelAndView result;
 		final Category p = category.getParentCategory();
 		final Collection<Category> res = this.categoryService.findAll();
+		res.remove(category);
 
 		result = new ModelAndView("category/edit");
 		result.addObject("category", category);

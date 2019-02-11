@@ -256,7 +256,7 @@ public class FixupTaskController extends AbstractController {
 		Collection<Complaint> complaints;
 		Collection<Application> applications;
 
-		warranties = this.warrantyService.findAll();
+		warranties = this.warrantyService.findWarrantyNotDraft();
 		categories = this.categoryService.findAll();
 		workplans = this.workPlanService.findAll();
 		customers = this.customerService.findAll();

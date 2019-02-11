@@ -41,7 +41,7 @@ public class WarrantyController extends AbstractController {
 		ModelAndView res;
 		Warranty warranty;
 		warranty = this.warrantyService.create();
-		draft=true;
+		this.draft = true;
 		res = this.createEditModelAndView(warranty);
 
 		return res;
@@ -56,7 +56,7 @@ public class WarrantyController extends AbstractController {
 
 		warranty = this.warrantyService.findOne(warrantyId);
 		Assert.notNull(warranty);
-		draft=warranty.getDraft();
+		this.draft = warranty.getDraft();
 		res = this.createEditModelAndView(warranty);
 
 		return res;
@@ -67,34 +67,34 @@ public class WarrantyController extends AbstractController {
 	public ModelAndView save(@Valid final Warranty warranty, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(warranty);
+		if (binding.hasErrors()){
+			result = this.createEditModelAndView(warranty);}
 		else
 			try {if(this.draft==true){
-				final Warranty aud = this.warrantyService.saveDraft(warranty);
-			}else{
-				throw new Exception("cannot.commit.error");}
-				draft=false;
+				final Warranty aud = this.warrantyService.saveDraft(warranty);}
+			else
+				throw new Exception("cannot.commit.error");
+				this.draft=false;
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(warranty, "cannot.commit.error");
 			}
-
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Warranty warranty, final BindingResult binding) {
 		ModelAndView result;
 		try {
-			this.warrantyService.delete(warranty);
+			if (this.draft == true)
+				this.warrantyService.deleteDraft(warranty);
+			else
+				this.warrantyService.delete(warranty);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(warranty, "warranty.commit.error");
 		}
 		return result;
 	}
-
 	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	//	public ModelAndView save(@Valid final Warranty warranty, final BindingResult binding) {
 	//		ModelAndView res;
