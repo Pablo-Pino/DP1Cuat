@@ -74,9 +74,8 @@ public class MessageService {
 
 	public Message create(final Folder dependency) {
 		final Message res = new Message();
-		final Folder folder = (Folder) this.serviceUtils.checkObject(dependency);
 		res.setMoment(new Date(System.currentTimeMillis() - 1000));
-		res.setFolder(folder);
+		res.setFolder(dependency);
 		res.setSender(this.actorService.findPrincipal());
 		res.setTags(new ArrayList<String>());
 		return res;
