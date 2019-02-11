@@ -167,6 +167,10 @@ catch(NullPointerException e){
 
 				<input type="submit" name="save"
 					value="<spring:message code="fixupTask.save"></spring:message>" />
+				<jstl:if test="${fixupTask.id > 0}">
+					<input type="submit" name="delete"
+						value="<spring:message code="fixupTask.delete"></spring:message>" />
+				</jstl:if>
 				<spring:message code="fixupTask.cancel" var="cancel"></spring:message>
 				<input type="button" name="cancel" value="${cancel}"
 					onclick="javascript:relativeRedir('fixupTask/endorsable/list.do')" />

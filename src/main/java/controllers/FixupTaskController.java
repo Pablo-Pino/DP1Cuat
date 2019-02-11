@@ -232,7 +232,7 @@ public class FixupTaskController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.fixupTaskService.delete(fixupTask);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/fixupTask/endorsable/list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(fixupTask, "fixupTask.commit.error");
 		}

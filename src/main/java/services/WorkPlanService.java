@@ -30,6 +30,8 @@ public class WorkPlanService {
 	private FixupTaskService	fixupTaskService;
 	@Autowired
 	private ApplicationService	applicationService;
+	@Autowired
+	private ServiceUtils		serviceUtils;
 
 
 	// Simple CRUD methods
@@ -84,8 +86,15 @@ public class WorkPlanService {
 	public Collection<WorkPlan> findWorkPlanByFixupTask(final FixupTask f) {
 		Assert.notNull(f);
 		Assert.isTrue(f.getId() > 0);
-		Assert.notNull(this.handyWorkerService.findOne(f.getId()));
-		return this.workPlanRepository.findWorkPlanByHandyWorker(f.getId());
+		Assert.notNull(this.fixupTaskService.findOne(f.getId()));
+		return this.workPlanRepository.findWorkPlanByFixupTask(f.getId());
 	}
 
+	public void cascadeWhenDelete(final FixupTask f) {
+		final FixupTask fixupTask = (FixupTask) this.serviceUtils.checkObject(f);
+		this.serviceUtils.checkActor(fixupTask.getCustomer());
+		final Collection<WorkPlan> workPlans = this.findWorkPlanByFixupTask(fixupTask);
+		for (final WorkPlan w : workPlans)
+			this.workPlanRepository.delete(w);
+	}
 }

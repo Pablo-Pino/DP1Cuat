@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -132,7 +133,7 @@ public class FixupTask extends Ticketable {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "fixupTask")
+	@OneToMany(mappedBy = "fixupTask", cascade = CascadeType.ALL)
 	public Collection<Application> getApplications() {
 		return this.applications;
 	}
@@ -142,7 +143,7 @@ public class FixupTask extends Ticketable {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "fixuptask")
+	@OneToMany(mappedBy = "fixuptask", cascade = CascadeType.ALL)
 	public Collection<Complaint> getComplaints() {
 		return this.complaints;
 	}

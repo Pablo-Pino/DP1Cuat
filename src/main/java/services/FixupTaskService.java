@@ -47,6 +47,8 @@ public class FixupTaskService {
 	private ActorService		actorService;
 	@Autowired
 	TicketableService			ticketableService;
+	@Autowired
+	private WorkPlanService		workPlanService;
 
 
 	//
@@ -121,10 +123,12 @@ public class FixupTaskService {
 	public void flush() {
 		this.fixupTaskRepository.flush();
 	}
+
 	public void delete(final FixupTask f) {
-		Assert.notNull(f);
-		//Assert.isTrue(p.getId() != 0);
-		this.fixupTaskRepository.delete(f);
+		final FixupTask fixupTask = (FixupTask) this.serviceUtils.checkObject(f);
+		this.serviceUtils.checkActor(fixupTask.getCustomer());
+		this.workPlanService.cascadeWhenDelete(fixupTask);
+		this.fixupTaskRepository.delete(fixupTask);
 	}
 
 	//Other methods
