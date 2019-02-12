@@ -16,12 +16,12 @@
        
 <tiles-definitions>
 
-	<definition name="message/edit" extends="master.page">	
+	<definition name="message/edit" extends="master.page.message.edit">	
 		<put-attribute name="title" value="Editar mensaje" />
 		<put-attribute name="body" value="/views/message/edit.jsp" />
 	</definition>
 	
-	<definition name="message/create" extends="master.page">	
+	<definition name="message/create" extends="master.page.message.edit">	
 		<put-attribute name="title" value="Crear mensaje" />
 		<put-attribute name="body" value="/views/message/create.jsp" />
 	</definition>
