@@ -257,8 +257,11 @@ public class FixupTaskService {
 	}
 	public Collection<FixupTask> fixupNOTPastANDnotAccepted() {
 		final Collection<FixupTask> res = this.fixupTaskRepository.giveFixuptaskNOTPast();
-
 		return res;
+	}
 
+	public Collection<FixupTask> fixupNOTPastANDnotAcceptedANDnotApplied() {
+		final Collection<FixupTask> res = this.fixupTaskRepository.giveFixuptaskNOTPastANDnotAcceptedANDnotApplied(this.actorService.findPrincipal().getId());
+		return res;
 	}
 }

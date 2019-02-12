@@ -95,7 +95,7 @@ public class ApplicationController extends AbstractController {
 		final Boolean fromFixup = false;
 
 		Collection<FixupTask> allFixupTasks = new ArrayList<>();
-		allFixupTasks = this.fixupTaskService.fixupNOTPastANDnotAccepted();
+		allFixupTasks = this.fixupTaskService.fixupNOTPastANDnotAcceptedANDnotApplied();
 		c = this.applicationService.create();
 
 		result = this.createEditModelAndView(c);

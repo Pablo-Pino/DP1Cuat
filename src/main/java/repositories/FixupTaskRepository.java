@@ -85,4 +85,7 @@ public interface FixupTaskRepository extends JpaRepository<FixupTask, Integer> {
 	@Query("select f from FixupTask f where f not in (select f1 from FixupTask f1 join f1.applications a where a.status = 'ACCEPTED') and f.end > CURRENT_TIMESTAMP")
 	Collection<FixupTask> giveFixuptaskNOTPast();
 
+	@Query("select f from FixupTask f where f.end > CURRENT_TIMESTAMP and f not in (select f1 from FixupTask f1 join f1.applications a where a.status = 'ACCEPTED' or a.handyWorker.id = ?1)")
+	Collection<FixupTask> giveFixuptaskNOTPastANDnotAcceptedANDnotApplied(Integer handyWorkerId);
+
 }
