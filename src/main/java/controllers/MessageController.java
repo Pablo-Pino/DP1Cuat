@@ -69,11 +69,17 @@ public class MessageController extends AbstractController {
 	@SuppressWarnings("unused")
 	@RequestMapping("edit")
 	private ModelAndView edit(@RequestParam(required = true) final Integer messageId) {
-		final Message message = this.messageService.findForEdit(messageId);
-		final ModelAndView res = this.createEditModelAndView(message, false);
-		return res;
-	}
+		ModelAndView res = new ModelAndView("redirect:/folder/actor/list.do");
+		try {
+			final Message message = this.messageService.findForEdit(messageId);
+			res = this.createEditModelAndView(message, false);
 
+		} catch (final IllegalArgumentException e) {
+
+		}
+		return res;
+
+	}
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "save")
 	private ModelAndView save(@Valid final Message message, final BindingResult binding) {
