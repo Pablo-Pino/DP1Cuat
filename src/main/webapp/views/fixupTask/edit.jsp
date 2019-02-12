@@ -122,25 +122,19 @@ catch(NullPointerException e){
 					<b><spring:message code="fixupTask.warranty"></spring:message>:</b>
 				</form:label>
 				<form:select id="warranty" path="warranty">
-					<form:option value="${warranties}" label="------"></form:option>
+					<form:option value="" label="------"></form:option>
 
 					<form:options items="${warranties}" itemLabel="title"
 						itemValue="id" />
-
-
 				</form:select>
 				<form:errors cssClass="error" path="warranty" />
 				<br />
-
-
-
-
 
 				<form:label path="category">
 					<b><spring:message code="fixupTask.category"></spring:message>:</b>
 				</form:label>
 				<form:select id="category" path="category">
-					<form:option value="${categories}" label="------"></form:option>
+					<form:option value="" label="------"></form:option>
 
 					<%
 						if (languageValue.equals("en")) {

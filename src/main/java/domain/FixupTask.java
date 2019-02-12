@@ -54,6 +54,7 @@ public class FixupTask extends Ticketable {
 
 	@Valid
 	@ManyToOne(optional = false)
+	@NotNull
 	public Warranty getWarranty() {
 		return this.warranty;
 	}
@@ -63,6 +64,7 @@ public class FixupTask extends Ticketable {
 	}
 
 	@Valid
+	@NotNull
 	@ManyToOne(optional = false)
 	public Category getCategory() {
 		return this.category;
