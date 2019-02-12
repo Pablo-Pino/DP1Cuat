@@ -128,15 +128,15 @@ catch(NullPointerException e){
 		</display:column>
 
 		<spring:message code="fixupTask.application.price" var="price"></spring:message>
-		<display:column property="price" title="${price}" sortable="true" />
+		<display:column property="price" title="${price}"  />
 
 		<spring:message code="fixupTask.application.handyWorker"
 			var="handyWorkerName"></spring:message>
 		<display:column property="handyWorker.name" title="${handyWorkerName}"
-			sortable="true" />
+			 />
 
 		<spring:message code="fixupTask.application.status" var="status"></spring:message>
-		<display:column property="status" title="${status}" sortable="true" />
+		<display:column property="status" title="${status}"  />
 		
 		
 		

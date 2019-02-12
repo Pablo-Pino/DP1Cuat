@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -165,7 +166,10 @@ public class HandyWorkerService {
 	}
 
 	public List<HandyWorker> getTop3HandyWorkerWithMoreComplaints() {
-		final List<HandyWorker> ratio = this.handyWorkerRepository.findTop3HandyWorkerWithMoreComplaints().subList(0, 3);
+		List<HandyWorker> ratio = new ArrayList<>();
+		ratio = this.handyWorkerRepository.findTop3HandyWorkerWithMoreComplaints();
+		if (ratio.size() > 2)
+			ratio = this.handyWorkerRepository.findTop3HandyWorkerWithMoreComplaints().subList(0, 3);
 		return ratio;
 	}
 
