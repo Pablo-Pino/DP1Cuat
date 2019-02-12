@@ -1,7 +1,6 @@
 
 package domain;
 
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
@@ -25,13 +24,13 @@ public class Folder extends DomainEntity {
 
 	//------------Atributos---------
 
-	private String				name;
-	private boolean				system;
+	private String	name;
+	private boolean	cacharro;
 
 	//------------Relaciones----------
 
-	private Folder				parentFolder;
-	private Actor				actor;
+	private Folder	parentFolder;
+	private Actor	actor;
 
 
 	//----------Getters y Setters-----
@@ -46,12 +45,12 @@ public class Folder extends DomainEntity {
 		this.name = name;
 	}
 
-	public boolean getSystem() {
-		return this.system;
+	public boolean getCacharro() {
+		return this.cacharro;
 	}
 
-	public void setSystem(final boolean system) {
-		this.system = system;
+	public void setCacharro(final boolean cacharro) {
+		this.cacharro = cacharro;
 	}
 
 	@Valid

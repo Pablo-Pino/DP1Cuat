@@ -200,7 +200,7 @@ public class ApplicationService {
 	 */
 
 	public void NotificationMessage(final Application a) {
-		final Administrator system = (Administrator) this.actorService.findOneByUserAccount((UserAccount) this.loginService.loadUserByUsername("system"));
+		final Administrator system = (Administrator) this.actorService.findOneByUserAccount((UserAccount) this.loginService.loadUserByUsername("cacharro"));
 		final Customer customer = a.getFixupTask().getCustomer();
 		final HandyWorker handyWorker = a.getHandyWorker();
 		final Message messageHW = this.messageService.create(new Folder());

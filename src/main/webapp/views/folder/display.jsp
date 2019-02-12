@@ -16,8 +16,8 @@
 </fieldset>
 
 <fieldset>
-<spring:message code="folder.system"></spring:message>:
-<jstl:out value="${fo.systemFolder}"></jstl:out>
+<spring:message code="folder.cacharro"></spring:message>:
+<jstl:out value="${fo.cacharroFolder}"></jstl:out>
 </fieldset>
 	
 

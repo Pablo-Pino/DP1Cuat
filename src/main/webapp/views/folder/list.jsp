@@ -27,7 +27,7 @@
 	</display:column>
 		
 	<display:column>
-		<jstl:if test="${row.system == false}">
+		<jstl:if test="${row.cacharro == false}">
 			<a href="folder/actor/edit.do?folderId=${row.id}">
 				<spring:message code="folder.edit" />
 			</a>

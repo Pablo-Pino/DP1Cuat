@@ -140,7 +140,7 @@ public class RefereeServiceTest extends AbstractTest {
 				}));
 				for (final Folder f : this.folderService.findAllByActor(savedReferee)) {
 					systemFolderNames.remove(f.getName());
-					Assert.isTrue(f.getSystem());
+					Assert.isTrue(f.getCacharro());
 					Assert.isTrue(f.getActor().equals(savedReferee));
 					Assert.isTrue(this.folderService.findByParent(f).isEmpty());
 					Assert.isTrue(this.messageService.findByFolder(f).isEmpty());

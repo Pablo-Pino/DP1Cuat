@@ -83,7 +83,7 @@ public class MessageService {
 
 	public Message save(final Message object) {
 		final Message message = (Message) this.serviceUtils.checkObjectSave(object);
-		final Administrator system = (Administrator) this.actorService.findOneByUserAccount((UserAccount) this.loginService.loadUserByUsername("system"));
+		final Administrator system = (Administrator) this.actorService.findOneByUserAccount((UserAccount) this.loginService.loadUserByUsername("cacharro"));
 		Message message1 = null;
 		if (message.getId() == 0) {
 			message.setMoment(new Date(System.currentTimeMillis() - 1000));

@@ -55,7 +55,7 @@ public class FolderService {
 		final Folder folder = this.findOne(folderId);
 		Assert.notNull(folder);
 		this.serviceUtils.checkActor(folder.getActor());
-		Assert.isTrue(!folder.getSystem());
+		Assert.isTrue(!folder.getCacharro());
 		return folder;
 	}
 
@@ -83,7 +83,7 @@ public class FolderService {
 	public Folder create(final Actor a) {
 		final Folder res = new Folder();
 		res.setActor(a);
-		res.setSystem(false);
+		res.setCacharro(false);
 		res.setParentFolder(res);
 		return res;
 	}
@@ -94,7 +94,7 @@ public class FolderService {
 			if (folder.getParentFolder() == null)
 				folder.setParentFolder(folder);
 		} else {
-			Assert.isTrue(!folder.getSystem());
+			Assert.isTrue(!folder.getCacharro());
 			folder.setParentFolder(object.getParentFolder());
 			folder.setName(object.getName());
 			this.serviceUtils.checkActor(folder.getActor());
@@ -105,7 +105,7 @@ public class FolderService {
 	public void delete(final Folder object) {
 		final Folder folder = (Folder) this.serviceUtils.checkObject(object);
 		this.serviceUtils.checkActor(folder.getActor());
-		Assert.isTrue(!folder.getSystem());
+		Assert.isTrue(!folder.getCacharro());
 		for (final Message m : this.messageService.findByFolder(folder))
 			this.messageService.delete(m);
 		for (final Folder f : this.findByActorAndParent(folder.getActor(), folder))
@@ -136,7 +136,7 @@ public class FolderService {
 			final Folder newFolder = this.create(actor);
 			System.out.println(newFolder.getActor());
 			newFolder.setName(name);
-			newFolder.setSystem(true);
+			newFolder.setCacharro(true);
 			newFolder.setParentFolder(newFolder);
 			final Folder newFolderSaved = this.save(newFolder);
 			resFolders.add(newFolderSaved);
