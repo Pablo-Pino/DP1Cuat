@@ -20,14 +20,14 @@
 
 
 		<form:form action="message/actor/edit.do" method="post" id="formCreate"
-			name="formCreate" modelAttribute="messageObject">
+			name="formCreate" modelAttribute="message">
 
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="moment" />
 			<form:hidden path="sender" />
 
-			<jstl:if test="${messageObject.id == 0}">
+			<jstl:if test="${message.id == 0}">
 			
 				<form:hidden path="folder" />
 				
@@ -35,7 +35,7 @@
 					<form:label path="subject">
 						<spring:message code="message.subject"></spring:message>
 					</form:label>
-					<form:input path="subject" id="subject" name="subject" />
+					<form:input path="subject" />
 					<form:errors cssClass="error" path="subject"></form:errors>
 				</div>
 				
@@ -43,7 +43,7 @@
 					<form:label path="body">
 						<spring:message code="message.body"></spring:message>
 					</form:label>
-					<form:textarea path="body" id="body" name="body" />
+					<form:textarea path="body" />
 					<form:errors cssClass="error" path="body"></form:errors>
 				</div>
 				
@@ -64,7 +64,7 @@
 					<form:label path="tags">
 						<spring:message code="message.tags"></spring:message>
 					</form:label>
-					<form:input path="tags" id="tags" name="tags" />
+					<form:input path="tags"  />
 					<form:errors cssClass="error" path="tags"></form:errors>
 				</div>
 				
@@ -85,7 +85,7 @@
 		
 			</jstl:if>
 		
-			<jstl:if test="${messageObject.id > 0}">
+			<jstl:if test="${message.id > 0}">
 				
 				<form:hidden path="subject" />
 				<form:hidden path="body" />
@@ -118,11 +118,13 @@
 						value="<spring:message code="message.save"></spring:message>" />
 				</jstl:otherwise>
 			</jstl:choose>
-			<jstl:if test="${messageObject.id > 0}">
+			<jstl:if test="${message.id > 0}">
 				<input type="submit" name="delete"
 					value="<spring:message code="message.delete"></spring:message>" />
 			</jstl:if>
 			
 		</form:form>
 <spring:message code="message.cancel" var="cancel"></spring:message>
-<button name="cancel" value="${cancel}" onclick="javascript:relativeRedir('message/actor/list.do?folderId=${messageObject.folder.id}')" >${cancel}</button>
+<button name="cancel" value="${cancel}" onclick="javascript:relativeRedir('message/actor/list.do?folderId=${message.folder.id}')" >${cancel}</button>
+
+<jstl:set value="${messageCode}" var="message" />
