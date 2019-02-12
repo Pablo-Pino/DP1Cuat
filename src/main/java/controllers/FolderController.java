@@ -67,8 +67,14 @@ public class FolderController extends AbstractController {
 	@SuppressWarnings("unused")
 	@RequestMapping("edit")
 	private ModelAndView edit(@RequestParam(required = true) final Integer folderId) {
-		final Folder folder = this.folderService.findForEdit(folderId);
-		final ModelAndView res = this.createEditModelAndView(folder);
+		ModelAndView res = new ModelAndView("redirect:list.do");
+		try {
+			final Folder folder = this.folderService.findForEdit(folderId);
+			res = this.createEditModelAndView(folder);
+		} catch (final IllegalArgumentException e) {
+			// TODO: handle exception
+		}
+
 		return res;
 	}
 
