@@ -177,6 +177,6 @@ catch(NullPointerException e){
 	</jstl:if> <jstl:if
 		test='${fixupTask.customer.userAccount.username != username && fixupTask.id != 0}'>
 		<h1>
-			<b><spring:message code="fixupTask.permissions"></spring:message></b>
+			<b style="color:red" ><spring:message code="fixupTask.permissions"></spring:message></b>
 		</h1>
 	</jstl:if>
