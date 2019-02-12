@@ -68,6 +68,7 @@
 					<form:errors cssClass="error" path="tags"></form:errors>
 				</div>
 				
+				<jstl:if test="${isBroadcast==false}">
 				<div>
 					<form:label path="receiver">
 						<spring:message code="message.receiver"></spring:message>
@@ -80,6 +81,7 @@
 					</form:select>
 					<form:errors cssClass="error" path="receiver"></form:errors>
 				</div>
+				</jstl:if>
 		
 			</jstl:if>
 		

@@ -76,18 +76,24 @@ public class MessageController extends AbstractController {
 
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "save")
-	private ModelAndView save(@Valid final Message message, final BindingResult binding) {
+	private ModelAndView save(@Valid final Message messageObject, final BindingResult binding) {
 		ModelAndView res = null;
-		if (binding.hasErrors())
-			res = this.createEditModelAndView(message, false);
-		else
+		if (binding.hasErrors()) {
+			res = this.createEditModelAndView(messageObject, false);
+			res.addObject("messageObject", messageObject);
+			res.addObject("message", "message.commit.error");
+
+		} else
 			try {
-				this.messageService.save(message);
-				System.out.println(message.getFolder().getName());
-				System.out.println(message.getFolder().getId());
+				this.messageService.save(messageObject);
+				System.out.println(messageObject.getFolder().getName());
+				System.out.println(messageObject.getFolder().getId());
 				res = new ModelAndView("redirect:/folder/actor/list.do");
-			} catch (final Throwable t) {
-				res = this.createEditModelAndView(message, "cannot.commit.error", false);
+			} catch (final Throwable ops) {
+				res = new ModelAndView("redirect:/message/actor/create.do");
+				res.addObject("messageObject", messageObject);
+				res.addObject("message", "message.commit.error");
+
 			}
 		return res;
 	}
@@ -101,7 +107,7 @@ public class MessageController extends AbstractController {
 		else
 			try {
 				this.messageService.broadcast(message);
-				res = new ModelAndView("redirect:list.do?folderId=" + String.valueOf(message.getFolder().getId()));
+				res = new ModelAndView("redirect:/folder/actor/list.do");
 			} catch (final Throwable t) {
 				res = this.createEditModelAndView(message, "cannot.commit.error", true);
 			}
@@ -129,11 +135,11 @@ public class MessageController extends AbstractController {
 		return this.createEditModelAndView(messageObject, null, isBroadcast);
 	}
 
-	private ModelAndView createEditModelAndView(final Message messageObject, final String message, Boolean isBroadcast) {
+	private ModelAndView createEditModelAndView(final Message messageObject, final String messageCode, Boolean isBroadcast) {
 		final ModelAndView res = new ModelAndView("message/edit");
 		final Actor principal = this.actorService.findPrincipal();
 		res.addObject("messageObject", messageObject);
-		res.addObject("message", message);
+		res.addObject("message", messageCode);
 		res.addObject("actors", this.actorService.findAll());
 		res.addObject("folders", this.folderService.findAllByActor(principal));
 		if (!(this.actorService.findPrincipal() instanceof Administrator))

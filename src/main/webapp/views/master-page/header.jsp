@@ -14,23 +14,24 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <!-- 
 <sql:setDataSource driver="com.mysql.jdbc.Driver" user="uv9gz55bz1fadqhcsljq" password="XgiNOay1FEU7qwstoWM3" 
 url="jdbc:mysql://bycsmnq2qe7ve3vipbaw-mysql.services.clever-cloud.com:3306/bycsmnq2qe7ve3vipbaw" var="datasource" />
 -->
 
-<sql:setDataSource driver="com.mysql.jdbc.Driver" user="acme-user" password="ACME-Us3r-P@ssw0rd" 
-url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
+<sql:setDataSource driver="com.mysql.jdbc.Driver" user="acme-user"
+	password="ACME-Us3r-P@ssw0rd"
+	url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
 
 <sql:query var="banner" dataSource="${datasource}">
 	SELECT banner FROM settings;
 </sql:query>
 
 <div>
-	<a href="#"><img height="15%" width="35%" src="${banner.rows[0].banner}"
-		alt="Acme-Handy-Worker Co., Inc." /></a>
+	<a href="#"><img height="15%" width="35%"
+		src="${banner.rows[0].banner}" alt="Acme-Handy-Worker Co., Inc." /></a>
 </div>
 
 <div>
@@ -41,11 +42,11 @@ url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
 						code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-<%-- 					<li><a href="actor/administrator/list-suspicious-actors.do"><spring:message
+					<%-- 					<li><a href="actor/administrator/list-suspicious-actors.do"><spring:message
 								code="master.page.listsuspiciousactors" /></a></li> --%>
 					<li><a href="settings/administrator/edit.do"><spring:message
 								code="master.page.editsettings" /></a></li>
-<%-- 					<li><a href="referee/administrator/create.do"><spring:message
+					<%-- 					<li><a href="referee/administrator/create.do"><spring:message
 								code="master.page.createreferee" /></a></li> --%>
 					<li><a href="warranty/administrator/list.do"><spring:message
 								code="master.page.warranty.list" /></a></li>
@@ -53,9 +54,17 @@ url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
 								code="category.list"></spring:message></a>
 					<li><a href="administrator/administrator/dashboard.do"><spring:message
 								code="master.page.dashboard" /></a></li>
-					<li><a href="message/actor/create.do?isBroadcast=true"><spring:message
-								code="master.page.broadcast" /></a></li>
+					<li><a href="administrator/list.do"><spring:message
+								code="master.page.administrator.listActors" /></a></li>
+					<li><a href="administrator/create.do"><spring:message
+								code="master.page.administrator.create" /></a></li>
+
 				</ul></li>
+
+
+
+
+
 		</security:authorize>
 
 		<security:authorize access="hasRole('CUSTOMER')">
@@ -63,7 +72,7 @@ url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
 						code="master.page.customer" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="fixupTask/endorsable/list.do"><spring:message 
+					<li><a href="fixupTask/endorsable/list.do"><spring:message
 								code="master.page.listfixuptasks"></spring:message></a></li>
 				</ul></li>
 		</security:authorize>
@@ -75,11 +84,11 @@ url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
 					<li class="arrow"></li>
 					<li><a href="application/handyworker/list.do"><spring:message
 								code="master.page.handyWorker.application.list" /></a></li>
-<%-- 					<li><a href="curriculum/handyWorker/display.do"><spring:message
+					<%-- 					<li><a href="curriculum/handyWorker/display.do"><spring:message
 								code="master.page.handyWorker.curriculum" /></a></li> --%>
 					<li><a href="workplan/handyWorker/list.do"><spring:message
 								code="master.page.handyWorker.workPlan" /></a></li>
-					<li><a href="fixupTask/endorsable/list.do"><spring:message 
+					<li><a href="fixupTask/endorsable/list.do"><spring:message
 								code="master.page.listfixuptasks"></spring:message></a></li>
 				</ul></li>
 		</security:authorize>
@@ -94,7 +103,7 @@ url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
 				</ul></li>
 		</security:authorize>
 
-<!-- ---------------------------------------SI NO ESTÁ LOGUEADO------------------------------------------------------------------------ -->
+		<!-- ---------------------------------------SI NO ESTÁ LOGUEADO------------------------------------------------------------------------ -->
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
@@ -113,41 +122,52 @@ url="jdbc:mysql://localhost:3306/Acme-Handy-Worker" var="datasource" />
 								code="master.page.AsReferee" /></a></li> --%>
 				</ul></li>
 		</security:authorize>
-		
-		
-<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+		<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 
 		<security:authorize access="isAuthenticated()">
+
+			<li><a class="fNiv"> <spring:message
+						code="master.page.messages" />
+			</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="message/actor/create.do"><spring:message
+								code="master.page.writemessage" /> </a></li>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="message/actor/create.do?isBroadcast=true"><spring:message
+									code="master.page.broadcast" /></a></li>
+					</security:authorize>
+					<li><a href="folder/actor/list.do"><spring:message
+								code="master.page.listfolders" /> </a></li>
+
+
+
+				</ul></li>
 			<li><a class="fNiv"> <spring:message
 						code="master.page.profile" /> (<security:authentication
 						property="principal.username" />)
 			</a>
 				<ul>
-					<li class="arrow"></li>
-					<li><a href="folder/actor/list.do"><spring:message
-								code="master.page.listfolders" /> </a></li>
-					<li><a href="message/actor/create.do"><spring:message
-								code="master.page.writemessage" /> </a></li>
+					
 					<li><a href="socialprofile/actor/list.do"><spring:message
 								code="master.page.socialProfiles" /> </a></li>
 					<security:authorize access="hasRole('CUSTOMER')">
 						<li><a href="customer/display.do"><spring:message
 									code="master.page.customer.profile" /></a></li>
 					</security:authorize>
-					
+
 					<security:authorize access="hasRole('HANDYWORKER')">
 						<li><a href="handyWorker/display.do"><spring:message
 									code="master.page.customer.profile" /></a></li>
 					</security:authorize>
-					
-					
+
+
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="administrator/display2.do"><spring:message
 									code="master.page.administrator.profile" /></a></li>
-						<li><a href="administrator/list.do"><spring:message
-									code="master.page.administrator.listActors" /></a></li>
-						<li><a href="administrator/create.do"><spring:message
-									code="master.page.administrator.create" /></a></li>
+
 					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
