@@ -183,6 +183,7 @@ public class FixupTaskController extends AbstractController {
 	public ModelAndView save(@Valid final FixupTask fixupTask, final BindingResult binding) {
 		ModelAndView result;
 		final Exception dateErr = new Exception("fechas MAL");
+		final Exception wcErr = new Exception("Necesita rellenar warranty y caregory");
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(fixupTask);
@@ -191,11 +192,15 @@ public class FixupTaskController extends AbstractController {
 			try {
 				if (!fixupTask.getStart().before(fixupTask.getEnd()))
 					throw dateErr;
+				if (fixupTask.getWarranty() == null || fixupTask.getCategory() == null)
+					throw wcErr;
 				this.fixupTaskService.save(fixupTask);
 				result = new ModelAndView("redirect:/fixupTask/endorsable/list.do");
 			} catch (final Throwable oops) {
 				if (oops.equals(dateErr))
 					result = this.createEditModelAndView(fixupTask, "date.Error");
+				if (oops.equals(wcErr))
+					result = this.createEditModelAndView(fixupTask, "fixupTask.commit.error");
 				else
 					result = this.createEditModelAndView(fixupTask, "fixupTask.commit.error");
 			}

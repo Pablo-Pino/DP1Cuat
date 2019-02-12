@@ -18,6 +18,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<security:authentication property="principal.username" var="username" />
+<jstl:if test='${message.sender.userAccount.username == username || message.receiver.userAccount.username == username}'>
 
 		<form:form action="message/actor/edit.do" method="post" id="formCreate"
 			name="formCreate" modelAttribute="message">
@@ -124,6 +126,8 @@
 			</jstl:if>
 			
 		</form:form>
+		
+		</jstl:if>
 <spring:message code="message.cancel" var="cancel"></spring:message>
 <button name="cancel" value="${cancel}" onclick="javascript:relativeRedir('message/actor/list.do?folderId=${message.folder.id}')" >${cancel}</button>
 

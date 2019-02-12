@@ -177,11 +177,13 @@ public class ApplicationController extends AbstractController {
 	public ModelAndView save(@Valid final Application a, final BindingResult binding) {
 		ModelAndView result;
 		Collection<FixupTask> allFixupTasks = new ArrayList<>();
-
+		int aux = 0;
 		allFixupTasks = this.fixupTaskService.fixupNOTPastANDnotAccepted();
 
-		final FixupTask f = a.getFixupTask();
-		final int aux = f.getId();
+		if (a.getFixupTask() != null) {
+			final FixupTask f = a.getFixupTask();
+			aux = f.getId();
+		}
 		if (binding.hasErrors()) {
 
 			result = this.createEditModelAndView(a);

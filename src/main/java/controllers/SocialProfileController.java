@@ -52,8 +52,14 @@ public class SocialProfileController extends AbstractController {
 	@SuppressWarnings("unused")
 	@RequestMapping("edit")
 	private ModelAndView edit(@RequestParam(required = true) final Integer socialProfileId) {
-		final SocialProfile socialProfile = this.socialProfileService.findForEdit(socialProfileId);
-		final ModelAndView res = this.createEditModelAndView(socialProfile);
+		ModelAndView res = new ModelAndView("redirect:list.do");
+		try {
+			final SocialProfile socialProfile = this.socialProfileService.findForEdit(socialProfileId);
+			res = this.createEditModelAndView(socialProfile);
+		} catch (final IllegalArgumentException e) {
+
+		}
+
 		return res;
 	}
 
