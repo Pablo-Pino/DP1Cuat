@@ -22,5 +22,12 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/views/master-page/footer.jsp" />
 	</definition>
+	
+	<definition name="master.page.message.edit" template="/views/master-page/layout_message_edit.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/views/master-page/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/views/master-page/footer.jsp" />
+	</definition>
 
 </tiles-definitions>

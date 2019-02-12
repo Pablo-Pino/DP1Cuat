@@ -76,24 +76,16 @@ public class MessageController extends AbstractController {
 
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "edit", method = RequestMethod.POST, params = "save")
-	private ModelAndView save(@Valid final Message messageObject, final BindingResult binding) {
+	private ModelAndView save(@Valid final Message message, final BindingResult binding) {
 		ModelAndView res = null;
-		if (binding.hasErrors()) {
-			res = this.createEditModelAndView(messageObject, false);
-			res.addObject("messageObject", messageObject);
-			res.addObject("message", "message.commit.error");
-
-		} else
+		if (binding.hasErrors())
+			res = this.createEditModelAndView(message, false);
+		else
 			try {
-				this.messageService.save(messageObject);
-				System.out.println(messageObject.getFolder().getName());
-				System.out.println(messageObject.getFolder().getId());
+				this.messageService.save(message);
 				res = new ModelAndView("redirect:/folder/actor/list.do");
 			} catch (final Throwable ops) {
-				res = new ModelAndView("redirect:/message/actor/create.do");
-				res.addObject("messageObject", messageObject);
-				res.addObject("message", "message.commit.error");
-
+				res = this.createEditModelAndView(message, "cannot.commit.error", false);
 			}
 		return res;
 	}
@@ -131,21 +123,21 @@ public class MessageController extends AbstractController {
 
 	// Ancillary methods
 
-	private ModelAndView createEditModelAndView(final Message messageObject, final Boolean isBroadcast) {
-		return this.createEditModelAndView(messageObject, null, isBroadcast);
+	private ModelAndView createEditModelAndView(final Message message, final Boolean isBroadcast) {
+		return this.createEditModelAndView(message, null, isBroadcast);
 	}
 
-	private ModelAndView createEditModelAndView(final Message messageObject, final String messageCode, Boolean isBroadcast) {
+	private ModelAndView createEditModelAndView(final Message message, final String messageCode, Boolean isBroadcast) {
 		final ModelAndView res = new ModelAndView("message/edit");
 		final Actor principal = this.actorService.findPrincipal();
-		res.addObject("messageObject", messageObject);
-		res.addObject("message", messageCode);
+		res.addObject("message", message);
+		res.addObject("messageCode", messageCode);
 		res.addObject("actors", this.actorService.findAll());
 		res.addObject("folders", this.folderService.findAllByActor(principal));
 		if (!(this.actorService.findPrincipal() instanceof Administrator))
 			isBroadcast = false;
 		res.addObject("isBroadcast", isBroadcast);
-		this.isPrincipalAuthorizedEdit(res, messageObject.getFolder());
+		this.isPrincipalAuthorizedEdit(res, message.getFolder());
 		return res;
 	}
 
