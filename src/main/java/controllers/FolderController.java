@@ -87,12 +87,12 @@ public class FolderController extends AbstractController {
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(folder);
 		else
-			//try {
-			this.folderService.save(folder);
-		res = new ModelAndView("redirect:list.do");
-		//} catch (final Throwable t) {
-		res = this.createEditModelAndView(folder, "cannot.commit.error");
-		//}
+			try {
+				this.folderService.save(folder);
+				res = new ModelAndView("redirect:list.do");
+			} catch (final Throwable t) {
+				res = this.createEditModelAndView(folder, "cannot.commit.error");
+			}
 		return res;
 	}
 

@@ -87,12 +87,12 @@ public class MessageController extends AbstractController {
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(message, false);
 		else
-			//try {
-			this.messageService.save(message);
-		res = new ModelAndView("redirect:/folder/actor/list.do");
-		//} catch (final Throwable ops) {
-		res = this.createEditModelAndView(message, "cannot.commit.error", false);
-		//}
+			try {
+				this.messageService.save(message);
+				res = new ModelAndView("redirect:/folder/actor/list.do");
+			} catch (final Throwable ops) {
+				res = this.createEditModelAndView(message, "cannot.commit.error", false);
+			}
 		return res;
 	}
 

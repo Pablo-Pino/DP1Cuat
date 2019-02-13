@@ -126,15 +126,15 @@ public class CustomerNewController extends AbstractController {
 			result.addObject("customer", customer);
 			result.addObject("message", "customer.commit.error");
 		} else
-			//try {
-			this.customerService.save(customer);
-		result = new ModelAndView("redirect:/customer/display.do");
-		//} catch (final Throwable ops) {
+			try {
+				this.customerService.save(customer);
+				result = new ModelAndView("redirect:/customer/display.do");
+			} catch (final Throwable ops) {
 
-		result = new ModelAndView("none/customer/create");
-		result.addObject("customer", customer);
-		result.addObject("message", "customer.commit.error");
-		//}
+				result = new ModelAndView("none/customer/create");
+				result.addObject("customer", customer);
+				result.addObject("message", "customer.commit.error");
+			}
 
 		return result;
 
